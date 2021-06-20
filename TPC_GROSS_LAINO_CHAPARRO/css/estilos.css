@@ -1,0 +1,74 @@
+﻿body {
+    padding: 0;
+}
+
+.color-bg {
+    background-color: #142382 !important;
+    box-shadow: 0px 0px 10px 0px #000000;
+}
+
+.font-stl {
+    color: #FFFFFF !important;
+    padding-inline: 20px;
+}
+
+    .font-stl:hover {
+        color: #34B630 !important;
+    }
+
+.stl-btn-1 {
+    background-color: #FFFFFF0D;
+}
+
+.nom-stl {
+    margin-top: 50px;
+    text-align: center;
+    font-size: calc(3em + 1vw);
+    color: #142382;
+    text-shadow: 1px 1px 0 #ffffff;
+}
+
+.img-car-1 {
+    max-width: 60rem;
+    max-height: 22rem;
+}
+
+.crs-index {
+    margin-top: 50px;
+    max-width: 40rem;
+    max-height: 22rem;
+    box-shadow: 0px 0px 30px 0px #000000;
+}
+
+.txt-desc-car {
+    background-color: #00000080;
+    box-shadow: 0px 0px 40px 40px #00000080;
+}
+
+.ttl-car {
+    font-family: emoji;
+}
+
+.log-stl {
+    padding-left: 20px;
+    padding-right: 15px;
+    color: #28a745;
+}
+
+    .log-stl:hover {
+        color: #ffffff;
+    }
+
+@media screen and (max-width: 480px) {
+    .log-stl {
+        display: flex;
+        justify-content: flex-end;
+        font-weight: 500;
+        margin-bottom: 5px;
+        padding: 0;
+    }
+}
+
+.stl-frm-log {
+    margin-top: 50px;
+}
