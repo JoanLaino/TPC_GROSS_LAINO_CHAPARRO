@@ -1,6 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+    <style>
+        body {            
+            background-image: url("../img/fondo-2.jpg");
+            background-color: #FFFFFF4D !important;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }        
+    </style>
+
     <center>
         <div>               
             <div class="form-group stl-frm-log">

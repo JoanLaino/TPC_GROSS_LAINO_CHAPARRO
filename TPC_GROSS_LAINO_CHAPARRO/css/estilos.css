@@ -72,3 +72,72 @@
 .stl-frm-log {
     margin-top: 50px;
 }
+
+.calendario-turnos {
+    margin-top: 50px;
+}
+
+.contacto-1 {
+    margin-top: 50px;
+}
+
+.contacto-2 {
+    margin-top: 50px;
+}
+
+.img-contacto {
+    max-width: 150px;
+}
+
+@media screen and (max-width: 480px) {
+    .img-contacto {
+        max-width: 80px;
+    }
+}
+
+.ttl-contacto {
+    width: 40%;
+    background-color: #142382 !important;
+    color: #FFFFFF;
+    padding: 5px 0px 10px 0px;
+    border-radius: 25px;
+    box-shadow: 0px 0px 20px 1px #000000;
+}
+
+@media screen and (max-width: 480px) {
+    .ttl-contacto {
+        width: 80%;
+    }
+}
+
+.nro-contacto {
+    width: 25%;
+    border: 2px solid #142382;
+    background-color: #C5C9C580;
+    color: #000000;
+    padding: 5px 0px 7px 0px;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px 0px #000000;
+}
+
+@media screen and (max-width: 480px) {
+    .nro-contacto {
+        width: 60%;
+    }
+}
+
+.ttl-turno {
+    width: 40%;
+    background-color: #142382 !important;
+    color: #FFFFFF;
+    padding: 5px 0px 10px 0px;
+    border-radius: 25px;
+    box-shadow: 0px 0px 20px 1px #000000;
+    margin-bottom: 50px;
+}
+
+@media screen and (max-width: 480px) {
+    .ttl-turno {
+        width: 80%;
+    }
+}
