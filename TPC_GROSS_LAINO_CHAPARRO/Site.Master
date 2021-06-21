@@ -58,6 +58,9 @@
                         <a class="nav-link font-stl" href="contacto.aspx">Contactanos</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link font-stl" href="catalogo.aspx">Catálogo</a>
+                    </li> 
+                    <li class="nav-item">
                         <a class="nav-link font-stl" href="#">Web Interna</a>
                     </li>                    
                 </ul>
