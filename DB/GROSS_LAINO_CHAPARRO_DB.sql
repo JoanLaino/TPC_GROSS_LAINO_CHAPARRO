@@ -138,3 +138,29 @@ create table Servicios
 )
 GO
 */
+
+/*
+INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Lubricante Castrol', 1, 3, 1, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Aceite YPF', 2, 2, 1, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Líquido refrigerante Shell', 5, 1, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Agua destilada Water', 4, 4, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Líquido de frenos Dot3', 3, 5, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+
+
+INSERT INTO Marcas(Descripcion, Estado) values('Shell', 1)
+INSERT INTO Marcas(Descripcion, Estado) values('YPF', 1)
+INSERT INTO Marcas(Descripcion, Estado) values('Castrol', 1)
+INSERT INTO Marcas(Descripcion, Estado) values('Water', 1)
+INSERT INTO Marcas(Descripcion, Estado) values('Dot3', 1)
+
+
+INSERT INTO Proveedores(CUIT, RazonSocial) values('111111111111', ABC S.A.)
+INSERT INTO Proveedores(CUIT, RazonSocial) values('222222222222', DEF S.R.L.)
+
+
+INSERT INTO TiposProducto(Descripcion, Estado) values('Lubricante', 1)
+INSERT INTO TiposProducto(Descripcion, Estado) values('Aceite', 1)
+INSERT INTO TiposProducto(Descripcion, Estado) values('Líquido de frenos', 1)
+INSERT INTO TiposProducto(Descripcion, Estado) values('Agua destilada', 1)
+INSERT INTO TiposProducto(Descripcion, Estado) values('Líquido refrigerante', 1)
+*/
