@@ -55,7 +55,7 @@
                         <a class="nav-link font-stl" href="turnos.aspx">Turnos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-stl" href="contacto.aspx">Contactanos</a>
+                        <a class="nav-link font-stl" href="contacto.aspx">Contáctanos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link font-stl" href="catalogo.aspx">Catálogo</a>
