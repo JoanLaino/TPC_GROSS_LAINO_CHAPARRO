@@ -13,6 +13,11 @@
     </style>
 
     <center>
+        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn-buscador" />
+        <asp:TextBox ID="txtFiltro" runat="server" CssClass="txt-buscador"></asp:TextBox>
+    </center>
+
+    <center>
     <div class="container">
     <div class="row row-cols-1 row-cols-md-3">
         <% foreach (Dominio.Producto item in lista)
@@ -26,10 +31,10 @@
                     <h5 class="card-title"><% = item.Nombre %></h5>
                     <h6>$ <% = item.PrecioVenta %></h6>
                     <br />
-                    <%--<div class="btn-detalle-general">--%>
+                    <div class="btn-detalle-general">
                         <%--<a href="DetalleArticulo.aspx?id=<% = item.EAN %>" class="btn btn-primary btn-cards-carrito-2">Detalles</a>--%>
                         <%--<a href="#" ID="" class="btn btn-primary btn-cards-carrito">+ Carrito</a>--%>
-                    <%--</div>--%>
+                    </div>
                 </div>
             </div>
         </div>    
