@@ -5,9 +5,9 @@ use GROSS_LAINO_CHAPARRO_DB
 GO
 
 /*
-alter view ExportInventario
+create view ExportInventario
 as
-select I.Codigo as EAN, I.Nombre as Nombre, TP.Descripcion as TipoProducto, 
+select I.Codigo as EAN, I.Nombre as Nombre, I.Imagen as Imagen, TP.Descripcion as TipoProducto, 
 M.Descripcion as Marca, P.RazonSocial as Proveedor, 
 I.FechaCompra as FechaCompra, I.FechaVencimiento as FechaVencimiento,
 I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado 
@@ -45,6 +45,7 @@ create table Proveedores(
 create table Inventario(
 	Codigo bigint primary key identity (1,1) not null,
 	Nombre varchar(100) not null,
+	Imagen varchar(300) not null,
 	IdTipo bigint not null foreign key references TiposProducto(ID),
 	IdMarca bigint not null foreign key references Marcas(ID),
 	IdProveedor bigint not null foreign key references Proveedores(ID),
@@ -140,11 +141,11 @@ GO
 */
 
 /*
-INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Lubricante Castrol', 1, 3, 1, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
-INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Aceite YPF', 2, 2, 1, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
-INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Líquido refrigerante Shell', 5, 1, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
-INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Agua destilada Water', 4, 4, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
-INSERT INTO Inventario(Nombre, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Líquido de frenos Dot3', 3, 5, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, Imagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Lubricante Castrol', 'https://live.staticflickr.com/3771/12164538394_32d87cf00b_b.jpg', 1, 3, 1, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, Imagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Aceite YPF', 'https://lubricentrocarlitos.com.ar/wp-content/uploads/2017/10/elaion-f50.jpg', 2, 2, 1, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, Imagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Líquido refrigerante Shell', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shell_lub.png/200px-Shell_lub.png', 5, 1, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, Imagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Agua destilada Water', 'https://http2.mlstatic.com/D_NQ_NP_710724-MLA43593591234_092020-V.jpg', 4, 4, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
+INSERT INTO Inventario(Nombre, Imagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado) values('Líquido de frenos Dot3', 'https://st2.depositphotos.com/1439888/11103/i/600/depositphotos_111033484-stock-photo-brake-fluid-with-disc-brake.jpg', 3, 5, 2, '2021-05-15', '2021-09-15', 10, 20, 5, 1)
 
 
 INSERT INTO Marcas(Descripcion, Estado) values('Shell', 1)
@@ -154,8 +155,8 @@ INSERT INTO Marcas(Descripcion, Estado) values('Water', 1)
 INSERT INTO Marcas(Descripcion, Estado) values('Dot3', 1)
 
 
-INSERT INTO Proveedores(CUIT, RazonSocial) values('111111111111', ABC S.A.)
-INSERT INTO Proveedores(CUIT, RazonSocial) values('222222222222', DEF S.R.L.)
+INSERT INTO Proveedores(CUIT, RazonSocial) values('111111111111', 'ABC S.A.')
+INSERT INTO Proveedores(CUIT, RazonSocial) values('222222222222', 'DEF S.R.L.')
 
 
 INSERT INTO TiposProducto(Descripcion, Estado) values('Lubricante', 1)

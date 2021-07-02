@@ -41,15 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Servicio.cs" />
-    <Compile Include="TipoServicio.cs" />
-    <Compile Include="Vehiculo.cs" />
-    <Compile Include="UsuarioInterno.cs" />
-    <Compile Include="Cliente.cs" />
-    <Compile Include="Empleado.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Proveedor.cs" />
-    <Compile Include="Persona.cs" />
     <Compile Include="TipoProducto.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

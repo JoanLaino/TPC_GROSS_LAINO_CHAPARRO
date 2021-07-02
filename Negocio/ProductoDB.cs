@@ -26,6 +26,7 @@ namespace Negocio
                     
                     aux.EAN = (long)datos.Lector["EAN"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Imagen = (string)datos.Lector["Imagen"];
                     aux.TipoProducto = new TipoProducto((string)datos.Lector["TipoProducto"]);
                     aux.Marca = new Marca((string)datos.Lector["Marca"]);
                     aux.Proveedor = new Proveedor((string)datos.Lector["Proveedor"]);

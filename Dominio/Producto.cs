@@ -10,6 +10,7 @@ namespace Dominio
     {
         public long EAN { get; set; }
         public string Nombre { get; set; }
+        public string Imagen { get; set; }
         public TipoProducto TipoProducto { get; set; }
         public Marca Marca { get; set; }
         public Proveedor Proveedor { get; set; }
