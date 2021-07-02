@@ -22,8 +22,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                 Session.Add("listadoProductos", lista);
 
-                dgvProductos.DataSource = lista;
-                dgvProductos.DataBind();
+                //dgvProductos.DataSource = lista;
+                //dgvProductos.DataBind();
             }
             catch (Exception ex)
             {
