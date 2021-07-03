@@ -314,3 +314,7 @@ C:\Users\Juan Manuel Gross\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAI
 C:\Users\Juan Manuel Gross\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\obj\Debug\TPC_GROSS_LAINO_CHAPARRO.csproj.CopyComplete
 C:\Users\Juan Manuel Gross\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\obj\Debug\TPC_GROSS_LAINO_CHAPARRO.dll
 C:\Users\Juan Manuel Gross\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\obj\Debug\TPC_GROSS_LAINO_CHAPARRO.pdb
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\bin\Dominio.dll
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\bin\Negocio.dll
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\bin\Dominio.pdb
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\bin\Negocio.pdb

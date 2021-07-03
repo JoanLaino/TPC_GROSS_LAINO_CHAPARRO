@@ -232,7 +232,8 @@
 }
 
 .img-cards {
-    width: 150px !important;
+    max-width: 170px !important;
+    margin-top: 30px !important;
 }
 
 .stl-card {
@@ -270,24 +271,6 @@
     }
 }
 
-.btn-carrito {
-    background-color: #007bff;
-    color: #FFFFFF;
-    border: 2px solid darkgrey;
-    box-shadow: 2px 2px 6px 0px #000000;
-    border-radius: 10px;
-    margin-right: 5px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    width: 300px;
-}
-
-    .btn-carrito:hover {
-        background-color: #FFFFFF;
-        color: #007bff;
-        font-weight: 500;
-    }
-
 .txt-carrito {
     font-size: 20px;
     font-family: monospace;
@@ -307,16 +290,6 @@
     width: 130px;
 }
 
-.btn-carrito-eliminar {
-    background-color: #007bff;
-    color: #FFFFFF;
-}
-
-    .btn-carrito-eliminar:hover {
-        border: 2px solid #007bff !important;
-        background-color: #FFFFFF !important;
-        color: #007bff !important;
-    }
 
 .cont-correcto {
     width: 80%;
@@ -328,18 +301,7 @@
     margin-bottom: 200px;
 }
 
-.btn-cont-inicio {
-    background-color: #007bff;
-    color: #FFFFFF;
-    border: 2px solid darkgrey;
-    box-shadow: 2px 2px 6px 0px #000000;
-    border-radius: 10px;
-    margin-right: 5px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    width: 120px;
-    margin-right: 60px;
-}
+
 
 @media screen and (max-width: 480px) {
     .btn-cont-inicio {
@@ -347,30 +309,7 @@
     }
 }
 
-.btn-cont-inicio:hover {
-    background-color: #FFFFFF;
-    color: #007bff;
-    font-weight: 500;
-}
 
-
-.btn-cont-carrito {
-    background-color: #715A16;
-    color: #FFFFFF;
-    border: 2px solid darkgrey;
-    box-shadow: 2px 2px 6px 0px #000000;
-    border-radius: 10px;
-    margin-right: 5px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    width: 120px;
-}
-
-    .btn-cont-carrito:hover {
-        background-color: #FFFFFF;
-        color: #715A16;
-        font-weight: 500;
-    }
 
 .txt-correcto-1 {
     font-family: serif;
@@ -380,4 +319,13 @@
 .txt-correcto-2 {
     font-family: serif;
     font-weight: 500;
+}
+
+.stl-catalogo {
+    max-width: 330px;
+    max-height: 400px;
+}
+
+.stl-dtl-catalogo {
+    
 }

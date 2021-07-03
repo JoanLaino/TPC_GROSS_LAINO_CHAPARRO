@@ -10,3 +10,9 @@ C:\Users\Juan Manuel Gross\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\D
 C:\Users\Juan Manuel Gross\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
 C:\Users\Juan Manuel Gross\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.dll
 C:\Users\Juan Manuel Gross\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.pdb
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\bin\Debug\Dominio.dll
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\bin\Debug\Dominio.pdb
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csprojAssemblyReference.cache
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.dll
+C:\Users\joanl\OneDrive\Documentos\Materias New\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.pdb
