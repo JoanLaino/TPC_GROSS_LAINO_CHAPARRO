@@ -61,7 +61,7 @@
                         <a class="nav-link font-stl" href="catalogo.aspx">Catálogo</a>
                     </li> 
                     <li class="nav-item">
-                        <a class="nav-link font-stl" href="#">Web Interna</a>
+                        <a class="nav-link font-stl" href="WebInterna.aspx">Web Interna</a>
                     </li>                    
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
