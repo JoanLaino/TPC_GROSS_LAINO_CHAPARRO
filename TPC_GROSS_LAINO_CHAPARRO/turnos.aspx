@@ -14,7 +14,7 @@
 
     <div class="calendario-turnos">
     <center>
-        <h2 class="ttl-turno">¡Reserva tu turno Online!</h2>
+        <h2 class="ttl-turno">¡Reservá tu turno Online!</h2>
         <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
     </center>
     </div>
