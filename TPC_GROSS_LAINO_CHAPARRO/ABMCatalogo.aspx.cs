@@ -21,14 +21,25 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                 Session.Add("listadoProductos", lista);
 
-                dgvProductos.DataSource = lista;
-                dgvProductos.DataBind();
-                Producto seleccionado = (Producto)dgvProductos.CurrentRow.DataBoundItem;
+                dgvCatalogo.DataSource = lista;
+                dgvCatalogo.DataBind();
             }
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx");
+            }
+        }
+
+        protected void BtnDelAbmCat_Click(object sender, EventArgs e)
+        {
+            foreach (GridViewRow row in dgvCatalogo.Rows)
+            {
+                CheckBox chk = (CheckBox)(row.FindControl("chkActivo"));
+                if (chk.Checked)
+                {
+                    
+                }
             }
         }
     }

@@ -12,7 +12,7 @@
         }        
     </style>
 
-    <center>
+    <center>  
         <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn-buscador" />
         <asp:TextBox ID="txtFiltro" runat="server" CssClass="txt-buscador"></asp:TextBox>
     </center>

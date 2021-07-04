@@ -25,7 +25,7 @@ namespace Negocio
             comando.CommandText = consulta;
         }
 
-        public void setearParametro(string nombre, object valor)
+        public void SetearParametro(string nombre, object valor)
         {
             comando.Parameters.AddWithValue(nombre, valor);
         }
@@ -49,7 +49,7 @@ namespace Negocio
             get { return lector; }
         }
 
-        internal void EjectutarAccion()
+        internal void EjetutarAccion()
         {
             comando.Connection = conexion;
             conexion.Open();
