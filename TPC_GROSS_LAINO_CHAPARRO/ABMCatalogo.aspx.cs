@@ -17,12 +17,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             ProductoDB productoDB = new ProductoDB();
             try
             {
-                lista = productoDB.Listar();
+                //lista = productoDB.Listar();
 
-                Session.Add("listadoProductos", lista);
+                //Session.Add("listadoProductos", lista);
 
-                dgvCatalogo.DataSource = lista;
-                dgvCatalogo.DataBind();
+                //dgvCatalogo.DataSource = lista;
+                //dgvCatalogo.DataBind();
             }
             catch (Exception ex)
             {
@@ -31,30 +31,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
         }
 
-        protected void dgvCatalogo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        protected void BtnDelAbmCat_Click(object sender, EventArgs e)
-        {
-            ProductoDB productoDB = new ProductoDB();
-            try
-            {
-                productoDB.Borrar(EAN);
-                lista = productoDB.Listar();
-
-                Session.Add("listadoProductos", lista);
-
-                dgvCatalogo.DataSource = lista;
-                dgvCatalogo.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx");
-            }
-            //Hacer consulta para borrar el articulo seleccionado de la DB.
-        }
+        //protected void dgvCatalogo_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    long EAN = 
+        //}
     }
 }

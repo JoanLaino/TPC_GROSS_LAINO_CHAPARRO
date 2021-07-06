@@ -3,3 +3,5 @@ https://docs.google.com/document/d/1eiQFuJnDy_MnK2k2u2pyGdwn3qsRClOHjq8XisDFz20/
 
 Tutoriales Youtube:
 https://www.youtube.com/watch?v=U2ROsnzjhn4
+
+Error al oprimir "Actualizar" luego de hacer click en "Editar". (envía datos NULL a DB)
