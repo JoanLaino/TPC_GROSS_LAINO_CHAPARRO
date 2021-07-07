@@ -4,36 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dominio;
 using Negocio;
+using Dominio;
 
 namespace TPC_GROSS_LAINO_CHAPARRO
 {
     public partial class ABMCatalogo : System.Web.UI.Page
     {
-        public List<Producto> lista;
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProductoDB productoDB = new ProductoDB();
+            TiposProductoDB tiposProducto = new TiposProductoDB();
             try
             {
-                //lista = productoDB.Listar();
-
-                //Session.Add("listadoProductos", lista);
-
-                //dgvCatalogo.DataSource = lista;
-                //dgvCatalogo.DataBind();
+               
             }
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
-                Response.Redirect("Error.aspx");
+                //Response.Redirect("Error.aspx");
             }
         }
-
-        //protected void dgvCatalogo_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    long EAN = 
-        //}
     }
 }

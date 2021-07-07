@@ -210,20 +210,6 @@
     font-weight: bold;
 }
 
-.btn-edit-abm {
-    background-color: #c3b510;
-    color: #000000;
-    font-weight: bold;
-    border-radius: 10px;
-}
-
-.btn-delete-abm {
-    background-color: red;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-}
-
 .btn-add-abm {
     background-color: lightgreen;
     color: black;

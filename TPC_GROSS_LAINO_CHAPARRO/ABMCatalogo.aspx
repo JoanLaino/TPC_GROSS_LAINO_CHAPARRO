@@ -1,12 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMCatalogo.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMCatalogo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <left>
-        <asp:Button runat="server" Text="Agregar" Class="btn-abm btn-add-abm"/>
-    </left>
-    <br />
-    <br />
+    
     <center>
+        
+        <asp:Button runat="server" Text="Agregar" ID="btnAgregar" Class="btn-abm btn-add-abm"/>
+        <asp:DropDownList ID="ddlTiposProducto" runat="server" DataSourceID="SqlDataSource2" DataTextField="Descripcion" DataValueField="Descripcion">
+            <asp:ListItem></asp:ListItem>
+        </asp:DropDownList>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:GROSS_LAINO_CHAPARRO_DBConnectionString %>" SelectCommand="SELECT [Descripcion] FROM [TiposProducto] ORDER BY [ID]"></asp:SqlDataSource>
+        <br />
+        <br />
+
         <div>
 
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Codigo" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None">

@@ -9,29 +9,6 @@ namespace Negocio
 {
     public class ProductoDB
     {
-        private AccesoDatos datos;
-
-        public void Borrar(long EAN)
-        {
-
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.SetearConsulta("delete from Inventario where EAN = " + EAN);
-                datos.EjecutarLectura();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
-        }
-
         public List<Producto> Listar()
         {
             List<Producto> lista = new List<Producto>();
