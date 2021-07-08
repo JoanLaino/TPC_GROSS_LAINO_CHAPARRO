@@ -13,8 +13,8 @@ namespace Dominio
         public TipoProducto TipoProducto { get; set; }
         public Marca Marca { get; set; }
         public Proveedor Proveedor { get; set; }
-        public string FechaCompra { get; set; }
-        public string FechaVencimiento { get; set; }
+        public DateTime FechaCompra { get; set; }
+        public DateTime FechaVencimiento { get; set; }
         public decimal Costo { get; set; }
         public decimal PrecioVenta { get; set; }
         public int Stock { get; set; }

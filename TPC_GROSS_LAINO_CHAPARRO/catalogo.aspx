@@ -13,7 +13,7 @@
     </style>
 
     <center>  
-        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn-buscador" />
+        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn-buscador" CausesValidation="False" />
         <asp:TextBox ID="txtFiltro" runat="server" CssClass="txt-buscador"></asp:TextBox>
     </center>
 
@@ -30,12 +30,8 @@
                 <div class="card-body stl-dtl-catalogo">
                     
                     <h5 class="card-title"><% = item.Nombre %></h5>
-                    <h6>$ <% = item.PrecioVenta %></h6>
+                    <h6>$ <% = (item.Costo)*2 %></h6>
                     <br />
-                    <div class="btn-detalle-general">
-                        <%--<a href="DetalleArticulo.aspx?id=<% = item.EAN %>" class="btn btn-primary btn-cards-carrito-2">Detalles</a>--%>
-                        <%--<a href="#" ID="" class="btn btn-primary btn-cards-carrito">+ Carrito</a>--%>
-                    </div>
                 
                 </div>
             </div>
