@@ -29,13 +29,11 @@ namespace Negocio
                     Producto aux = new Producto();
 
                     aux.EAN = (long)datos.Lector["EAN"];
-                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripción = (string)datos.Lector["Descripción"];
                     aux.Imagen = (string)datos.Lector["Imagen"];
                     aux.TipoProducto = new TipoProducto((string)datos.Lector["TipoProducto"]);
                     aux.MarcaProducto= new MarcaProducto((string)datos.Lector["Marca"]);
                     aux.Proveedor = new Proveedor((string)datos.Lector["Proveedor"]);
-                    aux.FechaCompra = ((DateTime)datos.Lector["FechaCompra"]);
-                    aux.FechaVencimiento = ((DateTime)datos.Lector["FechaVencimiento"]);
                     aux.Costo = Math.Truncate((decimal)datos.Lector["Costo"] * 100) / 100;
                     aux.PrecioVenta = Math.Truncate((decimal)datos.Lector["PrecioVenta"] * 100) / 100;
                     aux.Stock = (int)datos.Lector["Stock"];

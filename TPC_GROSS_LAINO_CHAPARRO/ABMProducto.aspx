@@ -1,86 +1,94 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMProducto.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMCatalogo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <asp:Label ID="lblEan" runat="server" Text="EAN *"></asp:Label>
-    <asp:TextBox ID="txtEAN" runat="server"></asp:TextBox>
+    <center>
+    <asp:Button ID="btnAdd" runat="server" OnClick="AddArticulo" Text="Agregar Nuevo Producto" Style="background-color:green; color:white" /> &nbsp;&nbsp;&nbsp;&nbsp;
+    <%--<asp:Button ID="btnUpdate" runat="server" OnClick="btnUpdate_Click" Text="Modificar" /> &nbsp;&nbsp;&nbsp;&nbsp;--%>
+    <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Eliminar Producto" Style="background-color:lightcoral; color:darkred" />
+    </center>
+
+    <br /><br />
+
+    <asp:Label ID="lblEan" runat="server" Text="EAN *" Width="150px"></asp:Label>
+    <asp:TextBox ID="txtEAN" runat="server" Width="200px"></asp:TextBox>
 
     <%-- Para el botón modificar y eliminar, que sea un buscador por EAN 
          y que muestre todos los datos cargados en el sistema, de ese producto--%>
     
     <br /><br />
 
-    <asp:Label ID="lblNombre" runat="server" Text="Nombre *"></asp:Label>
-    <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
+    <asp:Label ID="lblDescripcion" runat="server" Text="Descripcion" Width="150px"></asp:Label>
+    <asp:TextBox ID="txtDescripcion" runat="server" Width="200px"></asp:TextBox><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateDescription" runat="server" OnClick="btnUpdateDescription_Click" Text="Modificar" Width="80px" Style="background-color:yellow;"/>
     
     <br /><br />
 
-    <asp:Label ID="lblImagen" runat="server" Text="Url Imágen *"></asp:Label>
-    <asp:TextBox ID="txtImagen" runat="server"></asp:TextBox>
+    <asp:Label ID="lblImagen" runat="server" Text="Url Imágen" Width="150px"></asp:Label>
+    <asp:TextBox ID="txtUrlImagen" runat="server" Width="200px"></asp:TextBox><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateUrlImagen" runat="server" OnClick="btnUpdateUrlImagen_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
     
     <br /><br />
     
-    <asp:Label ID="lblTipoProducto" runat="server" Text="TipoProducto"></asp:Label>
-    <asp:DropDownList ID="ddlTipoProducto" runat="server">
-    </asp:DropDownList>
+    <asp:Label ID="lblTipoProducto" runat="server" Text="TipoProducto" Width="150px"></asp:Label>
+    <asp:DropDownList ID="ddlTipoProducto" runat="server" Width="200px">
+    </asp:DropDownList><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateTipoProducto" runat="server" OnClick="btnUpdateTipoProducto_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
     
     <br /><br />
     
-    <asp:Label ID="lblMarcaProducto" runat="server" Text="MarcaProducto"></asp:Label>
-    <asp:DropDownList ID="ddlMarcaProducto" runat="server">
-    </asp:DropDownList>
+    <asp:Label ID="lblMarcaProducto" runat="server" Text="MarcaProducto" Width="150px"></asp:Label>
+    <asp:DropDownList ID="ddlMarcaProducto" runat="server" Width="200px">
+    </asp:DropDownList><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateMarcaProducto" runat="server" OnClick="btnUpdateMarcaProducto_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
     
     <br /><br />
     
-    <asp:Label ID="lblProveedor" runat="server" Text="Proveedor"></asp:Label>
-    <asp:DropDownList ID="ddlProveedor" runat="server">
-    </asp:DropDownList>
+    <asp:Label ID="lblProveedor" runat="server" Text="Proveedor" Width="150px"></asp:Label>
+    <asp:DropDownList ID="ddlProveedor" runat="server" Width="200px">
+    </asp:DropDownList><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateProveedor" runat="server" OnClick="btnUpdateProveedor_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
 
     <br /><br />
 
-    <asp:Label ID="lblFechaCompra" runat="server" Text="Fecha de Compra *"></asp:Label>
-    <asp:TextBox ID="txtFechaCompra" runat="server"></asp:TextBox>&nbsp;
+    <asp:Label ID="lblFechaCompra" runat="server" Text="Fecha de Compra" Width="150px"></asp:Label>
+    <asp:TextBox ID="txtFechaCompra" runat="server" Width="200px"></asp:TextBox><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateFechaCompra" runat="server" OnClick="btnUpdateFechaCompra_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
         
     <br /><br />
 
-    <asp:Label ID="lblFechaVencimiento" runat="server" Text="Fecha Vencimiento *"></asp:Label>
-    <asp:TextBox ID="txtFechaVencimiento" runat="server"></asp:TextBox>&nbsp;
+    <asp:Label ID="lblFechaVencimiento" runat="server" Text="Fecha Vencimiento" Width="150px"></asp:Label>
+    <asp:TextBox ID="txtFechaVencimiento" runat="server" Width="200px"></asp:TextBox><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateFechaVencimiento" runat="server" OnClick="btnUpdateFechaVencimiento_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
         
     <br /><br />
 
-    <asp:Label ID="lblCosto" runat="server" Text="Costo $ *"></asp:Label>
-    <asp:TextBox ID="txtCosto" runat="server"></asp:TextBox>
+    <asp:Label ID="lblCosto" runat="server" Text="Costo $" Width="150px"></asp:Label>
+    <asp:TextBox ID="txtCosto" runat="server" Width="200px"></asp:TextBox><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateCosto" runat="server" OnClick="btnUpdateCosto_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
     
     <br /><br />
 
-    <asp:Label ID="lblPrecioVenta" runat="server" Text="PrecioVenta $ *"></asp:Label>
-    <asp:TextBox ID="txtPrecioVenta" runat="server"></asp:TextBox>
+    <asp:Label ID="lblPrecioVenta" runat="server" Text="Precio de Venta $" Width="150px"></asp:Label>
+    <asp:TextBox ID="txtPrecioVenta" runat="server" Width="200px"></asp:TextBox><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdatePrecioVenta" runat="server" OnClick="btnUpdatePrecioVenta_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
 
     <br /><br />
 
-    <asp:Label ID="lblStock" runat="server" Text="Cantidad *"></asp:Label>
-    <asp:TextBox ID="txtStock" runat="server"></asp:TextBox>
+    <asp:Label ID="lblStock" runat="server" Text="Stock a cargar" Width="150px"></asp:Label>
+    <asp:TextBox ID="txtStock" runat="server" Width="200px"></asp:TextBox><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateStock" runat="server" OnClick="btnUpdateStock_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
 
     <br /><br />
 
-    <asp:Label ID="lblEstado" runat="server" Text="Estado"></asp:Label>
-    <asp:DropDownList ID="ddlEstado" runat="server">
+    <asp:Label ID="lblEstado" runat="server" Text="Estado" Width="150px"></asp:Label>
+    <asp:DropDownList ID="ddlEstado" runat="server" Width="200px">
         <asp:ListItem>Desactivar</asp:ListItem>
         <asp:ListItem Selected="True">Activar</asp:ListItem>
-    </asp:DropDownList>
+    </asp:DropDownList><span style="color:red;">*</span>
+    <asp:Button ID="btnUpdateEstado" runat="server" OnClick="btnUpdateEstado_Click" Text="Modificar" Width="80px" Style="background-color:yellow; "/>
 
-    <%-- EL ESTADO NO SE USA PARA AGREGAR UN ARTICULO, XQ POR DEFECTO, SE CARGA COMO TRUE --%>
-
-    <%-- PERO SI SE CARGA PARA MODIFICAR UN PRODUCTO --%>
+    <%-- EL ESTADO POR DEFECTO, SE CARGA COMO TRUE --%>
     
-    <br /><br /><br />
-    
-    <center>  
-
-    <asp:Button ID="btnAdd" runat="server" OnClick="AddArticulo" Text="Agregar" /> &nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="btnUpdate" runat="server" OnClick="btnUpdate_Click" Text="Modificar" /> &nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Eliminar" />
-    </center>
-
     <br /><br /><br />
     
     <center>

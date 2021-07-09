@@ -28,7 +28,7 @@ create table Proveedores(
 create table Inventario(
 	ID bigint not null primary key identity (1,1),
 	EAN bigint unique not null,
-	Nombre varchar(100) not null,
+	Descripcion varchar(60) not null,
 	UrlImagen varchar(300) not null,
 	IdTipo bigint not null foreign key references TiposProducto(ID),
 	IdMarca bigint not null foreign key references MarcasProducto(ID),
@@ -56,11 +56,11 @@ INSERT INTO MarcasProducto(Descripcion) values('Castrol')
 INSERT INTO MarcasProducto(Descripcion) values('Water')
 INSERT INTO MarcasProducto(Descripcion) values('Dot3')
 
-INSERT INTO Inventario(EAN, Nombre, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 'Lubricante muy bueno', 'https://live.staticflickr.com/3771/12164538394_32d87cf00b_b.jpg', 1, 3, 1, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Nombre, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446, 'Aceite 15W40', 'https://lubricentrocarlitos.com.ar/wp-content/uploads/2017/10/elaion-f50.jpg', 2, 2, 1, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Nombre, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447, 'Líquido refrigerante concentrado', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shell_lub.png/200px-Shell_lub.png', 5, 1, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Nombre, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448, 'Agua destilada', 'https://http2.mlstatic.com/D_NQ_NP_710724-MLA43593591234_092020-V.jpg', 4, 4, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Nombre, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449, 'Líquido de frenos', 'https://st2.depositphotos.com/1439888/11103/i/600/depositphotos_111033484-stock-photo-brake-fluid-with-disc-brake.jpg', 3, 5, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 'Lubricante muy bueno', 'https://live.staticflickr.com/3771/12164538394_32d87cf00b_b.jpg', 1, 3, 1, '2021-05-15', '2021-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446, 'Aceite 15W40', 'https://lubricentrocarlitos.com.ar/wp-content/uploads/2017/10/elaion-f50.jpg', 2, 2, 1, '2021-05-15', '2021-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447, 'Líquido refrigerante concentrado', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shell_lub.png/200px-Shell_lub.png', 5, 1, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448, 'Agua destilada', 'https://http2.mlstatic.com/D_NQ_NP_710724-MLA43593591234_092020-V.jpg', 4, 4, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449, 'Líquido de frenos', 'https://st2.depositphotos.com/1439888/11103/i/600/depositphotos_111033484-stock-photo-brake-fluid-with-disc-brake.jpg', 3, 5, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
 
 create table TiposCliente(
 	ID smallint primary key identity (1,1),
@@ -74,7 +74,7 @@ create table Clientes(
 	IDTipo smallint not null foreign key references TiposCliente(ID),
 	CUIT_CUIL varchar(13) unique not null,
 	RazonSocial varchar(100) unique null,
-	ApeNom varchar(100) not null,
+	ApeNom varchar(100) null,
 	FechaAlta date not null default (getdate()) check (FechaAlta = getdate()),
 	FechaNacimiento date null,
 	Mail varchar(100) unique not null,
@@ -138,6 +138,7 @@ create table TiposServicio(
 	ID int primary key identity (1,1) not null,
 	Descripcion varchar(30) unique check (Descripcion = 'Cambio de aceite' or Descripcion = 'Cambio de filtros' or Descripcion = 'Revisión'),
 )
+GO
 
 create table Servicios(
 	ID bigint primary key identity (1,1) not null,
@@ -152,9 +153,9 @@ GO
 
 create view ExportInventario
 as
-select I.EAN as EAN, I.Nombre as Nombre, I.UrlImagen as Imagen, TP.Descripcion as TipoProducto, 
+select I.EAN as EAN, I.Descripcion as Descripción, I.UrlImagen as Imagen, TP.Descripcion as TipoProducto, 
 M.Descripcion as Marca, P.RazonSocial as Proveedor, 
-I.FechaCompra as FechaCompra, I.FechaVencimiento as FechaVencimiento,
+CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
 I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado 
 from Inventario as I
 inner join TiposProducto as TP on I.IdTipo = TP.ID
@@ -164,7 +165,7 @@ GO
 
 create procedure SP_INSERTAR_PRODUCTO(
 	@EAN bigint,
-	@Nombre varchar(100),
+	@Descripcion varchar(60),
 	@UrlImagen varchar(300),
 	@IdTipo bigint,
 	@IdMarca bigint,
@@ -177,18 +178,20 @@ create procedure SP_INSERTAR_PRODUCTO(
 )
 as
 begin
-	INSERT INTO Inventario(EAN, Nombre, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock)
-	VALUES(@EAN, @Nombre, @UrlImagen, @IdTipo, @IdMarca, @IdProveedor, @FechaCompra, @FechaVencimiento, @Costo, @PrecioVenta, @Stock)
+	INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock)
+	VALUES(@EAN, @Descripcion, @UrlImagen, @IdTipo, @IdMarca, @IdProveedor, @FechaCompra, @FechaVencimiento, @Costo, @PrecioVenta, @Stock)
 end
 GO
 
 create procedure SP_ACTUALIZAR_PRODUCTO(
 	@EAN bigint,
-	@Nombre varchar(100),
+	@Descripcion varchar(60),
 	@UrlImagen varchar(300),
 	@IdTipo bigint,
 	@IdMarca bigint,
 	@IdProveedor bigint,
+	@FechaCompra date,
+	@FechaVencimiento date,
 	@Costo money,
 	@PrecioVenta money,
 	@Stock int,
@@ -196,7 +199,8 @@ create procedure SP_ACTUALIZAR_PRODUCTO(
 )
 as
 begin
-	UPDATE Inventario SET Nombre=@Nombre, UrlImagen=@UrlImagen, IdTipo=@IdTipo, IdMarca=@IdMarca, IdProveedor=@IdProveedor, Costo=@Costo, PrecioVenta=@PrecioVenta, Stock=@Stock, Estado=@Estado
+	UPDATE Inventario SET Descripcion=@Descripcion, UrlImagen=@UrlImagen, IdTipo=@IdTipo, IdMarca=@IdMarca, IdProveedor=@IdProveedor, 
+	FechaCompra=@FechaCompra, FechaVencimiento=@FechaVencimiento, Costo=@Costo, PrecioVenta=@PrecioVenta, Stock=@Stock, Estado=@Estado
 	WHERE EAN=@EAN
 end
 GO
@@ -209,22 +213,3 @@ begin
 	DELETE FROM Inventario WHERE EAN = @EAN
 end
 GO
-
-create trigger TR_BAJA_LOGICA_PRODUCTO on Inventario
-instead of delete
-as
-begin
-	declare @EAN bigint=(select EAN from deleted)
-	declare @Estado bit = (select I.Estado from Inventario I where I.EAN=@EAN)
-	if @Estado = 1
-	begin
-		UPDATE Inventario SET Estado=0 WHERE EAN=@EAN
-	end
-	else
-	begin
-		UPDATE Inventario SET Estado=1 WHERE EAN=@EAN
-	end
-end
-GO
-
---select * from ExportInventario

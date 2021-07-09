@@ -31,7 +31,7 @@
                 </center>
                 <div class="card-body stl-dtl-catalogo">
                     
-                    <h5 class="card-title"><% = item.Nombre %></h5> 
+                    <h5 class="card-title"><% = item.Descripción %></h5> 
                     <br />
                     <h5 class="card-title"><% = "Marca: " + item.MarcaProducto %></h5>
                     <br />

@@ -34,7 +34,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             List<Producto> filtro;
             if (txtFiltro.Text != "")
             {
-                filtro = lista.FindAll(Art => Art.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()) || Art.MarcaProducto.Descripcion.ToUpper().Contains(txtFiltro.Text.ToUpper()) || Art.TipoProducto.Descripcion.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+                filtro = lista.FindAll(Art => Art.Descripción.ToUpper().Contains(txtFiltro.Text.ToUpper()) || Art.MarcaProducto.Descripcion.ToUpper().Contains(txtFiltro.Text.ToUpper()) || Art.TipoProducto.Descripcion.ToUpper().Contains(txtFiltro.Text.ToUpper()));
                 lista = null;
                 lista = filtro;
             }
