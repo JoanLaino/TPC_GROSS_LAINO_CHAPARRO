@@ -11,7 +11,7 @@ namespace Dominio
         public string Nombre { get; set; }
         public string Imagen { get; set; }
         public TipoProducto TipoProducto { get; set; }
-        public Marca Marca { get; set; }
+        public MarcaProducto MarcaProducto { get; set; }
         public Proveedor Proveedor { get; set; }
         public DateTime FechaCompra { get; set; }
         public DateTime FechaVencimiento { get; set; }

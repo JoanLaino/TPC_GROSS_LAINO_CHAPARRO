@@ -13,5 +13,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
 
         }
+
+        protected void btnABMProducto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMProducto.aspx");
+        }
     }
 }

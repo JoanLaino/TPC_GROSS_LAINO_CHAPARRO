@@ -32,7 +32,7 @@ namespace Negocio
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Imagen = (string)datos.Lector["Imagen"];
                     aux.TipoProducto = new TipoProducto((string)datos.Lector["TipoProducto"]);
-                    aux.Marca = new Marca((string)datos.Lector["Marca"]);
+                    aux.MarcaProducto= new MarcaProducto((string)datos.Lector["Marca"]);
                     aux.Proveedor = new Proveedor((string)datos.Lector["Proveedor"]);
                     aux.FechaCompra = ((DateTime)datos.Lector["FechaCompra"]);
                     aux.FechaVencimiento = ((DateTime)datos.Lector["FechaVencimiento"]);
@@ -40,8 +40,11 @@ namespace Negocio
                     aux.PrecioVenta = Math.Truncate((decimal)datos.Lector["PrecioVenta"] * 100) / 100;
                     aux.Stock = (int)datos.Lector["Stock"];
                     aux.Estado = (bool)datos.Lector["Estado"];
-                    
-                    lista.Add(aux);
+
+                    if (aux.Estado == true)
+                    {
+                        lista.Add(aux);
+                    }
                 }
 
                 return lista;

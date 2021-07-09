@@ -13,5 +13,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
 
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("https://www.google.com");
+        }
     }
 }

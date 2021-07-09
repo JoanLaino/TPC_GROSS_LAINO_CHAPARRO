@@ -58,23 +58,23 @@
                         <a class="nav-link font-stl" href="contacto.aspx">Contáctanos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-stl" href="catalogo.aspx">Catálogo</a>
+                        <a class="nav-link font-stl" href="catalogoProductos.aspx">Catálogo</a>
                     </li> 
                     <li class="nav-item">
                         <a class="nav-link font-stl" href="WebInterna.aspx">Web Interna</a>
                     </li>                    
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0 stl-btn-1" type="submit">Buscar</button>
-                </form>
                 <a class="log-stl" href="login.aspx">Iniciar sesión</a>
             </div>
         </nav>
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>            
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> LubriApp</p>
+            </footer>
         </div>
 
     </form>

@@ -107,9 +107,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ABMCatalogo.aspx" />
+    <Content Include="ABMProducto.aspx" />
     <Content Include="About.aspx" />
-    <Content Include="catalogo.aspx" />
+    <Content Include="catalogoProductos.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="contacto.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -264,12 +264,12 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABMCatalogo.aspx.cs">
-      <DependentUpon>ABMCatalogo.aspx</DependentUpon>
+    <Compile Include="ABMProducto.aspx.cs">
+      <DependentUpon>ABMProducto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ABMCatalogo.aspx.designer.cs">
-      <DependentUpon>ABMCatalogo.aspx</DependentUpon>
+    <Compile Include="ABMProducto.aspx.designer.cs">
+      <DependentUpon>ABMProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
@@ -280,12 +280,12 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="catalogo.aspx.cs">
-      <DependentUpon>catalogo.aspx</DependentUpon>
+    <Compile Include="catalogoProductos.aspx.cs">
+      <DependentUpon>catalogoProductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="catalogo.aspx.designer.cs">
-      <DependentUpon>catalogo.aspx</DependentUpon>
+    <Compile Include="catalogoProductos.aspx.designer.cs">
+      <DependentUpon>catalogoProductos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>

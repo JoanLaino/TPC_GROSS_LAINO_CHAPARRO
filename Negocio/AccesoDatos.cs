@@ -68,9 +68,9 @@ namespace Negocio
                     SqlDataAdapter SDA = new SqlDataAdapter(consulta, conexion);
                     SDA.Fill(ds, "datos");
                 }
-                catch (SqlException mise)
+                catch (Exception ex)
                 {
-                    int error = Convert.ToInt32(mise);
+                    throw ex;
                 }
             }
 

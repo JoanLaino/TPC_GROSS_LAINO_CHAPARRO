@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="catalogo.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.catalogo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="catalogoProductos.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.catalogo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <style>
@@ -13,7 +13,7 @@
     </style>
 
     <center>  
-        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn-buscador" CausesValidation="False" />
+        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn-buscador" CausesValidation="False" onclick="buscarProducto"/>
         <asp:TextBox ID="txtFiltro" runat="server" CssClass="txt-buscador"></asp:TextBox>
     </center>
 
@@ -25,13 +25,17 @@
         <div class="col mb-4 stl-catalogo">
             <div class="card stl-card h-100">
                 <center>
+                    <h5 class="card-title"><% = "EAN: " + item.EAN %></h5>
+                    <br />
                     <img src="<% = item.Imagen %>" class="card-img-top img-cards" alt="...">
                 </center>
                 <div class="card-body stl-dtl-catalogo">
                     
-                    <h5 class="card-title"><% = item.Nombre %></h5>
-                    <h6>$ <% = (item.Costo)*2 %></h6>
+                    <h5 class="card-title"><% = item.Nombre %></h5> 
                     <br />
+                    <h5 class="card-title"><% = "Marca: " + item.MarcaProducto %></h5>
+                    <br />
+                    <h6>$ <% = item.PrecioVenta%></h6>
                 
                 </div>
             </div>
