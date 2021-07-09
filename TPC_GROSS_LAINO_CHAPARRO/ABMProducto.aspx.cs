@@ -50,7 +50,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             dgvInventario.DataBind();
         }
 
-        protected void AddArticulo(object sender, EventArgs e)
+        protected void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
@@ -155,6 +155,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else
                 {
+                    
                     string EAN = txtEAN.Text;
 
                     string sp_DeleteInventario = "EXEC SP_ELIMINAR_PRODUCTO '" + EAN + "'";

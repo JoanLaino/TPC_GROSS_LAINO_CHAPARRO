@@ -18,5 +18,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             Response.Redirect("ABMProducto.aspx");
         }
+
+        protected void btnABMTiposProducto_Click(object sender, EventArgs e)
+        {
+            //Response.Redirect("ABMTiposProducto.aspx");
+        }
+
+        protected void btnABMMarcasProducto_Click(object sender, EventArgs e)
+        {
+            //Response.Redirect("ABMMarcasProducto.aspx");
+        }
+
+        protected void btnABMProveedores_Click(object sender, EventArgs e)
+        {
+            //Response.Redirect("ABMProveedores.aspx");
+        }
     }
 }

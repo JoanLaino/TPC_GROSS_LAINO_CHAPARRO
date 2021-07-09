@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ABMProducto.aspx" />
+    <Content Include="ABMTiposProducto.aspx" />
     <Content Include="About.aspx" />
     <Content Include="catalogoProductos.aspx" />
     <Content Include="Contact.aspx" />
@@ -270,6 +271,13 @@
     </Compile>
     <Compile Include="ABMProducto.aspx.designer.cs">
       <DependentUpon>ABMProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ABMTiposProducto.aspx.cs">
+      <DependentUpon>ABMTiposProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMTiposProducto.aspx.designer.cs">
+      <DependentUpon>ABMTiposProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">

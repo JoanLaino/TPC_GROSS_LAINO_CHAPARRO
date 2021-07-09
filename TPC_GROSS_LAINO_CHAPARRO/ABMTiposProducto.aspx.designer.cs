@@ -11,43 +11,52 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 {
 
 
-    public partial class WebInterna
+    public partial class ABMTiposProducto
     {
 
         /// <summary>
-        /// Control btnABMProducto.
+        /// Control btnAdd.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnABMProducto;
+        protected global::System.Web.UI.WebControls.Button btnAdd;
 
         /// <summary>
-        /// Control btnABMTiposProducto.
+        /// Control btnUpdate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnABMTiposProducto;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
 
         /// <summary>
-        /// Control btnABMMarcasProducto.
+        /// Control btnDelete.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnABMMarcasProducto;
+        protected global::System.Web.UI.WebControls.Button btnDelete;
 
         /// <summary>
-        /// Control btnABMProveedores.
+        /// Control lblID.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnABMProveedores;
+        protected global::System.Web.UI.WebControls.Label lblID;
+
+        /// <summary>
+        /// Control txtEAN.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEAN;
     }
 }
