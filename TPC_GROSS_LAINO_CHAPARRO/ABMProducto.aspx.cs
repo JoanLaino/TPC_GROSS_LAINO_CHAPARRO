@@ -54,10 +54,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                /*|| txtDescripcion.Text == "" || txtImagen.Text == ""
+                if (txtEAN.Text == "" || txtDescripcion.Text == "" || txtUrlImagen.Text == ""
                     || txtFechaCompra.Text == "" || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
-                    || txtStock.Text == ""*/
-                if (txtEAN.Text == "" )
+                    || txtStock.Text == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Hay campos vacíos')", true);
@@ -97,14 +96,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        /*protected void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
-                /*|| txtDescripcion.Text == "" || txtImagen.Text == ""
+                if (txtEAN.Text == "" || txtDescripcion.Text == "" || txtImagen.Text == ""
                     || txtFechaCompra.Text == "" || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
-                    || txtStock.Text == ""*/
-                if (txtEAN.Text == "")
+                    || txtStock.Text == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Hay campos vacíos.')", true);
@@ -142,7 +140,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el producto.')", true);
             }
-        }
+        }*/
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
@@ -524,5 +522,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 "alert('Se ha producido un error y no se ha modificado el estado del producto.')", true);
             }
         }
+
     }
 }

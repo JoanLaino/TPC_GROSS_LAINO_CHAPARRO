@@ -21,7 +21,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnABMTiposProducto_Click(object sender, EventArgs e)
         {
-            //Response.Redirect("ABMTiposProducto.aspx");
+            Response.Redirect("ABMTiposProducto.aspx");
         }
 
         protected void btnABMMarcasProducto_Click(object sender, EventArgs e)
