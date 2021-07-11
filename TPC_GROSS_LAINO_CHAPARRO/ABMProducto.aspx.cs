@@ -56,7 +56,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 if (txtEAN.Text == "" || txtDescripcion.Text == "" || txtUrlImagen.Text == ""
                     || txtFechaCompra.Text == "" || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
-                    || txtStock.Text == "")
+                    || txtStock.Text == "" || ddlMarcaProducto.SelectedIndex == 0 ||
+                    ddlTipoProducto.SelectedIndex == 0 || ddlProveedor.SelectedIndex == 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Hay campos vacíos')", true);
@@ -239,10 +240,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtEAN.Text == "")
+                if (txtEAN.Text == "" || ddlTipoProducto.SelectedIndex == 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('EAN vacío.')", true);
+                    "alert('EAN vacío o Tipo de Producto no seleccionado.')", true);
                 }
                 else
                 {
@@ -270,10 +271,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtEAN.Text == "")
+                if (txtEAN.Text == "" || ddlMarcaProducto.SelectedIndex == 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('EAN vacío.')", true);
+                    "alert('EAN vacío o Marca no seleccionada.')", true);
                 }
                 else
                 {
@@ -301,10 +302,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtEAN.Text == "")
+                if (txtEAN.Text == "" || ddlProveedor.SelectedIndex == 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('EAN vacío.')", true);
+                    "alert('EAN vacío o Proveedor no seleccionado.')", true);
                 }
                 else
                 {
@@ -494,26 +495,37 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else
                 {
-                    string EAN = txtEAN.Text;
-                    int Estado = 0;
-                    if (ddlEstado.SelectedValue == "Activar") { Estado = 1; }
-
-                    string sp_UpdateInventario = "UPDATE Inventario SET Estado = '" + Estado + "' WHERE EAN = '" + EAN + "'";
-
-                    sentencia.IUD(sp_UpdateInventario);
-
-                    if (Estado == 1)
+                    if (ddlEstado.SelectedIndex == 0)
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Se ha activado el producto.')", true);
+                        "alert('Seleccione Estado...')", true);
                     }
                     else
                     {
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Se ha desactivado el producto.')", true);
-                    }
+                        string EAN = txtEAN.Text;
+                        if (ddlEstado.SelectedValue == "Activar")
+                        {
+                            string sp_UpdateInventario = "UPDATE Inventario SET Estado = '1' WHERE EAN = '" + EAN + "'";
 
-                    BindData();
+                            sentencia.IUD(sp_UpdateInventario);
+
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('Se ha activado el producto.')", true);
+
+                            BindData();
+                        }
+                        else if (ddlEstado.SelectedValue == "Desactivar")
+                        {
+                            string sp_UpdateInventario = "UPDATE Inventario SET Estado = '0' WHERE EAN = '" + EAN + "'";
+
+                            sentencia.IUD(sp_UpdateInventario);
+
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('Se ha desactivado el producto.')", true);
+
+                            BindData();
+                        }
+                    }
                 }
             }
             catch

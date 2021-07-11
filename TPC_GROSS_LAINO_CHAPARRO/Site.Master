@@ -15,7 +15,7 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="img/favicon-oil.png" rel="shortcut icon" type="image/x-icon" />
-    <link href="css/estilos.css" rel="stylesheet" />
+    <link href="css/estilos.css" rel="stylesheet" type="text/css" media="screen" />
 
 </head>
 <body>

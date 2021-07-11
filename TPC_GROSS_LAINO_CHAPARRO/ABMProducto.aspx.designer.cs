@@ -15,15 +15,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
 
         /// <summary>
-        /// Control lblEan.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEan;
-
-        /// <summary>
         /// Control txtEAN.
         /// </summary>
         /// <remarks>
@@ -40,24 +31,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnDelete;
-
-        /// <summary>
-        /// Control lblDeleteProduct.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeleteProduct;
-
-        /// <summary>
-        /// Control lblDescripcion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescripcion;
 
         /// <summary>
         /// Control txtDescripcion.
@@ -78,15 +51,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateDescription;
 
         /// <summary>
-        /// Control lblImagen.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblImagen;
-
-        /// <summary>
         /// Control txtUrlImagen.
         /// </summary>
         /// <remarks>
@@ -103,15 +67,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateUrlImagen;
-
-        /// <summary>
-        /// Control lblTipoProducto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTipoProducto;
 
         /// <summary>
         /// Control ddlTipoProducto.
@@ -132,15 +87,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateTipoProducto;
 
         /// <summary>
-        /// Control lblMarcaProducto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMarcaProducto;
-
-        /// <summary>
         /// Control ddlMarcaProducto.
         /// </summary>
         /// <remarks>
@@ -157,15 +103,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateMarcaProducto;
-
-        /// <summary>
-        /// Control lblProveedor.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProveedor;
 
         /// <summary>
         /// Control ddlProveedor.
@@ -186,15 +123,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateProveedor;
 
         /// <summary>
-        /// Control lblFechaCompra.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFechaCompra;
-
-        /// <summary>
         /// Control txtFechaCompra.
         /// </summary>
         /// <remarks>
@@ -211,15 +139,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateFechaCompra;
-
-        /// <summary>
-        /// Control lblFechaVencimiento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFechaVencimiento;
 
         /// <summary>
         /// Control txtFechaVencimiento.
@@ -240,15 +159,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateFechaVencimiento;
 
         /// <summary>
-        /// Control lblCosto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCosto;
-
-        /// <summary>
         /// Control txtCosto.
         /// </summary>
         /// <remarks>
@@ -265,15 +175,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateCosto;
-
-        /// <summary>
-        /// Control lblPrecioVenta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrecioVenta;
 
         /// <summary>
         /// Control txtPrecioVenta.
@@ -294,15 +195,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.ImageButton btnUpdatePrecioVenta;
 
         /// <summary>
-        /// Control lblStock.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStock;
-
-        /// <summary>
         /// Control txtStock.
         /// </summary>
         /// <remarks>
@@ -319,15 +211,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateStock;
-
-        /// <summary>
-        /// Control lblEstado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstado;
 
         /// <summary>
         /// Control ddlEstado.
@@ -373,5 +256,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView dgvInventario;
+
+        /// <summary>
+        /// Control ExportInventario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ExportInventario;
     }
 }

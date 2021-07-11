@@ -19,22 +19,19 @@
 
     <center>
     <div class="container">
-    <div class="row row-cols-1 row-cols-md-3">
+    <div class="row row-cols-1 row-cols-md-5">
         <% foreach (Dominio.Producto item in lista)
                 {%>
         <div class="col mb-4 stl-catalogo">
             <div class="card stl-card h-100">
                 <center>
                     <h5 class="card-title"><% = "EAN: " + item.EAN %></h5>
-                    <br />
                     <img src="<% = item.Imagen %>" class="card-img-top img-cards" alt="...">
                 </center>
                 <div class="card-body stl-dtl-catalogo">
                     
-                    <h5 class="card-title"><% = item.Descripción %></h5> 
-                    <br />
-                    <h5 class="card-title"><% = "Marca: " + item.MarcaProducto %></h5>
-                    <br />
+                    <h5 class="card-title card-description"><% = item.Descripción %></h5>
+                    <h5 class="card-title card-marca"><% = "Marca: " + item.MarcaProducto %></h5>
                     <h6>$ <% = item.PrecioVenta%></h6>
                 
                 </div>

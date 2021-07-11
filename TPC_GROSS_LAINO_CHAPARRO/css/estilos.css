@@ -141,20 +141,28 @@
     }
 }
 
-.chkb-abm{
-    display: flex;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
 .img-cards {
-    max-width: 170px !important;
+    width: 130px !important;
     margin-top: 30px !important;
+    height: 170px;
 }
 
 .stl-card {
     box-shadow: 0px 0px 10px 0px grey;
     padding-top: 15px;
+    width: 200px;
+}
+
+.card-title{
+    font-size: small;
+}
+
+.card-description{
+
+}
+
+.card-marca{
+
 }
 
 .bg-dark {
@@ -223,10 +231,202 @@
     z-index: 1;
 }
 
-.row-cols-md-3{
+.row-cols-md-5{
     z-index: 1;
 }
 
 .card-body{
     z-index: 1;
+}
+
+.h1-abm-prod {
+    text-align: center;
+    font-size: calc(2em + 1vw);
+    color: #142382;
+    text-shadow: 1px 1px 0 #ffffff;
+    position: relative;
+    left: -59px;
+}
+
+.img-btn-del-producto {
+    width: 30px;
+    vertical-align: bottom;
+}
+
+.img-btn-del-producto:hover {
+    border-radius: 100px;
+    box-shadow: 0 0 10px black; 
+}
+
+.img-btn-edit-producto {
+    width: 20px;
+    vertical-align: bottom;
+    position: relative;
+    top: -5px;
+}
+
+.img-btn-edit-producto:hover {
+    box-shadow: 0 0 10px black;
+    background-color: black;
+}
+
+.img-btn-edit-url-imagen{
+    position: relative;
+    top: -58px;
+    left: 270px;
+}
+
+.img-btn-edit-tipo-producto {
+    position: relative;
+    top: -110px;
+    left: 541px;
+}
+
+.img-btn-edit-marca-producto {
+    position: relative;
+    top: -160px;
+    left: 810px;
+}
+
+.img-btn-edit-proveedor {
+    position: relative;
+    top: -159px;
+    left: 0px;
+}
+
+.img-btn-edit-fecha-compra {
+    position: relative;
+    top: -212px;
+    left: 270px;
+}
+
+.img-btn-edit-fecha-vencimiento {
+    position: relative;
+    top: -265px;
+    left: 541px;
+}
+
+.img-btn-edit-costo {
+    position: relative;
+    top: -266px;
+    left: 0px;
+}
+
+.img-btn-edit-precio-venta {
+    position: relative;
+    top: -319px;
+    left: 270px;
+}
+
+.img-btn-edit-stock {
+    position: relative;
+    top: -373px;
+    left: 541px;
+}
+
+.img-btn-edit-estado-producto {
+    position: relative;
+    top: -505px;
+    left: 811px;
+}
+
+.img-btn-add-producto {
+    width: 50px;
+    vertical-align: bottom;
+    position: relative;
+    top: -473px;
+    left: 0px;
+}
+
+.img-btn-add-producto:hover {
+    border-radius: 100px;
+    box-shadow: 0 0 10px black;
+}
+
+.lbl-add-abm-prod{
+    position: relative;
+    top: -487px;
+    left: 2px;
+}
+
+.txtbox-abm-prod-ean{
+    
+}
+
+.txtbox-abm-prod-descripcion {
+
+}
+
+.txtbox-abm-prod-url-imagen {
+    position: relative;
+    top: -53px;
+    left: 270px;
+}
+
+.ddl-abm-prod-tipo-producto {
+    position: relative;
+    top: -106px;
+    left: 540px;
+    text-align: center;
+}
+
+.ddl-abm-prod-marca-producto {
+    position: relative;
+    top: -157px;
+    left: 810px;
+    text-align: center;
+}
+
+.ddl-abm-prod-proveedor {
+    position: relative;
+    top: -155px;
+    left: 0px;
+    text-align: center;
+}
+
+.txtbox-abm-prod-fecha-compra {
+    position: relative;
+    top: -207px;
+    left: 270px;
+    height: 29px;
+}
+
+.txtbox-abm-prod-fecha-vencimiento {
+    position: relative;
+    top: -260px;
+    left: 540px;
+    height: 29px;
+}
+
+.txtbox-abm-prod-costo {
+    position: relative;
+    top: -261px;
+    left: 0px;
+}
+
+.txtbox-abm-prod-precio-venta {
+    position: relative;
+    top: -315px;
+    left: 270px;
+}
+
+.txtbox-abm-prod-stock {
+    position: relative;
+    top: -369px;
+    left: 540px;
+}
+
+.ddl-abm-prod-estado-producto {
+    position: relative;
+    top: -474px;
+    left: 811px;
+    height: 81px;
+    text-align: center;
+}
+
+.dgv-abm-prod {
+    position: relative;
+    top: -500px;
+    left: -63px;
+    text-align: center;
 }
