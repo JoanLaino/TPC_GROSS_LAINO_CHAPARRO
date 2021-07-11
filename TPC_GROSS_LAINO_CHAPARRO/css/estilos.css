@@ -297,13 +297,13 @@
 .img-btn-edit-fecha-compra {
     position: relative;
     top: -212px;
-    left: 270px;
+    left: 187px !important;
 }
 
 .img-btn-edit-fecha-vencimiento {
     position: relative;
     top: -265px;
-    left: 541px;
+    left: 438px;
 }
 
 .img-btn-edit-costo {
@@ -384,17 +384,31 @@
     text-align: center;
 }
 
+.lbl-fecha-compra-abm-prod {
+    position: relative !important;
+    top: -232px !important;
+    left: 270px !important;
+    font-size: 10px !important;
+}
+
 .txtbox-abm-prod-fecha-compra {
-    position: relative;
-    top: -207px;
-    left: 270px;
-    height: 29px;
+    position: relative !important;
+    top: -207px !important;
+    left: 186px !important;
+    height: 29px !important;
+}
+
+.lbl-fecha-vencimiento-abm-prod {
+    position: relative !important;
+    top: -285px !important;
+    left: 540px !important;
+    font-size: 10px !important;
 }
 
 .txtbox-abm-prod-fecha-vencimiento {
     position: relative;
     top: -260px;
-    left: 540px;
+    left: 437px;
     height: 29px;
 }
 

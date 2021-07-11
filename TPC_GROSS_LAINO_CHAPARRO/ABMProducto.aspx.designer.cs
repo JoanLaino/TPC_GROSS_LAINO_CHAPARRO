@@ -123,6 +123,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateProveedor;
 
         /// <summary>
+        /// Control lblFechaCompra.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFechaCompra;
+
+        /// <summary>
         /// Control txtFechaCompra.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnUpdateFechaCompra;
+
+        /// <summary>
+        /// Control lblFechaVencimiento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFechaVencimiento;
 
         /// <summary>
         /// Control txtFechaVencimiento.

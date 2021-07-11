@@ -95,6 +95,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha guardado el producto.')", true);
             }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
+            }
         }
 
         /*protected void btnUpdate_Click(object sender, EventArgs e)
@@ -172,6 +176,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha eliminado el producto.')", true);
             }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
+            }
         }
 
         protected void btnUpdateDescription_Click(object sender, EventArgs e)
@@ -202,6 +210,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado la descripción.')", true);
+            }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
             }
         }
 
@@ -234,6 +246,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado la URL de la imágen.')", true);
             }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
+            }
         }
 
         protected void btnUpdateTipoProducto_Click(object sender, EventArgs e)
@@ -264,6 +280,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el tipo de producto.')", true);
+            }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
             }
         }
 
@@ -296,6 +316,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado la marca del producto.')", true);
             }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
+            }
         }
 
         protected void btnUpdateProveedor_Click(object sender, EventArgs e)
@@ -326,6 +350,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el proveedor del producto.')", true);
+            }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
             }
         }
 
@@ -358,6 +386,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado la fecha de compra del producto.')", true);
             }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
+            }
         }
 
         protected void btnUpdateFechaVencimiento_Click(object sender, EventArgs e)
@@ -388,6 +420,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado la fecha de vencimiento del producto.')", true);
+            }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
             }
         }
 
@@ -420,6 +456,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el costo producto.')", true);
             }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
+            }
         }
 
         protected void btnUpdatePrecioVenta_Click(object sender, EventArgs e)
@@ -451,6 +491,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el precio de venta del producto.')", true);
             }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
+            }
         }
 
         protected void btnUpdateStock_Click(object sender, EventArgs e)
@@ -481,6 +525,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el stock.')", true);
+            }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
             }
         }
 
@@ -532,6 +580,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el estado del producto.')", true);
+            }
+            finally
+            {
+                Response.Redirect("ABMProducto.aspx");
             }
         }
 

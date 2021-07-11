@@ -54,11 +54,13 @@
     
     <br /><br />
 
+    <asp:Label ID="lblFechaCompra" Text="Fecha de Compra:" runat="server" CssClass="lbl-fecha-compra-abm-prod"></asp:Label>
     <asp:TextBox ID="txtFechaCompra" runat="server" Width="200px" MaxLength="10" TextMode="Date" cssclass="txtbox-abm-prod-fecha-compra" ></asp:TextBox>
     <asp:ImageButton ID="btnUpdateFechaCompra" runat="server" placeholder="Fecha de Compra" OnClick="btnUpdateFechaCompra_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto img-btn-edit-fecha-compra"/>
     
     <br /><br />
 
+    <asp:Label ID="lblFechaVencimiento" Text="Fecha de Vencimiento:" runat="server" CssClass="lbl-fecha-vencimiento-abm-prod"></asp:Label>
     <asp:TextBox ID="txtFechaVencimiento" runat="server" placeholder="Fecha de Vencimiento" Width="200px" MaxLength="10" TextMode="Date" cssclass="txtbox-abm-prod-fecha-vencimiento" ></asp:TextBox>
     <asp:ImageButton ID="btnUpdateFechaVencimiento" runat="server" OnClick="btnUpdateFechaVencimiento_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto img-btn-edit-fecha-vencimiento"/>
     
