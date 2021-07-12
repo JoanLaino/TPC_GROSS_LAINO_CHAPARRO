@@ -117,5 +117,26 @@ namespace Negocio
                 return false;
             }
         }
+
+        public int IUDquery (string consulta)
+        {
+            int res = -1;
+
+            if (Conectar())
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(consulta, conexion);
+                    cmd.ExecuteNonQuery();
+                    return (int)cmd.ExecuteScalar();                  
+                }
+                catch (SqlException mise)
+                {
+                    int error = Convert.ToInt32(mise);
+                }
+            }
+
+            return res;
+        }
     }
 }

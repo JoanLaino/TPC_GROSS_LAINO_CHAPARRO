@@ -102,7 +102,7 @@ create table Usuarios(
 )
 GO
 
-create table Empleados(
+Create table Empleados(
 	ID bigint primary key identity (1,1) not null,
 	Legajo varchar(6) unique not null,
 	CUIL varchar(13) unique not null,
@@ -111,9 +111,11 @@ create table Empleados(
 	FechaNacimiento date null,
 	Mail varchar(100) unique not null,
 	Telefono varchar(50) not null,
-	TotalServiciosRealizados int not null default (0) check (TotalServiciosRealizados >= 0)
+	TotalServiciosRealizados int not null default (0) check (TotalServiciosRealizados >= 0),
+	Estado bit not null default (1)
 )
 GO
+
 
 create table MarcasVehiculo(
 	ID bigint primary key identity (1,1) not null,
@@ -161,6 +163,7 @@ from Inventario as I
 inner join TiposProducto as TP on I.IdTipo = TP.ID
 inner join MarcasProducto as M on I.IdMarca = M.ID
 inner join Proveedores as P on I.IdProveedor = P.ID 
+
 GO
 
 create procedure SP_INSERTAR_PRODUCTO(
@@ -213,3 +216,24 @@ begin
 	DELETE FROM Inventario WHERE EAN = @EAN
 end
 GO
+
+--cosas a agregar--
+
+Create view Lista_Empleados
+as
+select E.Legajo as Legajo, E.Cuil as Cuil, E.ApeNom as 'Apellido y Nombre', CONVERT(VARCHAR(10),E.FechaAlta,105) as 'Fecha de Alta', 
+CONVERT(VARCHAR(10),e.FechaNacimiento,105) as 'Fecha de Nacimiento', E.Mail as Mail, E.Telefono as Telefono
+from Empleados as E 
+
+ALTER TABLE Empleados
+ADD Estado bit not null default (1);
+
+Create view lista_servicios
+as 
+select CONVERT(VARCHAR(10),s.FechaRealizacion,105) as 'Fecha de Realizacion', s.PatenteVehiculo as Patente,
+(Select ts.Descripcion from TiposServicio ts where ts.id = s.IdTipo) as 'Tipo de Servicio', s.Comentarios as Comentarios,
+(select c.ApeNom from Clientes c where c.ID = s.IdEmpleado) as Cliente
+from Servicios s
+
+
+insert into Empleados (Legajo,CUIL,ApeNom,FechaAlta,FechaNacimiento,Mail,Telefono) values ('333','20123456788','Apu Najasamapetilan','10-10-2000','1-1-1980','asdasd@asd.com','1234567890')

@@ -9,6 +9,9 @@ namespace Dominio
     public class Empleado : Persona
     {
         public int Legajo { get; set; }
-        //Lista Servicios;
+
+        public List <Servicio> servicios;
+
+        public bool Estado { get; set; }
     }
 }

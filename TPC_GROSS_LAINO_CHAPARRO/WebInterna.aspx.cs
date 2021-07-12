@@ -33,5 +33,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             //Response.Redirect("ABMProveedores.aspx");
         }
+
+        protected void btnAMBMarcaVehiculos_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMMarcaVehiculo.aspx");
+        }
+
+        protected void btnABMEmpleados_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMEmpleado.aspx");
+        }
     }
 }
