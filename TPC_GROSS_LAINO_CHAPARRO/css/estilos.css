@@ -485,3 +485,158 @@
     border-radius: 100px;
     box-shadow: 0 0 10px black;
 }
+
+.web-interna-botonera {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 40px;
+}
+
+@media screen and (max-width: 480px) {
+    .web-interna-botonera {
+        grid-template-columns: 1fr;        
+    }
+}
+
+.web-interna-botonera-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 480px) {
+    .web-interna-botonera-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.btn-interna-productos {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #9fcecc;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-productos:hover {
+    background-color: #ffffff;
+    color: #9fcecc;
+}
+
+.btn-interna-tipos-productos {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #F3CB76;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-tipos-productos:hover {
+    background-color: #ffffff;
+    color: #F3CB76;
+}
+
+.btn-interna-marcas-productos {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #98D983;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-marcas-productos:hover {
+    background-color: #ffffff;
+    color: #98D983;
+}
+
+.btn-interna-proveedores {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #D3A5DE;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-proveedores:hover {
+    background-color: #ffffff;
+    color: #D3A5DE;
+}
+
+.btn-interna-marca-vehiculos {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #D1A584;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-marca-vehiculos:hover {
+    background-color: #ffffff;
+    color: #D1A584;
+}
+
+.btn-interna-empleados {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #F0807D;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-empleados:hover {
+     background-color: #ffffff;
+    color: #F0807D;
+}
