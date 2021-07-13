@@ -251,6 +251,8 @@
 .img-btn-del-producto {
     width: 30px;
     vertical-align: bottom;
+    position: relative;
+    left: -61px;
 }
 
 .img-btn-del-producto:hover {
@@ -290,6 +292,7 @@
     position: relative;
     top: 1px;
     left: 305px;
+    visibility: hidden;
 }
 
 .img-btn-edit-url-imagen {
@@ -372,7 +375,8 @@
 }
 
 .txtbox-abm-prod-ean{
-    
+    position: relative;
+    left: -62px;
 }
 
 .txtbox-abm-prod-descripcion {

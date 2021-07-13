@@ -97,7 +97,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -178,7 +178,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -213,7 +213,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -248,7 +248,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -283,7 +283,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -318,7 +318,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -353,7 +353,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -388,7 +388,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -423,7 +423,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -458,7 +458,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -493,7 +493,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -528,7 +528,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 
@@ -543,7 +543,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else
                 {
-                    if (ddlEstado.SelectedIndex == 0)
+                    if (ddlEstado.SelectedValue == "0")
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Seleccione Estado...')", true);
@@ -583,7 +583,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProducto.aspx");
+                Response.Redirect("ABMProductos.aspx");
             }
         }
 

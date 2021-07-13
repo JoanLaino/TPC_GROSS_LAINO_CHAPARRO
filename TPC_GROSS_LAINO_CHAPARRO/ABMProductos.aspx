@@ -12,12 +12,12 @@
         }
     </script>
 
-    <%--<asp:Button ID="btnUpdate" runat="server" OnClick="btnUpdate_Click" Text="Modificar" />--%>
+    <%--<asp:ImageButton ID="btnUpdateGeneral" runat="server" OnClick="btnUpdateGeneral_Click" Text="Actualizar Producto" />--%>
     
     <h1 align="center" class="h1-abm-prod">ABM - Productos</h1>
 
     <br />
-
+    <asp:Button ID="btnBuscarProducto" runat="server" Text="Buscar" keydown="btnBuscarProducto" onclick="btnBuscarProducto_Click" cssclass="btn-buscar-filtro-abm-producto" />
     <asp:TextBox ID="txtEAN" runat="server" placeholder="EAN" Width="200px" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txtbox-abm-prod-ean" ></asp:TextBox>
     <asp:ImageButton ID="btnDelete" runat="server" onclientclick="return confirm('¿Seguro que desea eliminar el producto?');" OnClick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" />
 
@@ -35,9 +35,9 @@
         <asp:ListItem Value="Stock">Stock</asp:ListItem>
         <asp:ListItem Value="Estado">Estado (1/0)</asp:ListItem>
     </asp:DropDownList>
+    
     <asp:TextBox ID="txtCampo" runat="server" PlaceHolder="Ingrese palabra/s clave/s" cssclass="txt-campo-filtro-abm-producto" ></asp:TextBox>
-    <asp:Button ID="btnBuscarProducto" runat="server" Text="Buscar" onclick="btnBuscarProducto_Click" cssclass="btn-buscar-filtro-abm-producto" />
-
+    
     <br /><br />
 
     <asp:TextBox ID="txtDescripcion" runat="server" placeholder="Descripción" Width="200px" MaxLength="60" cssclass="txtbox-abm-prod-descripcion" ></asp:TextBox>
