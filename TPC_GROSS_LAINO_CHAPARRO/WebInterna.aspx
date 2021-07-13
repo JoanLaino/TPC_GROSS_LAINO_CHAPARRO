@@ -5,7 +5,7 @@
 
     <asp:Button ID="btnABMTiposProducto" onclick="btnABMTiposProducto_Click" runat="server" Text="ABM - Tipos de Producto" />
 
-    <asp:Button ID="btnABMMarcasProducto" onclick="btnABMMarcasProducto_Click" runat="server" Text="ABM - Marcas de Productos)" />
+    <asp:Button ID="btnABMMarcasProducto" onclick="btnABMMarcasProducto_Click" runat="server" Text="ABM - Marcas de Productos" />
 
     <asp:Button ID="btnABMProveedores" onclick="btnABMProveedores_Click" runat="server" Text="ABM - Proveedores" />
 

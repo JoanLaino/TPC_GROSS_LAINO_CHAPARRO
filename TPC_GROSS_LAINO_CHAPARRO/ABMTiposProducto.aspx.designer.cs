@@ -15,13 +15,22 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
 
         /// <summary>
-        /// Control lblID.
+        /// Control ddlID.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblID;
+        protected global::System.Web.UI.WebControls.DropDownList ddlID;
+
+        /// <summary>
+        /// Control btnDelete.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnDelete;
 
         /// <summary>
         /// Control txtDescripcion.
@@ -33,12 +42,30 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
 
         /// <summary>
-        /// Control Label1.
+        /// Control btnUpdateDescription.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.ImageButton btnUpdateDescription;
+
+        /// <summary>
+        /// Control btnAddTipoProducto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnAddTipoProducto;
+
+        /// <summary>
+        /// Control dgvTiposProducto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvTiposProducto;
     }
 }

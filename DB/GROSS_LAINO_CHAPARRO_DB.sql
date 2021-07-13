@@ -6,15 +6,13 @@ GO
 
 create table TiposProducto(
 	ID bigint primary key identity (1,1) not null,
-	Descripcion varchar(50) not null,
-	Estado bit not null default (1)
+	Descripcion varchar(50) unique not null
 )
 GO
 
 create table MarcasProducto(
 	ID bigint primary key identity (1,1) not null,
-	Descripcion varchar(50) not null,
-	Estado bit not null default (1)
+	Descripcion varchar(50) not null
 )
 GO
 
@@ -102,7 +100,7 @@ create table Usuarios(
 )
 GO
 
-Create table Empleados(
+create table Empleados(
 	ID bigint primary key identity (1,1) not null,
 	Legajo varchar(6) unique not null,
 	CUIL varchar(13) unique not null,
@@ -115,7 +113,6 @@ Create table Empleados(
 	Estado bit not null default (1)
 )
 GO
-
 
 create table MarcasVehiculo(
 	ID bigint primary key identity (1,1) not null,
@@ -163,7 +160,6 @@ from Inventario as I
 inner join TiposProducto as TP on I.IdTipo = TP.ID
 inner join MarcasProducto as M on I.IdMarca = M.ID
 inner join Proveedores as P on I.IdProveedor = P.ID 
-
 GO
 
 create procedure SP_INSERTAR_PRODUCTO(
@@ -217,23 +213,44 @@ begin
 end
 GO
 
---cosas a agregar--
+create view ExportTiposProducto
+as
+select TP.ID ID, TP.Descripcion Descripcion
+from TiposProducto TP
+GO
 
-Create view Lista_Empleados
+create procedure SP_INSERTAR_TIPO_PRODUCTO(
+	@Descripcion varchar(60)
+)
+as
+begin
+	INSERT INTO TiposProducto(Descripcion) VALUES(@Descripcion)
+end
+GO
+
+create procedure SP_ELIMINAR_TIPO_PRODUCTO(
+	@ID bigint
+)
+as
+begin
+	DELETE FROM TiposProducto WHERE ID = @ID
+end
+GO
+
+Create view ExportEmpleados
 as
 select E.Legajo as Legajo, E.Cuil as Cuil, E.ApeNom as 'Apellido y Nombre', CONVERT(VARCHAR(10),E.FechaAlta,105) as 'Fecha de Alta', 
-CONVERT(VARCHAR(10),e.FechaNacimiento,105) as 'Fecha de Nacimiento', E.Mail as Mail, E.Telefono as Telefono
-from Empleados as E 
+CONVERT(VARCHAR(10),e.FechaNacimiento,105) as 'Fecha de Nacimiento', E.Mail as Mail, E.Telefono as Telefono, E.Estado as Estado
+from Empleados as E
+GO
 
-ALTER TABLE Empleados
-ADD Estado bit not null default (1);
-
-Create view lista_servicios
+Create view ExportServicios
 as 
 select CONVERT(VARCHAR(10),s.FechaRealizacion,105) as 'Fecha de Realizacion', s.PatenteVehiculo as Patente,
 (Select ts.Descripcion from TiposServicio ts where ts.id = s.IdTipo) as 'Tipo de Servicio', s.Comentarios as Comentarios,
 (select c.ApeNom from Clientes c where c.ID = s.IdEmpleado) as Cliente
 from Servicios s
-
+GO
 
 insert into Empleados (Legajo,CUIL,ApeNom,FechaAlta,FechaNacimiento,Mail,Telefono) values ('333','20123456788','Apu Najasamapetilan','10-10-2000','1-1-1980','asdasd@asd.com','1234567890')
+GO

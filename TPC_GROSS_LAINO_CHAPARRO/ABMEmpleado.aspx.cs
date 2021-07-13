@@ -23,7 +23,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             catch (Exception ex)
             {
-                Response.Redirect("https://www.google.com.ar");
                 Session.Add("Error", ex.ToString());
                 Response.Redirect("Error.aspx");
             }

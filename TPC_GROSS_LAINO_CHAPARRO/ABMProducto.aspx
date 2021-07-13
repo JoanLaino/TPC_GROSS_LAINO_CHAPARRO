@@ -36,7 +36,7 @@
     <asp:DropDownList ID="ddlTipoProducto" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-tipo-producto">
         <asp:ListItem Value="0">Tipo de Producto</asp:ListItem>
     </asp:DropDownList>
-    <asp:ImageButton ID="btnUpdateTipoProducto" runat="server" OnClick="btnUpdateTipoProducto_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto img-btn-edit-tipo-producto"/>
+    <asp:ImageButton ID="btnUpdateTipoProducto" runat="server" OnClick="btnUpdateTipoProducto_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto img-btn-edit-abm-prod-tipo-producto"/>
 
     <br /><br />
     

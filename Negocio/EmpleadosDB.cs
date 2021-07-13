@@ -22,23 +22,23 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("select * from Lista_Empleados");
+                datos.SetearConsulta("select * from ExportEmpleados");
                 datos.EjecutarLectura();
 
 
                 //FALTA CREAR EN NEGOCIO LA CLASE LISTAR QUE ES LA QUE TRAE LA LISTA DE SERVICIOS.
-                //servicio.SetearConsulta("select * from Lista_servicios");
+                //servicio.SetearConsulta("select * from ExportServicios");
                 //servicio.EjecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Empleado aux = new Empleado();
 
-                    aux.Legajo = (int) datos.Lector["Legajo"];
+                    aux.Legajo = (string) datos.Lector["Legajo"];
                     aux.CuilCuit = (string)datos.Lector["Cuil"];
                     aux.Name = (string)datos.Lector["Apellido y Nombre"];
-                    aux.FechaAlta = (DateTime)datos.Lector["Fecha de Alta"];
-                    aux.FechaNacimiento= (DateTime)datos.Lector["Fecha de Nacimiento"];
+                    //aux.FechaAlta = (DateTime)datos.Lector["Fecha de Alta"];
+                    //aux.FechaNacimiento= (DateTime)datos.Lector["Fecha de Nacimiento"];
                     aux.Mail = (string)datos.Lector["Mail"];
                     aux.Celular = (string)datos.Lector["Telefono"];                   
                     //aux.servicios = (List<Servicio>)servicio.Listar();
