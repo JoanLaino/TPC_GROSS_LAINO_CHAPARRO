@@ -27,5 +27,16 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 Response.Redirect("Error.aspx");
             }
         }
+
+        protected void buscarEmpleado(object sender, EventArgs e)
+        {
+            List<Empleado> filtro;
+            if (txtFiltro.Text != "")
+            {
+                filtro = lista.FindAll(Art => Art.Name.ToUpper().Contains(txtFiltro.Text.ToUpper()) || Art.CuilCuit.ToUpper().Contains(txtFiltro.Text.ToUpper()) || Art.Legajo.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+                lista = null;
+                lista = filtro;
+            }
+        }
     }
 }
