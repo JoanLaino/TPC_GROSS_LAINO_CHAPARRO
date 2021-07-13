@@ -32,7 +32,7 @@ namespace Negocio
                     aux.Descripción = (string)datos.Lector["Descripción"];
                     aux.Imagen = (string)datos.Lector["Imagen"];
                     aux.TipoProducto = new TipoProducto((string)datos.Lector["TipoProducto"]);
-                    aux.MarcaProducto= new MarcaProducto((string)datos.Lector["Marca"]);
+                    aux.MarcaProducto = new MarcaProducto((string)datos.Lector["Marca"]);
                     aux.Proveedor = new Proveedor((string)datos.Lector["Proveedor"]);
                     aux.Costo = Math.Truncate((decimal)datos.Lector["Costo"] * 100) / 100;
                     aux.PrecioVenta = Math.Truncate((decimal)datos.Lector["PrecioVenta"] * 100) / 100;

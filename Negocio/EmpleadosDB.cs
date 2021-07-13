@@ -37,8 +37,8 @@ namespace Negocio
                     aux.Legajo = (string) datos.Lector["Legajo"];
                     aux.CuilCuit = (string)datos.Lector["Cuil"];
                     aux.Name = (string)datos.Lector["Apellido y Nombre"];
-                    //aux.FechaAlta = (DateTime)datos.Lector["Fecha de Alta"];
-                    //aux.FechaNacimiento= (DateTime)datos.Lector["Fecha de Nacimiento"];
+                    aux.FechaAlta = ((DateTime)datos.Lector["Fecha de Alta"]).ToShortDateString();
+                    aux.FechaNacimiento = ((DateTime)datos.Lector["Fecha de Nacimiento"]).ToShortDateString();
                     aux.Mail = (string)datos.Lector["Mail"];
                     aux.Celular = (string)datos.Lector["Telefono"];                   
                     //aux.servicios = (List<Servicio>)servicio.Listar();

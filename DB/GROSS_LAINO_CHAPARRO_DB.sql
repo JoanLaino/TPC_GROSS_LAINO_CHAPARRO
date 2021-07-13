@@ -237,12 +237,16 @@ begin
 end
 GO
 
-Create view ExportEmpleados
+CREATE view ExportEmpleados
 as
-select E.Legajo as Legajo, E.Cuil as Cuil, E.ApeNom as 'Apellido y Nombre', CONVERT(VARCHAR(10),E.FechaAlta,105) as 'Fecha de Alta', 
-CONVERT(VARCHAR(10),e.FechaNacimiento,105) as 'Fecha de Nacimiento', E.Mail as Mail, E.Telefono as Telefono, E.Estado as Estado
+select E.Legajo as Legajo, E.Cuil as Cuil, E.ApeNom as 'Apellido y Nombre', E.FechaAlta as 'Fecha de Alta', 
+E.FechaNacimiento as 'Fecha de Nacimiento', E.Mail as Mail, E.Telefono as Telefono, E.Estado as Estado
 from Empleados as E
 GO
+
+select * from ExportEmpleados
+
+select * from Empleados
 
 Create view ExportServicios
 as 
