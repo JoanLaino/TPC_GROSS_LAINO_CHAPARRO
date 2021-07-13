@@ -587,5 +587,28 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
         }
 
+        protected void btnBuscarProducto_Click(object sender, EventArgs e)
+        {
+            if(ddlCampo.SelectedValue == "Seleccione...")
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Campo no Seleccionado.')", true);
+            }
+            else if (txtCampo.Text == "")
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Complete el texto para buscar.')", true);
+            }
+            else if(ddlCampo.SelectedValue != "Seleccione" && txtCampo.Text != "")
+            {
+                string Campo = ddlCampo.SelectedValue;
+                string Valor = txtCampo.Text;
+                string selectFiltroProducto = "SELECT * FROM ExportInventario" +
+                                            " WHERE " + Campo + " LIKE '%" + Valor + "%'";
+
+                dgvInventario.DataSource = sentencia.DSET(selectFiltroProducto);
+                dgvInventario.DataBind();
+            }
+        }
     }
 }

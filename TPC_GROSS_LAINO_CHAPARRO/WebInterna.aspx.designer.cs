@@ -15,13 +15,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
 
         /// <summary>
-        /// Control btnABMProducto.
+        /// Control btnABMProductos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnABMProducto;
+        protected global::System.Web.UI.WebControls.Button btnABMProductos;
 
         /// <summary>
         /// Control btnABMTiposProducto.

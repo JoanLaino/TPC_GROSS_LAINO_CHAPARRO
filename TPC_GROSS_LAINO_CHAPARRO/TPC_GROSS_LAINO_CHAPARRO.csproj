@@ -109,7 +109,7 @@
   <ItemGroup>
     <Content Include="ABMEmpleado.aspx" />
     <Content Include="ABMMarcaVehiculo.aspx" />
-    <Content Include="ABMProducto.aspx" />
+    <Content Include="ABMProductos.aspx" />
     <Content Include="ABMTiposProducto.aspx" />
     <Content Include="About.aspx" />
     <Content Include="catalogoProductos.aspx" />
@@ -281,12 +281,12 @@
     <Compile Include="ABMMarcaVehiculo.aspx.designer.cs">
       <DependentUpon>ABMMarcaVehiculo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ABMProducto.aspx.cs">
-      <DependentUpon>ABMProducto.aspx</DependentUpon>
+    <Compile Include="ABMProductos.aspx.cs">
+      <DependentUpon>ABMProductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ABMProducto.aspx.designer.cs">
-      <DependentUpon>ABMProducto.aspx</DependentUpon>
+    <Compile Include="ABMProductos.aspx.designer.cs">
+      <DependentUpon>ABMProductos.aspx</DependentUpon>
     </Compile>
     <Compile Include="ABMTiposProducto.aspx.cs">
       <DependentUpon>ABMTiposProducto.aspx</DependentUpon>

@@ -3,7 +3,7 @@
     <div class="web-interna-botonera">        
         <div>
             <center>
-                <asp:Button ID="btnABMProducto" onclick="btnABMProducto_Click" runat="server" Text="ABM - Productos" CssClass="btn-interna-productos"/>
+                <asp:Button ID="btnABMProductos" onclick="btnABMProductos_Click" runat="server" Text="ABM - Productos" CssClass="btn-interna-productos"/>
             </center>
         </div>
         <div>

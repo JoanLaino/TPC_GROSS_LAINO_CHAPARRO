@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMProducto.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMCatalogo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMProductos.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMCatalogo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <script>
@@ -20,6 +20,23 @@
 
     <asp:TextBox ID="txtEAN" runat="server" placeholder="EAN" Width="200px" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txtbox-abm-prod-ean" ></asp:TextBox>
     <asp:ImageButton ID="btnDelete" runat="server" onclientclick="return confirm('¿Seguro que desea eliminar el producto?');" OnClick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" />
+
+    <asp:DropDownList ID="ddlCampo" runat="server" AppendDataBoundItems="True" CssClass="ddl-campo-filtro-abm-producto" AutoPostBack="True">
+        <asp:ListItem Value="Seleccione..." Selected="True">Seleccione...</asp:ListItem>
+        <asp:ListItem Value="EAN">EAN</asp:ListItem>
+        <asp:ListItem Value="Descripción">Descripción</asp:ListItem>
+        <asp:ListItem Value="Marca">Marca</asp:ListItem>
+        <asp:ListItem Value="TipoProducto">Tipo de producto</asp:ListItem>
+        <asp:ListItem Value="Proveedor">Proveedor</asp:ListItem>
+        <asp:ListItem Value="Fecha de Compra">Fecha de Compra (DD-MM-AAAA)</asp:ListItem>
+        <asp:ListItem Value="Fecha de Vencimiento">Fecha de Vencimiento (DD-MM-AAAA)</asp:ListItem>
+        <asp:ListItem Value="Costo">Costo (solo números)</asp:ListItem>
+        <asp:ListItem Value="PrecioVenta">Precio de Venta (solo números)</asp:ListItem>
+        <asp:ListItem Value="Stock">Stock</asp:ListItem>
+        <asp:ListItem Value="Estado">Estado (1/0)</asp:ListItem>
+    </asp:DropDownList>
+    <asp:TextBox ID="txtCampo" runat="server" PlaceHolder="Ingrese palabra/s clave/s" cssclass="txt-campo-filtro-abm-producto" ></asp:TextBox>
+    <asp:Button ID="btnBuscarProducto" runat="server" Text="Buscar" onclick="btnBuscarProducto_Click" cssclass="btn-buscar-filtro-abm-producto" />
 
     <br /><br />
 
