@@ -44,6 +44,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         public void BindData()
         {
+            txtCampo.Text = "";
+            txtEAN.Text = "";
+            txtDescripcion.Text = "";
+            txtUrlImagen.Text = "";
+            ddlTipoProducto.SelectedValue = "0";
+            ddlMarcaProducto.SelectedValue = "0";
+            ddlProveedor.SelectedValue = "0";
+            txtFechaCompra.Text = "";
+            txtFechaVencimiento.Text = "";
+            txtCosto.Text = "";
+            txtPrecioVenta.Text = "";
+            txtStock.Text = "";
+            ddlEstado.SelectedValue = "0";
+
             string selectViewInventario = "SELECT * FROM ExportInventario";
 
             dgvInventario.DataSource = sentencia.DSET(selectViewInventario);
@@ -97,7 +111,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                //BindData();
             }
         }
 
@@ -178,7 +192,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -213,7 +227,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -248,7 +262,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -283,7 +297,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -318,7 +332,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -353,7 +367,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -388,7 +402,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -423,7 +437,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -458,7 +472,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -493,7 +507,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -528,7 +542,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
@@ -583,31 +597,64 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             finally
             {
-                Response.Redirect("ABMProductos.aspx");
+                BindData();
             }
         }
 
         protected void btnBuscarProducto_Click(object sender, EventArgs e)
         {
-            if(ddlCampo.SelectedValue == "Seleccione...")
+            AccesoDatos datos = new AccesoDatos();
+            try
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Campo no Seleccionado.')", true);
-            }
-            else if (txtCampo.Text == "")
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Complete el texto para buscar.')", true);
-            }
-            else if(ddlCampo.SelectedValue != "Seleccione" && txtCampo.Text != "")
-            {
-                string Campo = ddlCampo.SelectedValue;
-                string Valor = txtCampo.Text;
-                string selectFiltroProducto = "SELECT * FROM ExportInventario" +
-                                            " WHERE " + Campo + " LIKE '%" + Valor + "%'";
+                if (txtCampo.Text == "")
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('No se ha ingresado ningún EAN.')", true);
 
-                dgvInventario.DataSource = sentencia.DSET(selectFiltroProducto);
-                dgvInventario.DataBind();
+                    BindData();
+                }
+                else
+                {
+                    string Valor = txtCampo.Text;
+
+                    string selectDgvProducto = "SELECT * from ExportInventario " +
+                                               "WHERE EAN = '" + Valor + "'";
+
+                    string selectCamposProducto = "Select EAN, Descripcion, UrlImagen, Convert(varchar(10), IdTipo) IdTipo, Convert(varchar(10), IdMarca) IdMarca, Convert(varchar(10), IdProveedor) IdProveedor, Convert(varchar(10), FechaCompra, 105) FechaCompra, Convert(varchar(10), FechaVencimiento, 105) FechaVencimiento, Convert(varchar(10), Costo) Costo, Convert(varchar(10), PrecioVenta) PrecioVenta, Convert(varchar(10), Stock) Stock, Convert(varchar(10), Estado) Estado from Inventario" +
+                                                " WHERE EAN = '" + Valor + "'";
+
+                    datos.SetearConsulta(selectCamposProducto);
+                    datos.EjecutarLectura();
+
+
+                    if (datos.Lector.Read() == true)
+                    {
+                        txtEAN.Text = Convert.ToString(datos.Lector["EAN"]);
+                        txtDescripcion.Text = (string)datos.Lector["Descripcion"];
+                        txtUrlImagen.Text = (string)datos.Lector["UrlImagen"];
+                        ddlTipoProducto.SelectedValue = datos.Lector["IdTipo"].ToString();
+                        ddlMarcaProducto.SelectedValue = datos.Lector["IdMarca"].ToString();
+                        ddlProveedor.SelectedValue = datos.Lector["IdProveedor"].ToString();
+                        txtFechaCompra.Text = datos.Lector["FechaCompra"].ToString();
+                        txtFechaVencimiento.Text = datos.Lector["FechaVencimiento"].ToString();
+                        txtCosto.Text = datos.Lector["Costo"].ToString();
+                        txtPrecioVenta.Text = datos.Lector["PrecioVenta"].ToString();
+                        txtStock.Text = datos.Lector["Stock"].ToString();
+                        if (datos.Lector["Estado"].ToString() == "1") { ddlEstado.SelectedValue = "1"; }
+                        else { ddlEstado.SelectedValue = "2"; }
+
+                        dgvInventario.DataSource = sentencia.DSET(selectDgvProducto);
+                        dgvInventario.DataBind();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
             }
         }
     }

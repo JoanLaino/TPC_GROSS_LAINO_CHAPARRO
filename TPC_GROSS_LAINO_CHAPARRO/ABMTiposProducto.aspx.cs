@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
-using Dominio;
 
 namespace TPC_GROSS_LAINO_CHAPARRO
 {
@@ -40,11 +39,35 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void ddlID_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlID.SelectedIndex == 0)
+            //AccesoDatos datos = new AccesoDatos();
+            try
             {
-                txtDescripcion.Text = "";
+                //string selectExportInventario = "select * from ExportTiposProducto where ID = '" + ddlID.SelectedItem + "'";
+                //datos.SetearConsulta(selectExportInventario);
+                //datos.EjecutarLectura();
+                if (ddlID.SelectedIndex == 0)
+                {
+                    txtDescripcion.Text = "";
+
+                    BindData();
+                }
+                else /*if (datos.Lector.Read() == true)*/
+                {
+                    txtDescripcion.Text = Convert.ToString(ddlID.SelectedValue);
+                    string Valor = Convert.ToString(ddlID.SelectedValue);
+                    string selectFiltroTipoProducto = "SELECT * FROM ExportTiposProducto" +
+                                                " WHERE Descripcion LIKE '%" + Valor + "%'";
+
+                    //txtDescripcion.Text = (string)datos.Lector["Descripcion"];
+                    dgvTiposProducto.DataSource = sentencia.DSET(selectFiltroTipoProducto);
+                    dgvTiposProducto.DataBind();
+                }
             }
-            else { txtDescripcion.Text = Convert.ToString(ddlID.SelectedValue); }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -67,13 +90,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                     BindData();
 
-                    Response.Redirect("ABMTiposProducto.aspx");
+                    //Response.Redirect("ABMTiposProducto.aspx");
                 }
             }
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('El tipo de producto seleccionado está asignado a uno o varios productos y no se puede eliminar.')", true);
+                BindData();
             }
         }
 
@@ -97,13 +121,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                     BindData();
 
-                    Response.Redirect("ABMTiposProducto.aspx");
+                    //Response.Redirect("ABMTiposProducto.aspx");
                 }
             }
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el tipo de producto.')", true);
+                BindData();
             }
         }
 
@@ -126,13 +151,31 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                     BindData();
 
-                    Response.Redirect("ABMTiposProducto.aspx");
+                    //Response.Redirect("ABMTiposProducto.aspx");
                 }
             }
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Error. Ya existe el tipo de producto ingresado.')", true);
+                BindData();
+            }
+        }
+
+        protected void btnBuscarTipoProducto_Click(object sender, EventArgs e)
+        {
+            if (txtDescripcion.Text == "")
+            {
+                BindData();
+            }
+            else if (txtDescripcion.Text != "")
+            {
+                string Valor = txtDescripcion.Text;
+                string selectFiltroTipoProducto = "SELECT * FROM ExportTiposProducto" +
+                                            " WHERE Descripcion LIKE '%" + Valor + "%'";
+
+                dgvTiposProducto.DataSource = sentencia.DSET(selectFiltroTipoProducto);
+                dgvTiposProducto.DataBind();
             }
         }
     }

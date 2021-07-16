@@ -20,6 +20,8 @@
         }
      </script>
 
+    <asp:Button ID="btnBuscarTipoProducto" runat="server" Text="Buscar" onclick="btnBuscarTipoProducto_Click" Style="visibility:hidden;" />
+
     <asp:DropDownList ID="ddlID" runat="server" Width="50px" AppendDataBoundItems="true" CssClass="ddl-abm-tipos-prod-id" AutoPostBack="True" OnSelectedIndexChanged="ddlID_SelectedIndexChanged">
         <asp:ListItem Value="0" Selected="True">ID</asp:ListItem>
     </asp:DropDownList>
@@ -28,7 +30,7 @@
     <asp:TextBox ID="txtDescripcion" runat="server" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" Width="200px" Style="position: relative; top: 0px; left: 68px;" ></asp:TextBox>
     <asp:ImageButton ID="btnUpdateDescription" runat="server" onclick="btnUpdateDescription_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-tipo-producto img-btn-edit-descripcion-tipo-producto" />
     
-    <asp:ImageButton ID="btnAddTipoProducto" runat="server" onclientclick="return confirm('¿Confirma agregar nuevo tipo de producto?');" onclick="btnAddTipoProducto_Click" ImageUrl="~/img/add-logo.png" cssclass="img-btn-add-tipo-producto" />
+    <asp:ImageButton ID="btnAddTipoProducto" runat="server" AutoPostBack="True" onclientclick="return confirm('¿Confirma agregar nuevo tipo de producto?');" onclick="btnAddTipoProducto_Click" ImageUrl="~/img/add-logo.png" cssclass="img-btn-add-tipo-producto" />
 
     <br /><br />
 
