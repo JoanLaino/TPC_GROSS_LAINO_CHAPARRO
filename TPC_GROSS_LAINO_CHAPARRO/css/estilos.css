@@ -240,19 +240,14 @@
 }
 
 .h1-abm-prod {
-    text-align: center;
+    text-align: left;
     font-size: calc(2em + 1vw);
     color: #142382;
     text-shadow: 1px 1px 0 #ffffff;
-    position: relative;
-    left: -59px;
 }
 
 .img-btn-del-producto {
     width: 30px;
-    vertical-align: bottom;
-    position: relative;
-    left: 359px;
 }
 
 .img-btn-del-producto:hover {
@@ -262,10 +257,6 @@
 
 .img-btn-edit-producto {
     width: 20px;
-    vertical-align: bottom;
-    position: relative;
-    top: -5px;
-    left: 0px;
 }
 
 .img-btn-edit-producto:hover {
@@ -273,86 +264,20 @@
     background-color: black;
 }
 
-.txt-campo-filtro-abm-producto{
+.txt-campo-filtro-abm-producto {
     width: 200px;
-    position: relative;
-    left: 120px;
     height: 27px;
+    vertical-align: middle;
 }
 
 .btn-buscar-filtro-abm-producto{
-    height: 27px;
-    position: relative;
-    top: 1px;
-    left: 358px;
-}
-
-.img-btn-edit-url-imagen {
-    position: relative;
-    top: -58px;
-    left: 270px;
-}
-
-.img-btn-edit-abm-prod-tipo-producto {
-    position: relative;
-    top: -110px;
-    left: 541px;
-}
-
-.img-btn-edit-marca-producto {
-    position: relative;
-    top: -160px;
-    left: 810px;
-}
-
-.img-btn-edit-proveedor {
-    position: relative;
-    top: -159px;
-    left: 0px;
-}
-
-.img-btn-edit-fecha-compra {
-    position: relative;
-    top: -212px;
-    left: 187px !important;
-}
-
-.img-btn-edit-fecha-vencimiento {
-    position: relative;
-    top: -265px;
-    left: 438px;
-}
-
-.img-btn-edit-costo {
-    position: relative;
-    top: -266px;
-    left: 0px;
-}
-
-.img-btn-edit-precio-venta {
-    position: relative;
-    top: -319px;
-    left: 270px;
-}
-
-.img-btn-edit-stock {
-    position: relative;
-    top: -373px;
-    left: 541px;
-}
-
-.img-btn-edit-estado-producto {
-    position: relative;
-    top: -505px;
-    left: 811px;
+    width: 30px;
+    vertical-align: middle;
 }
 
 .img-btn-add-producto {
     width: 50px;
-    vertical-align: bottom;
-    position: relative;
-    top: -473px;
-    left: 0px;
+    vertical-align: middle;
 }
 
 .img-btn-add-producto:hover {
@@ -360,106 +285,7 @@
     box-shadow: 0 0 10px black;
 }
 
-.lbl-add-abm-prod{
-    position: relative;
-    top: -487px;
-    left: 2px;
-}
-
-.txtbox-abm-prod-ean{
-    position: relative;
-    left: -62px;
-}
-
-.txtbox-abm-prod-descripcion {
-
-}
-
-.txtbox-abm-prod-url-imagen {
-    position: relative;
-    top: -53px;
-    left: 270px;
-}
-
-.ddl-abm-prod-tipo-producto {
-    position: relative;
-    top: -106px;
-    left: 540px;
-    text-align: center;
-}
-
-.ddl-abm-prod-marca-producto {
-    position: relative;
-    top: -157px;
-    left: 810px;
-    text-align: center;
-}
-
-.ddl-abm-prod-proveedor {
-    position: relative;
-    top: -155px;
-    left: 0px;
-    text-align: center;
-}
-
-.lbl-fecha-compra-abm-prod {
-    position: relative !important;
-    top: -232px !important;
-    left: 270px !important;
-    font-size: 10px !important;
-}
-
-.txtbox-abm-prod-fecha-compra {
-    position: relative !important;
-    top: -207px !important;
-    left: 186px !important;
-    height: 29px !important;
-}
-
-.lbl-fecha-vencimiento-abm-prod {
-    position: relative !important;
-    top: -285px !important;
-    left: 540px !important;
-    font-size: 10px !important;
-}
-
-.txtbox-abm-prod-fecha-vencimiento {
-    position: relative;
-    top: -260px;
-    left: 437px;
-    height: 29px;
-}
-
-.txtbox-abm-prod-costo {
-    position: relative;
-    top: -261px;
-    left: 0px;
-}
-
-.txtbox-abm-prod-precio-venta {
-    position: relative;
-    top: -315px;
-    left: 270px;
-}
-
-.txtbox-abm-prod-stock {
-    position: relative;
-    top: -369px;
-    left: 540px;
-}
-
-.ddl-abm-prod-estado-producto {
-    position: relative;
-    top: -474px;
-    left: 811px;
-    height: 81px;
-    text-align: center;
-}
-
 .dgv-abm-prod {
-    position: relative;
-    top: -500px;
-    left: -63px;
     text-align: center;
 }
 
@@ -481,7 +307,7 @@
     left: 69px;
 }
 
-.img-btn-edit-tipo-producto:hover {
+.img-btn-edit:hover {
     box-shadow: 0 0 10px black;
     background-color: black;
 }
@@ -493,10 +319,6 @@
 
 .img-btn-add-tipo-producto {
     width: 30px;
-    vertical-align: bottom;
-    position: relative;
-    top: -1px;
-    left: -203px;
 }
 
 .img-btn-add-tipo-producto:hover {
@@ -657,4 +479,33 @@
 .btn-interna-empleados:hover {
      background-color: #ffffff;
     color: #F0807D;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.overlay {
+    background: rgba(0,0,0,.3);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    visibility: hidden;
+}
+
+.overlay.active {
+    visibility: visible;
 }
