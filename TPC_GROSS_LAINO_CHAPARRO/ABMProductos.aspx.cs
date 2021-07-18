@@ -39,16 +39,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlProveedor.DataBind();
 
                 BindData();
-
-                btnUpdate.Enabled = false;
-                btnDelete.Enabled = false;
             }
+
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
         }
 
         public void BindData()
         {
-            txtCampo.Text = "";
-            txtEAN.Text = "";
+            txtEan.Text = "";
             txtDescripcion.Text = "";
             txtUrlImagen.Text = "";
             ddlTipoProducto.SelectedValue = "0";
@@ -71,7 +70,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtEAN.Text == "" || txtDescripcion.Text == "" || txtUrlImagen.Text == ""
+                if (txtEan.Text == "" || txtDescripcion.Text == "" || txtUrlImagen.Text == ""
                     || txtFechaCompra.Text == "" || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
                     || txtStock.Text == "" || ddlMarcaProducto.SelectedIndex == 0 ||
                     ddlTipoProducto.SelectedIndex == 0 || ddlProveedor.SelectedIndex == 0)
@@ -81,7 +80,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else
                 {
-                    string EAN = txtEAN.Text;
+                    string EAN = txtEan.Text;
                     string Descripcion = txtDescripcion.Text;
                     string Imagen = txtUrlImagen.Text;
                     int IdTipoProducto = Convert.ToInt32(ddlTipoProducto.SelectedValue);
@@ -118,7 +117,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtEAN.Text == "" || txtDescripcion.Text == "" || txtUrlImagen.Text == ""
+                if (txtEan.Text == "" || txtDescripcion.Text == "" || txtUrlImagen.Text == ""
                     || ddlTipoProducto.SelectedIndex == 0 || ddlMarcaProducto.SelectedIndex == 0
                     || ddlProveedor.SelectedIndex == 0 || txtFechaCompra.Text == ""
                     || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
@@ -129,7 +128,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else
                 {
-                    string EAN = txtEAN.Text;
+                    string EAN = txtEan.Text;
                     string Descripcion = txtDescripcion.Text;
                     string Imagen = txtUrlImagen.Text;
                     int IdTipoProducto = Convert.ToInt32(ddlTipoProducto.SelectedValue);
@@ -141,7 +140,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string PrecioVenta = txtPrecioVenta.Text;
                     int Stock = Convert.ToInt32(txtStock.Text);
                     int Estado = 0;
-                    if (ddlEstado.SelectedValue == "Activar") { Estado = 1; }
+                    if (ddlEstado.SelectedValue == "1") { Estado = 1; }
 
                     string sp_UpdateInventario = "EXEC SP_ACTUALIZAR_PRODUCTO '" + EAN + "', '" + Descripcion + "', '" + Imagen + "', " + IdTipoProducto
                     + ", " + IdMarca + ", " + IdProveedor + ", '" + FechaCompra.ToShortDateString() + "', '" + FechaVencimiento.ToShortDateString() + "', '" + Costo + "', '" + PrecioVenta
@@ -166,7 +165,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtEAN.Text == "")
+                if (txtEan.Text == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('El EAN no puede estar vacío.')", true);
@@ -174,7 +173,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 else
                 {
 
-                    string EAN = txtEAN.Text;
+                    string EAN = txtEan.Text;
 
                     string sp_DeleteInventario = "EXEC SP_ELIMINAR_PRODUCTO '" + EAN + "'";
 
@@ -607,7 +606,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                if (txtCampo.Text == "")
+                if (txtEan.Text == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('No se ha ingresado ningún EAN.')", true);
@@ -616,7 +615,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else
                 {
-                    string Valor = txtCampo.Text;
+                    string Valor = txtEan.Text;
 
                     string selectDgvProducto = "SELECT * from ExportInventario " +
                                                "WHERE EAN = '" + Valor + "'";
@@ -630,7 +629,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                     if (datos.Lector.Read() == true)
                     {
-                        txtEAN.Text = Convert.ToString(datos.Lector["EAN"]);
                         txtDescripcion.Text = (string)datos.Lector["Descripcion"];
                         txtUrlImagen.Text = (string)datos.Lector["UrlImagen"];
                         ddlTipoProducto.SelectedValue = datos.Lector["IdTipo"].ToString();

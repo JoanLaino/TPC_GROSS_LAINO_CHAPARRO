@@ -5,9 +5,11 @@
 
     <br />
 
-    <asp:TextBox ID="txtCampo" runat="server" PlaceHolder="Ingrese un EAN" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txt-campo-filtro-abm-producto" ></asp:TextBox>
-    <asp:ImageButton id="imgBtnBuscarProducto" runat="server" AutoPostBack="false" OnClick="imgBtnBuscarProducto_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm-producto" />
-    
+    <asp:ImageButton id="imgBtnBuscarProducto" runat="server" OnClick="imgBtnBuscarProducto_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm-producto" />
+    <asp:TextBox ID="txtEan" runat="server" PlaceHolder="Ingrese un EAN" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txt-campo-filtro-abm-producto" ></asp:TextBox>
+
+    <button id="btnAddNewProduct" class="btnAddNewProduct">Agregar Nuevo</button>
+
     <br /><br />
 
     <%--<asp:DropDownList ID="ddlCampo" runat="server" AppendDataBoundItems="True" CssClass="ddl-campo-filtro-abm-producto" AutoPostBack="True" Visible="false">
@@ -25,14 +27,79 @@
 
     <br /><br />--%>
     
-    <asp:ImageButton ID="btnAgregarProducto" runat="server" AutoPostBack="false" ImageUrl="~/img/add-logo.png" cssclass="img-btn-add-producto" CausesValidation="False" />
-    <asp:Label ID="lblAgregarProducto" runat="server" Text="Agregar Nuevo Producto" Style="vertical-align:middle;"></asp:Label>
-    
+    <table BorderStyle="Inset" BorderWidth="5px" style="width:60%; border: solid; border-color: black; background-color: rgb(255 255 255);">
+
+        <tr align="center">
+            <center>
+            <td>
+                <asp:TextBox ID="txtDescripcion" runat="server" placeholder="Descripción" Width="200px" MaxLength="60" cssclass="txtbox-abm-prod-descripcion" ></asp:TextBox>
+            </td>
+            <td>
+               <span>Editar</span>
+                <asp:ImageButton ID="btnUpdate" runat="server" onclientclick="return confirm('¿Seguro que desea actualizar el producto?');" OnClick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto" Style="width: 30px" />
+                &nbsp;&nbsp;&nbsp;
+                <asp:ImageButton ID="btnDelete" runat="server" onclientclick="return confirm('¿Seguro que desea eliminar el producto?');" OnClick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" />
+                <span>Eliminar</span>
+            </td>
+            <td>
+                <asp:TextBox ID="txtUrlImagen" runat="server" placeholder="Url de Imágen" Width="200px" MaxLength="300" Rows="1" TextMode="Url" cssclass="txtbox-abm-prod-url-imagen" ></asp:TextBox>
+            </td>
+            </center>
+        </tr>
+
+        <tr align="center">
+            <td>
+                <asp:DropDownList ID="ddlTipoProducto" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-tipo-producto">
+                    <asp:ListItem Value="0">Tipo de Producto</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddlMarcaProducto" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-marca-producto">
+                    <asp:ListItem Value="0">Marca</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddlProveedor" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-proveedor">
+                    <asp:ListItem Value="0">Proveedor</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+        </tr>
+
+        <tr align="center">
+            <td>
+                <asp:TextBox ID="txtFechaCompra" runat="server" placeholder="Fecha de Compra" Width="200px" MaxLength="10" cssclass="txtbox-abm-prod-fecha-compra" ></asp:TextBox>
+            </td>
+            <td>
+                <asp:TextBox ID="txtFechaVencimiento" runat="server" placeholder="Fecha de Vencimiento" Width="200px" MaxLength="10" cssclass="txtbox-abm-prod-fecha-vencimiento" ></asp:TextBox>
+            </td>
+            <td>
+                <asp:TextBox ID="txtCosto" runat="server" placeholder="Costo" Width="200px" cssclass="txtbox-abm-prod-costo" ></asp:TextBox>
+            </td>
+        </tr>
+
+        <tr align="center">
+            <td>
+                <asp:TextBox ID="txtPrecioVenta" runat="server" placeholder="Precio de Venta" Width="200px" cssclass="txtbox-abm-prod-precio-venta" ></asp:TextBox>
+            </td>
+            <td>
+                <asp:TextBox ID="txtStock" runat="server" placeholder="Stock" Width="200px" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txtbox-abm-prod-stock"></asp:TextBox>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddlEstado" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-estado-producto">
+                    <asp:ListItem Value="0" Selected="True">Estado</asp:ListItem>
+                    <asp:ListItem Value="1" >Activar</asp:ListItem>
+                    <asp:ListItem Value="2" >Desactivar</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+        </tr>
+
+	</table>
+
     <div id="overlay" class="overlay" align="center">
 
         <div id="popup" class="popup active">
 
-		        <table style="width:60%; border: solid; border-color: black; background-color: rgb(255 255 255);">
+		        <table style="width:80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
 
                     <tr align="center">
                         <td>
@@ -40,47 +107,35 @@
                         <td>
                         </td>
                         <td align="right" style="padding-right: 1rem; padding-top: .5rem;">
-                            <asp:Button ID="btnCerraPopup" Text="X" runat="server" onclick="btnCerraPopup_Click" />
+                            <asp:Button ID="btnCerraPopup" Text="X" runat="server" cssclass="btn-cerrar-popup" onclick="btnCerraPopup_Click" />
                         </td>
-                    </tr>
-
-                    <tr align="center">
-                        <td></td>
-                        <td>
-                            <span>Editar</span>
-                            <asp:ImageButton ID="btnUpdate" runat="server" onclientclick="return confirm('¿Seguro que desea actualizar el producto?');" OnClick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto" Style="width: 30px" />
-                            &nbsp;&nbsp;&nbsp;
-                            <asp:ImageButton ID="btnDelete" runat="server" onclientclick="return confirm('¿Seguro que desea eliminar el producto?');" OnClick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" />
-                            <span>Eliminar</span>
-                        </td>
-                        <td></td>
                     </tr>
                     
                     <tr align="center">
                         <td>
-                            <asp:TextBox ID="txtEAN" runat="server" placeholder="EAN" Width="200px" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txtbox-abm-prod-ean" ></asp:TextBox>
+                            <asp:TextBox ID="TextBox1" runat="server" placeholder="EAN" Width="200px" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txtbox-abm-prod-ean" ></asp:TextBox>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtDescripcion" runat="server" placeholder="Descripción" Width="200px" MaxLength="60" cssclass="txtbox-abm-prod-descripcion" ></asp:TextBox>
+                            <asp:TextBox ID="TextBox2" runat="server" placeholder="Descripción" Width="200px" MaxLength="60" cssclass="txtbox-abm-prod-descripcion" ></asp:TextBox>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtUrlImagen" runat="server" placeholder="Url de Imágen" Width="200px" MaxLength="300" Rows="1" TextMode="Url" cssclass="txtbox-abm-prod-url-imagen" ></asp:TextBox>
+                            <asp:TextBox ID="TextBox3" runat="server" placeholder="Url de Imágen" Width="200px" MaxLength="300" Rows="1" TextMode="Url" cssclass="txtbox-abm-prod-url-imagen" ></asp:TextBox>
                         </td>
                     </tr>
 
                     <tr align="center">
                         <td>
-                            <asp:DropDownList ID="ddlTipoProducto" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-tipo-producto">
+                            <asp:DropDownList ID="DropDownList1" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-tipo-producto">
                                 <asp:ListItem Value="0">Tipo de Producto</asp:ListItem>
                             </asp:DropDownList>
                         </td>
                         <td>
-                            <asp:DropDownList ID="ddlMarcaProducto" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-marca-producto">
+                            <asp:DropDownList ID="DropDownList2" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-marca-producto">
                                 <asp:ListItem Value="0">Marca</asp:ListItem>
                             </asp:DropDownList>
                         </td>
                         <td>
-                            <asp:DropDownList ID="ddlProveedor" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-proveedor">
+                            <asp:DropDownList ID="DropDownList3" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-proveedor">
                                 <asp:ListItem Value="0">Proveedor</asp:ListItem>
                             </asp:DropDownList>
                         </td>
@@ -88,29 +143,39 @@
 
                     <tr align="center">
                         <td>
-                            <asp:TextBox ID="txtFechaCompra" runat="server" placeholder="Fecha de Compra" Width="200px" MaxLength="10" cssclass="txtbox-abm-prod-fecha-compra" ></asp:TextBox>
+                            <asp:TextBox ID="TextBox4" runat="server" placeholder="Fecha de Compra" Width="200px" MaxLength="10" cssclass="txtbox-abm-prod-fecha-compra" ></asp:TextBox>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtFechaVencimiento" runat="server" placeholder="Fecha de Vencimiento" Width="200px" MaxLength="10" cssclass="txtbox-abm-prod-fecha-vencimiento" ></asp:TextBox>
+                            <asp:TextBox ID="TextBox5" runat="server" placeholder="Fecha de Vencimiento" Width="200px" MaxLength="10" cssclass="txtbox-abm-prod-fecha-vencimiento" ></asp:TextBox>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtCosto" runat="server" placeholder="Costo" Width="200px" cssclass="txtbox-abm-prod-costo" ></asp:TextBox>
+                            <asp:TextBox ID="TextBox6" runat="server" placeholder="Costo" Width="200px" cssclass="txtbox-abm-prod-costo" ></asp:TextBox>
                         </td>
                     </tr>
 
                     <tr align="center">
                         <td>
-                            <asp:TextBox ID="txtPrecioVenta" runat="server" placeholder="Precio de Venta" Width="200px" cssclass="txtbox-abm-prod-precio-venta" ></asp:TextBox>
+                            <asp:TextBox ID="TextBox7" runat="server" placeholder="Precio de Venta" Width="200px" cssclass="txtbox-abm-prod-precio-venta" ></asp:TextBox>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtStock" runat="server" placeholder="Stock" Width="200px" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txtbox-abm-prod-stock"></asp:TextBox>
+                            <asp:TextBox ID="TextBox8" runat="server" placeholder="Stock" Width="200px" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txtbox-abm-prod-stock"></asp:TextBox>
                         </td>
                         <td>
-                            <asp:DropDownList ID="ddlEstado" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-estado-producto">
+                            <asp:DropDownList ID="DropDownList4" runat="server" Width="200px" AppendDataBoundItems="true" CssClass="ddl-abm-prod-estado-producto">
                                 <asp:ListItem Value="0" Selected="True">Estado</asp:ListItem>
                                 <asp:ListItem Value="1" >Activar</asp:ListItem>
                                 <asp:ListItem Value="2" >Desactivar</asp:ListItem>
                             </asp:DropDownList>
+                        </td>
+                    </tr>
+
+                    <tr align="center">
+                        <td>
+                        </td>
+                        <td>
+                            <asp:Button ID="imgBtnAgregarProducto" Text="Agregar" runat="server" onclientclick="return confirm('¿Confirma que desea agregar el nuevo producto?');" onclick="btnAdd_Click" cssclass="img-btn-add-producto" />
+                        </td>
+                        <td>
                         </td>
                     </tr>
 
@@ -120,7 +185,7 @@
 
     </div>
 
-    <br /><br /><br />
+    <br />
     
     <center>
         <asp:GridView ID="dgvInventario" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
@@ -166,18 +231,21 @@
     </script>
 
     <script>
-        var btnAbrirPopup = document.getElementById('imgBtnBuscarProducto'),
+        var btnAbrirPopup = document.getElementById('btnAddNewProduct'),
             overlay = document.getElementById('overlay'),
-            btnCerrarPopup = document.getElementById('btnCerraPopup');
+            popup = document.getElementById('popup'),
+            btnCerrarPopup = document.getElementById('btn-cerrar-popup');
 
-        btnAbrirPopup.addEventListener('click', function () {
+        btnAbrirPopup.addEventListener('click', function (e) {
+            e.preventDefault();
             overlay.classList.add('active');
+            popup.classList.add('active');
         });
 
         btnCerrarPopup.addEventListener('click', function (e) {
             e.preventDefault();
             overlay.classList.remove('active');
+            popup.classList.remove('active');
         });
     </script>
-
 </asp:Content>

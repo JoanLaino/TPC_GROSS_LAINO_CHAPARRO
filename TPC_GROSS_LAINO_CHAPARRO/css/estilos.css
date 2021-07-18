@@ -248,6 +248,8 @@
 
 .img-btn-del-producto {
     width: 30px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 .img-btn-del-producto:hover {
@@ -257,6 +259,8 @@
 
 .img-btn-edit-producto {
     width: 20px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 .img-btn-edit-producto:hover {
@@ -275,14 +279,75 @@
     vertical-align: middle;
 }
 
-.img-btn-add-producto {
-    width: 50px;
+.btn-buscar-filtro-abm-producto:hover {
+    box-shadow: 0 0 10px black;
+    background-color: black;
+}
+
+.btnAddNewProduct {
     vertical-align: middle;
+    color: #ffffff;
+    background-color: #98D983;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+}
+
+.btnAddNewProduct:hover {
+    vertical-align: middle;
+    background-color: #ffffff;
+    color: #98D983;
+}
+
+.img-btn-add-producto {
+    width: 100px;
+    vertical-align: middle;
+    border-radius: 100px;
+    background-color: transparent;
+    color: green;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
 }
 
 .img-btn-add-producto:hover {
     border-radius: 100px;
     box-shadow: 0 0 10px black;
+    background-color: darkgreen;
+    color: white;
+}
+
+.btn-cerrar-popup {
+    border-radius: 100px;
+    font-weight: 600;
+    background-color: transparent;
+    color: red;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+}
+
+.btn-cerrar-popup:hover {
+    box-shadow: 0 0 10px black;
+    background-color: darkred;
+    color: white;
 }
 
 .dgv-abm-prod {
@@ -480,6 +545,15 @@
      background-color: #ffffff;
     color: #F0807D;
 }
+
+
+
+
+
+
+
+
+
 
 
 
