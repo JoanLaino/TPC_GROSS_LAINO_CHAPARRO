@@ -269,7 +269,7 @@
 }
 
 .txt-campo-filtro-abm-producto {
-    width: 200px;
+    width: 320px;
     height: 27px;
     vertical-align: middle;
 }
@@ -298,9 +298,35 @@
     font-weight: 600;
     text-shadow: black 0.1em 0.1em 1.9em;
     box-shadow: 0 4px 6px -6px black;
+    position: relative;
+    left: 304px;
 }
 
 .btnAddNewProduct:hover {
+    vertical-align: middle;
+    background-color: #ffffff;
+    color: #98D983;
+}
+
+.btnAddNewProductType {
+    vertical-align: middle;
+    color: #ffffff;
+    background-color: #98D983;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    position: relative;
+    left: 8px;
+}
+
+.btnAddNewProductType:hover {
     vertical-align: middle;
     background-color: #ffffff;
     color: #98D983;
@@ -356,7 +382,6 @@
 
 .img-btn-del-tipo-producto {
     width: 30px;
-    vertical-align: bottom;
 }
 
 .img-btn-del-tipo-producto:hover {
@@ -366,10 +391,6 @@
 
 .img-btn-edit-tipo-producto {
     width: 27px;
-    vertical-align: text-top;
-    position: relative;
-    top: -4px;
-    left: 69px;
 }
 
 .img-btn-edit:hover {

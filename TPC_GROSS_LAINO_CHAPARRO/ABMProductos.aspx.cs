@@ -70,29 +70,29 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtEan.Text == "" || txtDescripcion.Text == "" || txtUrlImagen.Text == ""
-                    || txtFechaCompra.Text == "" || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
-                    || txtStock.Text == "" || ddlMarcaProducto.SelectedIndex == 0 ||
-                    ddlTipoProducto.SelectedIndex == 0 || ddlProveedor.SelectedIndex == 0)
+                if (txtEan2.Text == "" || txtDescripcion2.Text == "" || txtUrlImagen2.Text == ""
+                    || txtFechaCompra2.Text == "" || txtFechaVencimiento2.Text == "" || txtCosto2.Text == ""
+                    || txtStock2.Text == "" || ddlMarcaProducto2.SelectedIndex == 0 ||
+                    ddlTipoProducto2.SelectedIndex == 0 || ddlProveedor2.SelectedIndex == 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Hay campos vacíos')", true);
+                    "alert('Hay campos vacíos o sin seleccionar.')", true);
                 }
                 else
                 {
-                    string EAN = txtEan.Text;
-                    string Descripcion = txtDescripcion.Text;
-                    string Imagen = txtUrlImagen.Text;
-                    int IdTipoProducto = Convert.ToInt32(ddlTipoProducto.SelectedValue);
-                    int IdMarca = Convert.ToInt32(ddlMarcaProducto.SelectedValue);
-                    int IdProveedor = Convert.ToInt32(ddlProveedor.SelectedValue);
-                    DateTime FechaCompra = Convert.ToDateTime(txtFechaCompra.Text);
-                    DateTime FechaVencimiento = Convert.ToDateTime(txtFechaVencimiento.Text);
+                    string EAN = txtEan2.Text;
+                    string Descripcion = txtDescripcion2.Text;
+                    string Imagen = txtUrlImagen2.Text;
+                    int IdTipoProducto = Convert.ToInt32(ddlTipoProducto2.SelectedValue);
+                    int IdMarca = Convert.ToInt32(ddlMarcaProducto2.SelectedValue);
+                    int IdProveedor = Convert.ToInt32(ddlProveedor2.SelectedValue);
+                    DateTime FechaCompra = Convert.ToDateTime(txtFechaCompra2.Text);
+                    DateTime FechaVencimiento = Convert.ToDateTime(txtFechaVencimiento2.Text);
                     FechaCompra.ToShortDateString();
                     FechaVencimiento.ToShortDateString();
-                    string Costo = txtCosto.Text;
-                    string PrecioVenta = txtPrecioVenta.Text;
-                    string Stock = txtStock.Text;
+                    string Costo = txtCosto2.Text;
+                    string PrecioVenta = txtPrecioVenta2.Text;
+                    string Stock = txtStock2.Text;
 
                     string sp_InsertInventario = "EXEC SP_INSERTAR_PRODUCTO '" + EAN + "', '" + Descripcion + "', '" + Imagen + "', '" + IdTipoProducto
                     + "', '" + IdMarca + "', '" + IdProveedor + "', '" + FechaCompra + "', '" + FechaVencimiento + "', '" + Costo + "', '" + PrecioVenta
@@ -648,6 +648,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         btnUpdate.Enabled = true;
                         btnDelete.Enabled = true;
                     }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('No se econtró ninguna coincidencia.')", true);
+
+                        BindData();
+                    }
                 }
             }
             catch (Exception)
@@ -662,7 +669,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnCerraPopup_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ABMProductos.aspx");
+            txtEan2.Text = "";
+            txtDescripcion2.Text = "";
+            txtUrlImagen2.Text = "";
+            ddlTipoProducto2.SelectedValue = "0";
+            ddlMarcaProducto2.SelectedValue = "0";
+            ddlProveedor2.SelectedValue = "0";
+            txtFechaCompra2.Text = "";
+            txtFechaVencimiento2.Text = "";
+            txtCosto2.Text = "";
+            txtPrecioVenta2.Text = "";
+            txtStock2.Text = "";
+            ddlEstado2.SelectedValue = "0";
+
+            BindData();
         }
     }
 }

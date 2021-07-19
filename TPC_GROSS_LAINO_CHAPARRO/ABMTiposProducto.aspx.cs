@@ -13,170 +13,233 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
         {
-            string selectTP = "SELECT * FROM ExportTiposProducto ORDER BY ID ASC";
-
             if (!IsPostBack)
             {
-                ddlID.DataSource = sentencia.DSET(selectTP);
-                ddlID.DataMember = "datos";
-                ddlID.DataTextField = "ID";
-                ddlID.DataValueField = "Descripcion";
-                ddlID.DataBind();
-
                 BindData();
-
-                //ddlID.SelectedIndex = 1;
-                //txtDescripcion.Text = Convert.ToString(ddlID.SelectedItem);
             }
+
+            txtDescripcionTipoProducto.Enabled = false;
+            txtIdTipoProducto.Enabled = false;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
         }
+            
         public void BindData()
         {
             string selectViewTiposProducto = "SELECT * FROM ExportTiposProducto ORDER BY ID ASC";
 
             dgvTiposProducto.DataSource = sentencia.DSET(selectViewTiposProducto);
             dgvTiposProducto.DataBind();
+
+            txtDescripcionTipoProductoBuscar.Text = "";
+            txtIdTipoProducto.Text = "";
+            txtDescripcionTipoProducto.Text = "";
+            txtDescripcionTipoProducto2.Text = "";
         }
 
-        protected void ddlID_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                //string selectExportInventario = "select * from ExportTiposProducto where ID = '" + ddlID.SelectedItem + "'";
-                //datos.SetearConsulta(selectExportInventario);
-                //datos.EjecutarLectura();
-                if (ddlID.SelectedIndex == 0)
-                {
-                    txtDescripcion.Text = "";
+        //protected void ddlID_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
+        //    try
+        //    {
+        //        string selectExportInventario = "select * from ExportTiposProducto where ID = '" + ddlID.SelectedItem + "'";
+        //        datos.SetearConsulta(selectExportInventario);
+        //        datos.EjecutarLectura();
+        //        if (ddlID.SelectedIndex == 0)
+        //        {
+        //            txtDescripcion.Text = "";
 
-                    BindData();
-                }
-                else /*if (datos.Lector.Read() == true)*/
-                {
-                    txtDescripcion.Text = Convert.ToString(ddlID.SelectedValue);
-                    string Valor = Convert.ToString(ddlID.SelectedValue);
-                    string selectFiltroTipoProducto = "SELECT * FROM ExportTiposProducto" +
-                                                " WHERE Descripcion LIKE '%" + Valor + "%'";
+        //            BindData();
+        //        }
+        //        else /*if (datos.Lector.Read() == true)*/
+        //        {
+        //            txtDescripcion.Text = Convert.ToString(ddlID.SelectedValue);
+        //            string Valor = Convert.ToString(ddlID.SelectedValue);
+        //            string selectFiltroTipoProducto = "SELECT * FROM ExportTiposProducto" +
+        //                                        " WHERE Descripcion LIKE '%" + Valor + "%'";
 
-                    //txtDescripcion.Text = (string)datos.Lector["Descripcion"];
-                    dgvTiposProducto.DataSource = sentencia.DSET(selectFiltroTipoProducto);
-                    dgvTiposProducto.DataBind();
-                }
-            }
-            catch (Exception)
-            {
+        //            //txtDescripcion.Text = (string)datos.Lector["Descripcion"];
+        //            dgvTiposProducto.DataSource = sentencia.DSET(selectFiltroTipoProducto);
+        //            dgvTiposProducto.DataBind();
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
 
-        protected void btnDelete_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (ddlID.SelectedIndex == 0)
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('No ha seleccionado ningún ID.')", true);
-                }
-                else
-                {
-
-                    string ID = Convert.ToString(ddlID.SelectedItem);
-
-                    string sp_DeleteTipoProducto = "EXEC SP_ELIMINAR_TIPO_PRODUCTO '" + ID + "'";
-
-                    sentencia.IUD(sp_DeleteTipoProducto);
-
-                    BindData();
-
-                    //Response.Redirect("ABMTiposProducto.aspx");
-                }
-            }
-            catch
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('El tipo de producto seleccionado está asignado a uno o varios productos y no se puede eliminar.')", true);
-                BindData();
-            }
-        }
-
-        protected void btnUpdateDescription_Click(object sender, ImageClickEventArgs e)
+        protected void btnDeleteTipoProducto_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ddlID.SelectedIndex == 0 || txtDescripcion.Text == "")
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('ID no seleccionado o Descripción vacía.')", true);
-                }
-                else
-                {
-                    string ID = Convert.ToString(ddlID.SelectedItem);
-                    string Descripcion = txtDescripcion.Text;
-
-                    string sp_UpdateTipoProducto = "UPDATE TiposProducto SET Descripcion = '" + Descripcion + "' WHERE ID = '" + ID + "'";
-
-                    sentencia.IUD(sp_UpdateTipoProducto);
-
-                    BindData();
-
-                    //Response.Redirect("ABMTiposProducto.aspx");
-                }
-            }
-            catch
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Se ha producido un error y no se ha modificado el tipo de producto.')", true);
-                BindData();
-            }
-        }
-
-        protected void btnAddTipoProducto_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                if (txtDescripcion.Text == "")
+                if (txtDescripcionTipoProducto.Text == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Descripción vacía.')", true);
                 }
                 else
                 {
-                    string Descripcion = txtDescripcion.Text;
+
+                    string ID = txtIdTipoProducto.Text;
+                    string Descripcion = txtDescripcionTipoProducto.Text;
+
+                    string sp_DeleteTipoProducto = "DELETE FROM TiposProducto WHERE ID = '" + ID + "'" +
+                                                   " AND Descripcion = '" + Descripcion + "'";
+
+                    sentencia.IUD(sp_DeleteTipoProducto);
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Tipo de producto eliminado con éxito.')", true);
+
+                    BindData();
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('El tipo de producto seleccionado está asignado a uno o varios productos y no se puede eliminar.')", true);
+                
+                BindData();
+            }
+        }
+
+        protected void btnUpdateTipoProducto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtDescripcionTipoProducto.Text == "")
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Descripción vacía.')", true);
+                }
+                else
+                {
+                    string ID = txtIdTipoProducto.Text;
+                    string Descripcion = txtDescripcionTipoProducto.Text;
+
+                    string sp_UpdateTipoProducto = "UPDATE TiposProducto SET Descripcion = '" + Descripcion + "' WHERE ID = '" + ID + "'";
+
+                    sentencia.IUD(sp_UpdateTipoProducto);
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Tipo de producto modificado con éxito.')", true);
+
+                    BindData();
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se ha producido un error y no se ha modificado el tipo de producto.')", true);
+               
+                BindData();
+            }
+        }
+
+        protected void btnAddTipoProducto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtDescripcionTipoProducto2.Text == "")
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Descripción vacía.')", true);
+                }
+                else
+                {
+                    string Descripcion = txtDescripcionTipoProducto2.Text;
 
                     string sp_InsertTipoProducto = "EXEC SP_INSERTAR_TIPO_PRODUCTO '" + Descripcion + "'";
 
                     sentencia.IUD(sp_InsertTipoProducto);
 
-                    BindData();
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Tipo de producto agregado con éxito.')", true);
 
-                    //Response.Redirect("ABMTiposProducto.aspx");
+                    BindData();
                 }
             }
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Error. Ya existe el tipo de producto ingresado.')", true);
+
                 BindData();
             }
         }
 
-        protected void btnBuscarTipoProducto_Click(object sender, EventArgs e)
+        protected void imgBtnBuscarTipoProducto_Click(object sender, EventArgs e)
         {
-            if (txtDescripcion.Text == "")
+            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datos2 = new AccesoDatos();
+            try
             {
-                BindData();
-            }
-            else if (txtDescripcion.Text != "")
-            {
-                string Valor = txtDescripcion.Text;
-                string selectFiltroTipoProducto = "SELECT * FROM ExportTiposProducto" +
-                                            " WHERE Descripcion LIKE '%" + Valor + "%'";
+                if (txtDescripcionTipoProductoBuscar.Text == "")
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Ingresa alguna palabra para buscar.')", true);
 
-                dgvTiposProducto.DataSource = sentencia.DSET(selectFiltroTipoProducto);
-                dgvTiposProducto.DataBind();
+                    BindData();
+                }
+                else
+                {
+                    string Valor = txtDescripcionTipoProductoBuscar.Text;
+
+                    string selectDgvTipoProducto = "SELECT * FROM ExportTiposProducto" +
+                                                " WHERE Descripcion like '%" + Valor + "%'";
+                    datos2.SetearConsulta(selectDgvTipoProducto);
+                    datos2.EjecutarLectura();
+
+                    dgvTiposProducto.DataSource = sentencia.DSET(selectDgvTipoProducto);
+                    dgvTiposProducto.DataBind();
+
+                    string selectFiltroTipoProducto = "SELECT * FROM ExportTiposProducto" +
+                                                " WHERE Descripcion = '" + Valor + "'";
+
+                    datos.SetearConsulta(selectFiltroTipoProducto);
+                    datos.EjecutarLectura();
+
+                    if (datos.Lector.Read() == true)
+                    {
+                        txtIdTipoProducto.Text = datos.Lector["ID"].ToString();
+                        txtDescripcionTipoProducto.Text = (string)datos.Lector["Descripcion"];
+
+                        txtDescripcionTipoProducto.Enabled = true;
+                        txtIdTipoProducto.Enabled = false;
+                        btnUpdate.Enabled = true;
+                        btnDelete.Enabled = true;
+                    }
+                    else
+                    {
+                        if (datos2.Lector.Read() == false)
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('No se encontraron coincidencias.')", true);
+
+                            BindData();
+                        }
+                    }
+                }
             }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        protected void btnCerraPopup_Click(object sender, EventArgs e)
+        {
+            txtDescripcionTipoProductoBuscar.Text = "";
+            txtIdTipoProducto.Text = "";
+            txtDescripcionTipoProducto.Text = "";
+
+            BindData();
         }
     }
 }

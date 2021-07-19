@@ -15,22 +15,49 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
 
         /// <summary>
-        /// Control btnBuscarTipoProducto.
+        /// Control imgBtnBuscarTipoProducto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscarTipoProducto;
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnBuscarTipoProducto;
 
         /// <summary>
-        /// Control ddlID.
+        /// Control txtDescripcionTipoProductoBuscar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlID;
+        protected global::System.Web.UI.WebControls.TextBox txtDescripcionTipoProductoBuscar;
+
+        /// <summary>
+        /// Control txtIdTipoProducto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIdTipoProducto;
+
+        /// <summary>
+        /// Control txtDescripcionTipoProducto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDescripcionTipoProducto;
+
+        /// <summary>
+        /// Control btnUpdate.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnUpdate;
 
         /// <summary>
         /// Control btnDelete.
@@ -42,31 +69,31 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.ImageButton btnDelete;
 
         /// <summary>
-        /// Control txtDescripcion.
+        /// Control btnCerraPopup.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
+        protected global::System.Web.UI.WebControls.Button btnCerraPopup;
 
         /// <summary>
-        /// Control btnUpdateDescription.
+        /// Control txtDescripcionTipoProducto2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnUpdateDescription;
+        protected global::System.Web.UI.WebControls.TextBox txtDescripcionTipoProducto2;
 
         /// <summary>
-        /// Control btnAddTipoProducto.
+        /// Control imgBtnAgregarTipoProducto2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnAddTipoProducto;
+        protected global::System.Web.UI.WebControls.Button imgBtnAgregarTipoProducto2;
 
         /// <summary>
         /// Control dgvTiposProducto.
@@ -76,5 +103,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView dgvTiposProducto;
+
+        /// <summary>
+        /// Control ExportTiposProducto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ExportTiposProducto;
     }
 }
