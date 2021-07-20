@@ -567,9 +567,51 @@
     color: #F0807D;
 }
 
+.btnAgregarMarca {
+    color: #ffffff;
+    background-color: #98D983;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    position: initial;
+    left: 304px;
+}
 
+.btnAgregarMarca:hover {
+    vertical-align: middle;
+    background-color: #ffffff;
+    color: #98D983;
+}
 
+.btnCancelarPopup {
+    color: #ffffff;
+    background-color: red;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    position: initial;
+    left: 304px;
+}
 
+.btnCancelarPopup:hover {
+    vertical-align: middle;
+    background-color: #ffffff;
+    color: red;
+}
 
 
 

@@ -15,6 +15,24 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
 
         /// <summary>
+        /// Control dgvMarcasVehiculos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvMarcasVehiculos;
+
+        /// <summary>
+        /// Control MarcasVehiculos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource MarcasVehiculos;
+
+        /// <summary>
         /// Control txtMarca.
         /// </summary>
         /// <remarks>
@@ -24,12 +42,21 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.TextBox txtMarca;
 
         /// <summary>
-        /// Control btnAceptar.
+        /// Control btnAgregarMarca.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptar;
+        protected global::System.Web.UI.WebControls.Button btnAgregarMarca;
+
+        /// <summary>
+        /// Control btnCancelarrPopup.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelarrPopup;
     }
 }

@@ -34,3 +34,12 @@ C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\N
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\Negocio.csproj.CopyComplete
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\Negocio.dll
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\Negocio.pdb
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\bin\Debug\Negocio.dll
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\bin\Debug\Negocio.pdb
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\bin\Debug\Dominio.dll
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\bin\Debug\Dominio.pdb
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\obj\Debug\Negocio.csproj.AssemblyReference.cache
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\obj\Debug\Negocio.csproj.CopyComplete
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\obj\Debug\Negocio.dll
+D:\Facultad 2021 1C\Prog 3\TPC!\Negocio\obj\Debug\Negocio.pdb
