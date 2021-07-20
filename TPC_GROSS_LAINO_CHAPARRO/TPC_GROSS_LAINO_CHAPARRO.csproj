@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ABMEmpleado.aspx" />
-    <Content Include="ABMMarcaVehiculo.aspx" />
+    <Content Include="ABMMarcasVehiculo.aspx" />
     <Content Include="ABMProductos.aspx" />
     <Content Include="ABMTiposProducto.aspx" />
     <Content Include="About.aspx" />
@@ -274,12 +274,12 @@
     <Compile Include="ABMEmpleado.aspx.designer.cs">
       <DependentUpon>ABMEmpleado.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ABMMarcaVehiculo.aspx.cs">
-      <DependentUpon>ABMMarcaVehiculo.aspx</DependentUpon>
+    <Compile Include="ABMMarcasVehiculo.aspx.cs">
+      <DependentUpon>ABMMarcasVehiculo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ABMMarcaVehiculo.aspx.designer.cs">
-      <DependentUpon>ABMMarcaVehiculo.aspx</DependentUpon>
+    <Compile Include="ABMMarcasVehiculo.aspx.designer.cs">
+      <DependentUpon>ABMMarcasVehiculo.aspx</DependentUpon>
     </Compile>
     <Compile Include="ABMProductos.aspx.cs">
       <DependentUpon>ABMProductos.aspx</DependentUpon>

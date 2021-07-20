@@ -188,7 +188,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string Valor = txtDescripcionTipoProductoBuscar.Text;
 
                     string selectDgvTipoProducto = "SELECT * FROM ExportTiposProducto" +
-                                                " WHERE Descripcion like '%" + Valor + "%'";
+                                                " WHERE Descripcion LIKE '%" + Valor + "%'";
+
                     datos2.SetearConsulta(selectDgvTipoProducto);
                     datos2.EjecutarLectura();
 
@@ -207,7 +208,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         txtDescripcionTipoProducto.Text = (string)datos.Lector["Descripcion"];
 
                         txtDescripcionTipoProducto.Enabled = true;
-                        txtIdTipoProducto.Enabled = false;
                         btnUpdate.Enabled = true;
                         btnDelete.Enabled = true;
                     }
@@ -219,6 +219,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             "alert('No se encontraron coincidencias.')", true);
 
                             BindData();
+                        }
+                        else
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('Se encontró más de un resultado.')", true);
                         }
                     }
                 }

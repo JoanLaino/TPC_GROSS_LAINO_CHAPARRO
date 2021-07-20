@@ -6,7 +6,7 @@
     <br />
 
     <asp:ImageButton id="imgBtnBuscarTipoProducto" runat="server" ToolTip="Buscar" OnClick="imgBtnBuscarTipoProducto_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm-producto" />
-    <asp:TextBox ID="txtDescripcionTipoProductoBuscar" runat="server" PlaceHolder="Ingrese Tipo de producto" onkeypress="javascript:return sololetras(event)" cssclass="txt-campo-filtro-abm-producto" ></asp:TextBox>
+    <asp:TextBox ID="txtDescripcionTipoProductoBuscar" runat="server" PlaceHolder="Ingrese Tipo de producto" onkeypress="javascript:return sololetras(event)" cssclass="txt-campo-filtro-abm-producto" Style="height: 30px !important;" ></asp:TextBox>
 
     <button id="btnAgregarTipoProducto" ToolTip="Agregar Tipo de Producto" class="btnAddNewProductType">Agregar Nuevo</button>
     
@@ -17,16 +17,16 @@
         <tr>
             <td>
                 <span id="span-id-tipo-producto" align="left" style="font-size: 20px;">ID</span>
-                <asp:TextBox id="txtIdTipoProducto" runat="server" TooTip="ID" placeholder="ID" onkeypress="javascript:return solonumeros(event)" Style="width: 60px; text-align:center;" />
+                <asp:TextBox id="txtIdTipoProducto" runat="server" TooTip="ID" placeholder="ID" onkeypress="javascript:return solonumeros(event)" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
             </td>
             <td>
-                <asp:TextBox id="txtDescripcionTipoProducto" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" Style="width: 333px; vertical-align: text-top;" />
+                <asp:TextBox id="txtDescripcionTipoProducto" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" Style="width: 333px; vertical-align: middle;" />
             </td>
             <td align="center">
                 &nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Tipo de Producto" onclientclick="return confirm('¿Confirma el cambio?');" OnClick="btnUpdateTipoProducto_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto" Style="width: 30px" />
+                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Tipo de Producto" onclientclick="return confirm('¿Confirma el cambio?');" OnClick="btnUpdateTipoProducto_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto" Style="width: 30px; vertical-align: bottom !important;" />
                 &nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Tipo de Producto" onclientclick="return confirm('¿Seguro que desea eliminar el Tipo de Producto?');" OnClick="btnDeleteTipoProducto_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" />
+                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Tipo de Producto" onclientclick="return confirm('¿Seguro que desea eliminar el Tipo de Producto?');" OnClick="btnDeleteTipoProducto_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" Style="vertical-align: bottom !important;" />
             </td>
         </tr>
 
@@ -61,7 +61,7 @@
 
     </div>
 
-    <br /><br />
+    <br />
 
     <center>
         <asp:GridView ID="dgvTiposProducto" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
