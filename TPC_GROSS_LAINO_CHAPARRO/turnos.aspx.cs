@@ -13,5 +13,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
 
         }
+
+        protected void calendarioTurnos_DayRender(object sender, DayRenderEventArgs e)
+        {
+            if(e.Day.IsOtherMonth)
+            {
+                e.Day.IsSelectable = false;
+            }
+        }
     }
 }

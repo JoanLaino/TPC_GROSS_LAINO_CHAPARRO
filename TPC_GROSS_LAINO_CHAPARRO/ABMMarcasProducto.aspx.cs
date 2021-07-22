@@ -9,7 +9,7 @@ using Dominio;
 
 namespace TPC_GROSS_LAINO_CHAPARRO
 {
-    public partial class ABMMarcasVehiculo : System.Web.UI.Page
+    public partial class ABMMarcasProducto : System.Web.UI.Page
     {
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
@@ -27,10 +27,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         public void BindData()
         {
-            string selectMarcasVehiculo = "SELECT * from MarcasVehiculo";
+            string selectMarcasProducto = "SELECT * from MarcasProducto";
 
-            dgvMarcasVehiculo.DataSource = sentencia.DSET(selectMarcasVehiculo);
-            dgvMarcasVehiculo.DataBind();
+            dgvMarcasProducto.DataSource = sentencia.DSET(selectMarcasProducto);
+            dgvMarcasProducto.DataBind();
 
             txtBuscar.Text = "";
             txtIdMarca.Text = "";
@@ -51,7 +51,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 {
                     string Marca = txtMarca2.Text;
 
-                    string GuardarMarca = "INSERT INTO MarcasVehiculo (Descripcion) values('" + Marca + "')";                   
+                    string GuardarMarca = "INSERT INTO MarcasProducto (Descripcion) values('" + Marca + "')";                   
 
                     sentencia.IUD(GuardarMarca);
 
@@ -74,7 +74,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             string Marca = txtMarca2.Text;
 
-            string Consulta = "select count(*) from MarcasVehiculo where Descripcion like '" + Marca + "'";
+            string Consulta = "select count(*) from MarcasProducto where Descripcion like '" + Marca + "'";
 
             int existe = sentencia.IUDquery(Consulta);
 
@@ -101,14 +101,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             else
             {
                 string valor = txtBuscar.Text;
-                string selectBuscarMarcaGrilla = "SELECT * FROM MarcasVehiculo WHERE Descripcion LIKE '%" + valor + "%'";
-                string selectBuscarMarcaCampos = "SELECT * FROM MarcasVehiculo WHERE Descripcion = '" + valor + "'";
+                string selectBuscarMarcaGrilla = "SELECT * FROM MarcasProducto WHERE Descripcion LIKE '%" + valor + "%'";
+                string selectBuscarMarcaCampos = "SELECT * FROM MarcasProducto WHERE Descripcion = '" + valor + "'";
 
                 datos2.SetearConsulta(selectBuscarMarcaGrilla);
                 datos2.EjecutarLectura();
 
-                dgvMarcasVehiculo.DataSource = sentencia.DSET(selectBuscarMarcaGrilla);
-                dgvMarcasVehiculo.DataBind();
+                dgvMarcasProducto.DataSource = sentencia.DSET(selectBuscarMarcaGrilla);
+                dgvMarcasProducto.DataBind();
 
                 datos.SetearConsulta(selectBuscarMarcaCampos);
                 datos.EjecutarLectura();
@@ -163,7 +163,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string id = txtIdMarca.Text;
                     string descripcion = txtMarca.Text;
 
-                    sentencia.IUD("DELETE FROM MarcasVehiculo WHERE ID = '" + id + "' AND Descripcion = '" + descripcion + "'");
+                    sentencia.IUD("DELETE FROM MarcasProducto WHERE ID = '" + id + "' AND Descripcion = '" + descripcion + "'");
 
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Marca eliminada con éxito.')", true);
@@ -194,7 +194,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string id = txtIdMarca.Text;
                     string descripcion = txtMarca.Text;
 
-                    sentencia.IUD("UPDATE MarcasVehiculo SET Descripcion = '" + descripcion + "' WHERE ID = '" + id + "'");
+                    sentencia.IUD("UPDATE MarcasProducto SET Descripcion = '" + descripcion + "' WHERE ID = '" + id + "'");
 
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Descripción de marca actualizada con éxito.')", true);
