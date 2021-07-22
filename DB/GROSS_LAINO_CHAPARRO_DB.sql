@@ -239,14 +239,10 @@ GO
 
 CREATE view ExportEmpleados
 as
-select E.Legajo as Legajo, E.Cuil as Cuil, E.ApeNom as 'Apellido y Nombre', E.FechaAlta as 'Fecha de Alta', 
-E.FechaNacimiento as 'Fecha de Nacimiento', E.Mail as Mail, E.Telefono as Telefono, E.Estado as Estado
+select E.Legajo as Legajo, E.Cuil as Cuil, E.ApeNom, CONVERT(VARCHAR(10),E.FechaAlta,105) as FechaAlta, 
+CONVERT(VARCHAR(10),E.FechaNacimiento,105) as FechaNacimiento, E.Mail as Mail, E.Telefono as Telefono, E.TotalServiciosRealizados as ServiciosRealizados
 from Empleados as E
 GO
-
-select * from ExportEmpleados
-
-select * from Empleados
 
 Create view ExportServicios
 as 
@@ -256,5 +252,5 @@ select CONVERT(VARCHAR(10),s.FechaRealizacion,105) as 'Fecha de Realizacion', s.
 from Servicios s
 GO
 
-insert into Empleados (Legajo,CUIL,ApeNom,FechaAlta,FechaNacimiento,Mail,Telefono) values ('333','20123456788','Apu Najasamapetilan','10-10-2000','1-1-1980','asdasd@asd.com','1234567890')
+insert into Empleados (Legajo,CUIL,ApeNom,FechaAlta,FechaNacimiento,Mail,Telefono) values ('333','20123456788','Homero Simpson','10-10-2000','1-1-1980','asdasd@asd.com','1234567890')
 GO

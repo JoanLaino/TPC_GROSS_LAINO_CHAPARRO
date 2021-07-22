@@ -60,6 +60,18 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtStock.Text = "";
             ddlEstado.SelectedValue = "0";
 
+            txtDescripcion.Enabled = false;
+            txtUrlImagen.Enabled = false;
+            ddlTipoProducto.Enabled = false;
+            ddlMarcaProducto.Enabled = false;
+            ddlProveedor.Enabled = false;
+            txtFechaCompra.Enabled = false;
+            txtFechaVencimiento.Enabled = false;
+            txtCosto.Enabled = false;
+            txtPrecioVenta.Enabled = false;
+            txtStock.Enabled = false;
+            ddlEstado.Enabled = false;
+
             string selectViewInventario = "SELECT * FROM ExportInventario";
 
             dgvInventario.DataSource = sentencia.DSET(selectViewInventario);
@@ -647,6 +659,18 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                         btnUpdate.Enabled = true;
                         btnDelete.Enabled = true;
+
+                        txtDescripcion.Enabled = true;
+                        txtUrlImagen.Enabled = true;
+                        ddlTipoProducto.Enabled = true;
+                        ddlMarcaProducto.Enabled = true;
+                        ddlProveedor.Enabled = true;
+                        txtFechaCompra.Enabled = true;
+                        txtFechaVencimiento.Enabled = true;
+                        txtCosto.Enabled = true;
+                        txtPrecioVenta.Enabled = true;
+                        txtStock.Enabled = true;
+                        ddlEstado.Enabled = true;
                     }
                     else
                     {
