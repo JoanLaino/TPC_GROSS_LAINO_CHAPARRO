@@ -107,7 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ABMEmpleado.aspx" />
+    <Content Include="ABMEmpleados.aspx" />
     <Content Include="ABMMarcasProducto.aspx" />
     <Content Include="ABMMarcasVehiculo.aspx" />
     <Content Include="ABMProductos.aspx" />
@@ -270,12 +270,12 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABMEmpleado.aspx.cs">
-      <DependentUpon>ABMEmpleado.aspx</DependentUpon>
+    <Compile Include="ABMEmpleados.aspx.cs">
+      <DependentUpon>ABMEmpleados.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ABMEmpleado.aspx.designer.cs">
-      <DependentUpon>ABMEmpleado.aspx</DependentUpon>
+    <Compile Include="ABMEmpleados.aspx.designer.cs">
+      <DependentUpon>ABMEmpleados.aspx</DependentUpon>
     </Compile>
     <Compile Include="ABMMarcasProducto.aspx.cs">
       <DependentUpon>ABMMarcasProducto.aspx</DependentUpon>

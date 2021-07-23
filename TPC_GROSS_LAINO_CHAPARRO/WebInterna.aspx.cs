@@ -47,7 +47,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnABMEmpleados_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ABMEmpleado.aspx");
+            Response.Redirect("ABMEmpleados.aspx");
         }
 
         protected void btnABMUsuario_Click(object sender, EventArgs e)
