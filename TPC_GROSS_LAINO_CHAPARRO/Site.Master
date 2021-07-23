@@ -64,7 +64,12 @@
                         <a class="nav-link font-stl" href="WebInterna.aspx">Web Interna</a>
                     </li>                    
                 </ul>
-                <a class="log-stl" href="login.aspx">Iniciar sesión</a>
+                <a href="login.aspx" Class="log-stl">
+                    <asp:Label ID="btnIniciarSesion" runat="server"  Text="Iniciar sesión"></asp:Label>
+                </a>
+
+                <asp:Button ID="btnCerrarSesion2" runat="server" Text="Cerrar Sesion" OnClick="btnCerrarSesion2_Click" CssClass="btn-cerrar-sesion" />
+                
             </div>
         </nav>
 

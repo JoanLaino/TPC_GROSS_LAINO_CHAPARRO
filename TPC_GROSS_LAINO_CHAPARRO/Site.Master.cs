@@ -11,12 +11,42 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            validarConexiónUsuario();
 
+            cerrarConexiónUsuario();
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
             Response.Redirect("https://www.google.com");
+        }
+
+        protected void validarConexiónUsuario()
+        {
+            if (!(Session["usuario"] == null))
+            {
+                btnIniciarSesion.CssClass = "btn-invisible";
+            }
+        }
+
+        protected void cerrarConexiónUsuario()
+        {
+            if (Session["usuario"] == null)
+            {
+                btnCerrarSesion2.CssClass = "btn-invisible";
+            }
+        }
+
+        protected void btnCerrarSesion2_Click(object sender, EventArgs e)
+        {
+            Logout();
+            Response.Redirect("Login.aspx", false);
+        }
+
+        public void Logout()
+        {
+            Session.Abandon();
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
         }
     }
 }

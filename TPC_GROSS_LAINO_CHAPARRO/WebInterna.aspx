@@ -28,10 +28,15 @@
                 <asp:Button ID="btnAMBMarcaVehiculos" onclick="btnAMBMarcaVehiculos_Click" runat="server" Text="ABM - Marca Vehiculos" CssClass="btn-interna-marca-vehiculos"/>
             </center>
         </div>
-        <div>
+        <div>            
             <center>
-                <asp:Button ID="btnABMEmpleados" onclick="btnABMEmpleados_Click" runat="server" Text="ABM - Empleado" CssClass="btn-interna-empleados"/>
-            </center>
+                <asp:Button ID="btnABMEmpleados" onclick="btnABMEmpleados_Click" runat="server" Text="ABM - Empleado" CssClass="btn-invisible"/>
+            </center>            
         </div>
     </div>
+                
+            <center>
+                <asp:Button ID="btnABMUsuario" onclick="btnABMUsuario_Click" runat="server" Text="Crear Usuario" CssClass="btn-invisible"/>
+            </center>            
+       
 </asp:Content>

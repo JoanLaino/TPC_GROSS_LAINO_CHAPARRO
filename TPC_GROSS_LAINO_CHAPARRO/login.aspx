@@ -16,18 +16,19 @@
         <div>               
             <div class="form-group stl-frm-log">
                 <label for="exampleInputEmail1">Usuario</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <asp:TextBox ID="txtUser" runat="server" CssClass="form-control" placeholder="Usuario" />
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Contraseña</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" placeholder="*****" type="password" />                
                 <small id="emailHelp" class="form-text text-muted">Su contraseña no será compartida con nadie.</small>
             </div>
             <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Recordar Usuario</label>
             </div>
-                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>            
+                <asp:Button ID="btnIngresar" runat="server" CssClass="btn btn-primary" OnClick="btnIngresar_Click" Text="Iniciar Sesión" />
+                            
         </div>
     </center>
 

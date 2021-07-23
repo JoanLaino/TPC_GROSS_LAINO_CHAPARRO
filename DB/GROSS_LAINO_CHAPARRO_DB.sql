@@ -83,22 +83,28 @@ create table Clientes(
 GO
 
 create table TiposUsuario(
-	ID smallint primary key identity (1,1),
+	ID int primary key identity (1,1),
 	Descripcion varchar(30) unique check (Descripcion = 'Administrador' or Descripcion = 'Jefe' or Descripcion = 'Empleado'),
-	Estado bit not null default (1)
+	Estado bit default (1)
 )
 GO
 
 create table Usuarios(
-	ID bigint primary key identity (1,1) not null,
-	IDTipo smallint not null foreign key references TiposUsuario(ID),
-	NickName varchar(30) unique not null,
-	Clave varchar(30) not null,
+	ID int primary key identity (1,1) not null,
+	TipoUser int not null foreign key references TiposUsuario(ID),
+	Usuario varchar(50) unique not null,
+	Pass varchar(50) not null,
 	Mail varchar(100) unique not null,
-	FechaAlta date not null check (FechaAlta = getdate()),
+	FechaAlta date default (getdate()),
 	Estado bit not null default (1)
 )
 GO
+
+INSERT INTO TiposUsuario(Descripcion) VALUES('Empleado')
+INSERT INTO TiposUsuario(Descripcion) VALUES('Jefe')
+INSERT INTO Usuarios(TipoUser, Usuario, Pass, Mail) VALUES(1, 'test', 'test', 'test@test.com')
+INSERT INTO Usuarios(TipoUser, Usuario, Pass, Mail) VALUES(2, 'admin', 'admin', 'admin@admin.com')
+INSERT INTO Usuarios(TipoUser, Usuario, Pass, Mail) VALUES(1, 'empleado', 'empleado', 'empleado@hotmail.com')
 
 create table Empleados(
 	ID bigint primary key identity (1,1) not null,

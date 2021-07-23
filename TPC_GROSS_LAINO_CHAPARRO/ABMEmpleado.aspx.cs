@@ -15,7 +15,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            validarNivelUsuario();
+
+            if (!IsPostBack)
             {
                 BindData();
             }
@@ -128,6 +130,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             finally
             {
                 datos.CerrarConexion();
+            }
+        }
+
+        protected void validarNivelUsuario()
+        {
+            if (!(Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).TipoUsuario == Dominio.TipoUsuario.ADMIN))
+            {
+                Session.Add("error", "Para ingresar a esta página debes tener nivel de usuario ADMIN.");
+                Response.Redirect("Error.aspx", false);
             }
         }
 

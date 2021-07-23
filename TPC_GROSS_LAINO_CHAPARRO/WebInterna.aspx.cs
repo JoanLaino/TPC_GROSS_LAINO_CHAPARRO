@@ -11,7 +11,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] == null)
+            {
+                Session.Add("error", "Debes loguearte para ingresar.");
+                Response.Redirect("Error.aspx", false);
+            }
 
+            validarNivelUsuario();
         }
 
         protected void btnABMProductos_Click(object sender, EventArgs e)
@@ -43,5 +49,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             Response.Redirect("ABMEmpleado.aspx");
         }
+
+        protected void btnABMUsuario_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMUsuario.aspx");
+        }
+
+        protected void validarNivelUsuario()
+        {
+            if (Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).TipoUsuario == Dominio.TipoUsuario.ADMIN)
+            {
+                btnABMEmpleados.CssClass = "btn-interna-empleados";
+                btnABMUsuario.CssClass = "btn-crear-usuario";
+            }
+        }
+       
     }
 }

@@ -112,6 +112,7 @@
     <Content Include="ABMMarcasVehiculo.aspx" />
     <Content Include="ABMProductos.aspx" />
     <Content Include="ABMTiposProducto.aspx" />
+    <Content Include="ABMUsuario.aspx" />
     <Content Include="About.aspx" />
     <Content Include="catalogoProductos.aspx" />
     <Content Include="Contact.aspx" />
@@ -125,6 +126,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="css\estilos.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="index.aspx" />
@@ -303,6 +305,13 @@
     <Compile Include="ABMTiposProducto.aspx.designer.cs">
       <DependentUpon>ABMTiposProducto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ABMUsuario.aspx.cs">
+      <DependentUpon>ABMUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMUsuario.aspx.designer.cs">
+      <DependentUpon>ABMUsuario.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -339,6 +348,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

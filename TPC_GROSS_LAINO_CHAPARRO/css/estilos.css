@@ -565,7 +565,12 @@
     color: #D1A584;
 }
 
+.btn-invisible {
+    display: none;
+}
+
 .btn-interna-empleados {
+    display: initial;
     border-radius: 50px;
     border: solid 1px;
     color: #ffffff;
@@ -587,25 +592,51 @@
     color: #F0807D;
 }
 
+.btn-cerrar-sesion {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #EF2929;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    font-size: 15px;
+}
 
+.btn-cerrar-sesion:hover {
+    color: #EF2929;
+    background-color: #FFFFFF;
+}
 
+.img-error {
+    width: 100px;
+}
 
+.btn-crear-usuario {
+    display: initial;
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #929292;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.btn-crear-usuario:hover {
+    background-color: #ffffff;
+    color: #929292;
+}
 
 
 .overlay {
