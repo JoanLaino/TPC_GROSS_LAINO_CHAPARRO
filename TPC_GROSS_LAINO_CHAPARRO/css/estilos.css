@@ -307,6 +307,29 @@
     color: #98D983;
 }
 
+.btnAddNewEmployee {
+    vertical-align: middle;
+    color: #ffffff;
+    background-color: #98D983;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    position: relative;
+    left: 223px;
+}
+
+.btnAddNewEmployee:hover {
+    background-color: #ffffff;
+    color: #98D983;
+}
+
 .btnAddNewBrand {
     color: #ffffff;
     background-color: #98D983;

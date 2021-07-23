@@ -73,7 +73,7 @@ create table Clientes(
 	CUIT_CUIL varchar(13) unique not null,
 	RazonSocial varchar(100) unique null,
 	ApeNom varchar(100) null,
-	FechaAlta date not null default (getdate()) check (FechaAlta = getdate()),
+	FechaAlta date default (getdate()),
 	FechaNacimiento date null,
 	Mail varchar(100) unique not null,
 	Telefono varchar(50) not null,
@@ -245,7 +245,7 @@ GO
 
 CREATE view ExportEmpleados
 as
-select E.Legajo as Legajo, E.Cuil as Cuil, E.ApeNom, CONVERT(VARCHAR(10),E.FechaAlta,105) as FechaAlta, 
+select E.ID as ID, E.Legajo as Legajo, E.Cuil as Cuil, E.ApeNom, CONVERT(VARCHAR(10),E.FechaAlta,105) as FechaAlta, 
 CONVERT(VARCHAR(10),E.FechaNacimiento,105) as FechaNacimiento, E.Mail as Mail, E.Telefono as Telefono, E.TotalServiciosRealizados as ServiciosRealizados
 from Empleados as E
 GO
@@ -259,4 +259,23 @@ from Servicios s
 GO
 
 insert into Empleados (Legajo,CUIL,ApeNom,FechaAlta,FechaNacimiento,Mail,Telefono) values ('333','20123456788','Homero Simpson','10-10-2000','1-1-1980','asdasd@asd.com','1234567890')
+GO
+
+insert into Empleados (Legajo,CUIL,ApeNom,FechaAlta,FechaNacimiento,Mail,Telefono) values ('222','88765432102','Marge Simpson','10-10-2000','1-1-1980','abcd@abcd.com','0123456789')
+GO
+
+create procedure SP_INSERTAR_EMPLEADO(
+    @Legajo varchar(6),
+    @CUIL varchar(13),
+    @ApeNom varchar(100),
+    @FechaAlta date,
+    @FechaNacimiento date,
+    @Mail varchar(100),
+    @Telefono varchar (50)
+)
+as
+begin
+    INSERT INTO Empleados(Legajo, CUIL, ApeNom, FechaAlta, FechaNacimiento, Mail, Telefono )
+    VALUES(@Legajo, @CUIL, @ApeNom, @FechaAlta, @FechaNacimiento, @Mail, @Telefono)
+end
 GO
