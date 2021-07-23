@@ -708,5 +708,40 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             BindData();
         }
+
+        protected void dgvInventario_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            BindData();
+
+            string selectOrdenar = "SELECT * FROM ExportInventario ORDER BY " + e.SortExpression + " "
+                                    + GetSortDirection(e.SortExpression);
+
+            dgvInventario.DataSource = sentencia.DSET(selectOrdenar);
+            dgvInventario.DataBind();            
+        }
+
+        private string GetSortDirection(string column)
+        {
+            string sortDirection = "ASC";
+
+            string sortExpression = ViewState["SortExpression"] as string;
+
+            if (sortExpression != null)
+            {
+                if (sortExpression == column)
+                {
+                    string lastDirection = ViewState["SortDirection"] as string;
+                    if ((lastDirection != null) && (lastDirection == "ASC"))
+                    {
+                        sortDirection = "DESC";
+                    }
+                }
+            }
+
+            ViewState["SortDirection"] = sortDirection;
+            ViewState["SortExpression"] = column;
+
+            return sortDirection;
+        }
     }
 }

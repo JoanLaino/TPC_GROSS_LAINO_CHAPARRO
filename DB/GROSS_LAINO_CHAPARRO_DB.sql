@@ -279,3 +279,18 @@ begin
     VALUES(@Legajo, @CUIL, @ApeNom, @FechaAlta, @FechaNacimiento, @Mail, @Telefono)
 end
 GO
+
+create procedure SP_INSERTAR_USUARIO(
+	@User varchar(50),
+	@Pass varchar(50),
+	@Mail varchar(100),
+	@TipoUsuario int
+)
+as
+begin	
+		INSERT INTO Usuarios(TipoUser, Usuario, Pass, Mail)
+		VALUES (@TipoUsuario, @User, @Pass, @Mail)	
+end
+go
+
+

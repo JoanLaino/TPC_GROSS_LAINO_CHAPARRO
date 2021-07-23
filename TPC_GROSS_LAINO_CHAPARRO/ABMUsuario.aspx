@@ -31,10 +31,12 @@
             </div>
             <label for="exampleInputPassword1">Tipo de Usuario</label>
             <div>
-            <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
+            <asp:DropDownList ID="ddlTipoUsuario" runat="server" AppendDataBoundItems="true" ToolTip="Tipo de Producto">
+                <asp:ListItem Value="0">Tipo Usuario</asp:ListItem>
+            </asp:DropDownList>
             </div>
             <br />
-            <asp:Button ID="btnIngresar" runat="server" CssClass="btn btn-primary" Text="Iniciar Sesión" />
+            <asp:Button ID="btnRegistrar" runat="server" OnClick="btnRegistrar_Click" CssClass="btn btn-primary" Text="Registrar" />
                             
         </div>
     </center>
