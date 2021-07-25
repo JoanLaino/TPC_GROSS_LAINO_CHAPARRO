@@ -1,109 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMEmpleados.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMEmpleado" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMClientes.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMClientes" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <%--<style>
-        body {            
-            background-image: url("../img/fondo-2.jpg");
-            background-color: #FFFFFF4D !important;
-            width: 100%;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-        }        
-    </style>
-
-    <center>  
-        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn-buscador" CausesValidation="False" onclick="buscarEmpleado"/>
-        <asp:TextBox ID="txtFiltro" runat="server" CssClass="txt-buscador"></asp:TextBox>
-    </center>
-
-    <center>
-    <div class="container">
-    <div class="row row-cols-1 row-cols-md-5">
-        <% foreach (Dominio.Empleado item in lista)
-                {%>
-        <div class="col mb-4 stl-catalogo">
-            <div class="card stl-card h-100">
-                <center>
-                    <h5 class="card-title"><% = "Cuil: " + item.CuilCuit %></h5>
-                    <img src="<% = "https://cdn-3.expansion.mx/dims4/default/9afe8f5/2147483647/strip/true/crop/936x562+0+0/resize/800x480!/format/webp/quality/90/?url=https%3A%2F%2Fcherry-brightspot.s3.amazonaws.com%2F40%2F3c%2Fe8b2ffe0475faaebc4fdef72f5f7%2Fapu.JPG" %>" class="card-img-top img-cards" alt="...">
-                </center>
-                <div class="card-body stl-dtl-catalogo">
-                    
-                    <h5 class="card-title card-description"><% = item.Name %></h5>
-                
-                </div>
-            </div>
-        </div>    
-         <%   } %>
-    </div>
-    </div>
-    </center>--%>
-
-    <%--<div class="container">
-        <div class="row justify-content-md-center">
-            
-            <div class="col-md-auto">
-                <h5 class="card-title card-description">Legajo</h5>
-            </div>
-            <div class="col-md-auto">
-                <h5 class="card-title card-description">Cuil</h5>
-            </div>
-            <div class="col-md-auto">
-                <h5 class="card-title card-description">Nombre y Apellido</h5>
-            </div>
-            <div class="col-md-auto">
-               <h5 class="card-title card-description">Fecha Alta</h5>
-            </div>
-            <div class="col-md-auto">
-                <h5 class="card-title card-description">Fecha Nacimiento</h5>
-            </div>
-            <div class="col-md-auto">
-                <h5 class="card-title card-description">Mail</h5>
-            </div>
-            <div class="col-md-auto">
-               <h5 class="card-title card-description">Telefono</h5>
-            </div>
-          
-        </div>
-        <% foreach (Dominio.Empleado item in lista)
-                {%>
-        <div class="row justify-content-md-center">
-            
-            <div class="col-md-auto">
-                <h5 class="card-title card-description"><% = item.Legajo %></h5>
-            </div>
-            <div class="col-md-auto">
-                <h5 class="card-title card-description"><% = item.CuilCuit  %></h5>
-            </div>
-            <div class="col-md-auto">
-                <h5 class="card-title card-description"><% = item.Name %></h5>
-            </div>
-            <div class="col-md-auto">
-               <h5 class="card-title card-description"><% = item.FechaAlta %></h5>
-            </div>
-            <div class="col-md-auto">
-                <h5 class="card-title card-description"><% = item.FechaNacimiento %></h5>
-            </div>
-            <div class="col-md-auto">
-                <h5 class="card-title card-description"><% = item.Mail %></h5>
-            </div>
-            <div class="col-md-auto">
-               <h5 class="card-title card-description"><% = item.Celular %></h5>
-            </div>
-           
-        </div>
-        <%   } %>
-    </div>--%>
-
-    <h1 class="h1-abm-prod">ABM - Empleados</h1>
+    <h1 class="h1-abm-prod">ABM - Clientes</h1>
 
     <br />
 
-    <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Empleado" ImageUrl="~/img/find-logo.png" onclick="imgBtnBuscar_Click" Style="width: 30px; vertical-align: middle;" cssclass="btn-buscar-filtro-abm-producto" />
+    <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Cliente" ImageUrl="~/img/find-logo.png" onclick="imgBtnBuscar_Click" Style="width: 30px; vertical-align: middle;" cssclass="btn-buscar-filtro-abm-producto" />
     <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." Style="width: 320px; height: 30px !important; vertical-align: middle;" ></asp:TextBox>
 
-    <button id="btnPopUpAgregarEmpleado" ToolTip="Agregar nuevo Empleado" class="btnAddNewEmployee">Agregar Nuevo</button>
+    <button id="btnPopUpAgregarCliente" ToolTip="Agregar nuevo Cliente" class="btnAddNewEmployee">Agregar Nuevo</button>
 
     <br /><br />
 
@@ -158,13 +63,13 @@
 
                     <tr align="center" >
                         <td>
-                            <asp:TextBox ID="txtLegajo2" runat="server" TextMode="Number" ToolTip="Legajo" placeholder="Legajo" Width="200px" MaxLength="4" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
+                            <asp:TextBox ID="txtCuitCuil2" runat="server" TextMode="Number" ToolTip="CUIT / CUIL" placeholder="CUIT / CUIL" Width="200px" MaxLength="11" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
                         </td>
                         <td align="center" style="vertical-align: super;">
                             <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" OnClick="btnCerraPopup_Click" cssclass="btn-cerrar-popup" />
                         </td>
                         <td>
-                            <asp:TextBox ID="txtCuil2" runat="server" ToolTip="Cuil" placeholder="Cuil" Width="200px" MaxLength="11" Rows="1" TextMode="Number" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
+                            <asp:TextBox ID="txtRazonSocial2" runat="server" ToolTip="Razón Social" placeholder="Razón Social" Width="200px" MaxLength="11" Rows="1" ></asp:TextBox>
                         </td>
                     </tr>
                                     
@@ -184,11 +89,22 @@
                         <td>
                             <asp:TextBox ID="txtMail2" runat="server" ToolTip="e-Mail" placeholder="e-Mail" Width="200px"></asp:TextBox>
                         </td>
-                        <td align="center">
-                            <asp:Button ID="imgBtnAgregarEmpleado" Text="Agregar" runat="server" ToolTip="Agregar Empleado" onclientclick="return confirm('¿Confirma que desea agregar al nuevo empleado?');" onclick="imgBtnAgregarEmpleado_Click" cssclass="img-btn-add-producto" />
+                        <td>
+                            <asp:TextBox ID="txtTipoCliente" runat="server" ToolTip="Tipo de Cliente" placeholder="Tipo de Cliente" Width="200px"></asp:TextBox>
                         </td>
                         <td>
                             <asp:TextBox ID="txtTelefono2" runat="server" ToolTip="Teléfono / Celular" placeholder="Teléfono / Celular" onkeypress="javascript:return solonumeros(event)" Width="200px"></asp:TextBox>
+                        </td>
+                    </tr>
+
+                    <tr align="center">
+                        <td>
+                        </td>
+                        <td align="center">
+                            <span style="font-size: 10px; position: relative; top: -10px; color: red;">Empresa, Particular, Monotributista, Estatal</span>
+                            <asp:Button ID="imgBtnAgregarCliente" Text="Agregar" runat="server" ToolTip="Agregar Cliente" onclientclick="return confirm('¿Confirma que desea agregar al nuevo empleado?');" onclick="imgBtnAgregarCliente_Click" cssclass="img-btn-add-producto" />
+                        </td>
+                        <td>
                         </td>
                     </tr>
 
@@ -201,17 +117,19 @@
     <br />
     
     <center>
-        <asp:GridView ID="dgvEmpleados" runat="server" AllowSorting="True" OnSorting="dgvEmpleados_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod" >
+        <asp:GridView ID="dgvClientes" runat="server" AllowSorting="True" OnSorting="dgvClientes_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod" >
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="Legajo" HeaderText="Legajo" SortExpression="Legajo" />
-                <asp:BoundField DataField="Cuil" HeaderText="Cuil" SortExpression="Cuil" />
+                <asp:BoundField DataField="CUITCUIL" HeaderText="CUIT / CUIL" SortExpression="CUITCUIL" />
+                <asp:BoundField DataField="RazonSocial" HeaderText="RazonSocial" SortExpression="RazonSocial" />
                 <asp:BoundField DataField="ApeNom" HeaderText="Apellido y Nombre" SortExpression="ApeNom" />
+                <asp:BoundField DataField="TipoCliente" HeaderText="Tipo de Cliente" SortExpression="TipoCliente" />
                 <asp:BoundField DataField="FechaAlta" HeaderText="Fecha de Alta" SortExpression="FechaAlta" />
                 <asp:BoundField DataField="FechaNacimiento" HeaderText="Fecha de Nacimiento" SortExpression="FechaNacimiento" />
                 <asp:BoundField DataField="Mail" HeaderText="Mail" SortExpression="Mail" />
                 <asp:BoundField DataField="Telefono" HeaderText="Telefono" SortExpression="Telefono" />
-                <asp:BoundField DataField="ServiciosRealizados" HeaderText="Servicios Realizados" SortExpression="ServiciosRealizados" />
+                <asp:BoundField DataField="TotalVehiculosRegistrados" HeaderText="Cant. Vehículos" SortExpression="TotalVehiculosRegistrados" />
+                <asp:CheckBoxField DataField="Estado" HeaderText="Estado" SortExpression="Estado" />
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -223,7 +141,7 @@
             <SortedDescendingCellStyle BackColor="#FCF6C0" />
             <SortedDescendingHeaderStyle BackColor="#820000" />
         </asp:GridView>
-        <asp:SqlDataSource ID="ExportEmpleadosDB" runat="server" ConnectionString="<%$ ConnectionStrings:GROSS_LAINO_CHAPARRO_DBConnectionString %>" SelectCommand="SELECT * FROM [ExportEmpleados] ORDER BY [ApeNom], [FechaAlta]"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="ExportClientesDB" runat="server" ConnectionString="<%$ ConnectionStrings:GROSS_LAINO_CHAPARRO_DBConnectionString %>" SelectCommand="SELECT * FROM [ExportClientes]"></asp:SqlDataSource>
     </center>
 
     <script>
@@ -245,7 +163,7 @@
     </script>
 
     <script>
-        var btnAbrirPopup = document.getElementById('btnPopUpAgregarEmpleado'),
+        var btnAbrirPopup = document.getElementById('btnPopUpAgregarCliente'),
             overlay = document.getElementById('overlay'),
             popup = document.getElementById('popup'),
             btnCerrarPopup = document.getElementById('btn-cerrar-popup');

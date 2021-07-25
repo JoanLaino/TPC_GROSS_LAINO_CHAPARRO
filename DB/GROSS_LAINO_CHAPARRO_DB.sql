@@ -62,7 +62,9 @@ INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor
 
 create table TiposCliente(
 	ID smallint primary key identity (1,1),
-	Descripcion varchar(30) unique check (Descripcion = 'Empresa' or Descripcion = 'Particular' or Descripcion = 'Monotributista' or Descripcion = 'Estatal'),
+	Descripcion varchar(30) unique check 
+	(Descripcion = 'Empresa' or Descripcion = 'Particular' or 
+	Descripcion = 'Monotributista' or Descripcion = 'Estatal'),
 	Estado bit not null default (1)
 )
 GO
@@ -77,8 +79,8 @@ create table Clientes(
 	FechaNacimiento date null,
 	Mail varchar(100) unique not null,
 	Telefono varchar(50) not null,
-	TotalVehiculosRegistrados int not null default (0) check (TotalVehiculosRegistrados >= 0),
-	Estado bit not null default (1)
+	TotalVehiculosRegistrados int default (0) check (TotalVehiculosRegistrados >= 0),
+	Estado bit default (1)
 )
 GO
 
@@ -158,8 +160,8 @@ GO
 
 create view ExportInventario
 as
-select I.EAN as EAN, I.Descripcion as Descripción, I.UrlImagen as Imagen, TP.Descripcion as TipoProducto, 
-M.Descripcion as Marca, P.RazonSocial as Proveedor, 
+select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, I.UrlImagen as Imagen, IdTipo, TP.Descripcion as TipoProducto, 
+IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
 CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
 I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado 
 from Inventario as I
@@ -167,6 +169,8 @@ inner join TiposProducto as TP on I.IdTipo = TP.ID
 inner join MarcasProducto as M on I.IdMarca = M.ID
 inner join Proveedores as P on I.IdProveedor = P.ID 
 GO
+
+select from ExportInventario
 
 create procedure SP_INSERTAR_PRODUCTO(
 	@EAN bigint,
@@ -179,16 +183,18 @@ create procedure SP_INSERTAR_PRODUCTO(
 	@FechaVencimiento date,
 	@Costo money,
 	@PrecioVenta money,
-	@Stock int
+	@Stock int,
+	@Estado bit
 )
 as
 begin
-	INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock)
-	VALUES(@EAN, @Descripcion, @UrlImagen, @IdTipo, @IdMarca, @IdProveedor, @FechaCompra, @FechaVencimiento, @Costo, @PrecioVenta, @Stock)
+	INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock, Estado)
+	VALUES(@EAN, @Descripcion, @UrlImagen, @IdTipo, @IdMarca, @IdProveedor, @FechaCompra, @FechaVencimiento, @Costo, @PrecioVenta, @Stock, @Estado)
 end
 GO
 
 create procedure SP_ACTUALIZAR_PRODUCTO(
+	@ID bigint,
 	@EAN bigint,
 	@Descripcion varchar(60),
 	@UrlImagen varchar(300),
@@ -206,16 +212,7 @@ as
 begin
 	UPDATE Inventario SET Descripcion=@Descripcion, UrlImagen=@UrlImagen, IdTipo=@IdTipo, IdMarca=@IdMarca, IdProveedor=@IdProveedor, 
 	FechaCompra=@FechaCompra, FechaVencimiento=@FechaVencimiento, Costo=@Costo, PrecioVenta=@PrecioVenta, Stock=@Stock, Estado=@Estado
-	WHERE EAN=@EAN
-end
-GO
-
-create procedure SP_ELIMINAR_PRODUCTO(
-	@EAN bigint
-)
-as
-begin
-	DELETE FROM Inventario WHERE EAN = @EAN
+	WHERE ID=@ID
 end
 GO
 
@@ -259,8 +256,6 @@ from Servicios s
 GO
 
 insert into Empleados (Legajo,CUIL,ApeNom,FechaAlta,FechaNacimiento,Mail,Telefono) values ('333','20123456788','Homero Simpson','10-10-2000','1-1-1980','asdasd@asd.com','1234567890')
-GO
-
 insert into Empleados (Legajo,CUIL,ApeNom,FechaAlta,FechaNacimiento,Mail,Telefono) values ('222','88765432102','Marge Simpson','10-10-2000','1-1-1980','abcd@abcd.com','0123456789')
 GO
 
@@ -293,4 +288,20 @@ begin
 end
 go
 
+create view ExportClientes
+as
+	select C.ID, C.CUIT_CUIL as 'CUITCUIL', C.RazonSocial, C.ApeNom, T.Descripción as 'TipoCliente',
+	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, CONVERT(VARCHAR(10),C.FechaNacimiento,105) as FechaNacimiento,
+	C.Mail, C.Telefono, C.TotalVehiculosRegistrados, C.Estado
+	from Clientes C
+	inner join TiposCliente T on IdTipo = T.ID
+GO
 
+insert into TiposCliente (Descripcion) values('Empresa')
+insert into TiposCliente (Descripcion) values('Particular')
+insert into TiposCliente (Descripcion) values('Monotributista')
+insert into TiposCliente (Descripcion) values('Estatal')
+
+insert into Clientes (IDTipo, CUIT_CUIL, ApeNom, FechaNacimiento, Mail, Telefono)
+				values(2, 20503268569, 'Roberto Villalobos', '15-1-1975', 'asdasd@gmail.com', '1123456789')
+GO

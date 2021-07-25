@@ -33,10 +33,16 @@
                 <asp:Button ID="btnABMEmpleados" onclick="btnABMEmpleados_Click" runat="server" Text="ABM - Empleado" CssClass="btn-invisible"/>
             </center>            
         </div>
-    </div>
-                
+        <div>
             <center>
                 <asp:Button ID="btnABMUsuario" onclick="btnABMUsuario_Click" runat="server" Text="Crear Usuario" CssClass="btn-invisible"/>
-            </center>            
-       
+            </center> 
+        </div>
+        <div>
+            <center>
+                <asp:Button ID="btnABMClientes" onclick="btnABMClientes_Click" runat="server" Text="ABM - Clientes" CssClass="btn-interna-clientes"/>
+            </center> 
+        </div>
+    </div>
+              
 </asp:Content>

@@ -63,6 +63,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 btnABMUsuario.CssClass = "btn-crear-usuario";
             }
         }
-       
+
+        protected void btnABMClientes_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMClientes.aspx");
+        }
     }
 }

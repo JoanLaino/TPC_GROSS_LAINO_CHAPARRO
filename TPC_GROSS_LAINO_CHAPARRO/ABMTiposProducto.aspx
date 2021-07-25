@@ -6,7 +6,7 @@
     <br />
 
     <asp:ImageButton id="imgBtnBuscarTipoProducto" runat="server" ToolTip="Buscar" OnClick="imgBtnBuscarTipoProducto_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm-producto" />
-    <asp:TextBox ID="txtDescripcionTipoProductoBuscar" runat="server" PlaceHolder="Ingrese Tipo de producto" onkeypress="javascript:return sololetras(event)" cssclass="txt-campo-filtro-abm-producto" Style="height: 30px !important;" ></asp:TextBox>
+    <asp:TextBox ID="txtDescripcionTipoProductoBuscar" runat="server" PlaceHolder="Ingrese Tipo de producto" onkeypress="javascript:return sololetras(event)" cssclass="txt-campo-filtro-abm-tipos-producto"></asp:TextBox>
 
     <button id="btnAgregarTipoProducto" ToolTip="Agregar Tipo de Producto" class="btnAddNewProductType">Agregar Nuevo</button>
     

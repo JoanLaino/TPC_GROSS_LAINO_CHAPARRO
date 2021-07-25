@@ -41,12 +41,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 BindData();
             }
 
+            
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
         }
 
         public void BindData()
         {
+            txtBuscar.Text = "";
+
             txtEan.Text = "";
             txtDescripcion.Text = "";
             txtUrlImagen.Text = "";
@@ -60,6 +63,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtStock.Text = "";
             ddlEstado.SelectedValue = "0";
 
+            txtEan.Enabled = false;
             txtDescripcion.Enabled = false;
             txtUrlImagen.Enabled = false;
             ddlTipoProducto.Enabled = false;
@@ -72,7 +76,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtStock.Enabled = false;
             ddlEstado.Enabled = false;
 
-            string selectViewInventario = "SELECT * FROM ExportInventario";
+            string selectViewInventario = "SELECT EAN, Descripción, Imagen, TipoProducto, Marca, " +
+                                        "Proveedor, [Fecha de Compra], [Fecha de Vencimiento], Costo, " +
+                                        "PrecioVenta, Stock, Estado FROM ExportInventario";
 
             dgvInventario.DataSource = sentencia.DSET(selectViewInventario);
             dgvInventario.DataBind();
@@ -105,10 +111,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string Costo = txtCosto2.Text;
                     string PrecioVenta = txtPrecioVenta2.Text;
                     string Stock = txtStock2.Text;
+                    int Estado = 1;
+
+                    if(ddlEstado2.SelectedValue == "2") { Estado = 0; }
 
                     string sp_InsertInventario = "EXEC SP_INSERTAR_PRODUCTO '" + EAN + "', '" + Descripcion + "', '" + Imagen + "', '" + IdTipoProducto
                     + "', '" + IdMarca + "', '" + IdProveedor + "', '" + FechaCompra + "', '" + FechaVencimiento + "', '" + Costo + "', '" + PrecioVenta
-                    + "', '" + Stock + "'";
+                    + "', '" + Stock + "', '" + Estado + "'";
                 
                     sentencia.IUD(sp_InsertInventario);
 
@@ -140,6 +149,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else
                 {
+                    string ID = txtID.Text;
                     string EAN = txtEan.Text;
                     string Descripcion = txtDescripcion.Text;
                     string Imagen = txtUrlImagen.Text;
@@ -154,7 +164,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     int Estado = 0;
                     if (ddlEstado.SelectedValue == "1") { Estado = 1; }
 
-                    string sp_UpdateInventario = "EXEC SP_ACTUALIZAR_PRODUCTO '" + EAN + "', '" + Descripcion + "', '" + Imagen + "', " + IdTipoProducto
+                    string sp_UpdateInventario = "EXEC SP_ACTUALIZAR_PRODUCTO '" + ID + "', '" + EAN + "', '" + Descripcion + "', '" + Imagen + "', " + IdTipoProducto
                     + ", " + IdMarca + ", " + IdProveedor + ", '" + FechaCompra.ToShortDateString() + "', '" + FechaVencimiento.ToShortDateString() + "', '" + Costo + "', '" + PrecioVenta
                     + "', '" + Stock + "', " + Estado;
 
@@ -177,17 +187,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtEan.Text == "")
+                if (txtEan.Text == "" || txtDescripcion.Text == "" || txtUrlImagen.Text == ""
+                    || txtFechaCompra.Text == "" || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
+                    || txtStock.Text == "" || ddlMarcaProducto.SelectedIndex == 0 ||
+                    ddlTipoProducto.SelectedIndex == 0 || ddlProveedor.SelectedIndex == 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('El EAN no puede estar vacío.')", true);
+                    "alert('Hay campos vacíos o sin seleccionar.')", true);
                 }
                 else
                 {
 
-                    string EAN = txtEan.Text;
+                    string ID = txtID.Text;
 
-                    string sp_DeleteInventario = "EXEC SP_ELIMINAR_PRODUCTO '" + EAN + "'";
+                    string sp_DeleteInventario = "DELETE FROM Inventario WHERE ID = '" + ID + "'";
 
                     sentencia.IUD(sp_DeleteInventario);
 
@@ -616,33 +629,66 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void imgBtnBuscarProducto_Click(object sender, EventArgs e)
         {
             AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datos2 = new AccesoDatos();
             try
             {
-                if (txtEan.Text == "")
+                if (txtBuscar.Text == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('No se ha ingresado ningún EAN.')", true);
+                    "alert('Ingresa un filtro de búsqueda.')", true);
 
                     BindData();
                 }
                 else
                 {
-                    string Valor = txtEan.Text;
+                    string Valor = txtBuscar.Text;
 
-                    string selectDgvProducto = "SELECT * from ExportInventario " +
-                                               "WHERE EAN = '" + Valor + "'";
+                    string columnasSelectCamposProducto = "SELECT ID, EAN, Descripción, Imagen," +
+                                                        " Convert(varchar(10), IdTipo) IdTipo, TipoProducto," +
+                                                        " Convert(varchar(10), IdMarca) IdMarca, Marca," +
+                                                        " Convert(varchar(10), IdProveedor) IdProveedor, Proveedor," +
+                                                        " Convert(varchar(10), [Fecha de Compra], 105) FechaCompra, " +
+                                                        " Convert(varchar(10), [Fecha de Vencimiento], 105) FechaVencimiento," +
+                                                        " Convert(varchar(10), Costo) Costo, " +
+                                                        " Convert(varchar(10), PrecioVenta) PrecioVenta," +
+                                                        " Convert(varchar(10), Stock) Stock, Convert(varchar(10), Estado) Estado " +
+                                                        " FROM ExportInventario";
 
-                    string selectCamposProducto = "Select EAN, Descripcion, UrlImagen, Convert(varchar(10), IdTipo) IdTipo, Convert(varchar(10), IdMarca) IdMarca, Convert(varchar(10), IdProveedor) IdProveedor, Convert(varchar(10), FechaCompra, 105) FechaCompra, Convert(varchar(10), FechaVencimiento, 105) FechaVencimiento, Convert(varchar(10), Costo) Costo, Convert(varchar(10), PrecioVenta) PrecioVenta, Convert(varchar(10), Stock) Stock, Convert(varchar(10), Estado) Estado from Inventario" +
+                    string selectDgvProducto = "SELECT EAN, Descripción, Imagen, TipoProducto, Marca, " +
+                                               "Proveedor, [Fecha de Compra], [Fecha de Vencimiento], Costo, " +
+                                               "PrecioVenta, Stock, Estado FROM ExportInventario " +
+                                               "WHERE EAN LIKE '%" + Valor + "%'" +
+                                               " OR Descripción LIKE '%" + Valor + "%'" +
+                                               " OR TipoProducto LIKE '%" + Valor + "%'" +
+                                               " OR Marca LIKE '%" + Valor + "%'" +
+                                               " OR Proveedor LIKE '%" + Valor + "%'";
+
+                    datos2.SetearConsulta(selectDgvProducto);
+                    datos2.EjecutarLectura();
+
+                    if (Valor.All(char.IsDigit) == true)
+                    {
+                        string selectCamposProducto = columnasSelectCamposProducto +
                                                 " WHERE EAN = '" + Valor + "'";
 
-                    datos.SetearConsulta(selectCamposProducto);
-                    datos.EjecutarLectura();
+                        datos.SetearConsulta(selectCamposProducto);
+                        datos.EjecutarLectura();
+                    }
+                    else
+                    {
+                        string selectCamposProducto = columnasSelectCamposProducto +
+                                                " WHERE Descripción = '" + Valor + "'";
 
-
+                        datos.SetearConsulta(selectCamposProducto);
+                        datos.EjecutarLectura();
+                    }
+                    
                     if (datos.Lector.Read() == true)
                     {
-                        txtDescripcion.Text = (string)datos.Lector["Descripcion"];
-                        txtUrlImagen.Text = (string)datos.Lector["UrlImagen"];
+                        txtID.Text = datos.Lector["ID"].ToString();
+                        txtEan.Text = datos.Lector["EAN"].ToString();
+                        txtDescripcion.Text = (string)datos.Lector["Descripción"];
+                        txtUrlImagen.Text = (string)datos.Lector["Imagen"];
                         ddlTipoProducto.SelectedValue = datos.Lector["IdTipo"].ToString();
                         ddlMarcaProducto.SelectedValue = datos.Lector["IdMarca"].ToString();
                         ddlProveedor.SelectedValue = datos.Lector["IdProveedor"].ToString();
@@ -660,6 +706,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         btnUpdate.Enabled = true;
                         btnDelete.Enabled = true;
 
+                        txtEan.Enabled = true;
                         txtDescripcion.Enabled = true;
                         txtUrlImagen.Enabled = true;
                         ddlTipoProducto.Enabled = true;
@@ -674,10 +721,44 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     }
                     else
                     {
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('No se econtró ninguna coincidencia.')", true);
+                        if (datos2.Lector.Read() == false)
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('No se econtró ninguna coincidencia.')", true);
 
-                        BindData();
+                            BindData();
+                        }
+                        else
+                        {
+                            dgvInventario.DataSource = sentencia.DSET(selectDgvProducto);
+                            dgvInventario.DataBind();
+
+                            txtEan.Text = "";
+                            txtDescripcion.Text = "";
+                            txtUrlImagen.Text = "";
+                            ddlTipoProducto.SelectedValue = "0";
+                            ddlMarcaProducto.SelectedValue = "0";
+                            ddlProveedor.SelectedValue = "0";
+                            txtFechaCompra.Text = "";
+                            txtFechaVencimiento.Text = "";
+                            txtCosto.Text = "";
+                            txtPrecioVenta.Text = "";
+                            txtStock.Text = "";
+                            ddlEstado.SelectedValue = "0";
+
+                            txtEan.Enabled = false;
+                            txtDescripcion.Enabled = false;
+                            txtUrlImagen.Enabled = false;
+                            ddlTipoProducto.Enabled = false;
+                            ddlMarcaProducto.Enabled = false;
+                            ddlProveedor.Enabled = false;
+                            txtFechaCompra.Enabled = false;
+                            txtFechaVencimiento.Enabled = false;
+                            txtCosto.Enabled = false;
+                            txtPrecioVenta.Enabled = false;
+                            txtStock.Enabled = false;
+                            ddlEstado.Enabled = false;
+                        }
                     }
                 }
             }

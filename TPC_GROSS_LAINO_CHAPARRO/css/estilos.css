@@ -157,14 +157,6 @@
     font-size: small;
 }
 
-.card-description{
-
-}
-
-.card-marca{
-
-}
-
 .bg-dark {
     box-shadow: 0px 0px 10px 0px #000000 !important;
 }
@@ -268,10 +260,24 @@
     background-color: black;
 }
 
+.txt-campo-filtro-abm-tipos-producto {
+    width: 279px;
+    height: 30px !important;
+    vertical-align: middle;
+}
+
 .txt-campo-filtro-abm-producto {
-    width: 320px;
+    width: 468px;
     height: 27px;
     vertical-align: middle;
+    max-width: 468px !important;
+    position: relative;
+    left: -340px;
+}
+
+.txtEAN-abm-producto{
+    width: 200px;
+    height: 30px;
 }
 
 .btn-buscar-filtro-abm-producto{
@@ -299,7 +305,7 @@
     text-shadow: black 0.1em 0.1em 1.9em;
     box-shadow: 0 4px 6px -6px black;
     position: relative;
-    left: 223px;
+    left: -304px;
 }
 
 .btnAddNewProduct:hover {
@@ -611,8 +617,30 @@
 }
 
 .btn-interna-empleados:hover {
-     background-color: #ffffff;
+    background-color: #ffffff;
     color: #F0807D;
+}
+
+.btn-interna-clientes {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #ff8d00;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-clientes:hover {
+    background-color: #ffffff;
+    color: #ff8d00;
 }
 
 .btn-cerrar-sesion {
@@ -661,7 +689,6 @@
     color: #929292;
 }
 
-
 .overlay {
     background: rgba(0,0,0,.3);
     position: fixed;
@@ -677,4 +704,11 @@
 
 .overlay.active {
     visibility: visible;
+}
+
+.td-tabla-campos-abm {
+    padding-left: .5rem;
+    padding-top: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
 }
