@@ -64,15 +64,14 @@ create table TiposCliente(
 	ID smallint primary key identity (1,1),
 	Descripcion varchar(30) unique check 
 	(Descripcion = 'Empresa' or Descripcion = 'Particular' or 
-	Descripcion = 'Monotributista' or Descripcion = 'Estatal'),
-	Estado bit not null default (1)
+	Descripcion = 'Monotributista' or Descripcion = 'Estatal')
 )
 GO
 
 create table Clientes(
 	ID bigint primary key identity (1,1) not null,
 	IDTipo smallint not null foreign key references TiposCliente(ID),
-	CUIT_CUIL varchar(13) unique not null,
+	CUIT_DNI varchar(13) unique not null,
 	RazonSocial varchar(100) unique null,
 	ApeNom varchar(100) null,
 	FechaAlta date default (getdate()),
@@ -124,8 +123,7 @@ GO
 
 create table MarcasVehiculo(
 	ID bigint primary key identity (1,1) not null,
-	Descripcion varchar(50) not null,
-	Estado bit not null default (1)
+	Descripcion varchar(50) not null
 )
 GO
 
@@ -290,8 +288,8 @@ go
 
 create view ExportClientes
 as
-	select C.ID, C.CUIT_CUIL as 'CUITCUIL', C.RazonSocial, C.ApeNom, T.Descripción as 'TipoCliente',
-	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, CONVERT(VARCHAR(10),C.FechaNacimiento,105) as FechaNacimiento,
+	select C.ID, C.CUIT_DNI as 'CUITDNI', isnull(C.RazonSocial,'-') as RazonSocial, isnull(C.ApeNom,'-') as ApeNom, T.Descripción as 'TipoCliente',
+	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, isnull(CONVERT(VARCHAR(10),C.FechaNacimiento,105),'-') as FechaNacimiento,
 	C.Mail, C.Telefono, C.TotalVehiculosRegistrados, C.Estado
 	from Clientes C
 	inner join TiposCliente T on IdTipo = T.ID
@@ -301,7 +299,16 @@ insert into TiposCliente (Descripcion) values('Empresa')
 insert into TiposCliente (Descripcion) values('Particular')
 insert into TiposCliente (Descripcion) values('Monotributista')
 insert into TiposCliente (Descripcion) values('Estatal')
+GO
 
-insert into Clientes (IDTipo, CUIT_CUIL, ApeNom, FechaNacimiento, Mail, Telefono)
-				values(2, 20503268569, 'Roberto Villalobos', '15-1-1975', 'asdasd@gmail.com', '1123456789')
+insert into Clientes (IDTipo, CUIT_DNI, ApeNom, FechaNacimiento, Mail, Telefono)
+values(2, 15326856, 'Roberto Villalobos', '15-1-1975', 'asdasd@gmail.com', '1123456789')
+insert into Clientes (IDTipo, CUIT_DNI, RazonSocial, Mail, Telefono)
+values(1, 35343323214, 'Salamanca SA', 'salamancasa@gmail.com', '1101234567')
+GO
+
+create view ExportProveedores
+as
+select CUIT, RazonSocial, Estado
+from Proveedores
 GO

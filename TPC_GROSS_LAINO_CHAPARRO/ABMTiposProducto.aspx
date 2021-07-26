@@ -1,11 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMTiposProducto.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMTiposProducto" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     
-    <h1 class="h1-abm-prod">ABM - Tipos de Producto</h1>
+    <h1 class="h1-abm">ABM - Tipos de Producto</h1>
 
     <br />
 
-    <asp:ImageButton id="imgBtnBuscarTipoProducto" runat="server" ToolTip="Buscar" OnClick="imgBtnBuscarTipoProducto_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm-producto" />
+    <asp:ImageButton id="imgBtnBuscarTipoProducto" runat="server" ToolTip="Buscar" OnClick="imgBtnBuscarTipoProducto_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm" />
     <asp:TextBox ID="txtDescripcionTipoProductoBuscar" runat="server" PlaceHolder="Ingrese Tipo de producto" onkeypress="javascript:return sololetras(event)" cssclass="txt-campo-filtro-abm-tipos-producto"></asp:TextBox>
 
     <button id="btnAgregarTipoProducto" ToolTip="Agregar Tipo de Producto" class="btnAddNewProductType">Agregar Nuevo</button>
@@ -16,7 +16,6 @@
 
         <tr>
             <td>
-                <span id="span-id-tipo-producto" align="left" style="font-size: 20px;">ID</span>
                 <asp:TextBox id="txtIdTipoProducto" runat="server" TooTip="ID" placeholder="ID" onkeypress="javascript:return solonumeros(event)" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
             </td>
             <td>
@@ -24,9 +23,9 @@
             </td>
             <td align="center">
                 &nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Tipo de Producto" onclientclick="return confirm('¿Confirma el cambio?');" OnClick="btnUpdateTipoProducto_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto" Style="width: 30px; vertical-align: bottom !important;" />
+                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Tipo de Producto" onclientclick="return confirm('¿Confirma el cambio?');" OnClick="btnUpdateTipoProducto_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="vertical-align: bottom !important;" />
                 &nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Tipo de Producto" onclientclick="return confirm('¿Seguro que desea eliminar el Tipo de Producto?');" OnClick="btnDeleteTipoProducto_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" Style="vertical-align: bottom !important;" />
+                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Tipo de Producto" onclientclick="return confirm('¿Seguro que desea eliminar el Tipo de Producto?');" OnClick="btnDeleteTipoProducto_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: bottom !important;" />
             </td>
         </tr>
 

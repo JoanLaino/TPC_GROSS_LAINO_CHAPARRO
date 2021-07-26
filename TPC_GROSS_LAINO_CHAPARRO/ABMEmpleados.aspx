@@ -96,11 +96,11 @@
         <%   } %>
     </div>--%>
 
-    <h1 class="h1-abm-prod">ABM - Empleados</h1>
+    <h1 class="h1-abm">ABM - Empleados</h1>
 
     <br />
 
-    <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Empleado" ImageUrl="~/img/find-logo.png" onclick="imgBtnBuscar_Click" Style="width: 30px; vertical-align: middle;" cssclass="btn-buscar-filtro-abm-producto" />
+    <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Empleado" ImageUrl="~/img/find-logo.png" onclick="imgBtnBuscar_Click" Style="vertical-align: middle;" cssclass="btn-buscar-filtro-abm" />
     <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." Style="width: 320px; height: 30px !important; vertical-align: middle;" ></asp:TextBox>
 
     <button id="btnPopUpAgregarEmpleado" ToolTip="Agregar nuevo Empleado" class="btnAddNewEmployee">Agregar Nuevo</button>
@@ -110,40 +110,40 @@
     <table BorderStyle="Inset" BorderWidth="5px" style="width:60%; border: solid; border-color: black; background-color: rgb(255 255 255);">
 
         <tr align="center" >
-            <td>
+            <td Style="padding: .5rem;">
                  <asp:TextBox ID="txtID" runat="server" ToolTip="ID" placeholder="ID" Visible="false" ></asp:TextBox>
                 <asp:TextBox ID="txtLegajo" runat="server" ToolTip="Legajo" placeholder="Legajo" Width="200px" MaxLength="4" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
             </td>
-            <td>
-                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Producto" onclientclick="return confirm('¿Confirma las modificaciones?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto" Style="width: 30px; vertical-align: sub;" />
+            <td Style="padding: .5rem;">
+                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Producto" onclientclick="return confirm('¿Confirma las modificaciones?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="vertical-align: sub;" />
                 &nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Producto" onclientclick="return confirm('¿Seguro que desea eliminar al empleado?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" Style="vertical-align: sub;" />
+                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Producto" onclientclick="return confirm('¿Seguro que desea eliminar al empleado?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: sub;" />
             </td>
-            <td>
+            <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtCuil" runat="server" ToolTip="Cuil" placeholder="Cuil" Width="200px" MaxLength="11" Rows="1" TextMode="Number" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
             </td>
         </tr>
 
         <tr align="center">
-            <td>
+            <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtApeNom" runat="server" ToolTip="Apellido y Nombre" placeholder="Apellido y Nombre" Width="200px" MaxLength="100" Rows="1" onkeypress="javascript:return sololetras(event)" ></asp:TextBox>
             </td>
-            <td>
+            <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtFechaAlta" runat="server" ToolTip="Fecha de Alta" placeholder="Fecha de Alta" Width="200px" MaxLength="10" ></asp:TextBox>
             </td>
-            <td>
+            <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtFechaNacimiento" runat="server" ToolTip="Fecha de Nacimiento" placeholder="Fecha de Nacimiento" Width="200px" MaxLength="10"></asp:TextBox>
             </td>
         </tr>
 
         <tr align="center">
-            <td>
+            <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtMail" runat="server" ToolTip="e-Mail" placeholder="e-Mail" Width="200px"></asp:TextBox>
             </td>
-            <td>
+            <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtTelefono" runat="server" ToolTip="Teléfono / Celular" placeholder="Teléfono / Celular" onkeypress="javascript:return solonumeros(event)" Width="200px"></asp:TextBox>
             </td>
-            <td>
+            <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtServiciosRealizados" runat="server" Enabled="false" ToolTip="Cantidad de Servicios Realizados" placeholder="Cant. Servicios Realizados" Width="200px"></asp:TextBox>
             </td>
         </tr>
@@ -157,37 +157,37 @@
 		        <table style="width:80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
 
                     <tr align="center" >
-                        <td>
+                        <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtLegajo2" runat="server" TextMode="Number" ToolTip="Legajo" placeholder="Legajo" Width="200px" MaxLength="4" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
                         </td>
-                        <td align="center" style="vertical-align: super;">
+                        <td align="center" style="vertical-align: super;  padding: .5rem;">
                             <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" OnClick="btnCerraPopup_Click" cssclass="btn-cerrar-popup" />
                         </td>
-                        <td>
+                        <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtCuil2" runat="server" ToolTip="Cuil" placeholder="Cuil" Width="200px" MaxLength="11" Rows="1" TextMode="Number" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
                         </td>
                     </tr>
                                     
                     <tr align="center">
-                        <td>
+                        <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtApeNom2" runat="server" ToolTip="Apellido y Nombre" placeholder="Apellido y Nombre" Width="200px" MaxLength="100" Rows="1" onkeypress="javascript:return sololetras(event)" ></asp:TextBox>
                         </td>
-                        <td>
+                        <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtFechaAlta2" runat="server" Type="Date" ToolTip="Fecha de Alta" placeholder="Fecha de Alta" Width="200px" MaxLength="10" ></asp:TextBox>
                         </td>
-                        <td>
+                        <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtFechaNacimiento2" runat="server" Type="Date" ToolTip="Fecha de Nacimiento" placeholder="Fecha de Nacimiento" Width="200px" MaxLength="10"></asp:TextBox>
                         </td>
                     </tr>
 
                     <tr align="center">
-                        <td>
+                        <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtMail2" runat="server" ToolTip="e-Mail" placeholder="e-Mail" Width="200px"></asp:TextBox>
                         </td>
-                        <td align="center">
+                        <td align="center" Style="padding: .5rem;">
                             <asp:Button ID="imgBtnAgregarEmpleado" Text="Agregar" runat="server" ToolTip="Agregar Empleado" onclientclick="return confirm('¿Confirma que desea agregar al nuevo empleado?');" onclick="imgBtnAgregarEmpleado_Click" cssclass="img-btn-add-producto" />
                         </td>
-                        <td>
+                        <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtTelefono2" runat="server" ToolTip="Teléfono / Celular" placeholder="Teléfono / Celular" onkeypress="javascript:return solonumeros(event)" Width="200px"></asp:TextBox>
                         </td>
                     </tr>

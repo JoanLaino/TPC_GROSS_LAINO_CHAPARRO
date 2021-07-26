@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMProductos.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMCatalogo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h1 class="h1-abm-prod">ABM - Productos</h1>
+    <h1 class="h1-abm">ABM - Productos</h1>
 
     <br />
 
@@ -9,7 +9,7 @@
         Para mostrar todo el inventario, dejar el buscador vacío y hacer click en lupa.
     </span>
 
-    <asp:ImageButton id="imgBtnBuscarProducto" runat="server" ToolTip="Buscar Producto" OnClick="imgBtnBuscarProducto_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm-producto" Style="position: relative; left: -340px;" />
+    <asp:ImageButton id="imgBtnBuscarProducto" runat="server" ToolTip="Buscar Producto" OnClick="imgBtnBuscarProducto_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm" Style="position: relative; left: -340px;" />
     <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." cssclass="txt-campo-filtro-abm-producto" ></asp:TextBox>
 
     <button id="btnAddNewProduct" ToolTip="Agregar nuevo Producto" class="btnAddNewProduct">Agregar Nuevo</button>
@@ -96,9 +96,9 @@
             <td Style="padding: .5rem;">
             </td>
             <td Style="padding: .5rem;">
-                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Producto" onclientclick="return confirm('¿Seguro que desea actualizar el producto?');" OnClick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-producto" Style="width: 30px" />
+                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Producto" onclientclick="return confirm('¿Seguro que desea actualizar el producto?');" OnClick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" />
                 &nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Producto" onclientclick="return confirm('¿Seguro que desea eliminar el producto?');" OnClick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-producto" />
+                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Producto" onclientclick="return confirm('¿Seguro que desea eliminar el producto?');" OnClick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" />
             </td>
             <td Style="padding: .5rem;">
             </td>

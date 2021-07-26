@@ -15,8 +15,22 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
         {
+            string selectTiposCliente = "SELECT * FROM TiposCliente";
+
             if (!IsPostBack)
             {
+                ddlTiposCliente.DataSource = sentencia.DSET(selectTiposCliente);
+                ddlTiposCliente.DataMember = "datos";
+                ddlTiposCliente.DataTextField = "Descripcion";
+                ddlTiposCliente.DataValueField = "ID";
+                ddlTiposCliente.DataBind();
+
+                ddlTiposCliente2.DataSource = sentencia.DSET(selectTiposCliente);
+                ddlTiposCliente2.DataMember = "datos";
+                ddlTiposCliente2.DataTextField = "Descripcion";
+                ddlTiposCliente2.DataValueField = "ID";
+                ddlTiposCliente2.DataBind();
+
                 BindData();
             }
         }
@@ -25,30 +39,24 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             txtBuscar.Text = "";
 
-            //txtLegajo.Text = "";
-            //txtCuil.Text = "";
-            //txtApeNom.Text = "";
-            //txtFechaAlta.Text = "";
-            //txtFechaNacimiento.Text = "";
-            //txtMail.Text = "";
-            //txtTelefono.Text = "";
-            //txtServiciosRealizados.Text = "";
+            txtCuitDni.Text = "";
+            txtRazonSocial.Text = "";
+            txtApeNom.Text = "";
+            txtFechaAlta.Text = "";
+            txtFechaNacimiento.Text = "";
+            txtMail.Text = "";
+            txtTelefono.Text = "";
+            ddlTiposCliente.SelectedValue = "0";
 
-            //txtLegajo2.Text = "";
-            //txtCuil2.Text = "";
-            //txtApeNom2.Text = "";
-            //txtFechaAlta2.Text = "";
-            //txtFechaNacimiento2.Text = "";
-            //txtMail2.Text = "";
-            //txtTelefono2.Text = "";
+            txtCuitDni2.Text = "";
+            txtRazonSocial2.Text = "";
+            txtApeNom2.Text = "";
+            txtFechaAlta2.Text = "";
+            txtFechaNacimiento2.Text = "";
+            txtMail2.Text = "";
+            txtTelefono2.Text = "";
+            ddlTiposCliente2.SelectedValue = "0";
 
-            //txtLegajo.Enabled = false;
-            //txtCuil.Enabled = false;
-            //txtApeNom.Enabled = false;
-            //txtFechaAlta.Enabled = false;
-            //txtFechaNacimiento.Enabled = false;
-            //txtMail.Enabled = false;
-            //txtTelefono.Enabled = false;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
 

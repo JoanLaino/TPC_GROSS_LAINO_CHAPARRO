@@ -12,9 +12,9 @@
     padding-inline: 20px;
 }
 
-    .font-stl:hover {
-        color: #34B630 !important;
-    }
+.font-stl:hover {
+    color: #34B630 !important;
+}
 
 .stl-btn-1 {
     background-color: #FFFFFF0D;
@@ -231,33 +231,35 @@
     z-index: 1;
 }
 
-.h1-abm-prod {
+.h1-abm {
     text-align: left;
     font-size: calc(2em + 1vw);
     color: #142382;
     text-shadow: 1px 1px 0 #ffffff;
 }
 
-.img-btn-del-producto {
+.img-btn-del-abm {
     width: 30px;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
 
-.img-btn-del-producto:hover {
+.img-btn-del-abm:hover {
+    width: 35px;
     border-radius: 100px;
     box-shadow: 0 0 10px black; 
 }
 
-.img-btn-edit-producto {
-    width: 20px;
+.img-btn-edit-abm {
+    width: 30px;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
 
-.img-btn-edit-producto:hover {
+.img-btn-edit-abm:hover {
+    width: 35px;
+    border-radius: 100px;
     box-shadow: 0 0 10px black;
-    background-color: black;
 }
 
 .txt-campo-filtro-abm-tipos-producto {
@@ -280,14 +282,18 @@
     height: 30px;
 }
 
-.btn-buscar-filtro-abm-producto{
+.btn-buscar-filtro-abm {
     width: 30px;
     vertical-align: middle;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
-.btn-buscar-filtro-abm-producto:hover {
+.btn-buscar-filtro-abm:hover {
+    border-radius: 100px;
+    width: 35px;
     box-shadow: 0 0 10px black;
-    background-color: black;
+    background-color: #24e8d9;
 }
 
 .btnAddNewProduct {
@@ -336,6 +342,29 @@
     color: #98D983;
 }
 
+.btnAddNewClient {
+    vertical-align: middle;
+    color: #ffffff;
+    background-color: #98D983;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    position: relative;
+    left: 223px;
+}
+
+.btnAddNewClient:hover {
+    background-color: #ffffff;
+    color: #98D983;
+}
+
 .btnAddNewBrand {
     color: #ffffff;
     background-color: #98D983;
@@ -377,6 +406,29 @@
 }
 
 .btnAddNewProductType:hover {
+    background-color: #ffffff;
+    color: #98D983;
+}
+
+.btnAddNewSupplier {
+    vertical-align: middle;
+    color: #ffffff;
+    background-color: #98D983;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    position: relative;
+    left: 8px;
+}
+
+.btnAddNewSupplier:hover {
     background-color: #ffffff;
     color: #98D983;
 }

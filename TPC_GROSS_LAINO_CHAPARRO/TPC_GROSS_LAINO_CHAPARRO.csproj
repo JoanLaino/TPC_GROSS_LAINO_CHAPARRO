@@ -112,6 +112,7 @@
     <Content Include="ABMMarcasProducto.aspx" />
     <Content Include="ABMMarcasVehiculo.aspx" />
     <Content Include="ABMProductos.aspx" />
+    <Content Include="ABMProveedores.aspx" />
     <Content Include="ABMTiposProducto.aspx" />
     <Content Include="ABMUsuario.aspx" />
     <Content Include="About.aspx" />
@@ -305,6 +306,13 @@
     </Compile>
     <Compile Include="ABMProductos.aspx.designer.cs">
       <DependentUpon>ABMProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ABMProveedores.aspx.cs">
+      <DependentUpon>ABMProveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMProveedores.aspx.designer.cs">
+      <DependentUpon>ABMProveedores.aspx</DependentUpon>
     </Compile>
     <Compile Include="ABMTiposProducto.aspx.cs">
       <DependentUpon>ABMTiposProducto.aspx</DependentUpon>
