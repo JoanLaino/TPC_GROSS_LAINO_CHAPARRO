@@ -12,16 +12,18 @@ GO
 
 create table MarcasProducto(
 	ID bigint primary key identity (1,1) not null,
-	Descripcion varchar(50) not null
+	Descripcion varchar(50) not null,
+	Estado bit not null default (1)
 )
 GO
 
 create table Proveedores(
 	ID bigint primary key identity (1,1) not null,
-	CUIT varchar(13) unique not null,
+	CUIT varchar(11) unique not null,
 	RazonSocial varchar(100) unique not null,
 	Estado bit not null default (1)
 )
+GO
 
 create table Inventario(
 	ID bigint not null primary key identity (1,1),
@@ -38,27 +40,33 @@ create table Inventario(
 	Stock int not null check (Stock >= 0),
 	Estado bit not null default (1)
 )
+GO
 
 INSERT INTO TiposProducto(Descripcion) values('Lubricante')
 INSERT INTO TiposProducto(Descripcion) values('Aceite')
 INSERT INTO TiposProducto(Descripcion) values('Líquido de frenos')
 INSERT INTO TiposProducto(Descripcion) values('Agua destilada')
 INSERT INTO TiposProducto(Descripcion) values('Líquido refrigerante')
+GO
 
-INSERT INTO Proveedores(CUIT, RazonSocial) values('111111111111', 'ABC S.A.')
-INSERT INTO Proveedores(CUIT, RazonSocial) values('222222222222', 'DEF S.R.L.')
+INSERT INTO Proveedores(CUIT, RazonSocial) values('11111111111', 'ABC S.A.')
+INSERT INTO Proveedores(CUIT, RazonSocial) values('22222222222', 'DEF S.R.L.')
+INSERT INTO Proveedores(CUIT, RazonSocial) values('33333333333', 'GHI S.C.')
+GO
 
 INSERT INTO MarcasProducto(Descripcion) values('Shell')
 INSERT INTO MarcasProducto(Descripcion) values('YPF')
 INSERT INTO MarcasProducto(Descripcion) values('Castrol')
 INSERT INTO MarcasProducto(Descripcion) values('Water')
 INSERT INTO MarcasProducto(Descripcion) values('Dot3')
+GO
 
 INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 'Lubricante muy bueno', 'https://live.staticflickr.com/3771/12164538394_32d87cf00b_b.jpg', 1, 3, 1, '2021-05-15', '2021-09-15', 10, 20, 5)
 INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446, 'Aceite 15W40', 'https://lubricentrocarlitos.com.ar/wp-content/uploads/2017/10/elaion-f50.jpg', 2, 2, 1, '2021-05-15', '2021-09-15', 10, 20, 5)
 INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447, 'Líquido refrigerante concentrado', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shell_lub.png/200px-Shell_lub.png', 5, 1, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
 INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448, 'Agua destilada', 'https://http2.mlstatic.com/D_NQ_NP_710724-MLA43593591234_092020-V.jpg', 4, 4, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449, 'Líquido de frenos', 'https://st2.depositphotos.com/1439888/11103/i/600/depositphotos_111033484-stock-photo-brake-fluid-with-disc-brake.jpg', 3, 5, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449, 'Líquido de frenos', 'https://st2.depositphotos.com/1439888/11103/i/600/depositphotos_111033484-stock-photo-brake-fluid-with-disc-brake.jpg', 3, 5, 3, '2021-05-15', '2021-09-15', 10, 20, 5)
+GO
 
 create table TiposCliente(
 	ID smallint primary key identity (1,1),
@@ -71,7 +79,7 @@ GO
 create table Clientes(
 	ID bigint primary key identity (1,1) not null,
 	IDTipo smallint not null foreign key references TiposCliente(ID),
-	CUIT_DNI varchar(13) unique not null,
+	CUIT_DNI varchar(11) unique not null,
 	RazonSocial varchar(100) unique null,
 	ApeNom varchar(100) null,
 	FechaAlta date default (getdate()),
@@ -106,6 +114,7 @@ INSERT INTO TiposUsuario(Descripcion) VALUES('Jefe')
 INSERT INTO Usuarios(TipoUser, Usuario, Pass, Mail) VALUES(1, 'test', 'test', 'test@test.com')
 INSERT INTO Usuarios(TipoUser, Usuario, Pass, Mail) VALUES(2, 'admin', 'admin', 'admin@admin.com')
 INSERT INTO Usuarios(TipoUser, Usuario, Pass, Mail) VALUES(1, 'empleado', 'empleado', 'empleado@hotmail.com')
+GO
 
 create table Empleados(
 	ID bigint primary key identity (1,1) not null,
@@ -167,8 +176,6 @@ inner join TiposProducto as TP on I.IdTipo = TP.ID
 inner join MarcasProducto as M on I.IdMarca = M.ID
 inner join Proveedores as P on I.IdProveedor = P.ID 
 GO
-
-select from ExportInventario
 
 create procedure SP_INSERTAR_PRODUCTO(
 	@EAN bigint,
@@ -309,6 +316,28 @@ GO
 
 create view ExportProveedores
 as
-select CUIT, RazonSocial, Estado
+select ID, CUIT, RazonSocial, Estado
 from Proveedores
+GO
+
+create view ExportCatalogo
+as
+select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, I.UrlImagen as Imagen, IdTipo, TP.Descripcion as TipoProducto, 
+IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
+CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
+I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado, M.Estado as EstadoMarca, P.Estado as EstadoProveedor 
+from Inventario as I
+inner join TiposProducto as TP on I.IdTipo = TP.ID
+inner join MarcasProducto as M on I.IdMarca = M.ID
+inner join Proveedores as P on I.IdProveedor = P.ID 
+GO
+
+create procedure SP_INSERTAR_PROVEEDOR(
+	@CUIT varchar(11),
+	@RazonSocial varchar(100)
+)as
+begin
+	INSERT INTO Proveedores (CUIT, RazonSocial)
+				Values (@CUIT, @RazonSocial)
+end
 GO

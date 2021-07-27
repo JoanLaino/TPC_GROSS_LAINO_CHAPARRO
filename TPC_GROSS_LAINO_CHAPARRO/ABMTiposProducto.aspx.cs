@@ -17,11 +17,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 BindData();
             }
-
-            txtDescripcionTipoProducto.Enabled = false;
-            txtIdTipoProducto.Enabled = false;
-            btnUpdate.Enabled = false;
-            btnDelete.Enabled = false;
         }
             
         public void BindData()
@@ -31,10 +26,18 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             dgvTiposProducto.DataSource = sentencia.DSET(selectViewTiposProducto);
             dgvTiposProducto.DataBind();
 
+            txtDescripcionTipoProducto.Enabled = false;
+            txtIdTipoProducto.Enabled = false;
+            ddlEstado.Enabled = false;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+
             txtDescripcionTipoProductoBuscar.Text = "";
             txtIdTipoProducto.Text = "";
             txtDescripcionTipoProducto.Text = "";
+            ddlEstado.SelectedValue = "0";
             txtDescripcionTipoProducto2.Text = "";
+
         }
 
         //protected void ddlID_SelectedIndexChanged(object sender, EventArgs e)
@@ -74,7 +77,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtDescripcionTipoProducto.Text == "")
+                if (txtDescripcionTipoProducto.Text == "" || ddlEstado.SelectedIndex == 0)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Descripción vacía.')", true);
@@ -85,10 +88,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string ID = txtIdTipoProducto.Text;
                     string Descripcion = txtDescripcionTipoProducto.Text;
 
-                    string sp_DeleteTipoProducto = "DELETE FROM TiposProducto WHERE ID = '" + ID + "'" +
+                    string DeleteTipoProducto = "DELETE FROM TiposProducto WHERE ID = '" + ID + "'" +
                                                    " AND Descripcion = '" + Descripcion + "'";
 
-                    sentencia.IUD(sp_DeleteTipoProducto);
+                    sentencia.IUD(DeleteTipoProducto);
 
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Tipo de producto eliminado con éxito.')", true);
@@ -118,8 +121,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 {
                     string ID = txtIdTipoProducto.Text;
                     string Descripcion = txtDescripcionTipoProducto.Text;
+                    int Estado = 1;
+                    if (ddlEstado.SelectedValue == "2") { Estado = 0; }
 
-                    string sp_UpdateTipoProducto = "UPDATE TiposProducto SET Descripcion = '" + Descripcion + "' WHERE ID = '" + ID + "'";
+                    string sp_UpdateTipoProducto = "UPDATE TiposProducto SET Descripcion = '" + Descripcion + "', Estado = " + Estado + " WHERE ID = '" + ID + "'";
 
                     sentencia.IUD(sp_UpdateTipoProducto);
 
@@ -206,8 +211,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     {
                         txtIdTipoProducto.Text = datos.Lector["ID"].ToString();
                         txtDescripcionTipoProducto.Text = (string)datos.Lector["Descripcion"];
+                        ddlEstado.SelectedValue = datos.Lector["Estado"].ToString();
 
                         txtDescripcionTipoProducto.Enabled = true;
+                        ddlEstado.Enabled = true;
                         btnUpdate.Enabled = true;
                         btnDelete.Enabled = true;
                     }
@@ -223,14 +230,17 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         else
                         {
                             ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                            "alert('Se encontró más de un resultado.')", true);
+                            "alert('La búsqueda no arrojó coincidencias exactas.')", true);
                         }
                     }
                 }
             }
             catch (Exception)
             {
-                throw;
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se ha producido un error en la búsqueda.')", true);
+
+                BindData();
             }
             finally
             {
@@ -240,10 +250,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnCerraPopup_Click(object sender, EventArgs e)
         {
-            txtDescripcionTipoProductoBuscar.Text = "";
-            txtIdTipoProducto.Text = "";
-            txtDescripcionTipoProducto.Text = "";
-
             BindData();
         }
     }

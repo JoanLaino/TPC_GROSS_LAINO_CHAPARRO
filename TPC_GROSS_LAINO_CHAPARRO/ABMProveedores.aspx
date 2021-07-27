@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMProveedores.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMProveedores" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     
-    <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Proveedor" ImageUrl="~/img/find-logo.png" Style="vertical-align: middle;" cssclass="btn-buscar-filtro-abm" />
-    <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." Style="width: 320px; height: 30px !important; vertical-align: middle;" ></asp:TextBox>
+    <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Proveedor" ImageUrl="~/img/find-logo.png" Style="vertical-align: middle;" onclick="imgBtnBuscar_Click" cssclass="btn-buscar-filtro-abm" />
+    <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." Style="width: 320px; height: 30px !important; vertical-align: middle;" TextMode="Search" ></asp:TextBox>
 
     <button id="btnPopUpAgregarProveedor" ToolTip="Agregar nuevo Proveedor" class="btnAddNewSupplier">Agregar Nuevo</button>
 
@@ -31,9 +31,9 @@
             </td>
             <td align="center" style="padding: .5rem;">
                 &nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Proveedor" onclientclick="return confirm('¿Confirma los cambios?');" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="vertical-align: bottom !important;" />
+                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Proveedor" onclientclick="return confirm('¿Confirma los cambios?');" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" onclick="btnUpdate_Click" Style="vertical-align: bottom !important;" />
                 &nbsp;&nbsp;&nbsp;
-                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Proveedor" onclientclick="return confirm('¿Seguro que desea eliminar el Proveedor?');" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: bottom !important;" />
+                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Proveedor" onclientclick="return confirm('¿Seguro que desea eliminar el Proveedor?');" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" onclick="btnDelete_Click" Style="vertical-align: bottom !important;" />
             </td>
         </tr>
 
@@ -46,37 +46,24 @@
 		    <table style="width:80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
 
                 <tr align="center">
-                    <td style="padding: .5rem;">   
-                    </td>
-                    <td align="center" style="padding: .5rem;">
-                        <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" />
-                    </td>
-                    <td style="padding: .5rem;">   
+                    <td align="right" style="padding: .5rem;">
+                        <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" onclick="btnCerraPopup_Click" cssclass="btn-cerrar-popup" />
                     </td>
                 </tr>
                 
                 <tr align="center">
                     <td style="padding: .5rem;">
-                        <asp:TextBox id="txtCuit2" runat="server" ToolTip="CUIT" placeholder="CUIT" onkeypress="javascript:return solonumeros(event)" />
-                    </td>
-                    <td style="padding: .5rem;">
-                         <asp:TextBox id="txtRazonSocial2" runat="server" ToolTip="Razon Social" placeholder="Razon Social" Style="width: 200px; vertical-align: middle;" />
-                    </td>
-                    <td style="padding: .5rem;">
-                        <asp:DropDownList ID="ddlEstado2" runat="server" ToolTip="Estado" Width="200px" Height="30px" AppendDataBoundItems="true" Style="background-color: white; border-color: black; height: 30px;">
-                            <asp:ListItem Value="0">Estado</asp:ListItem>
-                            <asp:ListItem Value="1">Activar</asp:ListItem>
-                            <asp:ListItem Value="2">Desactivar</asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:TextBox id="txtCuit2" runat="server" ToolTip="CUIT" placeholder="CUIT" width="200px" onkeypress="javascript:return solonumeros(event)" />
                     </td>
                 </tr>
                 <tr align="center">
-                    <td style="padding: .5rem;">   
-                    </td>
                     <td style="padding: .5rem;">
-                        <asp:Button ID="imgBtnAgregarProveedor" Text="Agregar" runat="server" ToolTip="Agregar Proveedor" onclientclick="return confirm('¿Confirma que desea agregar el nuevo proveedor?');" cssclass="img-btn-add-producto" />
+                         <asp:TextBox id="txtRazonSocial2" runat="server" ToolTip="Razon Social" placeholder="Razon Social" Style="width: 200px; vertical-align: middle;" />
                     </td>
-                    <td style="padding: .5rem;">   
+                </tr>
+                <tr align="center">
+                    <td align="center" style="padding: .5rem;">
+                        <asp:Button ID="imgBtnAgregarProveedor" align="center" Text="Agregar" runat="server" ToolTip="Agregar Proveedor" onclientclick="return confirm('¿Confirma que desea agregar el nuevo proveedor?');" onclick="imgBtnAgregarProveedor_Click" cssclass="img-btn-add-producto" />
                     </td>
                 </tr>
 
@@ -88,8 +75,8 @@
 
     <br/>
     
-    
-        <asp:GridView ID="dgvProveedores" runat="server" AllowSorting="True" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod">
+    <center Style="padding: .5rem;">
+        <asp:GridView ID="dgvProveedores" runat="server" AllowSorting="True" Onsorting="dgvProveedores_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="CUIT" HeaderText="CUIT" SortExpression="CUIT" />
@@ -105,6 +92,7 @@
             <SortedDescendingCellStyle BackColor="#FCF6C0" />
             <SortedDescendingHeaderStyle BackColor="#820000" />
         </asp:GridView>
+    </center>
 
     <script>
         function solonumeros(e) {

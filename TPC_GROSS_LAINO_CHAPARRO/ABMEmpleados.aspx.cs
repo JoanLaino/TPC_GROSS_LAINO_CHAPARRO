@@ -131,7 +131,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         else
                         {
                             ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                            "alert('Se encontró más de un resultado.')", true);
+                            "alert('La búsqueda no arrojó coincidencias exactas.')", true);
                         }
                     }
                 }

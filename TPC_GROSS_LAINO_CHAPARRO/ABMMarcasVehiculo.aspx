@@ -38,18 +38,18 @@
 		    <table style="width:80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
 
                 <tr align="center">
-                    <td align="center" style="padding-top: .5rem; padding-bottom: .5rem;">
+                    <td align="right" style="padding: .5rem;">
                         <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" onclick="btnCerraPopup_Click" />
                     </td>
                 </tr>
                 
                 <tr align="center">
-                    <td style="padding-left: .5rem; padding-right: .5rem;">
+                    <td style="padding: .5rem;">
                         <asp:TextBox id="txtMarca2" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
                     </td>
                 </tr>
                 <tr align="center">
-                    <td style="padding-top: .5rem; padding-bottom: .5rem;">
+                    <td style="padding: .5rem;">
                         <asp:Button ID="imgBtnAgregarMarca" Text="Agregar" runat="server" ToolTip="Agregar Marca" onclientclick="return confirm('¿Confirma que desea agregar el nuevo producto?');" onclick="btnAgregar_Click" cssclass="img-btn-add-producto" />
                     </td>
                 </tr>

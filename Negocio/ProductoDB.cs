@@ -9,11 +9,6 @@ namespace Negocio
 {
     public class ProductoDB
     {
-        public static void ActualizarProducto()
-        {
-
-        }
-
         public List<Producto> Listar()
         {
             List<Producto> lista = new List<Producto>();
@@ -21,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("select * from ExportInventario");
+                datos.SetearConsulta("select * from ExportCatalogo");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
@@ -38,8 +33,10 @@ namespace Negocio
                     aux.PrecioVenta = Math.Truncate((decimal)datos.Lector["PrecioVenta"] * 100) / 100;
                     aux.Stock = (int)datos.Lector["Stock"];
                     aux.Estado = (bool)datos.Lector["Estado"];
+                    aux.MarcaProducto.Estado = (bool)datos.Lector["EstadoMarca"];
+                    aux.Proveedor.Estado = (bool)datos.Lector["EstadoProveedor"];
 
-                    if (aux.Estado == true)
+                    if (aux.Estado == true && aux.MarcaProducto.Estado == true && aux.Proveedor.Estado == true)
                     {
                         lista.Add(aux);
                     }

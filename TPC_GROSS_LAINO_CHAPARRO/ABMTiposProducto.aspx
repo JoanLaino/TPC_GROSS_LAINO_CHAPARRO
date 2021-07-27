@@ -15,16 +15,25 @@
     <table>
 
         <tr>
-            <td>
-                <asp:TextBox id="txtIdTipoProducto" runat="server" TooTip="ID" placeholder="ID" onkeypress="javascript:return solonumeros(event)" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
-            </td>
-            <td>
-                <asp:TextBox id="txtDescripcionTipoProducto" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" Style="width: 333px; vertical-align: middle;" />
+            <td style="padding: .5rem;">
+                <asp:TextBox id="txtDescripcionTipoProducto" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" Style="width: 200px; vertical-align: middle;" />
             </td>
             <td align="center">
-                &nbsp;&nbsp;&nbsp;
                 <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Tipo de Producto" onclientclick="return confirm('¿Confirma el cambio?');" OnClick="btnUpdateTipoProducto_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="vertical-align: bottom !important;" />
-                &nbsp;&nbsp;&nbsp;
+            </td>
+            <td style="padding: .5rem;">
+                <asp:TextBox id="txtIdTipoProducto" runat="server" TooTip="ID" Visible="false" placeholder="ID" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: .5rem;">
+                <asp:DropDownList ID="ddlEstado" runat="server" ToolTip="Estado" Width="200px" Height="30px" AppendDataBoundItems="true" Style="background-color: white; border-color: black; height: 30px;">
+                    <asp:ListItem Value="0" >Estado</asp:ListItem>
+                    <asp:ListItem Value="1" >Activar</asp:ListItem>
+                    <asp:ListItem Value="2" >Desactivar</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <td align="center">
                 <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Tipo de Producto" onclientclick="return confirm('¿Seguro que desea eliminar el Tipo de Producto?');" OnClick="btnDeleteTipoProducto_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: bottom !important;" />
             </td>
         </tr>
@@ -38,18 +47,18 @@
 		    <table style="width:80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
 
                 <tr align="center">
-                    <td align="right" style="padding-right: 1rem; padding-top: .5rem;">
+                    <td align="right" style="padding: .5rem;">
                         <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" onclick="btnCerraPopup_Click" />
                     </td>
                 </tr>
                 
                 <tr align="center">
-                    <td>
+                    <td style="padding: .5rem;">
                         <asp:TextBox id="txtDescripcionTipoProducto2" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
                     </td>
                 </tr>
                 <tr align="center">
-                    <td>
+                    <td style="padding: .5rem;">
                         <asp:Button ID="imgBtnAgregarTipoProducto2" Text="Agregar" runat="server" ToolTip="Agregar Producto" onclientclick="return confirm('¿Confirma que desea agregar el nuevo producto?');" onclick="btnAddTipoProducto_Click" cssclass="img-btn-add-producto" />
                     </td>
                 </tr>
@@ -62,7 +71,7 @@
 
     <br />
 
-    <center>
+    <center style="padding: .5rem;">
         <asp:GridView ID="dgvTiposProducto" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
