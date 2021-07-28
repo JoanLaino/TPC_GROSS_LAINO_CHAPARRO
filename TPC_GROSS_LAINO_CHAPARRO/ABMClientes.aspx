@@ -14,43 +14,58 @@
 
     <table BorderStyle="Inset" BorderWidth="5px" style="width:60%; border: solid; border-color: black; background-color: rgb(255 255 255);">
 
-        <tr align="center" >
-            <td Style="padding: .5rem;">
-                <asp:TextBox ID="txtCuitDni" runat="server" TextMode="Number" ToolTip="CUIT / DNI" placeholder="CUIT / DNI" Width="200px" MaxLength="11" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
-            </td>
+        <tr align="center">
+            <td></td>
             <td Style="padding: .5rem;">
                 <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Cliente" onclientclick="return confirm('¿Confirma las modificaciones?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="vertical-align: sub;" />
                 &nbsp;&nbsp;&nbsp;
                 <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Cliente" onclientclick="return confirm('¿Seguro que desea eliminar al cliente?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: sub;" />
             </td>
+            <td></td>
+        </tr>
+        <tr align="center" >
+            <td Style="padding: .5rem;">
+                <asp:TextBox ID="txtCuitDni" runat="server" TextMode="Number" ToolTip="CUIT / DNI" placeholder="CUIT / DNI" Width="200px" MaxLength="11" onkeypress="javascript:return solonumeros(event)" ></asp:TextBox>
+            </td>
             <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtRazonSocial" runat="server" ToolTip="Razón Social" placeholder="Razón Social" Width="200px" MaxLength="11" Rows="1" ></asp:TextBox>
+            </td>
+            <td Style="padding: .5rem;">
+                <asp:TextBox ID="txtApeNom" runat="server" ToolTip="Apellido y Nombre" placeholder="Apellido y Nombre" Width="200px" MaxLength="100" Rows="1" onkeypress="javascript:return sololetras(event)" ></asp:TextBox>
             </td>
         </tr>
                         
         <tr align="center">
-            <td Style="padding: .5rem;">
-                <asp:TextBox ID="txtApeNom" runat="server" ToolTip="Apellido y Nombre" placeholder="Apellido y Nombre" Width="200px" MaxLength="100" Rows="1" onkeypress="javascript:return sololetras(event)" ></asp:TextBox>
-            </td>
-            <td Style="padding: .5rem;">
-                <asp:TextBox ID="txtFechaAlta" runat="server" Type="Date" ToolTip="Fecha de Alta" placeholder="Fecha de Alta" Width="200px" MaxLength="10" ></asp:TextBox>
-            </td>
-            <td Style="padding: .5rem;">
-                <asp:TextBox ID="txtFechaNacimiento" runat="server" Type="Date" ToolTip="Fecha de Nacimiento" placeholder="Fecha de Nacimiento" Width="200px" MaxLength="10"></asp:TextBox>
-            </td>
-        </tr>
-
-        <tr align="center">
-            <td Style="padding: .5rem;">
-                <asp:TextBox ID="txtMail" runat="server" ToolTip="e-Mail" placeholder="e-Mail" Width="200px"></asp:TextBox>
-            </td>
             <td Style="padding: .5rem;">
                 <asp:DropDownList ID="ddlTiposCliente" runat="server" ToolTip="Tipo de Cliente" Width="200px" Height="30px" AppendDataBoundItems="true" Style="background-color: white; border-color: black;">
                     <asp:ListItem Value="0">Tipo de Cliente</asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td Style="padding: .5rem;">
+                <asp:TextBox ID="txtFechaAlta" runat="server" ToolTip="Fecha de Alta" placeholder="Fecha de Alta" Width="200px" MaxLength="10" ></asp:TextBox>
+            </td>
+            <td Style="padding: .5rem;">
+                <asp:TextBox ID="txtFechaNacimiento" runat="server" ToolTip="Fecha de Nacimiento" placeholder="Fecha de Nacimiento" Width="200px" MaxLength="10"></asp:TextBox>
+            </td>
+        </tr>
+
+        <asp:TextBox runat="server" ID="txtID" Visible="false" ></asp:TextBox>
+
+        <tr align="center">
+            <td Style="padding: .5rem;">
+                <asp:TextBox ID="txtMail" runat="server" ToolTip="e-Mail" placeholder="e-Mail" Width="200px"></asp:TextBox>
+            </td>
+            <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtTelefono" runat="server" ToolTip="Teléfono / Celular" placeholder="Teléfono / Celular" onkeypress="javascript:return solonumeros(event)" Width="200px"></asp:TextBox>
+            </td>
+            <td Style="padding: .5rem;">
+                <asp:TextBox ID="txtCantVehiculos" runat="server" ToolTip="Cantidad de vehículos registrados" placeholder="Vehículos" Width="80px"></asp:TextBox>
+                &nbsp;
+                <asp:DropDownList ID="ddlEstado" runat="server" ToolTip="Estado" Width="105px" Height="30px" AppendDataBoundItems="true" Style="background-color: white; border-color: black;">
+                    <asp:ListItem Value="0">Estado</asp:ListItem>
+                    <asp:ListItem Value="1">Activar</asp:ListItem>
+                    <asp:ListItem Value="2">Desactivar</asp:ListItem>
+                </asp:DropDownList>
             </td>
         </tr>
 
@@ -79,34 +94,24 @@
                             <asp:TextBox ID="txtApeNom2" runat="server" ToolTip="Apellido y Nombre" placeholder="Apellido y Nombre" Width="200px" MaxLength="100" Rows="1" onkeypress="javascript:return sololetras(event)" ></asp:TextBox>
                         </td>
                         <td Style="padding: .5rem;">
-                            <asp:TextBox ID="txtFechaAlta2" runat="server" Type="Date" ToolTip="Fecha de Alta" placeholder="Fecha de Alta" Width="200px" MaxLength="10" ></asp:TextBox>
+                            <asp:TextBox ID="txtFechaNacimiento2" runat="server" Type="Date" ToolTip="Fecha de Nacimiento" placeholder="Fecha de Nacimiento" Width="200px" MaxLength="10"></asp:TextBox>
                         </td>
                         <td Style="padding: .5rem;">
-                            <asp:TextBox ID="txtFechaNacimiento2" runat="server" Type="Date" ToolTip="Fecha de Nacimiento" placeholder="Fecha de Nacimiento" Width="200px" MaxLength="10"></asp:TextBox>
+                            <asp:TextBox ID="txtMail2" runat="server" ToolTip="e-Mail" placeholder="e-Mail" Width="200px"></asp:TextBox>
                         </td>
                     </tr>
 
                     <tr align="center">
-                        <td Style="padding: .5rem;">
-                            <asp:TextBox ID="txtMail2" runat="server" ToolTip="e-Mail" placeholder="e-Mail" Width="200px"></asp:TextBox>
-                        </td>
                         <td Style="padding: .5rem;">
                             <asp:DropDownList ID="ddlTiposCliente2" runat="server" ToolTip="Tipo de Cliente" Width="200px" Height="30px" AppendDataBoundItems="true" Style="background-color: white; border-color: black;">
                                 <asp:ListItem Value="0">Tipo de Cliente</asp:ListItem>
                             </asp:DropDownList>
                         </td>
+                        <td align="center" Style="padding: .5rem;">
+                            <asp:Button ID="imgBtnAgregarCliente" Text="Agregar" runat="server" ToolTip="Agregar Cliente" onclientclick="return confirm('¿Confirma que desea agregar al nuevo cliente?');" onclick="imgBtnAgregarCliente_Click" cssclass="img-btn-add-producto" />
+                        </td>
                         <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtTelefono2" runat="server" ToolTip="Teléfono / Celular" placeholder="Teléfono / Celular" onkeypress="javascript:return solonumeros(event)" Width="200px"></asp:TextBox>
-                        </td>
-                    </tr>
-
-                    <tr align="center">
-                        <td Style="padding: .5rem;">
-                        </td>
-                        <td align="center" Style="padding: .5rem;">
-                            <asp:Button ID="imgBtnAgregarCliente" Text="Agregar" runat="server" ToolTip="Agregar Cliente" onclientclick="return confirm('¿Confirma que desea agregar al nuevo empleado?');" onclick="imgBtnAgregarCliente_Click" cssclass="img-btn-add-producto" />
-                        </td>
-                        <td Style="padding: .5rem;">
                         </td>
                     </tr>
 

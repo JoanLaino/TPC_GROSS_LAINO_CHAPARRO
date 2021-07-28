@@ -82,7 +82,7 @@ create table Clientes(
 	CUIT_DNI varchar(11) unique not null,
 	RazonSocial varchar(100) unique null,
 	ApeNom varchar(100) null,
-	FechaAlta date default (getdate()),
+	FechaAlta date default (getdate()) not null,
 	FechaNacimiento date null,
 	Mail varchar(100) unique not null,
 	Telefono varchar(50) not null,
@@ -170,7 +170,7 @@ as
 select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, I.UrlImagen as Imagen, IdTipo, TP.Descripcion as TipoProducto, 
 IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
 CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
-I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado 
+I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado, M.Estado as EstadoMarca, P.Estado as EstadoProveedor 
 from Inventario as I
 inner join TiposProducto as TP on I.IdTipo = TP.ID
 inner join MarcasProducto as M on I.IdMarca = M.ID
@@ -295,7 +295,7 @@ go
 
 create view ExportClientes
 as
-	select C.ID, C.CUIT_DNI as 'CUITDNI', isnull(C.RazonSocial,'-') as RazonSocial, isnull(C.ApeNom,'-') as ApeNom, T.Descripción as 'TipoCliente',
+	select C.ID, C.CUIT_DNI as 'CUITDNI', isnull(C.RazonSocial,'-') as RazonSocial, isnull(C.ApeNom,'-') as ApeNom, T.ID as 'IdTipo', T.Descripción as 'TipoCliente',
 	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, isnull(CONVERT(VARCHAR(10),C.FechaNacimiento,105),'-') as FechaNacimiento,
 	C.Mail, C.Telefono, C.TotalVehiculosRegistrados, C.Estado
 	from Clientes C
@@ -320,18 +320,6 @@ select ID, CUIT, RazonSocial, Estado
 from Proveedores
 GO
 
-create view ExportCatalogo
-as
-select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, I.UrlImagen as Imagen, IdTipo, TP.Descripcion as TipoProducto, 
-IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
-CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
-I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado, M.Estado as EstadoMarca, P.Estado as EstadoProveedor 
-from Inventario as I
-inner join TiposProducto as TP on I.IdTipo = TP.ID
-inner join MarcasProducto as M on I.IdMarca = M.ID
-inner join Proveedores as P on I.IdProveedor = P.ID 
-GO
-
 create procedure SP_INSERTAR_PROVEEDOR(
 	@CUIT varchar(11),
 	@RazonSocial varchar(100)
@@ -339,5 +327,51 @@ create procedure SP_INSERTAR_PROVEEDOR(
 begin
 	INSERT INTO Proveedores (CUIT, RazonSocial)
 				Values (@CUIT, @RazonSocial)
+end
+GO
+
+create procedure SP_ACTUALIZAR_CLIENTE(
+	@ID bigint,
+	@IdTipo smallint,
+	@CUIT_DNI varchar(11),
+	@RazonSocial varchar(100),
+	@ApeNom varchar(100),
+	@FechaAlta date,
+	@FechaNacimiento date,
+	@Mail varchar(100),
+	@Telefono varchar(50),
+	@Estado bit
+)as
+begin
+	UPDATE Clientes Set IDTipo = @IdTipo, CUIT_DNI = @CUIT_DNI, RazonSocial = @RazonSocial,
+	ApeNom = @ApeNom, FechaAlta = @FechaAlta, FechaNacimiento = @FechaNacimiento, Mail = @Mail,
+	Telefono = @Telefono, Estado = @Estado WHERE ID = @ID
+end
+GO
+
+create procedure SP_AGREGAR_CLIENTE_DNI(
+	@IdTipo smallint,
+	@CUIT_DNI varchar(11),
+	@ApeNom varchar(100),
+	@FechaNacimiento date,
+	@Mail varchar(100),
+	@Telefono varchar(50)
+)as
+begin
+	INSERT INTO Clientes(CUIT_DNI, ApeNom, IDTipo, FechaNacimiento, Mail, Telefono)
+	VALUES(@CUIT_DNI, @ApeNom, @IdTipo, @FechaNacimiento, @Mail, @Telefono)
+end
+GO
+
+create procedure SP_AGREGAR_CLIENTE_CUIT(
+	@IdTipo smallint,
+	@CUIT_DNI varchar(11),
+	@RazonSocial varchar(100),
+	@Mail varchar(100),
+	@Telefono varchar(50)
+)as
+begin
+	INSERT INTO Clientes(CUIT_DNI, RazonSocial, IDTipo, Mail, Telefono)
+	VALUES(@CUIT_DNI, @RazonSocial, @IdTipo, @Mail, @Telefono)
 end
 GO

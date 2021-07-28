@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("select * from ExportCatalogo");
+                datos.SetearConsulta("select * from ExportInventario");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())

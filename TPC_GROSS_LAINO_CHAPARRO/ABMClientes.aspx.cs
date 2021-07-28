@@ -39,6 +39,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             txtBuscar.Text = "";
 
+            txtID.Text = "";
             txtCuitDni.Text = "";
             txtRazonSocial.Text = "";
             txtApeNom.Text = "";
@@ -47,15 +48,28 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtMail.Text = "";
             txtTelefono.Text = "";
             ddlTiposCliente.SelectedValue = "0";
+            txtCantVehiculos.Text = "";
+            ddlEstado.SelectedValue = "0";
 
             txtCuitDni2.Text = "";
             txtRazonSocial2.Text = "";
             txtApeNom2.Text = "";
-            txtFechaAlta2.Text = "";
             txtFechaNacimiento2.Text = "";
             txtMail2.Text = "";
             txtTelefono2.Text = "";
             ddlTiposCliente2.SelectedValue = "0";
+
+            txtID.Enabled = false;
+            txtCuitDni.Enabled = false;
+            txtRazonSocial.Enabled = false;
+            txtApeNom.Enabled = false;
+            txtFechaAlta.Enabled = false;
+            txtFechaNacimiento.Enabled = false;
+            txtMail.Enabled = false;
+            txtTelefono.Enabled = false;
+            ddlTiposCliente.Enabled = false;
+            txtCantVehiculos.Enabled = false;
+            ddlEstado.Enabled = false;
 
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
@@ -68,88 +82,99 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void imgBtnBuscar_Click(object sender, ImageClickEventArgs e)
         {
-            //AccesoDatos datos = new AccesoDatos();
-            //AccesoDatos datos2 = new AccesoDatos();
-            //try
-            //{
-            //    if (txtBuscar.Text == "")
-            //    {
-            //        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //        "alert('No se ha ingresado ningún nombre / apellido.')", true);
+            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datos2 = new AccesoDatos();
+            try
+            {
+                if (txtBuscar.Text == "")
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Filtro de texto vacío.')", true);
 
-            //        BindData();
-            //    }
-            //    else
-            //    {
-            //        string Valor = txtBuscar.Text;
+                    BindData();
+                }
+                else
+                {
+                    string Valor = txtBuscar.Text;
 
-            //        string selectDgv = "SELECT * from ExportClientes " +
-            //                           "WHERE ApeNom LIKE '%" + Valor + "%'" + 
-            //                           " OR Cuil LIKE '%" + Valor + "%'" +
-            //                           " OR Legajo LIKE '%" + Valor + "%'";
+                    string selectDgv = "SELECT * from ExportClientes " +
+                                       "WHERE ApeNom LIKE '%" + Valor + "%'" +
+                                       " OR RazonSocial LIKE '%" + Valor + "%'" +
+                                       " OR CUITDNI LIKE '%" + Valor + "%'" +
+                                       " OR TipoCliente LIKE '%" + Valor + "%'" +
+                                       " OR Mail LIKE '%" + Valor + "%'" +
+                                       " OR Telefono LIKE '%" + Valor + "%'";
 
-            //        string selectCampos = "SELECT * from ExportClientes " +
-            //                              "WHERE ApeNom = '" + Valor + "'" + 
-            //                              " OR Cuil = '" + Valor + "'" +
-            //                              " OR Legajo = '" + Valor + "'";
+                    string selectCampos = "SELECT * from ExportClientes " +
+                                       "WHERE ApeNom = '" + Valor + "'" +
+                                       " OR RazonSocial = '" + Valor + "'" +
+                                       " OR CUITDNI = '" + Valor + "'" +
+                                       " OR Mail = '" + Valor + "'" +
+                                       " OR Telefono = '" + Valor + "'";
 
-            //        datos2.SetearConsulta(selectDgv);
-            //        datos2.EjecutarLectura();
+                    datos2.SetearConsulta(selectDgv);
+                    datos2.EjecutarLectura();
 
-            //        datos.SetearConsulta(selectCampos);
-            //        datos.EjecutarLectura();
+                    datos.SetearConsulta(selectCampos);
+                    datos.EjecutarLectura();
 
-            //        dgvClientes.DataSource = sentencia.DSET(selectDgv);
-            //        dgvClientes.DataBind();
+                    dgvClientes.DataSource = sentencia.DSET(selectDgv);
+                    dgvClientes.DataBind();
 
-            //        if (datos.Lector.Read() == true)
-            //        {
-            //            txtID.Text = datos.Lector["ID"].ToString();
-            //            txtLegajo.Text = datos.Lector["Legajo"].ToString();
-            //            txtCuil.Text = datos.Lector["Cuil"].ToString();
-            //            txtApeNom.Text = datos.Lector["ApeNom"].ToString();
-            //            txtFechaAlta.Text = datos.Lector["FechaAlta"].ToString();
-            //            txtFechaNacimiento.Text = datos.Lector["FechaNacimiento"].ToString();
-            //            txtMail.Text = datos.Lector["Mail"].ToString();
-            //            txtTelefono.Text = datos.Lector["Telefono"].ToString();
-            //            txtServiciosRealizados.Text = datos.Lector["ServiciosRealizados"].ToString();
+                    if (datos.Lector.Read() == true)
+                    {
+                        txtID.Text = datos.Lector["ID"].ToString();
+                        txtCuitDni.Text = datos.Lector["CUITDNI"].ToString();
+                        txtRazonSocial.Text = datos.Lector["RazonSocial"].ToString();
+                        if (txtRazonSocial.Text == "-") { txtRazonSocial.Text = ""; }
+                        txtApeNom.Text = datos.Lector["ApeNom"].ToString();
+                        if (txtApeNom.Text == "-") { txtApeNom.Text = ""; }
+                        txtFechaAlta.Text = datos.Lector["FechaAlta"].ToString();
+                        txtFechaNacimiento.Text = datos.Lector["FechaNacimiento"].ToString();
+                        if (txtFechaNacimiento.Text == "-") { txtFechaNacimiento.Text = ""; }
+                        txtMail.Text = datos.Lector["Mail"].ToString();
+                        txtTelefono.Text = datos.Lector["Telefono"].ToString();
+                        txtCantVehiculos.Text = datos.Lector["TotalVehiculosRegistrados"].ToString();
+                        ddlTiposCliente.SelectedValue = datos.Lector["IdTipo"].ToString();
+                        if ((bool)datos.Lector["Estado"] == true) { ddlEstado.SelectedValue = "1"; }
+                        else { ddlEstado.SelectedValue = "2"; }
 
-            //            btnUpdate.Enabled = true;
-            //            btnDelete.Enabled = true;
+                        btnUpdate.Enabled = true;
+                        btnDelete.Enabled = true;
 
-            //            txtLegajo.Enabled = true;
-            //            txtCuil.Enabled = true;
-            //            txtApeNom.Enabled = true;
-            //            txtFechaAlta.Enabled = true;
-            //            txtFechaNacimiento.Enabled = true;
-            //            txtMail.Enabled = true;
-            //            txtTelefono.Enabled = true;
-            //        }
-            //        else
-            //        {
-            //            if (datos2.Lector.Read() == false)
-            //            {
-            //                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //                "alert('No se encontraron coincidencias.')", true);
-
-            //                BindData();
-            //            }
-            //            else
-            //            {
-            //                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //                "alert('La búsqueda no arrojó coincidencias exactas.')", true);
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            //finally
-            //{
-            //    datos.CerrarConexion();
-            //}
+                        txtCuitDni.Enabled = true;
+                        txtRazonSocial.Enabled = true;
+                        txtApeNom.Enabled = true;
+                        txtFechaAlta.Enabled = true;
+                        txtFechaNacimiento.Enabled = true;
+                        txtMail.Enabled = true;
+                        txtTelefono.Enabled = true;
+                        ddlEstado.Enabled = true;
+                        ddlTiposCliente.Enabled = true;
+                    }
+                    else
+                    {
+                        if (datos2.Lector.Read() == false)
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('No se encontraron coincidencias.')", true);
+                        }
+                        else
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('La búsqueda no arrojó coincidencias exactas.')", true);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
         }
 
         protected void dgvClientes_Sorting(object sender, GridViewSortEventArgs e)
@@ -189,44 +214,57 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void imgBtnAgregarCliente_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (txtLegajo2.Text == "" || txtCuil2.Text == "" || txtApeNom2.Text == ""
-            //        || txtFechaAlta2.Text == "" || txtFechaNacimiento2.Text == "" 
-            //        || txtMail2.Text == "" || txtTelefono2.Text == "")
-            //    {
-            //        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //        "alert('Hay campos vacíos.')", true);
-            //    }
-            //    else
-            //    {
-            //        string Legajo = txtLegajo2.Text;
-            //        string Cuil = txtCuil2.Text;
-            //        string ApeNom = txtApeNom2.Text;
-            //        DateTime FechaAlta = Convert.ToDateTime(txtFechaAlta2.Text);
-            //        DateTime FechaNacimiento = Convert.ToDateTime(txtFechaNacimiento2.Text);
-            //        FechaAlta.ToShortDateString();
-            //        FechaNacimiento.ToShortDateString();
-            //        string Mail = txtMail2.Text;
-            //        string Telefono = txtTelefono2.Text;
+            try
+            {
+                if (txtCuitDni2.Text == "" || txtRazonSocial2.Text == "" && txtApeNom2.Text == ""
+                    || txtTelefono2.Text == "" || txtMail2.Text == "" || ddlTiposCliente2.SelectedIndex == 0)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Hay campos vacíos o sin seleccionar. Por favor revise nuevamente.')", true);
+                }
+                else
+                {
+                    int IdTipo = Convert.ToInt32(ddlTiposCliente2.SelectedValue);
+                    string CUIT_DNI = txtCuitDni2.Text;
+                    string RazonSocial = txtRazonSocial2.Text;
+                    string ApeNom = txtApeNom2.Text;
+                    string FechaNacimiento = txtFechaNacimiento2.Text;
+                    string Mail = txtMail2.Text;
+                    string Telefono = txtTelefono2.Text;
 
-            //        string sp_InsertCliente = "EXEC SP_INSERTAR_EMPLEADO '" + Legajo + "', '" + Cuil + "', '" + ApeNom
-            //                                 + "', '" + FechaAlta + "', '" + FechaNacimiento + "', '" + Mail
-            //                                 + "', '" + Telefono + "'";
+                    if (RazonSocial == "")
+                    {
+                        string sp_InsertCliente = "EXEC SP_AGREGAR_CLIENTE_DNI " + IdTipo + ", '" + CUIT_DNI + "', '"
+                                                + ApeNom + "', '" + FechaNacimiento + "', '" + Mail + "', '" + Telefono + "'";
 
-            //        sentencia.IUD(sp_InsertCliente);
+                        sentencia.IUD(sp_InsertCliente);
 
-            //        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //        "alert('Se ha guardado el nuevo empleado.')", true);
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Se ha guardado el nuevo cliente.')", true);
 
-            //        BindData();
-            //    }
-            //}
-            //catch
-            //{
-            //    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //    "alert('Se ha producido un error y no se ha guardado el nuevo empleado.')", true);
-            //}
+                        BindData();
+                    }
+                    if (ApeNom == "")
+                    {
+                        string sp_InsertCliente = "EXEC SP_AGREGAR_CLIENTE_CUIT " + IdTipo + ", '" + CUIT_DNI + "', '" + RazonSocial
+                                                + "', '" + Mail + "', '" + Telefono + "'";
+
+                        sentencia.IUD(sp_InsertCliente);
+
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Se ha guardado el nuevo cliente.')", true);
+
+                        BindData();
+                    }
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se ha producido un error y no se ha agregado el nuevo cliente.')", true);
+
+                BindData();
+            }
         }
 
         protected void btnCerraPopup_Click(object sender, EventArgs e)
@@ -236,81 +274,85 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
         {
-            //try
-            //{
-            //    if (txtLegajo.Text == "" || txtCuil.Text == "" || txtApeNom.Text == ""
-            //        || txtFechaAlta.Text == "" || txtFechaNacimiento.Text == ""
-            //        || txtMail.Text == "" || txtTelefono.Text == "")
-            //    {
-            //        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //        "alert('Hay campos vacíos.')", true);
-            //    }
-            //    else
-            //    {
-            //        string ID = txtID.Text;
-            //        string Legajo = txtLegajo.Text;
-            //        string Cuil = txtCuil.Text;
-            //        string ApeNom = txtApeNom.Text;
-            //        DateTime FechaAlta = Convert.ToDateTime(txtFechaAlta.Text);
-            //        DateTime FechaNacimiento = Convert.ToDateTime(txtFechaNacimiento.Text);
-            //        FechaAlta.ToShortDateString();
-            //        FechaNacimiento.ToShortDateString();
-            //        string Mail = txtMail.Text;
-            //        string Telefono = txtTelefono.Text;
+            try
+            {
+                if (txtCuitDni.Text == "" || txtRazonSocial.Text == "" && txtApeNom.Text == ""
+                    || txtFechaAlta.Text == "" || txtMail.Text == "" 
+                    || ddlTiposCliente.SelectedIndex == 0 || ddlEstado.SelectedIndex == 0)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Hay campos vacíos o sin seleccionar. Por favor revise nuevamente.')", true);
+                }
+                else
+                {
+                    string ID = txtID.Text;
+                    string CuitDni = txtCuitDni.Text;
+                    string RazonSocial = txtRazonSocial.Text;
+                    string ApeNom = txtApeNom.Text;
+                    DateTime FechaAlta = Convert.ToDateTime(txtFechaAlta.Text);
+                    DateTime FechaNacimiento = Convert.ToDateTime(txtFechaNacimiento.Text);
+                    FechaAlta.ToShortDateString();
+                    FechaNacimiento.ToShortDateString();
+                    string Mail = txtMail.Text;
+                    string Telefono = txtTelefono.Text;
+                    int TipoCliente = Convert.ToInt32(ddlTiposCliente.SelectedValue);
+                    int Estado = 1;
+                    if (ddlEstado.SelectedValue == "2") { Estado = 0; }
 
-            //        string sp_UpdateCliente = "UPDATE Clientes SET Legajo='" + Legajo + "', " +
-            //                                 "Cuil='" + Cuil + "', ApeNom='" + ApeNom
-            //                                 + "', FechaAlta='" + FechaAlta + "', " +
-            //                                 "FechaNacimiento='" + FechaNacimiento + "', Mail='" + Mail
-            //                                 + "', Telefono='" + Telefono + "' WHERE ID = '" + ID + "'";
 
-            //        sentencia.IUD(sp_UpdateCliente);
+                    string sp_UpdateCliente = "EXEC SP_ACTUALIZAR_CLIENTE " + ID + ", " + TipoCliente + ", '" + CuitDni + "', '" + RazonSocial
+                                              + "', '" + ApeNom + "', '" + FechaAlta + "', '" + FechaNacimiento + "', '" + Mail + "', '" + Telefono
+                                              + "', " + Estado;
 
-            //        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //        "alert('Se ha modificado el empleado.')", true);
+                    sentencia.IUD(sp_UpdateCliente);
 
-            //        BindData();
-            //    }
-            //}
-            //catch
-            //{
-            //    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //    "alert('Se ha producido un error y no se ha modificado el empleado.')", true);
-            //}
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Cliente modificado con éxito.')", true);
+
+                    BindData();
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se ha producido un error en la edición.')", true);
+
+                BindData();
+            }
         }
 
         protected void btnDelete_Click(object sender, ImageClickEventArgs e)
         {
-            //try
-            //{
-            //    if (txtLegajo.Text == "" || txtCuil.Text == "" || txtApeNom.Text == ""
-            //        || txtFechaAlta.Text == "" || txtFechaNacimiento.Text == ""
-            //        || txtMail.Text == "" || txtTelefono.Text == "")
-            //    {
-            //        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //        "alert('Hay campos vacíos.')", true);
-            //    }
-            //    else
-            //    {
-            //        string ID = txtID.Text;
-            //        string Legajo = txtLegajo.Text;
+            try
+            {
+                if (txtCuitDni.Text == "" || txtRazonSocial.Text == "" && txtApeNom.Text == ""
+                    || txtFechaAlta.Text == "" || txtMail.Text == "" 
+                    || ddlTiposCliente.SelectedIndex == 0 || ddlEstado.SelectedIndex == 0)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Hay campos vacíos o sin seleccionar. Por favor revise nuevamente.')", true);
+                }
+                else
+                {
+                    string ID = txtID.Text;
+                    
+                    string sp_DeleteCliente = "DELETE FROM Clientes WHERE ID = " + ID;
 
-            //        string sp_DeleteCliente = "DELETE FROM Clientes WHERE ID = '" + ID + "' "
-            //                                 + "AND Legajo = '" + Legajo + "'";
+                    sentencia.IUD(sp_DeleteCliente);
 
-            //        sentencia.IUD(sp_DeleteCliente);
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Cliente eliminado con éxito.')", true);
 
-            //        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //        "alert('Se ha eliminado el empleado.')", true);
+                    BindData();
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se ha producido un error al intentar eliminar al cliente.')", true);
 
-            //        BindData();
-            //    }
-            //}
-            //catch
-            //{
-            //    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-            //    "alert('Se ha producido un error y no se ha eliminado el empleado.')", true);
-            //}
+                BindData();
+            }
         }
 
         //protected void buscarCliente(object sender, EventArgs e)
