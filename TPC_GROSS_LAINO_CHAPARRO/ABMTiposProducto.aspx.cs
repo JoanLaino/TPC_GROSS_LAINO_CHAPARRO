@@ -21,21 +21,22 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             
         public void BindData()
         {
-            string selectViewTiposProducto = "SELECT * FROM ExportTiposProducto ORDER BY ID ASC";
+            string selectViewTiposProducto = "SELECT TP.ID ID, TP.Descripcion Descripcion, " +
+                                             "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                             "WHERE TP.ID = I.IdTipo) Asignaciones " +
+                                             "FROM TiposProducto TP ORDER BY TP.Descripcion ASC";
 
             dgvTiposProducto.DataSource = sentencia.DSET(selectViewTiposProducto);
             dgvTiposProducto.DataBind();
 
             txtDescripcionTipoProducto.Enabled = false;
             txtIdTipoProducto.Enabled = false;
-            ddlEstado.Enabled = false;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
 
             txtDescripcionTipoProductoBuscar.Text = "";
             txtIdTipoProducto.Text = "";
             txtDescripcionTipoProducto.Text = "";
-            ddlEstado.SelectedValue = "0";
             txtDescripcionTipoProducto2.Text = "";
 
         }
@@ -77,7 +78,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             try
             {
-                if (txtDescripcionTipoProducto.Text == "" || ddlEstado.SelectedIndex == 0)
+                if (txtDescripcionTipoProducto.Text == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Descripción vacía.')", true);
@@ -121,10 +122,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 {
                     string ID = txtIdTipoProducto.Text;
                     string Descripcion = txtDescripcionTipoProducto.Text;
-                    int Estado = 1;
-                    if (ddlEstado.SelectedValue == "2") { Estado = 0; }
 
-                    string sp_UpdateTipoProducto = "UPDATE TiposProducto SET Descripcion = '" + Descripcion + "', Estado = " + Estado + " WHERE ID = '" + ID + "'";
+                    string sp_UpdateTipoProducto = "UPDATE TiposProducto SET Descripcion = '" + Descripcion + "' WHERE ID = " + ID;
 
                     sentencia.IUD(sp_UpdateTipoProducto);
 
@@ -192,8 +191,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 {
                     string Valor = txtDescripcionTipoProductoBuscar.Text;
 
-                    string selectDgvTipoProducto = "SELECT * FROM ExportTiposProducto" +
-                                                " WHERE Descripcion LIKE '%" + Valor + "%'";
+                    string selectDgvTipoProducto = "SELECT TP.ID ID, TP.Descripcion Descripcion, " +
+                                                   "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                                   "WHERE TP.ID = I.IdTipo) Asignaciones " +
+                                                   "FROM TiposProducto TP " +
+                                                   "WHERE TP.Descripcion LIKE '%" + Valor + "%'";
 
                     datos2.SetearConsulta(selectDgvTipoProducto);
                     datos2.EjecutarLectura();
@@ -201,8 +203,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     dgvTiposProducto.DataSource = sentencia.DSET(selectDgvTipoProducto);
                     dgvTiposProducto.DataBind();
 
-                    string selectFiltroTipoProducto = "SELECT * FROM ExportTiposProducto" +
-                                                " WHERE Descripcion = '" + Valor + "'";
+                    string selectFiltroTipoProducto = "SELECT TP.ID ID, TP.Descripcion Descripcion, " +
+                                                      "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                                      "WHERE TP.ID = I.IdTipo) Asignaciones " +
+                                                      "FROM TiposProducto TP " +
+                                                      "WHERE TP.Descripcion = '" + Valor + "'";
 
                     datos.SetearConsulta(selectFiltroTipoProducto);
                     datos.EjecutarLectura();
@@ -211,10 +216,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     {
                         txtIdTipoProducto.Text = datos.Lector["ID"].ToString();
                         txtDescripcionTipoProducto.Text = (string)datos.Lector["Descripcion"];
-                        ddlEstado.SelectedValue = datos.Lector["Estado"].ToString();
 
                         txtDescripcionTipoProducto.Enabled = true;
-                        ddlEstado.Enabled = true;
                         btnUpdate.Enabled = true;
                         btnDelete.Enabled = true;
                     }
@@ -251,6 +254,45 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void btnCerraPopup_Click(object sender, EventArgs e)
         {
             BindData();
+        }
+
+        protected void dgvTiposProducto_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            BindData();
+
+            string selectOrdenar = "SELECT TP.ID ID, TP.Descripcion Descripcion, " +
+                                   "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                   "WHERE TP.ID = I.IdTipo) Asignaciones " +
+                                   "FROM TiposProducto TP ORDER BY "
+                                   + e.SortExpression + " "
+                                   + GetSortDirection(e.SortExpression);
+
+            dgvTiposProducto.DataSource = sentencia.DSET(selectOrdenar);
+            dgvTiposProducto.DataBind();
+        }
+
+        private string GetSortDirection(string column)
+        {
+            string sortDirection = "ASC";
+
+            string sortExpression = ViewState["SortExpression"] as string;
+
+            if (sortExpression != null)
+            {
+                if (sortExpression == column)
+                {
+                    string lastDirection = ViewState["SortDirection"] as string;
+                    if ((lastDirection != null) && (lastDirection == "ASC"))
+                    {
+                        sortDirection = "DESC";
+                    }
+                }
+            }
+
+            ViewState["SortDirection"] = sortDirection;
+            ViewState["SortExpression"] = column;
+
+            return sortDirection;
         }
     }
 }

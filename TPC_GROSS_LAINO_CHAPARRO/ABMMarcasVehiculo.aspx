@@ -6,7 +6,7 @@
     <br />
 
     <asp:ImageButton ID="btnBuscar" runat="server" ToolTip="Buscar Marca" onclick="btnBuscar_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm"/>
-    <asp:textbox ID="txtBuscar" runat="server" ToolTip="Filtro Marca" placeholder="Ingrese Marca" aria-label="Marca" Style="vertical-align: middle; width: 200px;"></asp:TextBox>
+    <asp:textbox ID="txtBuscar" runat="server" ToolTip="Buscador" placeholder="Buscar..." aria-label="Marca" Style="vertical-align: middle; width: 200px;"></asp:TextBox>
     
     <button id="btnAgregar" ToolTip="Agregar nueva Marca" class="btnAddNewBrand" style="vertical-align: middle !important;">Agregar Nueva</button>
 
@@ -16,15 +16,12 @@
 
         <tr>
             <td>
-                <asp:TextBox id="txtIdMarca" runat="server" TooTip="ID" placeholder="ID" onkeypress="javascript:return solonumeros(event)" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
-            </td>
-            <td>
+                <asp:TextBox id="txtIdMarca" runat="server" Visible="false" TooTip="ID" placeholder="ID" onkeypress="javascript:return solonumeros(event)" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
+            
                 <asp:TextBox id="txtMarca" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" Style="width: 333px; vertical-align: middle;" />
-            </td>
-            <td align="center">
-                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;
                 <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Marca" onclientclick="return confirm('¿Confirma el cambio?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="vertical-align: bottom !important;" />
-                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;
                 <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Marca" onclientclick="return confirm('¿Seguro que desea eliminar el Tipo de Producto?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: bottom !important;" />
             </td>
         </tr>
@@ -63,11 +60,11 @@
     <br />
 
     <center>
-        <asp:GridView ID="dgvMarcasVehiculo" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
+        <asp:GridView ID="dgvMarcasVehiculo" runat="server" AllowSorting="True" OnSorting="dgvMarcasVehiculo_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" SortExpression="Descripcion" />
+                <asp:BoundField DataField="Asignaciones" HeaderText="Asignaciones" SortExpression="Asignaciones" />
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

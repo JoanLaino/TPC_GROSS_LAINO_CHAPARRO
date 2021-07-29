@@ -38,12 +38,26 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlProveedor.DataValueField = "ID";
                 ddlProveedor.DataBind();
 
+                ddlTipoProducto2.DataSource = sentencia.DSET(selectTP);
+                ddlTipoProducto2.DataMember = "datos";
+                ddlTipoProducto2.DataTextField = "Descripcion";
+                ddlTipoProducto2.DataValueField = "ID";
+                ddlTipoProducto2.DataBind();
+
+                ddlMarcaProducto2.DataSource = sentencia.DSET(selectMarcas);
+                ddlMarcaProducto2.DataMember = "datos";
+                ddlMarcaProducto2.DataTextField = "Descripcion";
+                ddlMarcaProducto2.DataValueField = "ID";
+                ddlMarcaProducto2.DataBind();
+
+                ddlProveedor2.DataSource = sentencia.DSET(selectProveedores);
+                ddlProveedor2.DataMember = "datos";
+                ddlProveedor2.DataTextField = "RazonSocial";
+                ddlProveedor2.DataValueField = "ID";
+                ddlProveedor2.DataBind();
+
                 BindData();
             }
-
-            
-            btnUpdate.Enabled = false;
-            btnDelete.Enabled = false;
         }
 
         public void BindData()
@@ -63,6 +77,19 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtStock.Text = "";
             ddlEstado.SelectedValue = "0";
 
+            txtEan2.Text = "";
+            txtDescripcion2.Text = "";
+            txtUrlImagen2.Text = "";
+            ddlTipoProducto2.SelectedValue = "0";
+            ddlMarcaProducto2.SelectedValue = "0";
+            ddlProveedor2.SelectedValue = "0";
+            txtFechaCompra2.Text = "";
+            txtFechaVencimiento2.Text = "";
+            txtCosto2.Text = "";
+            txtPrecioVenta2.Text = "";
+            txtStock2.Text = "";
+            ddlEstado2.SelectedValue = "0";
+
             txtEan.Enabled = false;
             txtDescripcion.Enabled = false;
             txtUrlImagen.Enabled = false;
@@ -75,6 +102,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtPrecioVenta.Enabled = false;
             txtStock.Enabled = false;
             ddlEstado.Enabled = false;
+
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
 
             string selectViewInventario = "SELECT EAN, Descripción, Imagen, TipoProducto, Marca, " +
                                         "Proveedor, [Fecha de Compra], [Fecha de Vencimiento], Costo, " +

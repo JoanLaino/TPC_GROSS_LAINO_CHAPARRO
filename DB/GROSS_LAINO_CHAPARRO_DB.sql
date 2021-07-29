@@ -136,6 +136,13 @@ create table MarcasVehiculo(
 )
 GO
 
+INSERT INTO MarcasVehiculo(Descripcion) values('Volkswagen')
+INSERT INTO MarcasVehiculo(Descripcion) values('Chevrolet')
+INSERT INTO MarcasVehiculo(Descripcion) values('Ford')
+INSERT INTO MarcasVehiculo(Descripcion) values('Honda')
+INSERT INTO MarcasVehiculo(Descripcion) values('Renault')
+GO
+
 create table Vehiculos(
 	ID bigint identity(1,1) primary key not null,
 	Patente varchar(8) unique not null,
@@ -223,7 +230,7 @@ GO
 
 create view ExportTiposProducto
 as
-select TP.ID ID, TP.Descripcion Descripcion
+select TP.ID as ID, TP.Descripcion as Descripcion
 from TiposProducto TP
 GO
 
@@ -316,8 +323,8 @@ GO
 
 create view ExportProveedores
 as
-select ID, CUIT, RazonSocial, Estado
-from Proveedores
+select P.ID ID, P.CUIT CUIT, P.RazonSocial RazonSocial, (select count(I.ID) from Inventario I where I.IdProveedor = P.ID) Asignaciones, P.Estado Estado
+from Proveedores P
 GO
 
 create procedure SP_INSERTAR_PROVEEDOR(

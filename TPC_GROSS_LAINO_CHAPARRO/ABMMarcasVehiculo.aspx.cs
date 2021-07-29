@@ -27,7 +27,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         public void BindData()
         {
-            string selectMarcasVehiculo = "SELECT * from MarcasVehiculo";
+            string selectMarcasVehiculo = "SELECT M.ID ID, M.Descripcion Descripcion, " +
+                                          "(SELECT COUNT(V.ID) FROM Vehiculos V " +
+                                          "WHERE M.ID = V.IdMarca) Asignaciones " +
+                                          "FROM MarcasVehiculo M ORDER BY M.Descripcion ASC";
 
             dgvMarcasVehiculo.DataSource = sentencia.DSET(selectMarcasVehiculo);
             dgvMarcasVehiculo.DataBind();
@@ -74,7 +77,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             string Marca = txtMarca2.Text;
 
-            string Consulta = "select count(*) from MarcasVehiculo where Descripcion like '" + Marca + "'";
+            string Consulta = "select count(*) from MarcasVehiculo where Descripcion = '" + Marca + "'";
 
             int existe = sentencia.IUDquery(Consulta);
 
@@ -86,6 +89,45 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 return true;
             }           
+        }
+
+        protected void dgvMarcasVehiculo_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            BindData();
+
+            string selectOrdenar = "SELECT M.ID ID, M.Descripcion Descripcion, " +
+                                   "(SELECT COUNT(V.ID) FROM Vehiculos V " +
+                                   "WHERE M.ID = V.IdMarca) Asignaciones " +
+                                   "FROM MarcasVehiculo M ORDER BY "
+                                   + e.SortExpression + " "
+                                   + GetSortDirection(e.SortExpression);
+
+            dgvMarcasVehiculo.DataSource = sentencia.DSET(selectOrdenar);
+            dgvMarcasVehiculo.DataBind();
+        }
+
+        private string GetSortDirection(string column)
+        {
+            string sortDirection = "ASC";
+
+            string sortExpression = ViewState["SortExpression"] as string;
+
+            if (sortExpression != null)
+            {
+                if (sortExpression == column)
+                {
+                    string lastDirection = ViewState["SortDirection"] as string;
+                    if ((lastDirection != null) && (lastDirection == "ASC"))
+                    {
+                        sortDirection = "DESC";
+                    }
+                }
+            }
+
+            ViewState["SortDirection"] = sortDirection;
+            ViewState["SortExpression"] = column;
+
+            return sortDirection;
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
@@ -101,8 +143,17 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             else
             {
                 string valor = txtBuscar.Text;
-                string selectBuscarMarcaGrilla = "SELECT * FROM MarcasVehiculo WHERE Descripcion LIKE '%" + valor + "%'";
-                string selectBuscarMarcaCampos = "SELECT * FROM MarcasVehiculo WHERE Descripcion = '" + valor + "'";
+                string selectBuscarMarcaGrilla = "SELECT M.ID ID, M.Descripcion Descripcion, " +
+                                                 "(SELECT COUNT(V.ID) FROM Vehiculos V " +
+                                                 "WHERE M.ID = V.IdMarca) Asignaciones " +
+                                                 "FROM MarcasVehiculo M " +
+                                                 "WHERE M.Descripcion LIKE '%" + valor + "%'";
+
+                string selectBuscarMarcaCampos = "SELECT M.ID ID, M.Descripcion Descripcion, " +
+                                                 "(SELECT COUNT(V.ID) FROM Vehiculos V " +
+                                                 "WHERE M.ID = V.IdMarca) Asignaciones " +
+                                                 "FROM MarcasVehiculo M " +
+                                                 "WHERE M.Descripcion = '" + valor + "'";
 
                 datos2.SetearConsulta(selectBuscarMarcaGrilla);
                 datos2.EjecutarLectura();

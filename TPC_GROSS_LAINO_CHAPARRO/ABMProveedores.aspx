@@ -81,6 +81,7 @@
             <Columns>
                 <asp:BoundField DataField="CUIT" HeaderText="CUIT" SortExpression="CUIT" />
                 <asp:BoundField DataField="RazonSocial" HeaderText="Razon Social" SortExpression="RazonSocial" />
+                <asp:BoundField DataField="Asignaciones" HeaderText="Asignaciones" SortExpression="Asignaciones" />
                 <asp:CheckBoxField DataField="Estado" HeaderText="Estado" SortExpression="Estado" />
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

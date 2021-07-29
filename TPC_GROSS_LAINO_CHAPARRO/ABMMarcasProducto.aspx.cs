@@ -27,7 +27,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         public void BindData()
         {
-            string selectMarcasProducto = "SELECT * from MarcasProducto";
+            string selectMarcasProducto = "SELECT M.ID ID, M.Descripcion Descripcion, " +
+                                          "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                          "WHERE M.ID = I.IdMarca) Asignaciones " +
+                                          "FROM MarcasProducto M ORDER BY M.Descripcion ASC";
 
             dgvMarcasProducto.DataSource = sentencia.DSET(selectMarcasProducto);
             dgvMarcasProducto.DataBind();
@@ -101,8 +104,17 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             else
             {
                 string valor = txtBuscar.Text;
-                string selectBuscarMarcaGrilla = "SELECT * FROM MarcasProducto WHERE Descripcion LIKE '%" + valor + "%'";
-                string selectBuscarMarcaCampos = "SELECT * FROM MarcasProducto WHERE Descripcion = '" + valor + "'";
+                string selectBuscarMarcaGrilla = "SELECT M.ID ID, M.Descripcion Descripcion, " +
+                                                 "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                                 "WHERE M.ID = I.IdMarca) Asignaciones " +
+                                                 "FROM MarcasProducto M " +
+                                                 "WHERE M.Descripcion LIKE '%" + valor + "%'";
+
+                string selectBuscarMarcaCampos = "SELECT M.ID ID, M.Descripcion Descripcion, " +
+                                                 "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                                 "WHERE M.ID = I.IdMarca) Asignaciones " +
+                                                 "FROM MarcasProducto M " +
+                                                 "WHERE M.Descripcion = '" + valor + "'";
 
                 datos2.SetearConsulta(selectBuscarMarcaGrilla);
                 datos2.EjecutarLectura();
@@ -174,7 +186,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             catch (Exception)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('La marca seleccionada está asignada a uno o varios vehículos y no se puede eliminar.')", true);
+                "alert('La marca seleccionada está asignada a uno o varios productos y no se puede eliminar.')", true);
 
                 BindData();
             }
@@ -209,6 +221,45 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                 BindData();
             }
+        }
+
+        protected void dgvMarcasProducto_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            BindData();
+
+            string selectOrdenar = "SELECT M.ID ID, M.Descripcion Descripcion, " +
+                                   "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                   "WHERE M.ID = I.IdMarca) Asignaciones " +
+                                   "FROM MarcasProducto M ORDER BY "
+                                   + e.SortExpression + " "
+                                   + GetSortDirection(e.SortExpression);
+
+            dgvMarcasProducto.DataSource = sentencia.DSET(selectOrdenar);
+            dgvMarcasProducto.DataBind();
+        }
+
+        private string GetSortDirection(string column)
+        {
+            string sortDirection = "ASC";
+
+            string sortExpression = ViewState["SortExpression"] as string;
+
+            if (sortExpression != null)
+            {
+                if (sortExpression == column)
+                {
+                    string lastDirection = ViewState["SortDirection"] as string;
+                    if ((lastDirection != null) && (lastDirection == "ASC"))
+                    {
+                        sortDirection = "DESC";
+                    }
+                }
+            }
+
+            ViewState["SortDirection"] = sortDirection;
+            ViewState["SortExpression"] = column;
+
+            return sortDirection;
         }
     }
 }

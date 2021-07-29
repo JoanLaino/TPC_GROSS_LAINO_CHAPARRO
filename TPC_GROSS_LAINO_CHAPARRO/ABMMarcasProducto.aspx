@@ -6,7 +6,7 @@
     <br />
 
     <asp:ImageButton ID="btnBuscar" runat="server" ToolTip="Buscar Marca" onclick="btnBuscar_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm"/>
-    <asp:textbox ID="txtBuscar" runat="server" ToolTip="Filtro Marca" placeholder="Ingrese Marca" aria-label="Marca" Style="vertical-align: middle; width: 200px;"></asp:TextBox>
+    <asp:textbox ID="txtBuscar" runat="server" ToolTip="Buscador" placeholder="Buscar..." aria-label="Marca" Style="vertical-align: middle; width: 200px;"></asp:TextBox>
     
     <button id="btnAgregar" ToolTip="Agregar nueva Marca" class="btnAddNewBrand" style="vertical-align: middle !important;">Agregar Nueva</button>
 
@@ -16,10 +16,10 @@
 
         <tr>
             <td>
-                <asp:TextBox id="txtIdMarca" runat="server" TooTip="ID" placeholder="ID" onkeypress="javascript:return solonumeros(event)" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
+                <asp:TextBox id="txtIdMarca" runat="server" Visible="false" TooTip="ID" placeholder="ID" onkeypress="javascript:return solonumeros(event)" />
             </td>
             <td>
-                <asp:TextBox id="txtMarca" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" Style="width: 333px; vertical-align: middle;" />
+                <asp:TextBox id="txtMarca" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" Style="width: 200px; vertical-align: middle;" />
             </td>
             <td align="center">
                 &nbsp;&nbsp;&nbsp;
@@ -38,18 +38,18 @@
 		    <table style="width:80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
 
                 <tr align="center">
-                    <td align="center" style="padding-top: .5rem; padding-bottom: .5rem;">
+                    <td align="center" style="padding: .5rem;">
                         <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" onclick="btnCerraPopup_Click" />
                     </td>
                 </tr>
                 
                 <tr align="center">
-                    <td style="padding-left: .5rem; padding-right: .5rem;">
-                        <asp:TextBox id="txtMarca2" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
+                    <td style="padding: .5rem;">
+                        <asp:TextBox id="txtMarca2" runat="server" ToolTip="Descripción" placeholder="Descripción" Width="200px" onkeypress="javascript:return sololetras(event)" />
                     </td>
                 </tr>
                 <tr align="center">
-                    <td style="padding-top: .5rem; padding-bottom: .5rem;">
+                    <td style="padding: .5rem;">
                         <asp:Button ID="imgBtnAgregarMarca" Text="Agregar" runat="server" ToolTip="Agregar Marca" onclientclick="return confirm('¿Confirma que desea agregar el nuevo producto?');" onclick="btnAgregar_Click" cssclass="img-btn-add-producto" />
                     </td>
                 </tr>
@@ -62,12 +62,12 @@
 
     <br />
 
-    <center>
-        <asp:GridView ID="dgvMarcasProducto" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
+    <center Style="padding: .15rem;">
+        <asp:GridView ID="dgvMarcasProducto" runat="server" AllowSorting="True" OnSorting="dgvMarcasProducto_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" SortExpression="Descripcion" />
+                <asp:BoundField DataField="Asignaciones" HeaderText="Asignaciones" SortExpression="Asignaciones" />
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

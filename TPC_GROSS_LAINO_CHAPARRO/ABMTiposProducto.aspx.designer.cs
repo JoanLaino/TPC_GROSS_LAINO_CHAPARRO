@@ -42,15 +42,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.TextBox txtDescripcionTipoProducto;
 
         /// <summary>
-        /// Control btnUpdate.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnUpdate;
-
-        /// <summary>
         /// Control txtIdTipoProducto.
         /// </summary>
         /// <remarks>
@@ -60,13 +51,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.TextBox txtIdTipoProducto;
 
         /// <summary>
-        /// Control ddlEstado.
+        /// Control btnUpdate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
+        protected global::System.Web.UI.WebControls.ImageButton btnUpdate;
 
         /// <summary>
         /// Control btnDelete.
