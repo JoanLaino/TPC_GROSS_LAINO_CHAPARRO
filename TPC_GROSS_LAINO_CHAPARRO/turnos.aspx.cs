@@ -22,6 +22,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         public void BindData()
         {
             ddlHoraTurno.Visible = false;
+            txtPruebaTurnos.Visible = false;
 
             string selectDgvTurnos = "SELECT * FROM ExportTurnos ORDER BY ID";
 
@@ -31,7 +32,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void calendarioTurnos_DayRender(object sender, DayRenderEventArgs e)
         {
-            if(e.Day.IsOtherMonth)
+            if (e.Day.IsOtherMonth)
             {
                 e.Day.IsSelectable = false;
             }
@@ -40,6 +41,21 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 e.Day.IsSelectable = false;
                 e.Cell.ForeColor = System.Drawing.Color.Red;
+            }
+
+            if (e.Day.Date.Year < DateTime.Today.Year)
+            {
+                e.Day.IsSelectable = false;
+            }
+
+            if (e.Day.Date.Year == DateTime.Today.Year && e.Day.Date.Month < DateTime.Today.Month)
+            {
+                e.Day.IsSelectable = false;
+            }
+
+            if (e.Day.Date.Year == DateTime.Today.Year && e.Day.Date.Month == DateTime.Today.Month && e.Day.Date.Day <= DateTime.Today.Day+1)
+            {
+                e.Day.IsSelectable = false;
             }
         }
 

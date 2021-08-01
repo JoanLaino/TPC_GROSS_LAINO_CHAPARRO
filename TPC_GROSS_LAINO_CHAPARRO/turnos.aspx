@@ -32,7 +32,9 @@
     </center>
     </div>
 
-    <asp:TextBox ID="txtPruebaTurnos" runat="server"></asp:TextBox>
+    <asp:TextBox ID="txtPruebaTurnos" runat="server" Visible="false"></asp:TextBox>
+    
+    <br />
 
     <center>
         <asp:GridView ID="dgvTurnos" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="ID" ForeColor="#333333" GridLines="Both" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CssClass="dgv-abm-prod" >
