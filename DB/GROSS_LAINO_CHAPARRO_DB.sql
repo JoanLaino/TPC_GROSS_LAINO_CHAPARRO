@@ -382,3 +382,81 @@ begin
 	VALUES(@CUIT_DNI, @RazonSocial, @IdTipo, @Mail, @Telefono)
 end
 GO
+
+create table HorariosLunesViernes(
+    ID int primary key identity (1,1) not null,
+    LunesViernes varchar(5) unique not null
+)
+GO
+
+create table HorariosSabado(
+    ID int primary key identity (1,1) not null,
+    Sabado varchar(5) unique not null
+)
+GO
+
+insert INTO HorariosLunesViernes(LunesViernes) values('08:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('08:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('09:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('09:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('10:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('10:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('11:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('11:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('12:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('12:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('13:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('13:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('14:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('14:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('15:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('15:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('16:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('16:30')
+insert INTO HorariosLunesViernes(LunesViernes) values('17:00')
+insert INTO HorariosLunesViernes(LunesViernes) values('17:30')
+GO
+
+insert INTO HorariosSabado(Sabado) values('08:00')
+insert INTO HorariosSabado(Sabado) values('08:30')
+insert INTO HorariosSabado(Sabado) values('09:00')
+insert INTO HorariosSabado(Sabado) values('09:30')
+insert INTO HorariosSabado(Sabado) values('10:00')
+insert INTO HorariosSabado(Sabado) values('10:30')
+insert INTO HorariosSabado(Sabado) values('11:00')
+insert INTO HorariosSabado(Sabado) values('11:30')
+insert INTO HorariosSabado(Sabado) values('12:00')
+insert INTO HorariosSabado(Sabado) values('12:30')
+GO
+
+create table Turnos(
+    ID bigint primary key not null identity(1,1),
+    FechaHora datetime not null,
+	IDHorario int not null
+)
+GO
+
+create procedure SP_AGREGAR_TURNO(
+    @FechaHora datetime,
+	@IDHorario int
+)as
+begin
+    INSERT INTO Turnos(FechaHora, IDHorario) values(@FechaHora, @IDHorario)
+end
+GO
+
+alter procedure SP_TURNOS_SELECCIONADOS(
+	@Fecha datetime,
+	@IDHorario int
+)as
+begin
+	select IDHorario from Turnos where CONVERT(VARCHAR(10),FechaHora,105) = @fecha and IDHorario = @IDHorario
+end
+go
+
+select * from Turnos where CONVERT(VARCHAR(10),FechaHora,105) = @fecha and IDHorario = @IDHora
+
+
+select count(*) Cantidad from HorariosSabado
+
+select IDHorario from 
