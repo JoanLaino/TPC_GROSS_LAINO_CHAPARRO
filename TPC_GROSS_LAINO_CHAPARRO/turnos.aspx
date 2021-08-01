@@ -32,6 +32,31 @@
     </center>
     </div>
 
-    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+    <asp:TextBox ID="txtPruebaTurnos" runat="server"></asp:TextBox>
+
+    <center>
+        <asp:GridView ID="dgvTurnos" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="ID" ForeColor="#333333" GridLines="Both" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CssClass="dgv-abm-prod" >
+            <AlternatingRowStyle BackColor="White" />
+            <Columns>
+                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
+                <asp:BoundField DataField="Dia" HeaderText="Día" ReadOnly="True" SortExpression="Dia" />
+                <asp:BoundField DataField="Fecha" HeaderText="Fecha" ReadOnly="True" SortExpression="Fecha" />
+                <asp:BoundField DataField="Hora" HeaderText="Hora" ReadOnly="True" SortExpression="Hora" />
+                <asp:BoundField DataField="IDHorario" HeaderText="IDHorario" SortExpression="IDHorario" />
+            </Columns>
+            <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+            <SortedAscendingCellStyle BackColor="#FDF5AC" />
+            <SortedAscendingHeaderStyle BackColor="#4D0000" />
+            <SortedDescendingCellStyle BackColor="#FCF6C0" />
+            <SortedDescendingHeaderStyle BackColor="#820000" />
+
+        </asp:GridView>
+    </center>
+
+    <asp:SqlDataSource ID="ExportTurnos" runat="server" ConnectionString="<%$ ConnectionStrings:GROSS_LAINO_CHAPARRO_DBConnectionString %>" SelectCommand="SELECT * FROM [ExportTurnos] ORDER BY [ID]"></asp:SqlDataSource>
 
 </asp:Content>

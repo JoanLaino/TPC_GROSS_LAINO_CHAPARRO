@@ -431,32 +431,37 @@ GO
 
 create table Turnos(
     ID bigint primary key not null identity(1,1),
-    FechaHora datetime not null,
+	Dia varchar(9) not null,
+    FechaHora datetime unique not null,
 	IDHorario int not null
 )
 GO
 
+create view ExportTurnos
+as
+select ID as ID,
+Dia as Dia,
+CONVERT(VARCHAR(10),FechaHora,105) as Fecha, 
+CONVERT(VARCHAR(5),FechaHora,108) as Hora, 
+IDHorario as IDHorario
+from Turnos
+GO
+
 create procedure SP_AGREGAR_TURNO(
     @FechaHora datetime,
-	@IDHorario int
+	@IDHorario int,
+	@Dia varchar(9)
 )as
 begin
-    INSERT INTO Turnos(FechaHora, IDHorario) values(@FechaHora, @IDHorario)
+    INSERT INTO Turnos(Dia, FechaHora, IDHorario) values(@Dia, @FechaHora, @IDHorario)
 end
 GO
 
-alter procedure SP_TURNOS_SELECCIONADOS(
-	@Fecha datetime,
-	@IDHorario int
+create procedure SP_TURNOS_SELECCIONADOS(
+	@Fecha varchar(10)
 )as
 begin
-	select IDHorario from Turnos where CONVERT(VARCHAR(10),FechaHora,105) = @fecha and IDHorario = @IDHorario
+	
+	select IDHorario as ID from Turnos where CONVERT(VARCHAR(10),FechaHora,105) = TRANSLATE(@Fecha,'/','-')
 end
 go
-
-select * from Turnos where CONVERT(VARCHAR(10),FechaHora,105) = @fecha and IDHorario = @IDHora
-
-
-select count(*) Cantidad from HorariosSabado
-
-select IDHorario from 

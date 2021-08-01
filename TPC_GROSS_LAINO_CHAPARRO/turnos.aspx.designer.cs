@@ -42,12 +42,30 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.Button btnAgregarTurno;
 
         /// <summary>
-        /// Control TextBox1.
+        /// Control txtPruebaTurnos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtPruebaTurnos;
+
+        /// <summary>
+        /// Control dgvTurnos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvTurnos;
+
+        /// <summary>
+        /// Control ExportTurnos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ExportTurnos;
     }
 }

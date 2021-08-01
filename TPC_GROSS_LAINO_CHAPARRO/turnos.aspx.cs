@@ -13,12 +13,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
         {
-            ddlHoraTurno.Visible = false;          
-            
             if (!IsPostBack)
             {
-                
+                BindData();
             }
+        }
+
+        public void BindData()
+        {
+            ddlHoraTurno.Visible = false;
+
+            string selectDgvTurnos = "SELECT * FROM ExportTurnos ORDER BY ID";
+
+            dgvTurnos.DataSource = sentencia.DSET(selectDgvTurnos);
+            dgvTurnos.DataBind();
         }
 
         protected void calendarioTurnos_DayRender(object sender, DayRenderEventArgs e)
@@ -31,13 +39,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             if ( e.Day.Date.DayOfWeek == DayOfWeek.Sunday)
             {
                 e.Day.IsSelectable = false;
-                //e.Cell.BackColor = System.Drawing.Color.LightGray;
                 e.Cell.ForeColor = System.Drawing.Color.Red;
             }
         }
 
         protected void calendarioTurnos_SelectionChanged(object sender, EventArgs e)
         {
+            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datos2 = new AccesoDatos();
+
             ddlHoraTurno.Visible = true;
             string dia = calendarioTurnos.SelectedDate.DayOfWeek.ToString();
             string selectCantidad;
@@ -52,7 +62,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlHoraTurno.DataValueField = "ID";
                 ddlHoraTurno.DataBind();
 
-                selectCantidad = "select count(*) Cantidad from HorariosSabado";
+                selectCantidad = "select count(*) as Cantidad from HorariosSabado";
             }
             else
             {
@@ -64,36 +74,83 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlHoraTurno.DataValueField = "ID";
                 ddlHoraTurno.DataBind();
 
-                selectCantidad = "select count(*) Cantidad from HorariosSabado";
+                selectCantidad = "select count(*) as Cantidad from HorariosLunesViernes";
             }
-                        
-            int cantidad = Convert.ToInt32(sentencia.DSET(selectCantidad));
 
-            for (int i = 0; i < cantidad; i++)
+            string fechaSeleccionada = calendarioTurnos.SelectedDate.ToShortDateString();
+
+            string IdHorarioTurnosCargados = "EXEC SP_TURNOS_SELECCIONADOS '" + fechaSeleccionada + "'";
+
+            try
             {
-                string value = i.ToString();
+                datos.SetearConsulta(IdHorarioTurnosCargados);
+                datos.EjecutarLectura();
 
-                ddlHoraTurno.SelectedValue = value;
+                datos2.SetearConsulta(selectCantidad);
+                datos2.EjecutarLectura();
 
-                if (ddlHoraTurno.SelectedValue == "ID traes de la otra consulta")
+                int cantidad = 0;
+
+                if (datos2.Lector.Read()) { cantidad = Convert.ToInt32(datos2.Lector["Cantidad"]); }
+
+                while (datos.Lector.Read())
                 {
-                    ddlHoraTurno.SelectedValue = value;
-                    ddlHoraTurno.SelectedItem.Enabled = false;
+                    int IdHorario = Convert.ToInt32(datos.Lector["ID"]);
+                    
+                    for (int i = 1; i < cantidad+1 ; i++)
+                    {
+                        if (i == IdHorario)
+                        {
+                            string value = i.ToString();
+
+                            ddlHoraTurno.SelectedValue = value;
+                            ddlHoraTurno.SelectedItem.Enabled = false;
+                        }
+                    }
                 }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Error al calcular cantidades.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+                datos2.CerrarConexion();
             }
         }
 
         protected void btnAgregarTurno_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string cliente = "Juan Manuel Gross"; //Reemplazar valor por la variable del nombre del cliente.
+                int idHora = Convert.ToInt32(ddlHoraTurno.SelectedValue);
+                string fecha = calendarioTurnos.SelectedDate.ToShortDateString();
+                string hora = ddlHoraTurno.SelectedItem.ToString();
+                string dia = calendarioTurnos.SelectedDate.DayOfWeek.ToString();
+                if (dia == "Monday") { dia = "Lunes"; }
+                else if (dia == "Tuesday") { dia = "Martes"; }
+                else if (dia == "Wednesday") { dia = "Miércoles"; }
+                else if (dia == "Thursday") { dia = "Jueves"; }
+                else if (dia == "Friday") { dia = "Viernes"; }
+                else if (dia == "Saturday") { dia = "Sábado"; }
 
-            int idHora = Convert.ToInt32(ddlHoraTurno.SelectedValue);
-            string fecha = calendarioTurnos.SelectedDate.ToShortDateString();
-            string hora = ddlHoraTurno.SelectedItem.ToString();
-            string insertTurno = "EXEC SP_AGREGAR_TURNO '" + fecha + " " + hora + "', " + idHora;
+                string insertTurno = "EXEC SP_AGREGAR_TURNO '" + fecha + " " + hora + "', " + idHora + ", '" + dia + "'";
 
-            sentencia.IUD(insertTurno);
+                sentencia.IUD(insertTurno);
 
-            TextBox1.Text = fecha + " " + hora + " " + idHora;
+                BindData();
+
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('El turno para el día " + dia + " " + fecha + ", a las " + hora  + "hs, para el cliente " + cliente + " se ha agregado correctamente')", true);
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Error al intentar agregar el turno. Por favor reintente nuevamente en unos minutos.')", true);
+            }
         }
     }
 }
