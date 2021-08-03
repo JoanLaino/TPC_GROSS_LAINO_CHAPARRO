@@ -13,7 +13,6 @@ namespace Dominio
         public string Mail { get; set; }
         public string Celular { get; set; }
         public string CuilCuit { get; set; }
-        public string FechaNacimiento { get; set; }
         public Persona() { }
         public Persona(string apenom)
         {

@@ -44,9 +44,6 @@
             <td Style="padding: .5rem;">
                 <asp:TextBox ID="txtFechaAlta" runat="server" ToolTip="Fecha de Alta" placeholder="Fecha de Alta" Width="200px" MaxLength="10" ></asp:TextBox>
             </td>
-            <td Style="padding: .5rem;">
-                <asp:TextBox ID="txtFechaNacimiento" runat="server" ToolTip="Fecha de Nacimiento" placeholder="Fecha de Nacimiento" Width="200px" MaxLength="10"></asp:TextBox>
-            </td>
         </tr>
 
         <asp:TextBox runat="server" ID="txtID" Visible="false" ></asp:TextBox>
@@ -94,9 +91,6 @@
                             <asp:TextBox ID="txtApeNom2" runat="server" ToolTip="Apellido y Nombre" placeholder="Apellido y Nombre" Width="200px" MaxLength="100" Rows="1" onkeypress="javascript:return sololetras(event)" ></asp:TextBox>
                         </td>
                         <td Style="padding: .5rem;">
-                            <asp:TextBox ID="txtFechaNacimiento2" runat="server" Type="Date" ToolTip="Fecha de Nacimiento" placeholder="Fecha de Nacimiento" Width="200px" MaxLength="10"></asp:TextBox>
-                        </td>
-                        <td Style="padding: .5rem;">
                             <asp:TextBox ID="txtMail2" runat="server" ToolTip="e-Mail" placeholder="e-Mail" Width="200px"></asp:TextBox>
                         </td>
                     </tr>
@@ -132,7 +126,6 @@
                 <asp:BoundField DataField="ApeNom" HeaderText="Apellido y Nombre" SortExpression="ApeNom" />
                 <asp:BoundField DataField="TipoCliente" HeaderText="Tipo de Cliente" SortExpression="TipoCliente" />
                 <asp:BoundField DataField="FechaAlta" HeaderText="Fecha de Alta" SortExpression="FechaAlta" />
-                <asp:BoundField DataField="FechaNacimiento" HeaderText="Fecha de Nacimiento" SortExpression="FechaNacimiento" />
                 <asp:BoundField DataField="Mail" HeaderText="Mail" SortExpression="Mail" />
                 <asp:BoundField DataField="Telefono" HeaderText="Teléfono" SortExpression="Telefono" />
                 <asp:BoundField DataField="TotalVehiculosRegistrados" HeaderText="Cant. Vehículos" SortExpression="TotalVehiculosRegistrados" />

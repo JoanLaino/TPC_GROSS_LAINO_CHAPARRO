@@ -12,6 +12,7 @@ namespace Dominio
 
         public List <Servicio> servicios;
 
+        public string FechaNacimiento { get; set; }
         public bool Estado { get; set; }
     }
 }

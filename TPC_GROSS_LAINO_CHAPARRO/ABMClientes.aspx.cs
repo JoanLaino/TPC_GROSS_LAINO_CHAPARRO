@@ -44,7 +44,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtRazonSocial.Text = "";
             txtApeNom.Text = "";
             txtFechaAlta.Text = "";
-            txtFechaNacimiento.Text = "";
             txtMail.Text = "";
             txtTelefono.Text = "";
             ddlTiposCliente.SelectedValue = "0";
@@ -54,7 +53,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtCuitDni2.Text = "";
             txtRazonSocial2.Text = "";
             txtApeNom2.Text = "";
-            txtFechaNacimiento2.Text = "";
             txtMail2.Text = "";
             txtTelefono2.Text = "";
             ddlTiposCliente2.SelectedValue = "0";
@@ -64,7 +62,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtRazonSocial.Enabled = false;
             txtApeNom.Enabled = false;
             txtFechaAlta.Enabled = false;
-            txtFechaNacimiento.Enabled = false;
             txtMail.Enabled = false;
             txtTelefono.Enabled = false;
             ddlTiposCliente.Enabled = false;
@@ -130,8 +127,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         txtApeNom.Text = datos.Lector["ApeNom"].ToString();
                         if (txtApeNom.Text == "-") { txtApeNom.Text = ""; }
                         txtFechaAlta.Text = datos.Lector["FechaAlta"].ToString();
-                        txtFechaNacimiento.Text = datos.Lector["FechaNacimiento"].ToString();
-                        if (txtFechaNacimiento.Text == "-") { txtFechaNacimiento.Text = ""; }
                         txtMail.Text = datos.Lector["Mail"].ToString();
                         txtTelefono.Text = datos.Lector["Telefono"].ToString();
                         txtCantVehiculos.Text = datos.Lector["TotalVehiculosRegistrados"].ToString();
@@ -146,7 +141,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         txtRazonSocial.Enabled = true;
                         txtApeNom.Enabled = true;
                         txtFechaAlta.Enabled = true;
-                        txtFechaNacimiento.Enabled = true;
                         txtMail.Enabled = true;
                         txtTelefono.Enabled = true;
                         ddlEstado.Enabled = true;
@@ -228,14 +222,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string CUIT_DNI = txtCuitDni2.Text;
                     string RazonSocial = txtRazonSocial2.Text;
                     string ApeNom = txtApeNom2.Text;
-                    string FechaNacimiento = txtFechaNacimiento2.Text;
                     string Mail = txtMail2.Text;
                     string Telefono = txtTelefono2.Text;
 
                     if (RazonSocial == "")
                     {
                         string sp_InsertCliente = "EXEC SP_AGREGAR_CLIENTE_DNI " + IdTipo + ", '" + CUIT_DNI + "', '"
-                                                + ApeNom + "', '" + FechaNacimiento + "', '" + Mail + "', '" + Telefono + "'";
+                                                + ApeNom + "', '" + Mail + "', '" + Telefono + "'";
 
                         sentencia.IUD(sp_InsertCliente);
 
@@ -290,9 +283,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string RazonSocial = txtRazonSocial.Text;
                     string ApeNom = txtApeNom.Text;
                     DateTime FechaAlta = Convert.ToDateTime(txtFechaAlta.Text);
-                    DateTime FechaNacimiento = Convert.ToDateTime(txtFechaNacimiento.Text);
                     FechaAlta.ToShortDateString();
-                    FechaNacimiento.ToShortDateString();
                     string Mail = txtMail.Text;
                     string Telefono = txtTelefono.Text;
                     int TipoCliente = Convert.ToInt32(ddlTiposCliente.SelectedValue);
@@ -301,7 +292,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
 
                     string sp_UpdateCliente = "EXEC SP_ACTUALIZAR_CLIENTE " + ID + ", " + TipoCliente + ", '" + CuitDni + "', '" + RazonSocial
-                                              + "', '" + ApeNom + "', '" + FechaAlta + "', '" + FechaNacimiento + "', '" + Mail + "', '" + Telefono
+                                              + "', '" + ApeNom + "', '" + FechaAlta + "', '" + Mail + "', '" + Telefono
                                               + "', " + Estado;
 
                     sentencia.IUD(sp_UpdateCliente);

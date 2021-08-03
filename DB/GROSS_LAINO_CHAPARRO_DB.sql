@@ -83,7 +83,6 @@ create table Clientes(
 	RazonSocial varchar(100) unique null,
 	ApeNom varchar(100) null,
 	FechaAlta date default (getdate()) not null,
-	FechaNacimiento date null,
 	Mail varchar(100) unique not null,
 	Telefono varchar(50) not null,
 	TotalVehiculosRegistrados int default (0) check (TotalVehiculosRegistrados >= 0),
@@ -145,7 +144,7 @@ GO
 
 create table Vehiculos(
 	ID bigint identity(1,1) primary key not null,
-	Patente varchar(8) unique not null,
+	Patente varchar(7) unique not null,
 	IdMarca bigint not null foreign key references MarcasVehiculo(ID),
 	Modelo varchar(50) not null,
 	AnioFabricacion int not null,
@@ -303,8 +302,7 @@ go
 create view ExportClientes
 as
 	select C.ID, C.CUIT_DNI as 'CUITDNI', isnull(C.RazonSocial,'-') as RazonSocial, isnull(C.ApeNom,'-') as ApeNom, T.ID as 'IdTipo', T.Descripción as 'TipoCliente',
-	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, isnull(CONVERT(VARCHAR(10),C.FechaNacimiento,105),'-') as FechaNacimiento,
-	C.Mail, C.Telefono, C.TotalVehiculosRegistrados, C.Estado
+	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, C.Mail, C.Telefono, C.TotalVehiculosRegistrados, C.Estado
 	from Clientes C
 	inner join TiposCliente T on IdTipo = T.ID
 GO
@@ -315,8 +313,8 @@ insert into TiposCliente (Descripcion) values('Monotributista')
 insert into TiposCliente (Descripcion) values('Estatal')
 GO
 
-insert into Clientes (IDTipo, CUIT_DNI, ApeNom, FechaNacimiento, Mail, Telefono)
-values(2, 15326856, 'Roberto Villalobos', '15-1-1975', 'asdasd@gmail.com', '1123456789')
+insert into Clientes (IDTipo, CUIT_DNI, ApeNom, Mail, Telefono)
+values(2, 15326856, 'Roberto Villalobos', 'asdasd@gmail.com', '1123456789')
 insert into Clientes (IDTipo, CUIT_DNI, RazonSocial, Mail, Telefono)
 values(1, 35343323214, 'Salamanca SA', 'salamancasa@gmail.com', '1101234567')
 GO
@@ -344,14 +342,13 @@ create procedure SP_ACTUALIZAR_CLIENTE(
 	@RazonSocial varchar(100),
 	@ApeNom varchar(100),
 	@FechaAlta date,
-	@FechaNacimiento date,
 	@Mail varchar(100),
 	@Telefono varchar(50),
 	@Estado bit
 )as
 begin
 	UPDATE Clientes Set IDTipo = @IdTipo, CUIT_DNI = @CUIT_DNI, RazonSocial = @RazonSocial,
-	ApeNom = @ApeNom, FechaAlta = @FechaAlta, FechaNacimiento = @FechaNacimiento, Mail = @Mail,
+	ApeNom = @ApeNom, FechaAlta = @FechaAlta, Mail = @Mail,
 	Telefono = @Telefono, Estado = @Estado WHERE ID = @ID
 end
 GO
@@ -360,13 +357,12 @@ create procedure SP_AGREGAR_CLIENTE_DNI(
 	@IdTipo smallint,
 	@CUIT_DNI varchar(11),
 	@ApeNom varchar(100),
-	@FechaNacimiento date,
 	@Mail varchar(100),
 	@Telefono varchar(50)
 )as
 begin
-	INSERT INTO Clientes(CUIT_DNI, ApeNom, IDTipo, FechaNacimiento, Mail, Telefono)
-	VALUES(@CUIT_DNI, @ApeNom, @IdTipo, @FechaNacimiento, @Mail, @Telefono)
+	INSERT INTO Clientes(CUIT_DNI, ApeNom, IDTipo, Mail, Telefono)
+	VALUES(@CUIT_DNI, @ApeNom, @IdTipo, @Mail, @Telefono)
 end
 GO
 

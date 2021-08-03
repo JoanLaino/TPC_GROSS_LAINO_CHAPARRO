@@ -22,7 +22,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         public void BindData()
         {
             ddlHoraTurno.Visible = false;
-            txtPruebaTurnos.Visible = false;
 
             string selectDgvTurnos = "SELECT * FROM ExportTurnos ORDER BY ID";
 
@@ -53,7 +52,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 e.Day.IsSelectable = false;
             }
 
-            if (e.Day.Date.Year == DateTime.Today.Year && e.Day.Date.Month == DateTime.Today.Month && e.Day.Date.Day <= DateTime.Today.Day+1)
+            if (e.Day.Date.Year == DateTime.Today.Year && e.Day.Date.Month == DateTime.Today.Month && e.Day.Date.Day <= DateTime.Today.Day)
             {
                 e.Day.IsSelectable = false;
             }
@@ -113,7 +112,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 {
                     int IdHorario = Convert.ToInt32(datos.Lector["ID"]);
                     
-                    for (int i = 1; i < cantidad+1 ; i++)
+                    for (int i = 1; i < cantidad+1; i++)
                     {
                         if (i == IdHorario)
                         {
@@ -137,11 +136,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
         }
 
-        protected void btnAgregarTurno_Click(object sender, EventArgs e)
+        protected void btnConfirmarFechaHora_Click(object sender, EventArgs e)
         {
             try
             {
-                string cliente = "Juan Manuel Gross"; //Reemplazar valor por la variable del nombre del cliente.
+                string cliente = "CLIENTE"; //Reemplazar valor por la variable del nombre del cliente.
                 int idHora = Convert.ToInt32(ddlHoraTurno.SelectedValue);
                 string fecha = calendarioTurnos.SelectedDate.ToShortDateString();
                 string hora = ddlHoraTurno.SelectedItem.ToString();
@@ -168,5 +167,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 "alert('Error al intentar agregar el turno. Por favor reintente nuevamente en unos minutos.')", true);
             }
         }
+
     }
 }

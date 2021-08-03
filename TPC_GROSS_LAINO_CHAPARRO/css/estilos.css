@@ -764,3 +764,30 @@
     padding-top: .5rem;
     padding-bottom: .5rem;
 }
+
+.popup-estilo {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 0px #000000;
+}
+
+.btn-confirmar-turno-1 {
+    color: #ffffff;
+    background-color: #98D983;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+}
+
+.btn-confirmar-turno-1:hover {
+    background-color: #ffffff;
+    color: #98D983;
+}
