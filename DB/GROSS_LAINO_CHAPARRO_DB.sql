@@ -148,7 +148,7 @@ create table Vehiculos(
 	IdMarca bigint not null foreign key references MarcasVehiculo(ID),
 	Modelo varchar(50) not null,
 	AnioFabricacion int not null,
-	FechaAlta date not null default (getdate()) check (FechaAlta = getdate()),
+	FechaAlta date not null default (getdate()),
 	IdCliente bigint not null foreign key references Clientes(ID),
 	Estado bit not null default (1)
 )
@@ -163,7 +163,7 @@ GO
 create table Servicios(
 	ID bigint primary key identity (1,1) not null,
 	FechaRealizacion date not null,
-	PatenteVehiculo varchar(8) not null foreign key references Vehiculos(Patente),
+	PatenteVehiculo varchar(7) not null foreign key references Vehiculos(Patente),
 	IdTipo int not null foreign key references TiposServicio(ID),
 	Comentarios varchar(400) null,
 	IdCliente bigint not null foreign key references Clientes(ID),
@@ -427,6 +427,8 @@ GO
 
 create table Turnos(
     ID bigint primary key not null identity(1,1),
+	IdCliente bigint not null foreign key references Clientes(ID),
+	IdVehiculo bigint not null foreign key references Vehiculos(ID),
 	Dia varchar(9) not null,
     FechaHora datetime unique not null,
 	IDHorario int not null
@@ -435,21 +437,22 @@ GO
 
 create view ExportTurnos
 as
-select ID as ID,
-Dia as Dia,
-CONVERT(VARCHAR(10),FechaHora,105) as Fecha, 
-CONVERT(VARCHAR(5),FechaHora,108) as Hora, 
+select ID as ID, Dia as Dia, CONVERT(VARCHAR(10),FechaHora,105) as Fecha, CONVERT(VARCHAR(5),FechaHora,108) as Hora,
+isnull((select C.ApeNom from Clientes C where ID = T.IdCliente),(select C.RazonSocial from Clientes C where ID = T.IdCliente)) as Cliente, 
+(select V.Patente from Vehiculos V where ID = T.IdVehiculo) as Patente,
 IDHorario as IDHorario
-from Turnos
+from Turnos T
 GO
 
 create procedure SP_AGREGAR_TURNO(
     @FechaHora datetime,
 	@IDHorario int,
-	@Dia varchar(9)
+	@Dia varchar(9),
+	@IdCliente bigint,
+	@IdVehiculo bigint
 )as
 begin
-    INSERT INTO Turnos(Dia, FechaHora, IDHorario) values(@Dia, @FechaHora, @IDHorario)
+    INSERT INTO Turnos(Dia, FechaHora, IDHorario, IdCliente, IdVehiculo) values(@Dia, @FechaHora, @IDHorario, @IdCliente, @IdVehiculo)
 end
 GO
 
@@ -458,6 +461,9 @@ create procedure SP_TURNOS_SELECCIONADOS(
 )as
 begin
 	
-	select IDHorario as ID from Turnos where CONVERT(VARCHAR(10),FechaHora,105) = TRANSLATE(@Fecha,'/','-')
+	SELECT IDHorario as ID FROM Turnos WHERE CONVERT(VARCHAR(10),FechaHora,105) = TRANSLATE(@Fecha,'/','-')
 end
-go
+GO
+
+INSERT INTO Vehiculos(Patente, IdMarca, Modelo, AnioFabricacion, IdCliente)
+Values ('FSW202', 2, 'Corsa', 2006, 1)
