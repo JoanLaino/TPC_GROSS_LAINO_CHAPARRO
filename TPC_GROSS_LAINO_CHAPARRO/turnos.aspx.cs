@@ -31,7 +31,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             ddlVehiculos.Visible = false;
             lblVehiculos.Visible = false;
             lblCuitDni.Visible = false;
+            lblRegistro.Visible = false;
             btnRegistro.Visible = false;
+            txtCuitDni.Enabled = true;
             btnBuscarCuitDni.Text = "Siguiente paso";
 
             string selectDgvTurnos = "SELECT * FROM ExportTurnos ORDER BY ID";
@@ -153,10 +155,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnBuscarCuitDni_Click(object sender, EventArgs e)
         {
-            //Si existe, mostrar patentes del cliente en un DDL y luego confirmar turno. (también mostrar opción de agregar vehículo nuevo).
-
-            //Si no existe, mostrar boton para que el cliente se registre y ocultar todo lo demás. (en un pop up)
-
             AccesoDatos datos = new AccesoDatos();
             AccesoDatos datos2 = new AccesoDatos();
             try
@@ -230,6 +228,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     }
                     else
                     {
+                        lblRegistro.Visible = false;
+                        btnRegistro.Visible = false;
+
                         string CuitDni = txtCuitDni.Text;
                         
                         int resultado = 0;
@@ -263,31 +264,30 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                     ddlVehiculos.DataBind();
 
                                     btnBuscarCuitDni.Text = "Confirmar Turno";
+                                    txtCuitDni.Enabled = false;
+                                    ddlHoraTurno.Enabled = false;
+                                    calendarioTurnos.Enabled = false;
 
                                     lblVehiculos.Visible = true;
                                     ddlVehiculos.Visible = true;
+
+                                    //MOSTRAR BOTON PARA AGREGAR UN NUEVO VEHICULO.
                                 }
                                 else //no hay autos cargados
                                 {
-                                    
+                                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                    "alert('No se encontraron vehículos cargados.\\n\\n" +
+                                    "Por favor contáctenos a la brevedad para resolver el problema.')", true);
                                 }
                             }
                         }
                         else //no existe el cuit / dni en la DB
                         {
-                            if (txtCuitDni.Text.Length > 8)
-                            {
-                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                                "alert('No se encontró el CUIT " +  txtCuitDni.Text + " en la base de datos. Por favor registrese.')", true);
-                            }
-                            else
-                            {
-                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                                "alert('No se encontró el DNI " + txtCuitDni.Text + " en la base de datos. Por favor registrese.')", true);
-                            }
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('No se encontraron resultados, revise el CUIT / DNI ingresado.\\n\\n" +
+                            "Si todavía no esta registrado, debe hacerlo por unica vez.')", true);
 
-                            BindData();
-
+                            lblRegistro.Visible = true;
                             btnRegistro.Visible = true;
                         }
                     }
@@ -296,7 +296,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Se produjo un error al intentar leer la base de datos.')", true);
+                "alert('Error al intentar reservar el turno. Por favor reintente nuevamente en unos minutos.')", true);
             }
             finally
             {
@@ -343,6 +343,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
 
             return Resultado;
+        }
+
+        protected void btnRegistro_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("registroCliente.aspx");
         }
     }
 }

@@ -80,7 +80,7 @@ create table Clientes(
 	ID bigint primary key identity (1,1) not null,
 	IDTipo smallint not null foreign key references TiposCliente(ID),
 	CUIT_DNI varchar(11) unique not null,
-	RazonSocial varchar(100) unique null,
+	RazonSocial varchar(100) null,
 	ApeNom varchar(100) null,
 	FechaAlta date default (getdate()) not null,
 	Mail varchar(100) unique not null,
@@ -465,5 +465,26 @@ begin
 end
 GO
 
-INSERT INTO Vehiculos(Patente, IdMarca, Modelo, AnioFabricacion, IdCliente)
-Values ('FSW202', 2, 'Corsa', 2006, 1)
+create procedure SP_AGREGAR_VEHICULO(
+	@Patente varchar(7),
+	@IdMarca bigint,
+	@Modelo varchar(50),
+	@AnioFabricacion int,
+	@IdCliente bigint
+)as
+begin
+	INSERT INTO Vehiculos(Patente, IdMarca, Modelo, AnioFabricacion, IdCliente)
+	Values (@Patente, @IdMarca, @Modelo, @AnioFabricacion, @IdCliente)
+end
+GO
+
+EXEC SP_AGREGAR_VEHICULO 'ABC123', 2, 'Corsa', 2006, 1
+GO
+
+create view ExportVehiculos
+as
+	SELECT V.ID as ID, V.Patente as Patente, (select M.Descripcion from MarcasVehiculo M 
+	Where M.ID = V.IdMarca) as Marca, V.Modelo as Modelo, V.AnioFabricacion as 'Año de fabricación',
+	CONVERT(VARCHAR(10),V.FechaAlta,105) as 'Fecha de alta', (select isnull(C.ApeNom, C.RazonSocial) from Clientes C Where C.ID = V.IdCliente)
+	as Cliente, Estado as Estado from Vehiculos V
+GO

@@ -11,71 +11,53 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 {
 
 
-    public partial class turnos
+    public partial class registroCliente
     {
 
         /// <summary>
-        /// Control lblRegistro.
+        /// Control ddlIdTipo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRegistro;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIdTipo;
 
         /// <summary>
-        /// Control btnRegistro.
+        /// Control lblApeNom.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegistro;
+        protected global::System.Web.UI.WebControls.Label lblApeNom;
 
         /// <summary>
-        /// Control lblCalendario.
+        /// Control txtApeNom.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCalendario;
+        protected global::System.Web.UI.WebControls.TextBox txtApeNom;
 
         /// <summary>
-        /// Control calendarioTurnos.
+        /// Control lblRazonSocial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calendarioTurnos;
+        protected global::System.Web.UI.WebControls.Label lblRazonSocial;
 
         /// <summary>
-        /// Control lblHora.
+        /// Control txtRazonSocial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHora;
-
-        /// <summary>
-        /// Control ddlHoraTurno.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlHoraTurno;
-
-        /// <summary>
-        /// Control lblCuitDni.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCuitDni;
+        protected global::System.Web.UI.WebControls.TextBox txtRazonSocial;
 
         /// <summary>
         /// Control txtCuitDni.
@@ -87,48 +69,39 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.TextBox txtCuitDni;
 
         /// <summary>
-        /// Control lblVehiculos.
+        /// Control txtTelefono.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVehiculos;
+        protected global::System.Web.UI.WebControls.TextBox txtTelefono;
 
         /// <summary>
-        /// Control ddlVehiculos.
+        /// Control txtMail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlVehiculos;
+        protected global::System.Web.UI.WebControls.TextBox txtMail;
 
         /// <summary>
-        /// Control btnBuscarCuitDni.
+        /// Control btnCancelarRegistro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscarCuitDni;
+        protected global::System.Web.UI.WebControls.Button btnCancelarRegistro;
 
         /// <summary>
-        /// Control dgvTurnos.
+        /// Control btnConfirmarRegistro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvTurnos;
-
-        /// <summary>
-        /// Control ExportTurnos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource ExportTurnos;
+        protected global::System.Web.UI.WebControls.Button btnConfirmarRegistro;
     }
 }
