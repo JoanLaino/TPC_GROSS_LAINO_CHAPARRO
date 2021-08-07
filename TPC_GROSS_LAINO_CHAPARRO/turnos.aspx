@@ -43,6 +43,8 @@
             <asp:DropDownList ID="ddlVehiculos" runat="server" Style="background-color: white;">
             </asp:DropDownList>
             <br /><br />
+            <asp:Button ID="btnAgregarVehículo" runat="server" ToolTip="Agregar Vehículo" Text="Agregar Vehículo" onclientclick="return confirm('¿Seguro que desea agregar un nuevo vehículo?')" onclick="btnAgregarVehículo_Click" cssclass="btn-nuevo-vehiculo" style="vertical-align: middle !important;" />
+            <br /><br />
             <asp:Button ID="btnBuscarCuitDni" runat="server" Text="Siguiente paso" onclick="btnBuscarCuitDni_Click" cssclass="btn-confirmar-turno-1" style="vertical-align: middle !important;" />
             
         </center>

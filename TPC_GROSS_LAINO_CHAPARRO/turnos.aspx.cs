@@ -35,6 +35,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             btnRegistro.Visible = false;
             txtCuitDni.Enabled = true;
             btnBuscarCuitDni.Text = "Siguiente paso";
+            btnAgregarVehículo.Visible = false;
 
             string selectDgvTurnos = "SELECT * FROM ExportTurnos ORDER BY ID";
 
@@ -181,8 +182,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                         if (datos4.Lector.Read())
                         {
-                            cliente = (string)datos4.Lector[campo];
                             IDCliente = Convert.ToInt64(datos4.Lector["ID"]);
+                            cliente = (string)datos4.Lector[campo];
                         }
 
                         long IDVehiculo = Convert.ToInt64(ddlVehiculos.SelectedValue);
@@ -232,14 +233,17 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         btnRegistro.Visible = false;
 
                         string CuitDni = txtCuitDni.Text;
-                        
+                        string campo = "ApeNom";
+
+                        if (txtCuitDni.Text.Length > 8) { campo = "RazonSocial"; }
+
                         int resultado = 0;
 
                         resultado = ContarResultadosDB("Clientes", "CUIT_DNI", 0, CuitDni);
 
                         if (resultado != 0)
                         {
-                            string selectIdCliente = "SELECT ID FROM Clientes WHERE CUIT_DNI = '" + CuitDni + "'";
+                            string selectIdCliente = "SELECT * FROM Clientes WHERE CUIT_DNI = '" + CuitDni + "'";
                             long IdCliente;
 
                             datos2.SetearConsulta(selectIdCliente);
@@ -248,13 +252,19 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             if (datos2.Lector.Read())
                             {
                                 IdCliente = Convert.ToInt64(datos2.Lector["ID"]);
+                                string clienteEncontrado = (string)datos2.Lector[campo];
 
                                 int resultado2 = 0;
 
                                 resultado2 = ContarResultadosDB("Vehiculos", "IdCliente", IdCliente, "null");
 
-                                if (resultado != 0) //hay al menos un auto cargado
+                                if (resultado2 != 0) //hay al menos un auto cargado
                                 {
+                                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                    "alert('Bienvenido nuevamente " + clienteEncontrado + ".\\n\\n" +
+                                    "En el próximo paso seleccione por favor el vehículo.\\n\\n" +
+                                    "Si no está en la lista, también puede agregar uno nuevo.')", true);
+
                                     string selectDdlVehiculos = "SELECT * FROM Vehiculos WHERE IdCliente = " + IdCliente;
 
                                     ddlVehiculos.DataSource = sentencia.DSET(selectDdlVehiculos);
@@ -270,6 +280,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                                     lblVehiculos.Visible = true;
                                     ddlVehiculos.Visible = true;
+                                    btnAgregarVehículo.Visible = true;
 
                                     //MOSTRAR BOTON PARA AGREGAR UN NUEVO VEHICULO.
                                 }
@@ -348,6 +359,44 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void btnRegistro_Click(object sender, EventArgs e)
         {
             Response.Redirect("registroCliente.aspx");
+        }
+
+        protected void btnAgregarVehículo_Click(object sender, EventArgs e)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            long idCliente = 0;
+            string cliente = "";
+
+            string selectIdCliente = "SELECT * FROM Clientes WHERE CUIT_DNI = '" + txtCuitDni.Text + "'";
+
+            datos.SetearConsulta(selectIdCliente);
+            datos.EjecutarLectura();
+
+            if (datos.Lector.Read()) 
+            { 
+                idCliente = Convert.ToInt64(datos.Lector["ID"]);
+                if (txtCuitDni.Text.Length > 8)
+                {
+                    cliente = (string)datos.Lector["RazonSocial"];
+                    Session.Add("RazonSocial", cliente);
+                    Session.Add("ApeNom", "vacio");
+                }
+                else
+                {
+                    cliente = (string)datos.Lector["ApeNom"];
+                    Session.Add("ApeNom", cliente);
+                    Session.Add("RazonSocial", "vacio");
+                }
+            }
+
+            Session.Add("idClienteRegistrado", idCliente);
+            Session.Add("CuitDni", "vacio");
+            Session.Add("Telefono", "vacio");
+            Session.Add("Mail", "vacio");
+            Session.Add("TipoCliente", "vacio");
+
+            Response.Redirect("registroVehiculo.aspx");
         }
     }
 }

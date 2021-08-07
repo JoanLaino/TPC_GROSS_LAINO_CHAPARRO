@@ -801,3 +801,23 @@
     box-shadow: 0px 0px 20px 1px #000000;
     margin-top: 10px;
 }
+
+.btn-nuevo-vehiculo {
+    color: #ffffff;
+    background-color: #fc0000;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+}
+
+.btn-nuevo-vehiculo:hover {
+    background-color: #ffffff;
+    color: #fc0000;
+}

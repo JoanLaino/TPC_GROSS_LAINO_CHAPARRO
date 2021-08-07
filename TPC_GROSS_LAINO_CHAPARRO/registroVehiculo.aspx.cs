@@ -17,9 +17,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             if (!IsPostBack)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Su registro no será confirmado hasta que no ingrese al menos un vehículo.')", true);
-
                 BindData();
             }
         }
@@ -75,54 +72,88 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 string mail = Session["Mail"].ToString();
                 string tipoCliente = Session["TipoCliente"].ToString();
 
-                //Campos Vehículo
-                string patente = txtPatente.Text;
-                string IdMarca = ddlMarcaVehiculo.SelectedValue.ToString();
-                string modelo = txtModelo.Text;
-                string añoFabricacion = ddlAnioFabricacion.SelectedItem.ToString();
+                if (cuitDni == "vacio")
+                {
+                    IdCliente = Session["idClienteRegistrado"].ToString();
+                    string patente = txtPatente.Text;
+                    string IdMarca = ddlMarcaVehiculo.SelectedValue.ToString();
+                    string modelo = txtModelo.Text;
+                    string añoFabricacion = ddlAnioFabricacion.SelectedItem.ToString();
 
-                string variableSP; //EN LA BASE HAY 2 SP, UNO SI ES DNI Y OTRO SI ES CUIT. LO DETERMINO EN EL SIGUIENTE 'IF'.
-                string apeNom_razonSocial; //CON ESTA VARIABLE DETERMINO EN EL SIGUIENTE 'IF' SI ES APE-NOM O RAZON-SOCIAL.
+                    string SP_AgregarVehiculo = "EXEC SP_AGREGAR_VEHICULO '" + patente + "', " + IdMarca + ", '" +
+                                                modelo + "', " + añoFabricacion + ", " + IdCliente;
 
-                if (apeNom == "") { variableSP = "CUIT"; apeNom_razonSocial = razonSocial; }
-                else { variableSP = "DNI"; apeNom_razonSocial = apeNom; }
+                    datos.IUD(SP_AgregarVehiculo);
+
+                    string apeNom_razonSocial = apeNom; //CON ESTA VARIABLE DETERMINO EN EL SIGUIENTE 'IF' SI ES APE-NOM O RAZON-SOCIAL.
+
+                    if (apeNom == "vacio") { apeNom_razonSocial = razonSocial; }
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('El vehículo patente: " + patente + ", para el cliente " +
+                     apeNom_razonSocial + "se han registrado correctamente.')", true);
+
+                    //Response.Redirect("turnos.aspx");
+                }
+                else
+                {
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Su registro no será confirmado hasta que no ingrese al menos un vehículo.')", true);
+
+                    //Campos Vehículo
+                    string patente = txtPatente.Text;
+                    string IdMarca = ddlMarcaVehiculo.SelectedValue.ToString();
+                    string modelo = txtModelo.Text;
+                    string añoFabricacion = ddlAnioFabricacion.SelectedItem.ToString();
+
+                    string variableSP; //EN LA BASE HAY 2 SP, UNO SI ES DNI Y OTRO SI ES CUIT. LO DETERMINO EN EL SIGUIENTE 'IF'.
+                    string apeNom_razonSocial; //CON ESTA VARIABLE DETERMINO EN EL SIGUIENTE 'IF' SI ES APE-NOM O RAZON-SOCIAL.
+
+                    if (apeNom == "") { variableSP = "CUIT"; apeNom_razonSocial = razonSocial; }
+                    else { variableSP = "DNI"; apeNom_razonSocial = apeNom; }
 
 
-                //Primero registrar el cliente
-                string SP_RegistrarCliente = "EXEC SP_AGREGAR_CLIENTE_" + variableSP + " " + tipoCliente +
-                                             ", '" + cuitDni + "', '" + apeNom_razonSocial + "', '" +
-                                             mail + "', '" + telefono + "'";
+                    //Primero registrar el cliente
+                    string SP_RegistrarCliente = "EXEC SP_AGREGAR_CLIENTE_" + variableSP + " " + tipoCliente +
+                                                 ", '" + cuitDni + "', '" + apeNom_razonSocial + "', '" +
+                                                 mail + "', '" + telefono + "'";
 
-                datos.IUD(SP_RegistrarCliente);
+                    datos.IUD(SP_RegistrarCliente);
 
-                //Luego obtener el ID del cliente
-                string selectIdCliente = "SELECT ID as ID FROM Clientes WHERE CUIT_DNI = '" + cuitDni + "'";
+                    //Luego obtener el ID del cliente
+                    string selectIdCliente = "SELECT ID as ID FROM Clientes WHERE CUIT_DNI = '" + cuitDni + "'";
 
-                datos2.SetearConsulta(selectIdCliente);
-                datos2.EjecutarLectura();
+                    datos2.SetearConsulta(selectIdCliente);
+                    datos2.EjecutarLectura();
 
-                if (datos2.Lector.Read()) { IdCliente = datos2.Lector["ID"].ToString(); }
+                    if (datos2.Lector.Read()) { IdCliente = datos2.Lector["ID"].ToString(); }
 
-                //Luego con el ID obtenido, registrar el vehiculo
-                string SP_AgregarVehiculo = "EXEC SP_AGREGAR_VEHICULO '" + patente + "', " + IdMarca + ", '" +
-                                            modelo + "', " + añoFabricacion + ", " + IdCliente;
+                    //Luego con el ID obtenido, registrar el vehiculo
+                    string SP_AgregarVehiculo = "EXEC SP_AGREGAR_VEHICULO '" + patente + "', " + IdMarca + ", '" +
+                                                modelo + "', " + añoFabricacion + ", " + IdCliente;
 
-                datos.IUD(SP_AgregarVehiculo);
+                    datos.IUD(SP_AgregarVehiculo);
 
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Cliente y Vehículo registrados correctamente.')", true);
+                    //ENVIAR MAIL ó WHATSAPP AL CLIENTE, CONFIRMANDO EL REGISTRO EXITOSO DE EL MISMO Y DEL VEHICULO.
 
-                //ENVIAR MAIL ó WHATSAPP AL CLIENTE, CONFIRMANDO EL REGISTRO EXITOSO DE EL MISMO Y DEL VEHICULO.
+                    txtPatente.Text = "";
+                    ddlMarcaVehiculo.SelectedValue = "0";
+                    txtModelo.Text = "";
+                    ddlAnioFabricacion.SelectedValue = "0";
 
-                txtPatente.Text = "";
-                ddlMarcaVehiculo.SelectedValue = "0";
-                txtModelo.Text = "";
-                ddlAnioFabricacion.SelectedValue = "0";
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('El cliente  " + apeNom_razonSocial + " y el vehículo patente: " + patente + "" +
+                    "se han registrado correctamente.')", true);
+
+
+                    //Response.Redirect("turnos.aspx");
+                }
             }
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Se ha producido un error al intentar guardar el cliente y vehículo.\\n\\n" +
+                "alert('Se ha producido un error en el registro.\\n\\n" +
                 "Por favor reintente en unos minutos.')", true);
             }
         }
