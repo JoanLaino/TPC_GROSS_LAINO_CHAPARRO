@@ -21,7 +21,7 @@
             <asp:Button ID="btnRegistro" runat="server" ToolTip="Registrarse" Text="Resgistrarse" onclick="btnRegistro_Click" cssclass="btn-confirmar-turno-1" style="vertical-align: middle !important;" />
             <br /><br />
             <asp:Label ID="lblCalendario" Text="Seleccioná una fecha:" runat="server" Style="font-size: 10px;" />
-            <asp:Calendar ID="calendarioTurnos" runat="server" BackColor="#FFFFCC" OnSelectionChanged="calendarioTurnos_SelectionChanged" BorderColor="#FFCC66" BorderWidth="1px" CellPadding="5" CellSpacing="5" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#663399" Height="200px" ShowGridLines="True" ToolTip="Seleccioná un día" OnDayRender="calendarioTurnos_DayRender" Width="220px">
+            <asp:Calendar ID="calendarioTurnos" runat="server" BackColor="#FFFFCC" OnSelectionChanged="calendarioTurnos_SelectionChanged" BorderColor="#FFCC66" BorderWidth="1px" CellPadding="5" CellSpacing="5" DayNameFormat="Shortest" style="box-shadow: 0px 0px 10px 0px; font-weight: 600;" Font-Names="Verdana" Font-Size="8pt" ForeColor="#663399" Height="250px" ShowGridLines="True" ToolTip="Seleccioná un día" OnDayRender="calendarioTurnos_DayRender" Width="300px">
                 <DayHeaderStyle BackColor="#FFCC66" Font-Bold="True" Height="1px" />
                 <NextPrevStyle Font-Size="9pt" ForeColor="#FFFFCC" />
                 <OtherMonthDayStyle ForeColor="#CC9966" />
@@ -32,15 +32,15 @@
             </asp:Calendar>
             <br />
             <asp:Label ID="lblHora" Text="Seleccioná un horario:" runat="server" Style="font-size: 10px;" />
-            <asp:DropDownList ID="ddlHoraTurno" runat="server">
+            <asp:DropDownList ID="ddlHoraTurno" runat="server" style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px; background-color: #F9DFABB3;">
             </asp:DropDownList>
             <br /><br />
             <asp:Label ID="lblCuitDni" Text="Ingrese su CUIT / DNI:" runat="server" Style="font-size: 10px;" />
             <br />
-            <asp:TextBox ID="txtCuitDni" runat="server" tooltip="CUIT / DNI" placeholder="CUIT / DNI" onkeypress="javascript:return solonumeros(event);" width="200px" MaxLength="11" />
+            <asp:TextBox ID="txtCuitDni" runat="server" tooltip="CUIT / DNI" placeholder="CUIT / DNI" onkeypress="javascript:return solonumeros(event);" style="width: 200px; border-radius: 15px; box-shadow: 0px 0px 10px 0px; margin-top: 2px; padding: 3px 7px 3px 7px;" width="200px" MaxLength="11" />
             <br /><br />
             <asp:Label ID="lblVehiculos" Text="Seleccione vehículo:" runat="server" Style="font-size: 10px;" />
-            <asp:DropDownList ID="ddlVehiculos" runat="server" Style="background-color: white;">
+            <asp:DropDownList ID="ddlVehiculos" runat="server" Style="    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%); border-radius: 4px; background-color: #F9DFABB3; font-weight: 500;">
             </asp:DropDownList>
             <br /><br />
             <asp:Button ID="btnAgregarVehículo" runat="server" ToolTip="Agregar Vehículo" Text="Agregar Vehículo" onclientclick="return confirm('¿Seguro que desea agregar un nuevo vehículo?')" onclick="btnAgregarVehículo_Click" cssclass="btn-nuevo-vehiculo" style="vertical-align: middle !important;" />

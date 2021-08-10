@@ -22,3 +22,9 @@ C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\D
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.dll
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.pdb
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\bin\Debug\Dominio.dll
+C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\bin\Debug\Dominio.pdb
+C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csprojAssemblyReference.cache
+C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.dll
+C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.pdb
