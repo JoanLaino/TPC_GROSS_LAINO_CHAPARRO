@@ -91,7 +91,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('El vehículo patente: " + patente + ", para el cliente " +
-                     apeNom_razonSocial + "se han registrado correctamente.')", true);
+                     apeNom_razonSocial + ", se han registrado correctamente.')", true);
 
                     //Response.Redirect("turnos.aspx");
                 }
@@ -143,8 +143,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     ddlAnioFabricacion.SelectedValue = "0";
 
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('El cliente  " + apeNom_razonSocial + " y el vehículo patente: " + patente + "" +
-                    "se han registrado correctamente.')", true);
+                    "alert('El cliente  " + apeNom_razonSocial + " y el vehículo patente: " + patente +
+                    ", se han registrado correctamente.')", true);
 
 
                     //Response.Redirect("turnos.aspx");
