@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMClientes.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMClientes" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMClientes.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMClientes" EnableEventValidation = "false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <h1 class="h1-abm">ABM - Clientes</h1>
@@ -115,8 +115,8 @@
 
     </div>
 
-    <br />
-    
+    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-clientes" OnClick="btnExportExcel_Click" />
+
     <center>
         <asp:GridView ID="dgvClientes" runat="server" AllowSorting="True" OnSorting="dgvClientes_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod" >
             <AlternatingRowStyle BackColor="White" />

@@ -196,9 +196,7 @@
 
     </div>
 
-    <br />
-    
-    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel" OnClick="btnExportExcel_Click" />
+    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-prod" OnClick="btnExportExcel_Click" />
 
     <center>
         <asp:GridView ID="dgvInventario" runat="server" align="center" AllowSorting="true" OnSorting="dgvInventario_Sorting" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">

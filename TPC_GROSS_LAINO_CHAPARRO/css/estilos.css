@@ -479,6 +479,8 @@
 
 .dgv-abm-prod {
     text-align: center;
+    position: relative;
+    top: -50px;
 }
 
 .img-btn-del-tipo-producto {
@@ -837,9 +839,20 @@
     box-shadow: 0 4px 6px -6px black;
     margin-bottom: 30px;
     width: 212px;
+    position: relative;
 }
 
 .btn-export-excel:hover {
     color: #9fcecc;
     background-color: #ffffff;
+}
+
+.btn-export-excel-abm-prod {
+    left: 926px;
+    top: -38px;
+}
+
+.btn-export-excel-abm-clientes {
+    left: 856px;
+    top: -38px;
 }

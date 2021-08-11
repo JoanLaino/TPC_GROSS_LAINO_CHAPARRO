@@ -858,7 +858,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             Response.Clear();
-            Response.AddHeader("content-disposition", "attachment;filename = ExportInventario.xls");
+            Response.AddHeader("content-disposition", "attachment;filename = ExportInventario " + DateTime.Now.ToString() + ".xls");
             Response.ContentType = "application/vnd.xls";
 
             System.IO.StringWriter stringWriter = new System.IO.StringWriter();
