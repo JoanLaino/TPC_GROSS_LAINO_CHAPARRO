@@ -261,5 +261,25 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 BindData();
             }
         }
+
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename = ExportMarcasVehiculo " + DateTime.Now.ToString() + ".xls");
+            Response.ContentType = "application/vnd.xls";
+
+            System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+
+            System.Web.UI.HtmlTextWriter htmlTextWriter = new HtmlTextWriter(stringWriter);
+            dgvMarcasVehiculo.RenderControl(htmlTextWriter);
+            Response.Write(stringWriter.ToString());
+
+            Response.End();
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+
+        }
     }
 }

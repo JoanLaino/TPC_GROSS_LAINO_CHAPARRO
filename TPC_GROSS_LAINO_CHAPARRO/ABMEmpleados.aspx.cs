@@ -316,6 +316,26 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
         }
 
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename = ExportEmpleados " + DateTime.Now.ToString() + ".xls");
+            Response.ContentType = "application/vnd.xls";
+
+            System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+
+            System.Web.UI.HtmlTextWriter htmlTextWriter = new HtmlTextWriter(stringWriter);
+            dgvEmpleados.RenderControl(htmlTextWriter);
+            Response.Write(stringWriter.ToString());
+
+            Response.End();
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+
+        }
+
         //protected void buscarEmpleado(object sender, EventArgs e)
         //{
         //List<Empleado> filtro;

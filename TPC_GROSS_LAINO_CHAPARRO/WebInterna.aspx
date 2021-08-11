@@ -8,12 +8,12 @@
         </div>
         <div>
             <center>
-                <asp:Button ID="btnABMTiposProducto" onclick="btnABMTiposProducto_Click" runat="server" Text="ABM - Tipos Producto" CssClass="btn-interna-tipos-productos" />
+                <asp:Button ID="btnABMTiposProducto" onclick="btnABMTiposProducto_Click" runat="server" Text="ABM - Tipos de Producto" CssClass="btn-interna-tipos-productos" />
             </center>
         </div>
         <div>
             <center>
-                <asp:Button ID="btnABMMarcasProducto" onclick="btnABMMarcasProducto_Click" runat="server" Text="ABM - Marcas Productos" CssClass="btn-interna-marcas-productos"/>
+                <asp:Button ID="btnABMMarcasProducto" onclick="btnABMMarcasProducto_Click" runat="server" Text="ABM - Marcas (Productos)" CssClass="btn-interna-marcas-productos"/>
             </center>
         </div>
     </div>
@@ -25,17 +25,17 @@
         </div>
         <div>
             <center>
-                <asp:Button ID="btnAMBMarcaVehiculos" onclick="btnAMBMarcaVehiculos_Click" runat="server" Text="ABM - Marca Vehiculos" CssClass="btn-interna-marca-vehiculos"/>
+                <asp:Button ID="btnAMBMarcaVehiculos" onclick="btnAMBMarcaVehiculos_Click" runat="server" Text="ABM - Marcas (Vehiculos)" CssClass="btn-interna-marca-vehiculos"/>
             </center>
         </div>
         <div>            
             <center>
-                <asp:Button ID="btnABMEmpleados" onclick="btnABMEmpleados_Click" runat="server" Text="ABM - Empleado" CssClass="btn-invisible"/>
+                <asp:Button ID="btnABMEmpleados" onclick="btnABMEmpleados_Click" runat="server" Text="ABM - Empleados" CssClass="btn-invisible"/>
             </center>            
         </div>
         <div>
             <center>
-                <asp:Button ID="btnABMUsuario" onclick="btnABMUsuario_Click" runat="server" Text="Crear Usuario" CssClass="btn-invisible"/>
+                <asp:Button ID="btnABMUsuario" onclick="btnABMUsuario_Click" runat="server" Text="ABM - Usuarios" CssClass="btn-invisible"/>
             </center> 
         </div>
         <div>

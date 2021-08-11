@@ -488,3 +488,10 @@ as
 	CONVERT(VARCHAR(10),V.FechaAlta,105) as 'Fecha de alta', (select isnull(C.ApeNom, C.RazonSocial) from Clientes C Where C.ID = V.IdCliente)
 	as Cliente, Estado as Estado from Vehiculos V
 GO
+
+create view ExportUsuarios
+as
+	SELECT U.ID as ID, (select T.Descripcion as TipoUser from TiposUsuario T where U.TipoUser = T.ID) as TipoUser,
+	U.Usuario as Usuario, U.Pass as Pass, U.Mail as Mail, CONVERT(VARCHAR(10),U.FechaAlta,105) as FechaAlta,
+	Estado as Estado from Usuarios U
+GO

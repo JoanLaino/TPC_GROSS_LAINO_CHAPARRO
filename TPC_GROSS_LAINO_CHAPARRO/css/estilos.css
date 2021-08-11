@@ -856,3 +856,29 @@
     left: 856px;
     top: -38px;
 }
+
+.dgv-usuarios {
+    position: relative;
+    left: 245px;
+}
+
+.btn-export-excel-abm-tiposprod {
+    left: 8px;
+}
+
+.btn-export-excel-abm-prov {
+    left: 8px;
+}
+
+.btn-export-excel-abm-marc-veh {
+    
+}
+
+.btn-export-excel-abm-marc-prod {
+    left: 2px;
+}
+
+.btn-export-excel-abm-emp {
+    left: 772px;
+    top: -37px;
+}

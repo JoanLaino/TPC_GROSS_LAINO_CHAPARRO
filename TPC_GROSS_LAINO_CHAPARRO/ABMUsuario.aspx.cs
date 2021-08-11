@@ -15,17 +15,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             validarNivelUsuario();            
 
-            string selectUsuario = "Select * from TiposUsuario";
+            string selectTiposUsuario = "SELECT * FROM TiposUsuario";
 
             if(!IsPostBack)
             {
-                ddlTipoUsuario.DataSource = negocio.DSET(selectUsuario);
+                ddlTipoUsuario.DataSource = negocio.DSET(selectTiposUsuario);
                 ddlTipoUsuario.DataMember = "datos";
                 ddlTipoUsuario.DataTextField = "Descripcion";
                 ddlTipoUsuario.DataValueField = "ID";
-                ddlTipoUsuario.DataBind();               
+                ddlTipoUsuario.DataBind();
+
+                BindData();
             }
         }
+        
         protected void validarNivelUsuario()
         {
             if (!(Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).TipoUsuario == Dominio.TipoUsuario.ADMIN))
@@ -42,6 +45,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtPassword2.Text = "";
             mail.Text = "";
             ddlTipoUsuario.SelectedValue = "0";
+
+            string selectUsuarios = "SELECT * FROM ExportUsuarios";
+
+            dgvUsuarios.DataSource = negocio.DSET(selectUsuarios);
+            dgvUsuarios.DataBind();
         }
 
         protected void btnRegistrar_Click(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMMarcasVehiculo.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMMarcasVehiculo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMMarcasVehiculo.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMMarcasVehiculo" EnableEventValidation = "false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <h1 class="h1-abm">ABM - Marcas de vehículos</h1>
@@ -58,6 +58,10 @@
     </div>
 
     <br />
+
+    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-marc-veh" OnClick="btnExportExcel_Click" />
+
+    <br /><br /><br />
 
     <center>
         <asp:GridView ID="dgvMarcasVehiculo" runat="server" AllowSorting="True" OnSorting="dgvMarcasVehiculo_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">

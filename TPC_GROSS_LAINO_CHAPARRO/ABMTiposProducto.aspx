@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMTiposProducto.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMTiposProducto" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMTiposProducto.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMTiposProducto" EnableEventValidation = "false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     
     <h1 class="h1-abm">ABM - Tipos de Producto</h1>
@@ -58,6 +58,10 @@
     </div>
 
     <br />
+
+    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-tiposprod" OnClick="btnExportExcel_Click" />
+
+    <br /><br /><br />
 
     <center style="padding: .5rem;">
         <asp:GridView ID="dgvTiposProducto" runat="server" AllowSorting="True" OnSorting="dgvTiposProducto_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">

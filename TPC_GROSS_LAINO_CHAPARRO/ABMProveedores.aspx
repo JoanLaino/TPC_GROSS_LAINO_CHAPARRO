@@ -1,6 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMProveedores.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMProveedores" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ABMProveedores.aspx.cs" Inherits="TPC_GROSS_LAINO_CHAPARRO.ABMProveedores" EnableEventValidation = "false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     
+    <h1 class="h1-abm">ABM - Proveedores</h1>
+
+    <br />
+
     <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Proveedor" ImageUrl="~/img/find-logo.png" Style="vertical-align: middle;" onclick="imgBtnBuscar_Click" cssclass="btn-buscar-filtro-abm" />
     <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." Style="width: 320px; height: 30px !important; vertical-align: middle;" TextMode="Search" ></asp:TextBox>
 
@@ -73,8 +77,12 @@
 
     </div>
 
-    <br/>
+    <br />
     
+    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-prov" OnClick="btnExportExcel_Click" />
+
+    <br /><br />
+
     <center Style="padding: .5rem;">
         <asp:GridView ID="dgvProveedores" runat="server" AllowSorting="True" Onsorting="dgvProveedores_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod">
             <AlternatingRowStyle BackColor="White" />
