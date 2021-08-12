@@ -302,10 +302,12 @@ go
 create view ExportClientes
 as
 	select C.ID, C.CUIT_DNI as 'CUITDNI', isnull(C.RazonSocial,'-') as RazonSocial, isnull(C.ApeNom,'-') as ApeNom, T.ID as 'IdTipo', T.Descripción as 'TipoCliente',
-	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, C.Mail, C.Telefono, C.TotalVehiculosRegistrados, C.Estado
+	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, C.Mail, C.Telefono, (select count(*) from Vehiculos V where V.IdCliente = C.ID) as TotalVehiculosRegistrados, C.Estado
 	from Clientes C
 	inner join TiposCliente T on IdTipo = T.ID
 GO
+
+select * from ExportVehiculos
 
 insert into TiposCliente (Descripcion) values('Empresa')
 insert into TiposCliente (Descripcion) values('Particular')
@@ -439,7 +441,7 @@ create view ExportTurnos
 as
 select ID as ID, Dia as Dia, CONVERT(VARCHAR(10),FechaHora,105) as Fecha, CONVERT(VARCHAR(5),FechaHora,108) as Hora,
 isnull((select C.ApeNom from Clientes C where ID = T.IdCliente),(select C.RazonSocial from Clientes C where ID = T.IdCliente)) as Cliente, 
-(select V.Patente from Vehiculos V where ID = T.IdVehiculo) as Patente,
+(select C.CUIT_DNI from Clientes C where ID = T.IdCliente) as CUIT_DNI, (select V.Patente from Vehiculos V where ID = T.IdVehiculo) as Patente,
 IDHorario as IDHorario
 from Turnos T
 GO

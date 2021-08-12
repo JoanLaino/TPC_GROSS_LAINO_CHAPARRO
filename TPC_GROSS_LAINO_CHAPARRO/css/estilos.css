@@ -882,3 +882,7 @@
     left: 772px;
     top: -37px;
 }
+
+.btn-export-excel-abm-turnos {
+    width: 150px !important;
+}

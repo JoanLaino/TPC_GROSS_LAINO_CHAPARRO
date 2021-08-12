@@ -113,7 +113,9 @@
     <Content Include="ABMMarcasVehiculo.aspx" />
     <Content Include="ABMProductos.aspx" />
     <Content Include="ABMProveedores.aspx" />
+    <Content Include="ABMServicios.aspx" />
     <Content Include="ABMTiposProducto.aspx" />
+    <Content Include="ABMTurnos.aspx" />
     <Content Include="ABMUsuario.aspx" />
     <Content Include="About.aspx" />
     <Content Include="catalogoProductos.aspx" />
@@ -316,12 +318,26 @@
     <Compile Include="ABMProveedores.aspx.designer.cs">
       <DependentUpon>ABMProveedores.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ABMServicios.aspx.cs">
+      <DependentUpon>ABMServicios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMServicios.aspx.designer.cs">
+      <DependentUpon>ABMServicios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ABMTiposProducto.aspx.cs">
       <DependentUpon>ABMTiposProducto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ABMTiposProducto.aspx.designer.cs">
       <DependentUpon>ABMTiposProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ABMTurnos.aspx.cs">
+      <DependentUpon>ABMTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMTurnos.aspx.designer.cs">
+      <DependentUpon>ABMTurnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="ABMUsuario.aspx.cs">
       <DependentUpon>ABMUsuario.aspx</DependentUpon>
