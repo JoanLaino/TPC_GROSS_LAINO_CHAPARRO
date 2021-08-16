@@ -81,7 +81,7 @@
     
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-prov" OnClick="btnExportExcel_Click" />
 
-    <br /><br />
+    <br /><br /><br />
 
     <center Style="padding: .5rem;">
         <asp:GridView ID="dgvProveedores" runat="server" AllowSorting="True" Onsorting="dgvProveedores_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod">

@@ -172,7 +172,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         { campo = "RazonSocial"; }
                         else { campo = "ApeNom"; }
 
-                        string selectNombreCliente = "SELECT * FROM Clientes WHERE CUIT_DNI = " + cuitDni;
+                        string selectNombreCliente = "SELECT * FROM Clientes WHERE CUIT_DNI = '" + cuitDni + "'";
 
                         datos4.SetearConsulta(selectNombreCliente);
                         datos4.EjecutarLectura();
@@ -205,7 +205,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         BindData();
 
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('El turno para el día " + dia + " " + 
+                        "alert('El turno para el día " + dia + " " +
                         fecha + ", a las " + hora + "" +
                         "hs, para el cliente " + cliente + " " +
                         "se ha agregado correctamente')", true);

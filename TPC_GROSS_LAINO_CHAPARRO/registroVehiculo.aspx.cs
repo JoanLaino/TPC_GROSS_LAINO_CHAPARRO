@@ -93,7 +93,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     "alert('El vehículo patente: " + patente + ", para el cliente " +
                      apeNom_razonSocial + ", se han registrado correctamente.')", true);
 
-                    //Response.Redirect("turnos.aspx");
+                    string script = @"<script type='text/javascript'>
+
+                                            location.href='turnos.aspx';
+
+                                       </script>";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
                 }
                 else
                 {
@@ -147,7 +153,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     ", se han registrado correctamente.')", true);
 
 
-                    //Response.Redirect("turnos.aspx");
+                    string script = @"<script type='text/javascript'>
+
+                                            location.href='turnos.aspx';
+
+                                       </script>";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
                 }
             }
             catch

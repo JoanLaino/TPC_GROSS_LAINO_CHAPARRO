@@ -754,6 +754,7 @@
     justify-content: center;
     display: flex;
     visibility: hidden;
+    z-index: 1;
 }
 
 .overlay.active {

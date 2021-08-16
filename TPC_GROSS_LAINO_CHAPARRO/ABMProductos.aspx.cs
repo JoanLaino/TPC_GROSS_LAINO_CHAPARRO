@@ -14,6 +14,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
         {
+            validarNivelUsuario();
+
             string selectTP = "SELECT * FROM TiposProducto";
             string selectMarcas = "SELECT * FROM MarcasProducto";
             string selectProveedores = "SELECT * FROM Proveedores";
@@ -57,6 +59,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlProveedor2.DataBind();
 
                 BindData();
+            }
+        }
+
+        protected void validarNivelUsuario()
+        {
+            if (!(Session["usuario"] != null))
+            {
+                Session.Add("error", "Para ingresar a esta página debes estar logueado.");
+                Response.Redirect("Error.aspx", false);
             }
         }
 

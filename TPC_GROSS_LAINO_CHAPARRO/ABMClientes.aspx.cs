@@ -15,6 +15,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            validarNivelUsuario();
+
             string selectTiposCliente = "SELECT * FROM TiposCliente";
 
             if (!IsPostBack)
@@ -32,6 +35,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlTiposCliente2.DataBind();
 
                 BindData();
+            }
+        }
+
+        protected void validarNivelUsuario()
+        {
+            if (!(Session["usuario"] != null))
+            {
+                Session.Add("error", "Para ingresar a esta página debes estar logueado.");
+                Response.Redirect("Error.aspx", false);
             }
         }
 

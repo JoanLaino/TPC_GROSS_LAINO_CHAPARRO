@@ -11,7 +11,18 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            validarNivelUsuario(); //El validar usuario siempre primero!
 
+
+        }
+
+        protected void validarNivelUsuario()
+        {
+            if (!(Session["usuario"] != null))
+            {
+                Session.Add("error", "Para ingresar a esta página debes estar logueado.");
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }

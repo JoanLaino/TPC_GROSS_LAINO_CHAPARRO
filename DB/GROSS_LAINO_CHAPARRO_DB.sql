@@ -301,13 +301,11 @@ go
 
 create view ExportClientes
 as
-	select C.ID, C.CUIT_DNI as 'CUITDNI', isnull(C.RazonSocial,'-') as RazonSocial, isnull(C.ApeNom,'-') as ApeNom, T.ID as 'IdTipo', T.Descripción as 'TipoCliente',
+	select C.ID, C.CUIT_DNI as 'CUITDNI', isnull(C.RazonSocial,'-') as RazonSocial, isnull(C.ApeNom,'-') as ApeNom, T.ID as 'IdTipo', T.Descripcion as 'TipoCliente',
 	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, C.Mail, C.Telefono, (select count(*) from Vehiculos V where V.IdCliente = C.ID) as TotalVehiculosRegistrados, C.Estado
 	from Clientes C
 	inner join TiposCliente T on IdTipo = T.ID
 GO
-
-select * from ExportVehiculos
 
 insert into TiposCliente (Descripcion) values('Empresa')
 insert into TiposCliente (Descripcion) values('Particular')
