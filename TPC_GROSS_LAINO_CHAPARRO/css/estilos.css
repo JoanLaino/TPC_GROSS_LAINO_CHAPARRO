@@ -697,6 +697,50 @@
     color: #ff8d00;
 }
 
+.btn-interna-turnos {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #142382;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-turnos:hover {
+    background-color: #ffffff;
+    color: #142382;
+}
+
+.btn-interna-servicios {
+    border-radius: 50px;
+    border: solid 1px;
+    color: white;
+    background-color: black;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-servicios:hover {
+    background-color: white;
+    color: black;
+}
+
 .btn-cerrar-sesion {
     border-radius: 50px;
     border: solid 1px;
@@ -886,4 +930,8 @@
 
 .btn-export-excel-abm-turnos {
     width: 150px !important;
+}
+
+.dgv-turnos {
+    display: none;
 }

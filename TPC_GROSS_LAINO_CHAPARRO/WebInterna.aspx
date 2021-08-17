@@ -43,6 +43,16 @@
                 <asp:Button ID="btnABMClientes" onclick="btnABMClientes_Click" runat="server" Text="ABM - Clientes" CssClass="btn-interna-clientes"/>
             </center> 
         </div>
+        <div>
+            <center>
+                <asp:Button ID="btnABMTurnos" onclick="btnABMTurnos_Click" runat="server" Text="ABM - Turnos" CssClass="btn-interna-turnos"/>
+            </center> 
+        </div>
+        <div>
+            <center>
+                <asp:Button ID="btnABMServicios" onclick="btnABMServicios_Click" runat="server" Text="ABM - Servicios" CssClass="btn-interna-servicios"/>
+            </center> 
+        </div>
     </div>
               
 </asp:Content>

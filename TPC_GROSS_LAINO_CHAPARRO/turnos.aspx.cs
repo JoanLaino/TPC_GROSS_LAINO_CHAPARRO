@@ -188,7 +188,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                         long IDVehiculo = Convert.ToInt64(ddlVehiculos.SelectedValue);
                         int idHora = Convert.ToInt32(ddlHoraTurno.SelectedValue);
-                        string fecha = calendarioTurnos.SelectedDate.ToShortDateString();
+                        string diaFecha = calendarioTurnos.SelectedDate.Day.ToString();
+                        if (calendarioTurnos.SelectedDate.Day < 10) { diaFecha = "0" + diaFecha; }
+                        string mesFecha = calendarioTurnos.SelectedDate.Month.ToString();
+                        if (calendarioTurnos.SelectedDate.Month < 10) { mesFecha = "0" + mesFecha; }
+                        int añoFecha = calendarioTurnos.SelectedDate.Year;
+                        string fecha = diaFecha + "-" + mesFecha + "-" + añoFecha;
                         string hora = ddlHoraTurno.SelectedItem.ToString();
                         string dia = calendarioTurnos.SelectedDate.DayOfWeek.ToString();
                         if (dia == "Monday") { dia = "Lunes"; }
@@ -198,17 +203,29 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         else if (dia == "Friday") { dia = "Viernes"; }
                         else if (dia == "Saturday") { dia = "Sábado"; }
 
-                        string insertTurno = "EXEC SP_AGREGAR_TURNO '" + fecha + " " + hora + "', " + idHora + ", '" + dia + "', " + IDCliente + ", " + IDVehiculo;
+                        int resultadoTurnos = ContarResultadosDB_DosVariablesUnaCadena("Turnos", "CONVERT(VARCHAR(10),FechaHora,105)", fecha, "IdCliente", IDCliente, "IdVehiculo", IDVehiculo);
 
-                        sentencia.IUD(insertTurno);
+                        if (resultadoTurnos == 1)
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('Ya existe un turno pendiente para usted, para la patente seleccionada,\\n\\n" +
+                            "para el día " + fecha + ".\\n\\n" + 
+                            "Si desea modificarlo, deberá comunicarse con nosotros a la brevedad.')", true);
+                        }
+                        else
+                        {
+                            string insertTurno = "EXEC SP_AGREGAR_TURNO '" + fecha + " " + hora + "', " + idHora + ", '" + dia + "', " + IDCliente + ", " + IDVehiculo;
 
-                        BindData();
+                            sentencia.IUD(insertTurno);
 
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('El turno para el día " + dia + " " +
-                        fecha + ", a las " + hora + "" +
-                        "hs, para el cliente " + cliente + " " +
-                        "se ha agregado correctamente')", true);
+                            BindData();
+
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('El turno para el día " + dia + " " +
+                            fecha + ", a las " + hora + "" +
+                            "hs, para el cliente " + cliente + " " +
+                            "se ha agregado correctamente')", true);
+                        }
                     }
                     catch
                     {
@@ -237,11 +254,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                         if (txtCuitDni.Text.Length > 8) { campo = "RazonSocial"; }
 
-                        int resultado = 0;
+                        int resultadoCliente;
 
-                        resultado = ContarResultadosDB("Clientes", "CUIT_DNI", 0, CuitDni);
+                        resultadoCliente = ContarResultadosDB_UnaCadena("Clientes", "CUIT_DNI", CuitDni);
 
-                        if (resultado != 0)
+                        if (resultadoCliente != 0)
                         {
                             string selectIdCliente = "SELECT * FROM Clientes WHERE CUIT_DNI = '" + CuitDni + "'";
                             long IdCliente;
@@ -256,7 +273,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                                 int resultado2 = 0;
 
-                                resultado2 = ContarResultadosDB("Vehiculos", "IdCliente", IdCliente, "null");
+                                resultado2 = ContarResultadosDB_UnaVariable("Vehiculos", "IdCliente", IdCliente);
 
                                 if (resultado2 != 0) //hay al menos un auto cargado
                                 {
@@ -316,22 +333,76 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
         }
 
-        protected int ContarResultadosDB(string tabla, string campo, long variable, string cadena)
+        protected int ContarResultadosDB_UnaVariable(string tabla, string campo, long variable)
         {
             AccesoDatos datos = new AccesoDatos();
 
             int Resultado = 0;
 
-            string selectDB;
+            string selectDB = "SELECT COUNT(*) Cantidad FROM " + tabla + " WHERE " + campo + " = " + variable;
 
-            if (cadena == "null")
+            try
             {
-                selectDB = "SELECT COUNT(*) Cantidad FROM " + tabla + " WHERE " + campo + " = " + variable;
+                datos.SetearConsulta(selectDB);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Resultado = Convert.ToInt32(datos.Lector["Cantidad"]);
+                }
             }
-            else
+            catch
             {
-                selectDB = "SELECT COUNT(*) Cantidad FROM " + tabla + " WHERE " + campo + " = '" + cadena + "'";
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se produjo un error al intentar leer la tabla: " + tabla + " en la base de datos.')", true);
             }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return Resultado;
+        }
+
+        protected int ContarResultadosDB_UnaCadena(string tabla, string campo, string cadena)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            int Resultado = 0;
+
+            string selectDB = "SELECT COUNT(*) Cantidad FROM " + tabla + " WHERE " + campo + " = '" + cadena + "'";
+
+            try
+            {
+                datos.SetearConsulta(selectDB);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Resultado = Convert.ToInt32(datos.Lector["Cantidad"]);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se produjo un error al intentar leer la tabla: " + tabla + " en la base de datos.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return Resultado;
+        }
+
+        protected int ContarResultadosDB_DosVariablesUnaCadena(string tabla, string campo1, string cadena, string campo2, long variable1, string campo3, long variable2)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            int Resultado = 0;
+
+            string selectDB = "SELECT COUNT(*) Cantidad FROM " + tabla + " WHERE " + campo1 + " = '" + cadena + 
+                              "' AND " + campo2 + " = " + variable1 + " AND " + campo3 + " = " + variable2;
 
             try
             {

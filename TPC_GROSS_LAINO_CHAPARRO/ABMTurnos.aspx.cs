@@ -32,12 +32,41 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         public void BindData()
         {
+            string selectTurnos = "SELECT * FROM ExportTurnos";
+            string selectCantidadTurnos = "SELECT COUNT(*) Cantidad FROM ExportTurnos";
+            int resultado = 0;
+
+            sentencia.SetearConsulta(selectCantidadTurnos);
+            sentencia.EjecutarLectura();
+
+            if (sentencia.Lector.Read())
+            {
+                resultado = Convert.ToInt32(sentencia.Lector["Cantidad"]);
+            }
+            if (resultado != 0)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('En total, al día de hoy, hay " + resultado + " turno/s.')", true);
+
+                dgvTurnos.DataSource = sentencia.DSET(selectTurnos);
+                dgvTurnos.DataBind();
+
+                btnExportExcel.Enabled = true;
+                btnExportExcel.Visible = true;
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Todavía no hay turnos cargados.')", true);
+
+                btnExportExcel.Enabled = false;
+                btnExportExcel.Visible = false;
+                //ocultar botones de editar y eliminar.
+            }
+
+            dgvTurnos.Visible = true;
             ddlFiltroBuscar.SelectedValue = "0";
             txtBuscarFiltro.Text = "";
-            ddlMostrar.SelectedValue = "0";
-            btnExportExcel.Visible = false;
-            btnExportExcel.Enabled = false;
-            dgvTurnos.Visible = false;
         }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
@@ -62,7 +91,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void dgvTurnos_Sorting(object sender, GridViewSortEventArgs e)
         {
-            BindData();
+            ddlFiltroBuscar.SelectedValue = "0";
+            txtBuscarFiltro.Text = "";
+            ddlMostrar.SelectedValue = "0";
 
             string selectOrdenar = "SELECT * FROM ExportTurnos ORDER BY " + e.SortExpression + " "
                                     + GetSortDirection(e.SortExpression);
@@ -102,9 +133,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             if (ddlMostrar.SelectedValue != "0")
             {
-                ddlFiltroBuscar.SelectedValue = "0";
-                txtBuscarFiltro.Text = "";
-
                 if (seleccion == "Hoy")
                 {
                     if (resultado != 0)
@@ -123,13 +151,16 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         btnExportExcel.Enabled = true;
                         btnExportExcel.Visible = true;
                         dgvTurnos.Visible = true;
+                        ddlFiltroBuscar.SelectedValue = "0";
+                        txtBuscarFiltro.Text = "";
                     }
                     else
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Todavía no hay turnos para el día de hoy.')", true);
 
-                        BindData();
+                        ddlFiltroBuscar.SelectedValue = "0";
+                        txtBuscarFiltro.Text = "";
                     }
                 }
                 else if (seleccion == "Cumplidos")
@@ -150,13 +181,16 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         btnExportExcel.Enabled = true;
                         btnExportExcel.Visible = true;
                         dgvTurnos.Visible = true;
+                        ddlFiltroBuscar.SelectedValue = "0";
+                        txtBuscarFiltro.Text = "";
                     }
                     else
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Todavía no hay turnos cumplidos.')", true);
 
-                        BindData();
+                        ddlFiltroBuscar.SelectedValue = "0";
+                        txtBuscarFiltro.Text = "";
                     }
                 }
                 else if (seleccion == "Futuros")
@@ -177,43 +211,22 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         btnExportExcel.Enabled = true;
                         btnExportExcel.Visible = true;
                         dgvTurnos.Visible = true;
+                        ddlFiltroBuscar.SelectedValue = "0";
+                        txtBuscarFiltro.Text = "";
                     }
                     else
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Todavía no hay turnos futuros.')", true);
 
-                        BindData();
-                    }
-                }
-                else if (seleccion == "Todos")
-                {
-                    if (resultado != 0)
-                    {
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                            "alert('En total, al día de hoy, hay " + resultado + " turno/s.')", true);
-
-                        string selectTurnosHoy = "SELECT * FROM ExportTurnos";
-
-                        dgvTurnos.DataSource = sentencia.DSET(selectTurnosHoy);
-                        dgvTurnos.DataBind();
-
-                        btnExportExcel.Enabled = true;
-                        btnExportExcel.Visible = true;
-                        dgvTurnos.Visible = true;
-                    }
-                    else
-                    {
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Todavía no hay turnos cargados.')", true);
-
-                        BindData();
+                        ddlFiltroBuscar.SelectedValue = "0";
+                        txtBuscarFiltro.Text = "";
                     }
                 }
             }
             else
             {
-                Response.Redirect("ABMTurnos.aspx");
+                BindData();
             }
         }
 
@@ -238,14 +251,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 {
                     selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE " +
                                "CONVERT(VARCHAR(10),Fecha,105) " +
-                               "<= " +
+                               "< " +
                                "CONVERT(VARCHAR(10),GETDATE(),105) ";
                 }
                 else if (cadena == "Futuros")
                 {
                     selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE " +
                                "CONVERT(VARCHAR(10),Fecha,105) " +
-                               ">= " +
+                               "> " +
                                "CONVERT(VARCHAR(10),GETDATE(),105) ";
                 }
                 else
@@ -283,8 +296,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnBuscarFiltro_Click(object sender, EventArgs e)
         {
-            int resultado = ContarResultadosDB("null", ddlFiltroBuscar.SelectedValue.ToString(), txtBuscarFiltro.Text);
-
             if (ddlFiltroBuscar.SelectedValue == "0")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
@@ -297,7 +308,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             else
             {
-                if (resultado != 0)
+                int resultado = ContarResultadosDB("null", ddlFiltroBuscar.SelectedValue.ToString(), txtBuscarFiltro.Text);
+
+                if (resultado != 0 && ddlFiltroBuscar.SelectedValue.ToString() != "ID")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('" + resultado + " turno/s coincide/n con la búsqueda.')", true);
@@ -314,6 +327,28 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     btnExportExcel.Enabled = true;
                     btnExportExcel.Visible = true;
                     dgvTurnos.Visible = true;
+                    ddlFiltroBuscar.SelectedValue = "0";
+                    txtBuscarFiltro.Text = "";
+                }
+                else if (resultado != 0 && ddlFiltroBuscar.SelectedValue.ToString() == "ID")
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se muestra a continuación, el turno cuyo ID es igual a " + txtBuscarFiltro.Text + "')", true);
+
+                    string filtroBusqueda = ddlFiltroBuscar.SelectedValue.ToString();
+                    string filtroTexto = txtBuscarFiltro.Text;
+
+                    string selectFiltro = "SELECT * FROM ExportTurnos WHERE " +
+                                          filtroBusqueda + " = '" + filtroTexto + "'";
+
+                    dgvTurnos.DataSource = sentencia.DSET(selectFiltro);
+                    dgvTurnos.DataBind();
+
+                    btnExportExcel.Enabled = true;
+                    btnExportExcel.Visible = true;
+                    dgvTurnos.Visible = true;
+                    ddlFiltroBuscar.SelectedValue = "0";
+                    txtBuscarFiltro.Text = "";
                 }
                 else
                 {
@@ -321,6 +356,16 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     "alert('Su búsqueda no produjo ningún resultado.')", true);
                 }
             }
+        }
+
+        protected void btnDelete_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
+        {
+
         }
     }
 }

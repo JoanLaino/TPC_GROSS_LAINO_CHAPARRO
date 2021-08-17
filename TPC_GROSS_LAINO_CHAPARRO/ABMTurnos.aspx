@@ -10,6 +10,7 @@
         <asp:ListItem Value="CUIT_DNI">CUIT / DNI</asp:ListItem>
         <asp:ListItem Value="Patente">Patente</asp:ListItem>
         <asp:ListItem Value="Fecha">Fecha</asp:ListItem>
+        <asp:ListItem Value="ID">ID</asp:ListItem>
     </asp:DropDownList>
 
     <asp:TextBox ID="txtBuscarFiltro" runat="server" PlaceHolder="Texto buscado..." />
@@ -20,15 +21,19 @@
     
     <asp:Label Text="Mostrar turnos..." runat="server" Style="font-size: 16px;" />
     <asp:DropDownList ID="ddlMostrar" runat="server" AppendDataBoundItems="true" AutoPostBack="True" OnSelectedIndexChanged="ddlMostrar_SelectedIndexChanged" >
-        <asp:ListItem Value="0">Seleccione...</asp:ListItem>
+        <asp:ListItem Value="0">Todos</asp:ListItem>
         <asp:ListItem Value="Hoy">De hoy</asp:ListItem>
         <asp:ListItem Value="Cumplidos">Cumplidos</asp:ListItem>
         <asp:ListItem Value="Futuros">Futuros</asp:ListItem>
-        <asp:ListItem Value="Todos">Todos</asp:ListItem>
     </asp:DropDownList>
     
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br /><br />
+
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-turnos" OnClick="btnExportExcel_Click" />
+    &nbsp;&nbsp;
+    <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Turno" onclientclick="return confirm('¿Confirma el cambio?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" />
+    &nbsp;&nbsp;
+    <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Cancelar Turno" onclientclick="return confirm('¿Seguro que desea cancelar el Turno?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" />
     
     <br /><br /><br />
 
