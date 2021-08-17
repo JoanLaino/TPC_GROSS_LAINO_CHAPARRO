@@ -930,6 +930,7 @@
 
 .btn-export-excel-abm-turnos {
     width: 150px !important;
+    vertical-align: sub;
 }
 
 .dgv-turnos {

@@ -330,7 +330,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     ddlFiltroBuscar.SelectedValue = "0";
                     txtBuscarFiltro.Text = "";
                 }
-                else if (resultado != 0 && ddlFiltroBuscar.SelectedValue.ToString() == "ID")
+                else if (resultado != 0 && ddlFiltroBuscar.SelectedValue.ToString() == "ID") //EDITAR - ELIMINAR
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('Se muestra a continuación, el turno cuyo ID es igual a " + txtBuscarFiltro.Text + "')", true);
@@ -365,7 +365,18 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
         {
-
+            /*  
+                CAMPOS DE EXPORT DGV TURNOS
+               
+                ID (no permitir edicion oculto)
+                Día de la semana (completar automaticamente oculto)
+                Fecha (utilizar fechas >= hoy)
+                Hora (utilizar ddl turnos)
+                Cliente (completar automaticamente oculto)
+                CUIT_DNI (utilizar ddl)
+                Patente (utilizar ddl)
+                IDHorario (volver a calcular oculto) 
+            */
         }
     }
 }

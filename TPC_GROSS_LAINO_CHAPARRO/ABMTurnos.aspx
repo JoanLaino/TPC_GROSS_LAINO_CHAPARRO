@@ -31,10 +31,40 @@
 
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-turnos" OnClick="btnExportExcel_Click" />
     &nbsp;&nbsp;
-    <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Turno" onclientclick="return confirm('¿Confirma el cambio?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" />
+    <Button ID="btnEditar" style="border-radius: 100px; background-color: transparent; border-color: transparent;" >
+        <img src="img/edit-logo.png" alt="..." class="img-btn-edit-abm" />
+    </Button>
     &nbsp;&nbsp;
-    <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Cancelar Turno" onclientclick="return confirm('¿Seguro que desea cancelar el Turno?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" />
+    <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Cancelar Turno" onclientclick="return confirm('¿Seguro que desea cancelar el Turno?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: middle;" />
     
+    <div id="overlay" class="overlay" align="center">
+
+        <div id="popup" class="popup">
+
+		    <table style="width:80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
+
+                <tr align="center">
+                    <td align="right" style="padding: .5rem;">
+                        <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" />
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td style="padding: .5rem;">
+                        <asp:TextBox id="txtMarca2" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td style="padding: .5rem;">
+                        <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Turno" onclientclick="return confirm('¿Confirma el cambio?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="width: 40px;" />
+                    </td>
+                </tr>
+
+		    </table>
+
+        </div>
+
+    </div>
+
     <br /><br /><br />
 
     <center>
@@ -86,7 +116,7 @@
     </script>
 
     <script>
-        var btnAbrirPopup = document.getElementById('btnAgregarTipoProducto'),
+        var btnAbrirPopup = document.getElementById('btnEditar'),
             overlay = document.getElementById('overlay'),
             popup = document.getElementById('popup'),
             btnCerrarPopup = document.getElementById('btn-cerrar-popup');
