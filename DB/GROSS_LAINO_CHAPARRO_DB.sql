@@ -429,9 +429,9 @@ create table Turnos(
     ID bigint primary key not null identity(1,1),
 	IdCliente bigint not null foreign key references Clientes(ID),
 	IdVehiculo bigint not null foreign key references Vehiculos(ID),
-	Dia varchar(9) not null,
-    FechaHora datetime unique not null,
-	IDHorario int not null
+	Dia varchar(9) not null check (Dia <> 'Domingo' OR Dia <> 'Sunday'),
+    FechaHora datetime unique not null check ((DATENAME(WEEKDAY, FechaHora)) <> 'Domingo'),
+	IDHorario int not null foreign key references HorariosLunesViernes(ID) --(del 1 al 20)
 )
 GO
 
@@ -460,7 +460,6 @@ create procedure SP_TURNOS_SELECCIONADOS(
 	@Fecha varchar(10)
 )as
 begin
-	
 	SELECT IDHorario as ID FROM Turnos WHERE CONVERT(VARCHAR(10),FechaHora,105) = TRANSLATE(@Fecha,'/','-')
 end
 GO
@@ -495,3 +494,9 @@ as
 	U.Usuario as Usuario, U.Pass as Pass, U.Mail as Mail, CONVERT(VARCHAR(10),U.FechaAlta,105) as FechaAlta,
 	Estado as Estado from Usuarios U
 GO
+
+select * from Exportturnos
+
+insert into Turnos(IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
+values (1, 1, 'Sábado', '21-08-2021 09:30:00.000', 
+(select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))

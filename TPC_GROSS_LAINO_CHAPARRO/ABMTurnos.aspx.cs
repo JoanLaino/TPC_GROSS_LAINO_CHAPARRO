@@ -53,6 +53,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                 btnExportExcel.Enabled = true;
                 btnExportExcel.Visible = true;
+                btnDelete.Visible = false;
             }
             else
             {
@@ -61,12 +62,19 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                 btnExportExcel.Enabled = false;
                 btnExportExcel.Visible = false;
+                btnDelete.Visible = false;
                 //ocultar botones de editar y eliminar.
             }
 
             dgvTurnos.Visible = true;
             ddlFiltroBuscar.SelectedValue = "0";
             txtBuscarFiltro.Text = "";
+
+            btnUpdate.Visible = false;
+            txtFecha.Visible = false;
+            ddlHoraTurno.Visible = false;
+            txtCuitDni.Visible = false;
+            txtPatente.Visible = false;
         }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
@@ -349,6 +357,45 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     dgvTurnos.Visible = true;
                     ddlFiltroBuscar.SelectedValue = "0";
                     txtBuscarFiltro.Text = "";
+                    btnDelete.Visible = true;
+
+                    //CARGAR DDL HORARIOS DENTRO DE POPUP
+                    string selectddl = "select * from HorariosLunesViernes";
+
+                    ddlHoraTurno.DataSource = sentencia.DSET(selectddl);
+                    ddlHoraTurno.DataMember = "datos";
+                    ddlHoraTurno.DataTextField = "LunesViernes";
+                    ddlHoraTurno.DataValueField = "ID";
+                    ddlHoraTurno.DataBind();
+
+                    ddlHoraTurno.Visible = true;
+
+                    //CARGAR FECHA, CUIT/DNI y PATENTE DE TURNO SELECCIONADO EN CAMPOS CORRESPONDIENTES
+                    AccesoDatos datos = new AccesoDatos();
+
+                    try
+                    {
+                        datos.SetearConsulta(selectFiltro);
+                        datos.EjecutarLectura();
+
+                        if (datos.Lector.Read())
+                        {
+                            txtFecha.Text = (string)datos.Lector["Fecha"];
+                            txtCuitDni.Text = (string)datos.Lector["CUIT_DNI"];
+                            txtPatente.Text = (string)datos.Lector["Patente"];
+
+                            txtFecha.Visible = true;
+                            txtCuitDni.Visible = true;
+                            txtPatente.Visible = true;
+
+                            btnUpdate.Visible = true;
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                    
                 }
                 else
                 {
@@ -379,8 +426,29 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                 HACER TODO CON UN TRIGGER (instead of) EN LA DB
             */
+            //Obtención de fecha ingresada y día de la semana que corresponde.
+            DateTime fechaIngresada = Convert.ToDateTime(txtFecha.Text);
+            string diaNombre = fechaIngresada.DayOfWeek.ToString();
+            if (diaNombre == "Monday") { diaNombre = "Lunes"; }
+            else if (diaNombre == "Tuesday") { diaNombre = "Martes"; }
+            else if (diaNombre == "Wednesday") { diaNombre = "Miércoles"; }
+            else if (diaNombre == "Thursday") { diaNombre = "Jueves"; }
+            else if (diaNombre == "Friday") { diaNombre = "Viernes"; }
+            else if (diaNombre == "Saturday") { diaNombre = "Sábado"; }
+            else if (diaNombre == "Sunday")
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('El día seleccionado es Domingo.\\n\\n" +
+                "Por favor selecciona otro.')", true);
+            }
+            if (diaNombre != "Sunday")
+            {
+
+            }
+            else { BindData(); }
         }
 
+        /*
         protected void txtFecha_TextChanged(object sender, EventArgs e)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -415,7 +483,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 selectCantidad = "select count(*) as Cantidad from HorariosLunesViernes";
             }
 
-            string IdHorarioTurnosCargados = "EXEC SP_TURNOS_SELECCIONADOS '" + fecha.ToShortDateString() + "'";
+            string IdHorarioTurnosCargados = "EXEC SP_TURNOS_SELECCIONADOS '" + fecha.ToShortDateString() + "'"; //PARA DETERMINAR QUE HORARIOS ESTAN OCUPADOS
 
             try
             {
@@ -456,5 +524,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 datos2.CerrarConexion();
             }
         }
+        */
     }
 }

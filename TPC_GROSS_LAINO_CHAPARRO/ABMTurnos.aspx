@@ -30,11 +30,12 @@
     <br /><br />
 
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-turnos" OnClick="btnExportExcel_Click" />
-    &nbsp;&nbsp;
     <Button ID="btnEditar" style="border-radius: 100px; background-color: transparent; border-color: transparent;" >
+        
         <img src="img/edit-logo.png" alt="..." class="img-btn-edit-abm" />
+        
     </Button>
-    &nbsp;&nbsp;
+
     <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Cancelar Turno" onclientclick="return confirm('¿Seguro que desea cancelar el Turno?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: middle;" />
     
     <div id="overlay" class="overlay" align="center">
@@ -50,19 +51,19 @@
                 </tr>
                 <tr align="center">
                     <td style="padding: .5rem;">
-                        <asp:TextBox id="txtFecha" Type="date" runat="server" ToolTip="Fecha" placeholder="Fecha" OnTextChanged="txtFecha_TextChanged" />
+                        <asp:TextBox id="txtFecha" runat="server" ToolTip="Fecha" placeholder="Fecha" Width="200" />
                     </td>
                     <td style="padding: .5rem;">
-                        <asp:DropDownList ID="ddlHoraTurno" runat="server" style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px; background-color: #F9DFABB3;">
+                        <asp:DropDownList ID="ddlHoraTurno" runat="server" Width="200" style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px; background-color: #F9DFABB3;">
                         </asp:DropDownList>
                     </td>
                 </tr>
                 <tr align="center">
                     <td style="padding: .5rem;">
-                        <asp:TextBox id="txtCuitDni" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
+                        <asp:TextBox id="txtCuitDni" runat="server" ToolTip="CUIT / DNI" placeholder="CUIT / DNI" onkeypress="javascript:return solonumeros(event)" Width="200" />
                     </td>
                     <td style="padding: .5rem;">
-                        <asp:TextBox id="txtPatente" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
+                        <asp:TextBox id="txtPatente" runat="server" ToolTip="Patente" placeholder="Patente" Width="200" />
                     </td>
                 </tr>
                 <tr align="center">
