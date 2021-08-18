@@ -50,7 +50,19 @@
                 </tr>
                 <tr align="center">
                     <td style="padding: .5rem;">
-                        <asp:TextBox id="txtMarca2" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
+                        <asp:TextBox id="txtFecha" Type="date" runat="server" ToolTip="Fecha" placeholder="Fecha" OnTextChanged="txtFecha_TextChanged" />
+                    </td>
+                    <td style="padding: .5rem;">
+                        <asp:DropDownList ID="ddlHoraTurno" runat="server" style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px; background-color: #F9DFABB3;">
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td style="padding: .5rem;">
+                        <asp:TextBox id="txtCuitDni" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
+                    </td>
+                    <td style="padding: .5rem;">
+                        <asp:TextBox id="txtPatente" runat="server" ToolTip="Descripción" placeholder="Descripción" onkeypress="javascript:return sololetras(event)" />
                     </td>
                 </tr>
                 <tr align="center">
@@ -58,6 +70,15 @@
                         <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Turno" onclientclick="return confirm('¿Confirma el cambio?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="width: 40px;" />
                     </td>
                 </tr>
+
+                <%--ID (no permitir edicion oculto)
+                Día de la semana (completar automaticamente oculto)
+                Fecha (utilizar fechas >= hoy)
+                Hora (utilizar ddl turnos)
+                Cliente (completar automaticamente oculto)
+                CUIT_DNI (utilizar ddl)
+                Patente (utilizar ddl)
+                IDHorario (volver a calcular oculto) --%>
 
 		    </table>
 

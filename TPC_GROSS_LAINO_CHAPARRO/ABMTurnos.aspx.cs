@@ -376,7 +376,85 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 CUIT_DNI (utilizar ddl)
                 Patente (utilizar ddl)
                 IDHorario (volver a calcular oculto) 
+
+                HACER TODO CON UN TRIGGER (instead of) EN LA DB
             */
+        }
+
+        protected void txtFecha_TextChanged(object sender, EventArgs e)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datos2 = new AccesoDatos();
+
+            DateTime fecha = Convert.ToDateTime(txtFecha.Text);
+            string dia = fecha.DayOfWeek.ToString();
+            string selectCantidad;
+
+            if (dia == "Saturday")
+            {
+                string selectddl = "select * from HorariosSabado";
+
+                ddlHoraTurno.DataSource = sentencia.DSET(selectddl);
+                ddlHoraTurno.DataMember = "datos";
+                ddlHoraTurno.DataTextField = "Sabado";
+                ddlHoraTurno.DataValueField = "ID";
+                ddlHoraTurno.DataBind();
+
+                selectCantidad = "select count(*) as Cantidad from HorariosSabado";
+            }
+            else
+            {
+                string selectddl = "select * from HorariosLunesViernes";
+
+                ddlHoraTurno.DataSource = sentencia.DSET(selectddl);
+                ddlHoraTurno.DataMember = "datos";
+                ddlHoraTurno.DataTextField = "LunesViernes";
+                ddlHoraTurno.DataValueField = "ID";
+                ddlHoraTurno.DataBind();
+
+                selectCantidad = "select count(*) as Cantidad from HorariosLunesViernes";
+            }
+
+            string IdHorarioTurnosCargados = "EXEC SP_TURNOS_SELECCIONADOS '" + fecha.ToShortDateString() + "'";
+
+            try
+            {
+                datos.SetearConsulta(IdHorarioTurnosCargados);
+                datos.EjecutarLectura();
+
+                datos2.SetearConsulta(selectCantidad);
+                datos2.EjecutarLectura();
+
+                int cantidad = 0;
+
+                if (datos2.Lector.Read()) { cantidad = Convert.ToInt32(datos2.Lector["Cantidad"]); }
+
+                while (datos.Lector.Read())
+                {
+                    int IdHorario = Convert.ToInt32(datos.Lector["ID"]);
+
+                    for (int i = 1; i < cantidad + 1; i++)
+                    {
+                        if (i == IdHorario)
+                        {
+                            string value = i.ToString();
+
+                            ddlHoraTurno.SelectedValue = value;
+                            ddlHoraTurno.SelectedItem.Enabled = false;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Error al calcular la cantidad de horarios en la DB.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+                datos2.CerrarConexion();
+            }
         }
     }
 }
