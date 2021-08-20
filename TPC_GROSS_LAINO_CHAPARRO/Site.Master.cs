@@ -16,11 +16,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             cerrarConexiónUsuario();
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("https://www.google.com");
-        }
-
         protected void validarConexiónUsuario()
         {
             if (!(Session["usuario"] == null))

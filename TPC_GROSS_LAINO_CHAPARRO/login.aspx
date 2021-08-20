@@ -27,7 +27,8 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Recordar Usuario</label>
             </div>
-                <asp:Button ID="btnIngresar" runat="server" CssClass="btn btn-primary" OnClick="btnIngresar_Click" Text="Iniciar Sesión" />
+            
+            <asp:Button ID="btnIngresar" runat="server" CssClass="btn btn-primary" OnClick="btnIngresar_Click" Text="Iniciar Sesión" />
                             
         </div>
     </center>

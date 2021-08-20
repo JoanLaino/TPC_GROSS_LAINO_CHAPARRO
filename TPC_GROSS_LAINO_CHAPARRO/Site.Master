@@ -65,10 +65,10 @@
                     </li>                    
                 </ul>
                 <a href="login.aspx" Class="log-stl">
-                    <asp:Label ID="btnIniciarSesion" runat="server"  Text="Iniciar sesión"></asp:Label>
+                    <asp:Label ID="btnIniciarSesion" runat="server" Text="Iniciar sesión"></asp:Label>
                 </a>
 
-                <asp:Button ID="btnCerrarSesion2" runat="server" Text="Cerrar Sesion" OnClick="btnCerrarSesion2_Click" CssClass="btn-cerrar-sesion" />
+                <asp:Button ID="btnCerrarSesion2" runat="server" Text="Cerrar Sesion" OnClick="btnCerrarSesion2_Click" CssClass="btn-cerrar-sesion" UseSubmitBehavior="False" />
                 
             </div>
         </nav>

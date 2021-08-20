@@ -25,7 +25,7 @@
                     <asp:ListItem Value="0">Año de fabricación</asp:ListItem>
                     </asp:DropDownList>
                     <br /><br />
-                    <asp:Button ID="btnCancelarRegistro" Text="X" runat="server" ToolTip="Cancelar Registro" cssclass="btn-cerrar-popup" onclientclick="return confirm('Si cancela ahora, NO se registrará al cliente ¿Seguro que desea cancelar el registro?');" OnClick="btnCancelarRegistro_Click" />
+                    <asp:Button ID="btnCancelarRegistro" Text="X" runat="server" ToolTip="Cancelar Registro" cssclass="btn-cerrar-popup" onclientclick="return confirm('Si cancela ahora, NO se realizará el registro ¿Seguro que desea cancelar?');" OnClick="btnCancelarRegistro_Click" />
                     <asp:Button ID="btnConfirmarRegistro" runat="server" ToolTip="Agregar Vehículo" Text="Agregar Vehículo" width="150px" CssClass="btn-confirmar-turno-1" onclientclick="return confirm('¿Los datos ingresados son correctos?');" onclick="btnConfirmarRegistro_Click" />
                 </center>
             </div>

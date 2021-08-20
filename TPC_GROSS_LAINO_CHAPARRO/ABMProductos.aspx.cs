@@ -747,7 +747,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         btnUpdate.Enabled = true;
                         btnDelete.Enabled = true;
 
-                        txtEan.Enabled = true;
+                        txtEan.Enabled = false;
                         txtDescripcion.Enabled = true;
                         txtUrlImagen.Enabled = true;
                         ddlTipoProducto.Enabled = true;
