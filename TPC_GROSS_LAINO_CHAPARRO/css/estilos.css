@@ -741,6 +741,28 @@
     color: black;
 }
 
+.btn-interna-tipos-servicio {
+    border-radius: 50px;
+    border: solid 1px;
+    color: black;
+    background-color: white;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 212px;
+}
+
+.btn-interna-tipos-servicio:hover {
+    background-color: black;
+    color: white;
+}
+
 .btn-cerrar-sesion {
     border-radius: 50px;
     border: solid 1px;

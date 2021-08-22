@@ -16,6 +16,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             if (!IsPostBack)
             {
                 BindData();
+
+                string selectDdlTiposServicio = "SELECT * FROM TiposServicio ORDER BY Descripcion ASC";
+
+                ddlTiposServicio.DataSource = sentencia.DSET(selectDdlTiposServicio);
+                ddlTiposServicio.DataMember = "datos";
+                ddlTiposServicio.DataTextField = "Descripcion";
+                ddlTiposServicio.DataValueField = "ID";
+                ddlTiposServicio.DataBind();
             }
         }
 
@@ -24,12 +32,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             lblHora.Visible = false;
             ddlHoraTurno.Visible = false;
             ddlHoraTurno.Enabled = true;
+            ddlTiposServicio.Visible = false;
+            ddlTiposServicio.Enabled = false;
             txtCuitDni.Visible = false;
             txtCuitDni.Text = "";
             btnBuscarCuitDni.Visible = false;
             calendarioTurnos.Enabled = true;
             ddlVehiculos.Visible = false;
-            lblVehiculos.Visible = false;
             lblCuitDni.Visible = false;
             lblRegistro.Visible = false;
             btnRegistro.Visible = false;
@@ -37,7 +46,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             btnBuscarCuitDni.Text = "Siguiente paso";
             btnAgregarVehículo.Visible = false;
 
-            string selectDgvTurnos = "SELECT * FROM ExportTurnos ORDER BY ID";
+            string selectDgvTurnos = "SELECT * FROM ExportTurnos ORDER BY ID ASC";
 
             dgvTurnos.DataSource = sentencia.DSET(selectDgvTurnos);
             dgvTurnos.DataBind();
@@ -79,6 +88,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             lblHora.Visible = true;
             ddlHoraTurno.Visible = true;
+            ddlTiposServicio.Visible = true;
+            ddlTiposServicio.Enabled = true;
             lblCuitDni.Visible = true;
             txtCuitDni.Visible = true;
             btnBuscarCuitDni.Visible = true;
@@ -186,64 +197,85 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             cliente = (string)datos4.Lector[campo];
                         }
 
-                        long IDVehiculo = Convert.ToInt64(ddlVehiculos.SelectedValue);
-                        int idHora = Convert.ToInt32(ddlHoraTurno.SelectedValue);
-                        string diaFecha = calendarioTurnos.SelectedDate.Day.ToString();
-                        if (calendarioTurnos.SelectedDate.Day < 10) { diaFecha = "0" + diaFecha; }
-                        string mesFecha = calendarioTurnos.SelectedDate.Month.ToString();
-                        if (calendarioTurnos.SelectedDate.Month < 10) { mesFecha = "0" + mesFecha; }
-                        int añoFecha = calendarioTurnos.SelectedDate.Year;
-                        string fecha = diaFecha + "-" + mesFecha + "-" + añoFecha;
-                        string hora = ddlHoraTurno.SelectedItem.ToString();
-                        string dia = calendarioTurnos.SelectedDate.DayOfWeek.ToString();
-                        if (dia == "Monday") { dia = "Lunes"; }
-                        else if (dia == "Tuesday") { dia = "Martes"; }
-                        else if (dia == "Wednesday") { dia = "Miércoles"; }
-                        else if (dia == "Thursday") { dia = "Jueves"; }
-                        else if (dia == "Friday") { dia = "Viernes"; }
-                        else if (dia == "Saturday") { dia = "Sábado"; }
-
-                        int resultadoTurnos = ContarResultadosDB_DosVariablesUnaCadena("Turnos", "CONVERT(VARCHAR(10),FechaHora,105)", fecha, "IdCliente", IDCliente, "IdVehiculo", IDVehiculo);
-
-                        if (resultadoTurnos == 1)
+                        if (ddlVehiculos.SelectedValue != "0")
                         {
-                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                            "alert('Ya existe un turno pendiente para usted, para la patente seleccionada,\\n\\n" +
-                            "para el día " + fecha + ".\\n\\n" + 
-                            "Si desea modificarlo, deberá comunicarse con nosotros a la brevedad.')", true);
+                            int IdTipoServicio = Convert.ToInt32(ddlTiposServicio.SelectedValue);
+                            long IDVehiculo = Convert.ToInt64(ddlVehiculos.SelectedValue);
+                            int idHora = Convert.ToInt32(ddlHoraTurno.SelectedValue);
+                            string diaFecha = calendarioTurnos.SelectedDate.Day.ToString();
+                            if (calendarioTurnos.SelectedDate.Day < 10) { diaFecha = "0" + diaFecha; }
+                            string mesFecha = calendarioTurnos.SelectedDate.Month.ToString();
+                            if (calendarioTurnos.SelectedDate.Month < 10) { mesFecha = "0" + mesFecha; }
+                            int añoFecha = calendarioTurnos.SelectedDate.Year;
+                            string fecha = diaFecha + "-" + mesFecha + "-" + añoFecha;
+                            string hora = ddlHoraTurno.SelectedItem.ToString();
+                            string dia = calendarioTurnos.SelectedDate.DayOfWeek.ToString();
+                            if (dia == "Monday") { dia = "Lunes"; }
+                            else if (dia == "Tuesday") { dia = "Martes"; }
+                            else if (dia == "Wednesday") { dia = "Miércoles"; }
+                            else if (dia == "Thursday") { dia = "Jueves"; }
+                            else if (dia == "Friday") { dia = "Viernes"; }
+                            else if (dia == "Saturday") { dia = "Sábado"; }
+
+                            int resultadoTurnos = ContarResultadosDB_DosVariablesUnaCadena("Turnos", "CONVERT(VARCHAR(10),FechaHora,105)", fecha, "IdCliente", IDCliente, "IdVehiculo", IDVehiculo);
+
+                            if (resultadoTurnos == 1)
+                            {
+                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                "alert('Ya existe un turno pendiente para usted, para la patente seleccionada,\\n\\n" +
+                                "para el día " + fecha + ".\\n\\n" +
+                                "Si desea modificarlo, deberá comunicarse con nosotros a la brevedad.')", true);
+                            }
+                            else
+                            {
+                                string insertTurno = "EXEC SP_AGREGAR_TURNO '" + fecha + " " + hora + "', " + idHora + ", '" + dia + "', " + IDCliente + ", " + IDVehiculo + ", " + IdTipoServicio;
+
+                                sentencia.IUD(insertTurno);
+
+                                BindData();
+
+                                AccesoDatos datos5 = new AccesoDatos();
+
+                                string selectTurnoAgregado = "SELECT ID AS ID FROM Turnos WHERE " +
+                                                      "IdCliente = " + IDCliente + " AND " +
+                                                      "IdVehiculo = " + IDVehiculo + " AND " +
+                                                      "CONVERT(VARCHAR(10),FechaHora,105) = '" + fecha + "' AND " +
+                                                      "CONVERT(VARCHAR(5),FechaHora,108) = '" + hora + "'";
+
+                                long IDTurno = 0;
+
+                                try
+                                {
+                                    datos5.SetearConsulta(selectTurnoAgregado);
+                                    datos5.EjecutarLectura();
+
+                                    if (datos5.Lector.Read())
+                                    {
+                                        IDTurno = Convert.ToInt64(datos5.Lector["ID"]);
+                                    }
+                                }
+                                catch
+                                {
+                                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                    "alert('Error al leer DB')", true);
+                                }
+                                finally
+                                {
+                                    datos5.CerrarConexion();
+                                }
+
+                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                "alert('El turno para el día " + dia + " " +
+                                fecha + ", a las " + hora + "" +
+                                "hs, para el cliente " + cliente + " " +
+                                "se ha agregado correctamente.\\n\\n" +
+                                "El ID de su turno es " + IDTurno + ". Por favor consérvelo !!!.')", true);
+                            }
                         }
                         else
                         {
-                            string insertTurno = "EXEC SP_AGREGAR_TURNO '" + fecha + " " + hora + "', " + idHora + ", '" + dia + "', " + IDCliente + ", " + IDVehiculo;
-
-                            sentencia.IUD(insertTurno);
-
-                            BindData();
-
                             ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                            "alert('El turno para el día " + dia + " " +
-                            fecha + ", a las " + hora + "" +
-                            "hs, para el cliente " + cliente + " " +
-                            "se ha agregado correctamente')", true);
-
-                            AccesoDatos datos5 = new AccesoDatos();
-
-                            datos5.SetearConsulta("SELECT ID AS ID FROM Turnos WHERE " +
-                                                  "IdCliente = " + IDCliente + " AND " +
-                                                  "IdVehiculo = " + IDVehiculo + " AND " +
-                                                  "CONVERT(VARCHAR(10),FechaHora,105) = '" + fecha + "' AND " +
-                                                  "CONVERT(VARCHAR(5),FechaHora,108) = '" + hora + "'");
-
-                            string IDTurno = "NULL";
-
-                            if (datos5.Lector.Read())
-                            {
-                                IDTurno = datos.Lector["ID"].ToString();
-                            }
-
-                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                            "alert('El ID de su turno es " + ID + "\\n\\n" +
-                            "Por favor consérvelo !!!.')", true);
+                            "alert('No seleccionó ningún vehículo.')", true);
                         }
                     }
                     catch
@@ -262,6 +294,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Debe ingresar un CUIT ó DNI por favor.')", true);
+                    }
+                    if (ddlTiposServicio.SelectedValue == "0")
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Debe seleccionar un Servicio a realizar por favor.')", true);
                     }
                     else
                     {
@@ -314,7 +351,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                     ddlHoraTurno.Enabled = false;
                                     calendarioTurnos.Enabled = false;
 
-                                    lblVehiculos.Visible = true;
                                     ddlVehiculos.Visible = true;
                                     btnAgregarVehículo.Visible = true;
 

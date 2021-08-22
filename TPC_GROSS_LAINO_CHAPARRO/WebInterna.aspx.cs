@@ -78,5 +78,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             Response.Redirect("ABMServicios.aspx");
         }
+
+        protected void btnABMTiposServicio_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMTiposServicio.aspx");
+        }
     }
 }

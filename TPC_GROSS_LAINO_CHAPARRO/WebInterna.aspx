@@ -50,6 +50,11 @@
         </div>
         <div>
             <center>
+                <asp:Button ID="btnABMTiposServicio" onclick="btnABMTiposServicio_Click" runat="server" Text="ABM - Tipos de Servicio" CssClass="btn-interna-tipos-servicio"/>
+            </center> 
+        </div>
+        <div>
+            <center>
                 <asp:Button ID="btnABMServicios" onclick="btnABMServicios_Click" runat="server" Text="ABM - Servicios" CssClass="btn-interna-servicios"/>
             </center> 
         </div>

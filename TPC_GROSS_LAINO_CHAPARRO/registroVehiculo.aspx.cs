@@ -104,9 +104,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 else
                 {
 
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Su registro no será confirmado hasta que no ingrese al menos un vehículo.')", true);
-
                     //Campos Vehículo
                     string patente = txtPatente.Text;
                     string IdMarca = ddlMarcaVehiculo.SelectedValue.ToString();

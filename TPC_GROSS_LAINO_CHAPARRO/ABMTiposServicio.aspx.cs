@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace TPC_GROSS_LAINO_CHAPARRO
 {
-    public partial class ABMServicios : System.Web.UI.Page
+    public partial class ABMTiposServicio : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

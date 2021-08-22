@@ -96,6 +96,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.Button btnABMTurnos;
 
         /// <summary>
+        /// Control btnABMTiposServicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnABMTiposServicio;
+
+        /// <summary>
         /// Control btnABMServicios.
         /// </summary>
         /// <remarks>

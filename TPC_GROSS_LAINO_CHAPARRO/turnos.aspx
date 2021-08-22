@@ -35,12 +35,16 @@
             <asp:DropDownList ID="ddlHoraTurno" runat="server" style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px; background-color: #F9DFABB3;">
             </asp:DropDownList>
             <br /><br />
+            <asp:DropDownList ID="ddlTiposServicio" runat="server" AppendDataBoundItems="true" Style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px; background-color: #F9DFABB3;" >
+                <asp:ListItem Value="0">Servicio a realizar</asp:ListItem>
+            </asp:DropDownList>
+            <br /><br />
             <asp:Label ID="lblCuitDni" Text="Ingrese su CUIT / DNI:" runat="server" Style="font-size: 10px;" />
             <br />
             <asp:TextBox ID="txtCuitDni" runat="server" tooltip="CUIT / DNI" placeholder="CUIT / DNI" onkeypress="javascript:return solonumeros(event);" style="width: 200px; border-radius: 15px; box-shadow: 0px 0px 10px 0px; margin-top: 2px; padding: 3px 7px 3px 7px;" width="200px" MaxLength="11" />
             <br /><br />
-            <asp:Label ID="lblVehiculos" Text="Seleccione vehículo:" runat="server" Style="font-size: 10px;" />
-            <asp:DropDownList ID="ddlVehiculos" runat="server" Style="    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%); border-radius: 4px; background-color: #F9DFABB3; font-weight: 500;">
+            <asp:DropDownList ID="ddlVehiculos" runat="server" AppendDataBoundItems="true" Style="box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%); border-radius: 4px; background-color: #F9DFABB3; font-weight: 500;">
+                <asp:ListItem Value="0">Seleccione vehículo</asp:ListItem>   
             </asp:DropDownList>
             <br /><br />
             <asp:Button ID="btnAgregarVehículo" runat="server" ToolTip="Agregar Vehículo" Text="Agregar Vehículo" onclientclick="return confirm('¿Seguro que desea agregar un nuevo vehículo?')" onclick="btnAgregarVehículo_Click" cssclass="btn-nuevo-vehiculo" style="vertical-align: middle !important;" />

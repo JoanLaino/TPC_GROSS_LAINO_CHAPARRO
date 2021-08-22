@@ -45,16 +45,23 @@
 		    <table style="width:80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
 
                 <tr align="center">
+                    <td></td>
                     <td align="right" style="padding: .5rem;">
                         <asp:Button ID="btnCerraPopup" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" />
                     </td>
+                    <td></td>
                 </tr>
                 <tr align="center">
                     <td style="padding: .5rem;">
-                        <asp:TextBox id="txtFecha" runat="server" ToolTip="Fecha" placeholder="Fecha" Width="200" />
+                        <asp:TextBox id="txtFecha" runat="server" ToolTip="Fecha" placeholder="Fecha" Width="110" />
+                        &nbsp;
+                        <asp:DropDownList ID="ddlHoraTurno" runat="server" AppendDataBoundItems="true" Width="76" style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;" >
+                        </asp:DropDownList>
                     </td>
+                    <td></td>
                     <td style="padding: .5rem;">
-                        <asp:DropDownList ID="ddlHoraTurno" runat="server" Width="200" style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px; background-color: #F9DFABB3;">
+                        <asp:DropDownList ID="ddlTiposServicio" runat="server" AppendDataBoundItems="true" Width="200" style="box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); border-radius: 4px;" >
+                            <asp:ListItem Value="0">Servicio a realizar</asp:ListItem>
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -62,14 +69,17 @@
                     <td style="padding: .5rem;">
                         <asp:TextBox id="txtCuitDni" runat="server" ToolTip="CUIT / DNI" placeholder="CUIT / DNI" onkeypress="javascript:return solonumeros(event)" Width="200" />
                     </td>
+                    <td></td>
                     <td style="padding: .5rem;">
                         <asp:TextBox id="txtPatente" runat="server" ToolTip="Patente" placeholder="Patente" Width="200" />
                     </td>
                 </tr>
-                <tr align="center">
-                    <td style="padding: .5rem;">
+                <tr align="center" width="400">
+                    <td></td>
+                    <td style="padding: .5rem;" align="center">
                         <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Turno" onclientclick="return confirm('¿Confirma el cambio?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="width: 40px;" />
                     </td>
+                    <td></td>
                 </tr>
 
                 <%--ID (no permitir edicion oculto)
@@ -98,6 +108,7 @@
                 <asp:BoundField DataField="Dia" HeaderText="Día" SortExpression="Dia" />
                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" ReadOnly="True" SortExpression="Fecha" />
                 <asp:BoundField DataField="Hora" HeaderText="Hora" ReadOnly="True" SortExpression="Hora" />
+                <asp:BoundField DataField="TipoServicio" HeaderText="Servicio a realizar" ReadOnly="True" SortExpression="TipoServicio" />
                 <asp:BoundField DataField="Cliente" HeaderText="Cliente" ReadOnly="True" SortExpression="Cliente" />
                 <asp:BoundField DataField="CUIT_DNI" HeaderText="CUIT / DNI" ReadOnly="True" SortExpression="CUIT_DNI" />
                 <asp:BoundField DataField="Patente" HeaderText="Patente" ReadOnly="True" SortExpression="Patente" />

@@ -12,7 +12,7 @@ GO
 
 create table MarcasProducto(
 	ID bigint primary key identity (1,1) not null,
-	Descripcion varchar(50) not null,
+	Descripcion varchar(50) unique not null,
 	Estado bit not null default (1)
 )
 GO
@@ -131,7 +131,7 @@ GO
 
 create table MarcasVehiculo(
 	ID bigint primary key identity (1,1) not null,
-	Descripcion varchar(50) not null
+	Descripcion varchar(50) unique not null
 )
 GO
 
@@ -156,7 +156,8 @@ GO
 
 create table TiposServicio(
 	ID int primary key identity (1,1) not null,
-	Descripcion varchar(30) unique check (Descripcion = 'Cambio de aceite' or Descripcion = 'Cambio de filtros' or Descripcion = 'Revisión'),
+	Descripcion varchar(100) unique,
+	Estado bit not null default(1)
 )
 GO
 
@@ -167,7 +168,8 @@ create table Servicios(
 	IdTipo int not null foreign key references TiposServicio(ID),
 	Comentarios varchar(400) null,
 	IdCliente bigint not null foreign key references Clientes(ID),
-	IdEmpleado bigint not null foreign key references Empleados(ID)
+	IdEmpleado bigint not null foreign key references Empleados(ID),
+	Estado varchar(12) not null default('Pendiente') check(Estado = 'Pendiente' OR Estado = 'En ejecución' OR Estado = 'Completado' OR Estado = 'Cancelado')
 )
 GO
 
@@ -427,6 +429,7 @@ GO
 
 create table Turnos(
     ID bigint primary key not null identity(1,1),
+	IdTipoServicio int not null,
 	IdCliente bigint not null foreign key references Clientes(ID),
 	IdVehiculo bigint not null foreign key references Vehiculos(ID),
 	Dia varchar(9) not null check (Dia <> 'Domingo' OR Dia <> 'Sunday'),
@@ -440,7 +443,7 @@ as
 select ID as ID, Dia as Dia, CONVERT(VARCHAR(10),FechaHora,105) as Fecha, CONVERT(VARCHAR(5),FechaHora,108) as Hora,
 isnull((select C.ApeNom from Clientes C where ID = T.IdCliente),(select C.RazonSocial from Clientes C where ID = T.IdCliente)) as Cliente, 
 (select C.CUIT_DNI from Clientes C where ID = T.IdCliente) as CUIT_DNI, (select V.Patente from Vehiculos V where ID = T.IdVehiculo) as Patente,
-IDHorario as IDHorario
+IDHorario as IDHorario, IdTipoServicio as IdTipoServicio, (select TS.Descripcion from TiposServicio TS where ID = IdTipoServicio) as TipoServicio
 from Turnos T
 GO
 
@@ -449,10 +452,11 @@ create procedure SP_AGREGAR_TURNO(
 	@IDHorario int,
 	@Dia varchar(9),
 	@IdCliente bigint,
-	@IdVehiculo bigint
+	@IdVehiculo bigint,
+	@IdTipoServicio int
 )as
 begin
-    INSERT INTO Turnos(Dia, FechaHora, IDHorario, IdCliente, IdVehiculo) values(@Dia, @FechaHora, @IDHorario, @IdCliente, @IdVehiculo)
+    INSERT INTO Turnos(Dia, FechaHora, IDHorario, IdCliente, IdVehiculo, IdTipoServicio) values(@Dia, @FechaHora, @IDHorario, @IdCliente, @IdVehiculo, @IdTipoServicio)
 end
 GO
 
@@ -495,6 +499,13 @@ as
 	Estado as Estado from Usuarios U
 GO
 
-insert into Turnos(IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
-values (1, 1, 'Sábado', '21-08-2021 09:30:00.000', 
+insert into Turnos(IdTipoServicio, IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
+values (1, 1, 1, 'Sábado', '22-08-2022 09:30:00.000', 
 (select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
+
+insert into TiposServicio(Descripción) values('Revisión de aceite')
+insert into TiposServicio(Descripción) values('Revisión de filtros')
+insert into TiposServicio(Descripción) values('Revisión de aceite y filtros')
+insert into TiposServicio(Descripción) values('Revisión de líquido refrigerante')
+insert into TiposServicio(Descripción) values('Revisión de líquido de frenos')
+insert into TiposServicio(Descripción) values('Revisión general')

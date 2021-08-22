@@ -32,17 +32,40 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         public void BindData()
         {
+            string selectDdlTiposServicio = "SELECT * FROM TiposServicio ORDER BY Descripcion ASC";
+
+            ddlTiposServicio.DataSource = sentencia.DSET(selectDdlTiposServicio);
+            ddlTiposServicio.DataMember = "datos";
+            ddlTiposServicio.DataTextField = "Descripcion";
+            ddlTiposServicio.DataValueField = "ID";
+            ddlTiposServicio.DataBind();
+
             string selectTurnos = "SELECT * FROM ExportTurnos";
-            string selectCantidadTurnos = "SELECT COUNT(*) Cantidad FROM ExportTurnos";
+            string selectCantidadTurnos = "SELECT COUNT(*) AS Cantidad FROM ExportTurnos";
             int resultado = 0;
 
-            sentencia.SetearConsulta(selectCantidadTurnos);
-            sentencia.EjecutarLectura();
+            AccesoDatos datos = new AccesoDatos();
 
-            if (sentencia.Lector.Read())
+            try
             {
-                resultado = Convert.ToInt32(sentencia.Lector["Cantidad"]);
+                datos.SetearConsulta(selectCantidadTurnos);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    resultado = Convert.ToInt32(datos.Lector["Cantidad"]);
+                }
             }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Error al leer la DB. Línea 60 ABMTurnos.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+            
             if (resultado != 0)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
@@ -63,7 +86,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 btnExportExcel.Enabled = false;
                 btnExportExcel.Visible = false;
                 btnDelete.Visible = false;
-                //ocultar botones de editar y eliminar.
             }
 
             dgvTurnos.Visible = true;
@@ -71,6 +93,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtBuscarFiltro.Text = "";
 
             btnUpdate.Visible = false;
+            ddlTiposServicio.Visible = false;
             txtFecha.Visible = false;
             ddlHoraTurno.Visible = false;
             txtCuitDni.Visible = false;
@@ -505,7 +528,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             txtCuitDni.Text = (string)datos.Lector["CUIT_DNI"];
                             txtPatente.Text = (string)datos.Lector["Patente"];
                             ddlHoraTurno.SelectedValue = datos.Lector["IDHorario"].ToString();
+                            ddlTiposServicio.SelectedValue = datos.Lector["IdTipoServicio"].ToString();
 
+                            ddlTiposServicio.Visible = true;
                             txtFecha.Visible = true;
                             txtCuitDni.Visible = true;
                             txtPatente.Visible = true;
@@ -514,27 +539,42 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                             AccesoDatos datos2 = new AccesoDatos();
 
-                            datos2.SetearConsulta("SELECT * FROM Turnos WHERE " +
-                                                  "ID = " + txtFiltro);
-                            datos2.EjecutarLectura();
-
                             string IdCliente = "NULL";
                             string IdVehiculo = "NULL";
 
-                            if (datos2.Lector.Read())
-                            { 
-                                IdCliente = datos2.Lector["IdCliente"].ToString();
-                                IdVehiculo = datos2.Lector["IdVehiculo"].ToString();
+                            try
+                            {
+                                datos2.SetearConsulta("SELECT * FROM Turnos WHERE " +
+                                                  "ID = " + txtFiltro);
+                                datos2.EjecutarLectura();
+
+
+
+                                if (datos2.Lector.Read())
+                                {
+                                    IdCliente = datos2.Lector["IdCliente"].ToString();
+                                    IdVehiculo = datos2.Lector["IdVehiculo"].ToString();
+                                }
+                            }
+                            catch
+                            {
+                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                "alert('Error al leer DB. Línea 548 ABMTurnos.')", true);
+                            }
+                            finally
+                            {
+                                datos2.CerrarConexion();
                             }
 
                             Session.Add("IdTurno", IDTurno);
                             Session.Add("DiaSemana", DiaSemana);
                             Session.Add("Fecha", txtFecha.Text);
                             Session.Add("Hora", ddlHoraTurno.SelectedItem.ToString());
+                            Session.Add("IdHorario", ddlHoraTurno.SelectedItem.ToString());
                             Session.Add("Cliente", Cliente);
                             Session.Add("CuitDni", txtCuitDni.Text);
                             Session.Add("Patente", txtPatente.Text);
-                            Session.Add("IdHorario", ddlHoraTurno.SelectedValue.ToString());
+                            Session.Add("IdTipoServicio", ddlTiposServicio.SelectedValue.ToString());
                             Session.Add("IdCliente", IdCliente);
                             Session.Add("IdVehiculo", IdVehiculo);
                         }
@@ -543,6 +583,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Se ha producido un error en la base de datos.')", true);
+                    }
+                    finally
+                    {
+                        datos.CerrarConexion();
                     }
                     
                 }
@@ -615,6 +659,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 string IdHorario1 = Session["IdHorario"].ToString();
                 string IdCliente1 = Session["IdCliente"].ToString();
                 string IdVehiculo1 = Session["IdVehiculo"].ToString();
+                string IdTipoServicio1 = Session["IdTipoServicio"].ToString();
 
                 int resultadoCliente = ContarResultadosDB2("CUITDNI", txtCuitDni.Text);
 
@@ -627,6 +672,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string CuitDni2 = txtCuitDni.Text;
                     string Patente2 = txtPatente.Text;
                     string IdHorario2 = ddlHoraTurno.SelectedValue.ToString();
+                    string IdTipoServicio2 = ddlTiposServicio.SelectedValue.ToString();
 
                     AccesoDatos datos2 = new AccesoDatos();
                     AccesoDatos datos3 = new AccesoDatos();
@@ -634,26 +680,38 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string selectCliente = "SELECT * FROM ExportClientes WHERE CUITDNI = '" +
                                            txtCuitDni.Text + "'";
 
-                    datos2.SetearConsulta(selectCliente);
-                    datos2.EjecutarLectura();
-
                     string Cliente2 = "NULL";
                     string IdCliente2 = "NULL";
                     string IdVehiculo2 = "NULL";
 
-                    if (datos2.Lector.Read())
+                    try
                     {
-                        IdCliente2 = datos2.Lector["ID"].ToString();
-                        if(txtCuitDni.Text.Length > 8)
+                        datos2.SetearConsulta(selectCliente);
+                        datos2.EjecutarLectura();
+
+                        if (datos2.Lector.Read())
                         {
-                            Cliente2 = (string)datos2.Lector["RazonSocial"];
-                        }
-                        else
-                        {
-                            Cliente2 = (string)datos2.Lector["ApeNom"];
+                            IdCliente2 = datos2.Lector["ID"].ToString();
+                            if (txtCuitDni.Text.Length > 8)
+                            {
+                                Cliente2 = (string)datos2.Lector["RazonSocial"];
+                            }
+                            else
+                            {
+                                Cliente2 = (string)datos2.Lector["ApeNom"];
+                            }
                         }
                     }
-
+                    catch
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Error al leer la DB. Línea 655 ABMTurnos.')", true);
+                    }
+                    finally
+                    {
+                        datos2.CerrarConexion();
+                    }
+                    
                     int resultadoVehiculo = ContarResultadosDB3("Vehiculos", "Patente", Patente2, "IdCliente", IdCliente2);
 
                     if (resultadoVehiculo != 0)
@@ -662,12 +720,24 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                                   "Patente = '" + Patente2 + "' AND " +
                                                   "IdCliente = " + IdCliente2;
 
-                        datos3.SetearConsulta(selectIdVehiculo);
-                        datos3.EjecutarLectura();
-
-                        if (datos3.Lector.Read())
+                        try
                         {
-                            IdVehiculo2 = datos3.Lector["ID"].ToString();
+                            datos3.SetearConsulta(selectIdVehiculo);
+                            datos3.EjecutarLectura();
+
+                            if (datos3.Lector.Read())
+                            {
+                                IdVehiculo2 = datos3.Lector["ID"].ToString();
+                            }
+                        }
+                        catch
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('Error al leer la DB. Línea 689 ABMTurnos')", true);
+                        }
+                        finally
+                        {
+                            datos3.CerrarConexion();
                         }
 
                         //EJECUTAR UPDATE EN DB
@@ -677,12 +747,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         if (Cliente2 != Cliente1) { IdCliente1 = IdCliente2; }
                         if (Patente2 != Patente1) { IdVehiculo1 = IdVehiculo2; }
                         if (IdHorario2 != IdHorario1) { IdHorario1 = IdHorario2; }
+                        if (IdTipoServicio1 != IdTipoServicio2) { IdTipoServicio1 = IdTipoServicio2; }
 
                         string updateTurno = "UPDATE Turnos SET IdCliente = " + IdCliente1 + 
                                              ", IdVehiculo = " + IdVehiculo1 + ", " +
                                              "Dia = '" + DiaSemana1 + "', " +
                                              "FechaHora = '" + Fecha1 + " " + Hora1 + "', " +
-                                             "IdHorario = " + IdHorario1 +
+                                             "IdHorario = " + IdHorario1 + ", " +
+                                             "IdTipoServicio = " + IdTipoServicio1 + 
                                              " WHERE ID = " + IDTurno;
 
                         int resultadoTurnoDuplicado = ContarResultadosDB4("ExportTurnos", "Fecha", Fecha1, "Hora", Hora1, "Cliente", Cliente1);
