@@ -495,8 +495,6 @@ as
 	Estado as Estado from Usuarios U
 GO
 
-select * from Exportturnos
-
 insert into Turnos(IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
 values (1, 1, 'Sábado', '21-08-2021 09:30:00.000', 
 (select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))

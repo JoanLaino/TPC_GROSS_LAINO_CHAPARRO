@@ -141,6 +141,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             if (ddlMostrar.SelectedValue != "0")
             {
+                txtFecha.Visible = false;
+                txtCuitDni.Visible = false;
+                txtPatente.Visible = false;
+                ddlHoraTurno.Visible = false;
+                btnUpdate.Visible = false;
+
                 if (seleccion == "Hoy")
                 {
                     if (resultado != 0)
@@ -302,6 +308,111 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             return Resultado;
         }
 
+        protected int ContarResultadosDB2(string campo, string variable)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            int Resultado = 0;
+
+            string selectDB;
+
+            
+            selectDB = "SELECT COUNT(*) as Cantidad FROM ExportClientes WHERE " + campo + " = '" + variable + "'";
+
+            try
+            {
+                datos.SetearConsulta(selectDB);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Resultado = Convert.ToInt32(datos.Lector["Cantidad"]);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se produjo un error al intentar leer la base de datos.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return Resultado;
+        }
+
+        protected int ContarResultadosDB3(string tabla, string campo1, string variable1, string campo2, string variable2)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            int Resultado = 0;
+
+            string selectDB;
+
+
+            selectDB = "SELECT COUNT(*) as Cantidad FROM " + tabla + " WHERE " + 
+                        campo1 + " = '" + variable1 + "' AND " + campo2 + " = " + variable2;
+
+            try
+            {
+                datos.SetearConsulta(selectDB);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Resultado = Convert.ToInt32(datos.Lector["Cantidad"]);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se produjo un error al intentar leer la base de datos.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return Resultado;
+        }
+
+        protected int ContarResultadosDB4(string tabla, string campo1, string variable1, string campo2, string variable2, string campo3, string variable3)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            int Resultado = 0;
+
+            string selectDB;
+
+
+            selectDB = "SELECT COUNT(*) as Cantidad FROM " + tabla + " WHERE " +
+                       campo1 + " = '" + variable1 + "' AND " + campo2 + " = '" + variable2 + "' AND " + 
+                       campo3 + " <> '" + variable3 + "'";
+
+            try
+            {
+                datos.SetearConsulta(selectDB);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Resultado = Convert.ToInt32(datos.Lector["Cantidad"]);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se produjo un error al intentar leer la base de datos.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return Resultado;
+        }
+
         protected void btnBuscarFiltro_Click(object sender, EventArgs e)
         {
             if (ddlFiltroBuscar.SelectedValue == "0")
@@ -316,10 +427,16 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             else
             {
-                int resultado = ContarResultadosDB("null", ddlFiltroBuscar.SelectedValue.ToString(), txtBuscarFiltro.Text);
+                int resultado = ContarResultadosDB("null", ddlFiltroBuscar.SelectedItem.ToString(), txtBuscarFiltro.Text);
 
-                if (resultado != 0 && ddlFiltroBuscar.SelectedValue.ToString() != "ID")
+                if (resultado != 0 && ddlFiltroBuscar.SelectedValue != "ID")
                 {
+                    txtFecha.Visible = false;
+                    txtCuitDni.Visible = false;
+                    txtPatente.Visible = false;
+                    ddlHoraTurno.Visible = false;
+                    btnUpdate.Visible = false;
+
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                     "alert('" + resultado + " turno/s coincide/n con la búsqueda.')", true);
 
@@ -340,14 +457,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else if (resultado != 0 && ddlFiltroBuscar.SelectedValue.ToString() == "ID") //EDITAR - ELIMINAR
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Se muestra a continuación, el turno cuyo ID es igual a " + txtBuscarFiltro.Text + "')", true);
+                    string txtFiltro = txtBuscarFiltro.Text;
 
-                    string filtroBusqueda = ddlFiltroBuscar.SelectedValue.ToString();
-                    string filtroTexto = txtBuscarFiltro.Text;
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se muestra a continuación, el turno cuyo ID es igual a " + txtFiltro + "')", true);
 
                     string selectFiltro = "SELECT * FROM ExportTurnos WHERE " +
-                                          filtroBusqueda + " = '" + filtroTexto + "'";
+                                          "ID = " + txtFiltro;
 
                     dgvTurnos.DataSource = sentencia.DSET(selectFiltro);
                     dgvTurnos.DataBind();
@@ -368,32 +484,65 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     ddlHoraTurno.DataValueField = "ID";
                     ddlHoraTurno.DataBind();
 
-                    ddlHoraTurno.Visible = true;
-
                     //CARGAR FECHA, CUIT/DNI y PATENTE DE TURNO SELECCIONADO EN CAMPOS CORRESPONDIENTES
                     AccesoDatos datos = new AccesoDatos();
 
                     try
                     {
-                        datos.SetearConsulta(selectFiltro);
+                        string selectFiltro2 = "SELECT * FROM ExportTurnos WHERE " +
+                                               "ID = " + txtFiltro;
+
+                        datos.SetearConsulta(selectFiltro2);
                         datos.EjecutarLectura();
 
                         if (datos.Lector.Read())
                         {
+                            string IDTurno = datos.Lector["ID"].ToString();
+                            string DiaSemana = (string)datos.Lector["Dia"];
+                            string Cliente = (string)datos.Lector["Cliente"];
+
                             txtFecha.Text = (string)datos.Lector["Fecha"];
                             txtCuitDni.Text = (string)datos.Lector["CUIT_DNI"];
                             txtPatente.Text = (string)datos.Lector["Patente"];
+                            ddlHoraTurno.SelectedValue = datos.Lector["IDHorario"].ToString();
 
                             txtFecha.Visible = true;
                             txtCuitDni.Visible = true;
                             txtPatente.Visible = true;
-
+                            ddlHoraTurno.Visible = true;
                             btnUpdate.Visible = true;
+
+                            AccesoDatos datos2 = new AccesoDatos();
+
+                            datos2.SetearConsulta("SELECT * FROM Turnos WHERE " +
+                                                  "ID = " + txtFiltro);
+                            datos2.EjecutarLectura();
+
+                            string IdCliente = "NULL";
+                            string IdVehiculo = "NULL";
+
+                            if (datos2.Lector.Read())
+                            { 
+                                IdCliente = datos2.Lector["IdCliente"].ToString();
+                                IdVehiculo = datos2.Lector["IdVehiculo"].ToString();
+                            }
+
+                            Session.Add("IdTurno", IDTurno);
+                            Session.Add("DiaSemana", DiaSemana);
+                            Session.Add("Fecha", txtFecha.Text);
+                            Session.Add("Hora", ddlHoraTurno.SelectedItem.ToString());
+                            Session.Add("Cliente", Cliente);
+                            Session.Add("CuitDni", txtCuitDni.Text);
+                            Session.Add("Patente", txtPatente.Text);
+                            Session.Add("IdHorario", ddlHoraTurno.SelectedValue.ToString());
+                            Session.Add("IdCliente", IdCliente);
+                            Session.Add("IdVehiculo", IdVehiculo);
                         }
                     }
                     catch
                     {
-
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Se ha producido un error en la base de datos.')", true);
                     }
                     
                 }
@@ -407,123 +556,187 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnDelete_Click(object sender, ImageClickEventArgs e)
         {
+            AccesoDatos sentecia = new AccesoDatos();
 
+            string IdTurno = Session["IdTurno"].ToString();
+
+            try
+            {
+                sentencia.IUD("DELETE FROM Turnos WHERE ID = " + IdTurno);
+
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Turno cancelado con éxito.')", true);
+
+                string script = @"<script type='text/javascript'>
+
+                                            location.href='ABMTurnos.aspx';
+
+                                       </script>";
+
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('No se pudo cancelar el turno.\\n\\n" +
+                "Por favor reintente en unos minutos...')", true);
+
+                BindData();
+            }
         }
 
         protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
         {
-            /*  
-                CAMPOS DE EXPORT DGV TURNOS
-               
-                ID (no permitir edicion oculto)
-                Día de la semana (completar automaticamente oculto)
-                Fecha (utilizar fechas >= hoy)
-                Hora (utilizar ddl turnos)
-                Cliente (completar automaticamente oculto)
-                CUIT_DNI (utilizar ddl)
-                Patente (utilizar ddl)
-                IDHorario (volver a calcular oculto) 
-
-                HACER TODO CON UN TRIGGER (instead of) EN LA DB
-            */
             //Obtención de fecha ingresada y día de la semana que corresponde.
             DateTime fechaIngresada = Convert.ToDateTime(txtFecha.Text);
-            string diaNombre = fechaIngresada.DayOfWeek.ToString();
-            if (diaNombre == "Monday") { diaNombre = "Lunes"; }
-            else if (diaNombre == "Tuesday") { diaNombre = "Martes"; }
-            else if (diaNombre == "Wednesday") { diaNombre = "Miércoles"; }
-            else if (diaNombre == "Thursday") { diaNombre = "Jueves"; }
-            else if (diaNombre == "Friday") { diaNombre = "Viernes"; }
-            else if (diaNombre == "Saturday") { diaNombre = "Sábado"; }
-            else if (diaNombre == "Sunday")
+            string diaSemana = fechaIngresada.DayOfWeek.ToString();
+            if (diaSemana == "Monday") { diaSemana = "Lunes"; }
+            else if (diaSemana == "Tuesday") { diaSemana = "Martes"; }
+            else if (diaSemana == "Wednesday") { diaSemana = "Miércoles"; }
+            else if (diaSemana == "Thursday") { diaSemana = "Jueves"; }
+            else if (diaSemana == "Friday") { diaSemana = "Viernes"; }
+            else if (diaSemana == "Saturday") { diaSemana = "Sábado"; }
+            else if (diaSemana == "Sunday")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('El día seleccionado es Domingo.\\n\\n" +
                 "Por favor selecciona otro.')", true);
             }
-            if (diaNombre != "Sunday")
+            if (diaSemana != "Sunday" && fechaIngresada >= DateTime.Now)
             {
+                //Datos originales
+                string IDTurno = Session["IdTurno"].ToString();
+                string DiaSemana1 = Session["DiaSemana"].ToString();
+                string Fecha1 = Session["Fecha"].ToString();
+                string Hora1 = Session["Hora"].ToString();
+                string Cliente1 = Session["Cliente"].ToString();
+                string CuitDni1 = Session["CuitDni"].ToString();
+                string Patente1 = Session["Patente"].ToString();
+                string IdHorario1 = Session["IdHorario"].ToString();
+                string IdCliente1 = Session["IdCliente"].ToString();
+                string IdVehiculo1 = Session["IdVehiculo"].ToString();
 
-            }
-            else { BindData(); }
-        }
+                int resultadoCliente = ContarResultadosDB2("CUITDNI", txtCuitDni.Text);
 
-        /*
-        protected void txtFecha_TextChanged(object sender, EventArgs e)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            AccesoDatos datos2 = new AccesoDatos();
-
-            DateTime fecha = Convert.ToDateTime(txtFecha.Text);
-            string dia = fecha.DayOfWeek.ToString();
-            string selectCantidad;
-
-            if (dia == "Saturday")
-            {
-                string selectddl = "select * from HorariosSabado";
-
-                ddlHoraTurno.DataSource = sentencia.DSET(selectddl);
-                ddlHoraTurno.DataMember = "datos";
-                ddlHoraTurno.DataTextField = "Sabado";
-                ddlHoraTurno.DataValueField = "ID";
-                ddlHoraTurno.DataBind();
-
-                selectCantidad = "select count(*) as Cantidad from HorariosSabado";
-            }
-            else
-            {
-                string selectddl = "select * from HorariosLunesViernes";
-
-                ddlHoraTurno.DataSource = sentencia.DSET(selectddl);
-                ddlHoraTurno.DataMember = "datos";
-                ddlHoraTurno.DataTextField = "LunesViernes";
-                ddlHoraTurno.DataValueField = "ID";
-                ddlHoraTurno.DataBind();
-
-                selectCantidad = "select count(*) as Cantidad from HorariosLunesViernes";
-            }
-
-            string IdHorarioTurnosCargados = "EXEC SP_TURNOS_SELECCIONADOS '" + fecha.ToShortDateString() + "'"; //PARA DETERMINAR QUE HORARIOS ESTAN OCUPADOS
-
-            try
-            {
-                datos.SetearConsulta(IdHorarioTurnosCargados);
-                datos.EjecutarLectura();
-
-                datos2.SetearConsulta(selectCantidad);
-                datos2.EjecutarLectura();
-
-                int cantidad = 0;
-
-                if (datos2.Lector.Read()) { cantidad = Convert.ToInt32(datos2.Lector["Cantidad"]); }
-
-                while (datos.Lector.Read())
+                if (resultadoCliente != 0)
                 {
-                    int IdHorario = Convert.ToInt32(datos.Lector["ID"]);
+                    //Datos modificados / seleccionados
+                    string DiaSemana2 = diaSemana;
+                    string Fecha2 = txtFecha.Text;
+                    string Hora2 = ddlHoraTurno.SelectedItem.ToString();
+                    string CuitDni2 = txtCuitDni.Text;
+                    string Patente2 = txtPatente.Text;
+                    string IdHorario2 = ddlHoraTurno.SelectedValue.ToString();
 
-                    for (int i = 1; i < cantidad + 1; i++)
+                    AccesoDatos datos2 = new AccesoDatos();
+                    AccesoDatos datos3 = new AccesoDatos();
+
+                    string selectCliente = "SELECT * FROM ExportClientes WHERE CUITDNI = '" +
+                                           txtCuitDni.Text + "'";
+
+                    datos2.SetearConsulta(selectCliente);
+                    datos2.EjecutarLectura();
+
+                    string Cliente2 = "NULL";
+                    string IdCliente2 = "NULL";
+                    string IdVehiculo2 = "NULL";
+
+                    if (datos2.Lector.Read())
                     {
-                        if (i == IdHorario)
+                        IdCliente2 = datos2.Lector["ID"].ToString();
+                        if(txtCuitDni.Text.Length > 8)
                         {
-                            string value = i.ToString();
-
-                            ddlHoraTurno.SelectedValue = value;
-                            ddlHoraTurno.SelectedItem.Enabled = false;
+                            Cliente2 = (string)datos2.Lector["RazonSocial"];
+                        }
+                        else
+                        {
+                            Cliente2 = (string)datos2.Lector["ApeNom"];
                         }
                     }
+
+                    int resultadoVehiculo = ContarResultadosDB3("Vehiculos", "Patente", Patente2, "IdCliente", IdCliente2);
+
+                    if (resultadoVehiculo != 0)
+                    {
+                        string selectIdVehiculo = "SELECT ID as ID FROM Vehiculos WHERE " +
+                                                  "Patente = '" + Patente2 + "' AND " +
+                                                  "IdCliente = " + IdCliente2;
+
+                        datos3.SetearConsulta(selectIdVehiculo);
+                        datos3.EjecutarLectura();
+
+                        if (datos3.Lector.Read())
+                        {
+                            IdVehiculo2 = datos3.Lector["ID"].ToString();
+                        }
+
+                        //EJECUTAR UPDATE EN DB
+                        if (DiaSemana2 != DiaSemana1) { DiaSemana1 = DiaSemana2; }
+                        if (Fecha2 != Fecha1) { Fecha1 = Fecha2; }
+                        if (Hora2 != Hora1) { Hora1 = Hora2; }
+                        if (Cliente2 != Cliente1) { IdCliente1 = IdCliente2; }
+                        if (Patente2 != Patente1) { IdVehiculo1 = IdVehiculo2; }
+                        if (IdHorario2 != IdHorario1) { IdHorario1 = IdHorario2; }
+
+                        string updateTurno = "UPDATE Turnos SET IdCliente = " + IdCliente1 + 
+                                             ", IdVehiculo = " + IdVehiculo1 + ", " +
+                                             "Dia = '" + DiaSemana1 + "', " +
+                                             "FechaHora = '" + Fecha1 + " " + Hora1 + "', " +
+                                             "IdHorario = " + IdHorario1 +
+                                             " WHERE ID = " + IDTurno;
+
+                        int resultadoTurnoDuplicado = ContarResultadosDB4("ExportTurnos", "Fecha", Fecha1, "Hora", Hora1, "Cliente", Cliente1);
+                        if (resultadoTurnoDuplicado != 0)
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('Ya hay un turno para otro cliente el día " + DiaSemana1 + 
+                            " " + Fecha1 + " a las " + Hora1 + "hs.')", true);
+                        }
+                        else
+                        {
+                            try
+                            {
+                                sentencia.IUD(updateTurno);
+
+                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                "alert('Turno modificado con éxito.')", true);
+
+                                string script = @"<script type='text/javascript'>
+
+                                            location.href='ABMTurnos.aspx';
+
+                                       </script>";
+
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                            }
+                            catch
+                            {
+                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                "alert('Se produjo un error al intentar modificar el Turno.\\n\\n" +
+                                "Por favor reintente en unos minutos...')", true);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('La patente ingresada no existe en la base de datos.')", true);
+                    }
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('El CUIT / DNI ingresado no existe en la base de datos.')", true);
                 }
             }
-            catch
+            else 
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Error al calcular la cantidad de horarios en la DB.')", true);
-            }
-            finally
-            {
-                datos.CerrarConexion();
-                datos2.CerrarConexion();
+                "alert('La fecha ingresada es anterior al día de hoy.\\n\\n" +
+                "No se pueden modificar turnos ya cumplidos.')", true);
+
+                BindData(); 
             }
         }
-        */
     }
 }

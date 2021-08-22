@@ -225,6 +225,25 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             fecha + ", a las " + hora + "" +
                             "hs, para el cliente " + cliente + " " +
                             "se ha agregado correctamente')", true);
+
+                            AccesoDatos datos5 = new AccesoDatos();
+
+                            datos5.SetearConsulta("SELECT ID AS ID FROM Turnos WHERE " +
+                                                  "IdCliente = " + IDCliente + " AND " +
+                                                  "IdVehiculo = " + IDVehiculo + " AND " +
+                                                  "CONVERT(VARCHAR(10),FechaHora,105) = '" + fecha + "' AND " +
+                                                  "CONVERT(VARCHAR(5),FechaHora,108) = '" + hora + "'");
+
+                            string IDTurno = "NULL";
+
+                            if (datos5.Lector.Read())
+                            {
+                                IDTurno = datos.Lector["ID"].ToString();
+                            }
+
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('El ID de su turno es " + ID + "\\n\\n" +
+                            "Por favor consérvelo !!!.')", true);
                         }
                     }
                     catch
