@@ -17,7 +17,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 BindData();
 
-                string selectDdlTiposServicio = "SELECT * FROM TiposServicio ORDER BY Descripcion ASC";
+                string selectDdlTiposServicio = "SELECT * FROM TiposServicio " +
+                                                "WHERE Estado = 1 ORDER BY Descripcion ASC";
 
                 ddlTiposServicio.DataSource = sentencia.DSET(selectDdlTiposServicio);
                 ddlTiposServicio.DataMember = "datos";

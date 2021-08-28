@@ -77,6 +77,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 btnExportExcel.Enabled = true;
                 btnExportExcel.Visible = true;
                 btnDelete.Visible = false;
+                btnCompletarTurno.Visible = false;
             }
             else
             {
@@ -86,6 +87,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 btnExportExcel.Enabled = false;
                 btnExportExcel.Visible = false;
                 btnDelete.Visible = false;
+                btnCompletarTurno.Visible = false;
             }
 
             dgvTurnos.Visible = true;
@@ -169,6 +171,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 txtPatente.Visible = false;
                 ddlHoraTurno.Visible = false;
                 btnUpdate.Visible = false;
+                btnDelete.Visible = false;
+                btnCompletarTurno.Visible = false;
 
                 if (seleccion == "Hoy")
                 {
@@ -497,6 +501,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     ddlFiltroBuscar.SelectedValue = "0";
                     txtBuscarFiltro.Text = "";
                     btnDelete.Visible = true;
+                    btnCompletarTurno.Visible = true;
 
                     //CARGAR DDL HORARIOS DENTRO DE POPUP
                     string selectddl = "select * from HorariosLunesViernes";
@@ -603,21 +608,30 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             AccesoDatos sentecia = new AccesoDatos();
 
             string IdTurno = Session["IdTurno"].ToString();
+            DateTime FechaHora = Convert.ToDateTime(Session["Fecha"].ToString() + " " + Session["Hora"].ToString());
 
             try
             {
-                sentencia.IUD("DELETE FROM Turnos WHERE ID = " + IdTurno);
+                if (FechaHora < DateTime.Now)
+                {
+                    sentencia.IUD("DELETE FROM Turnos WHERE ID = " + IdTurno);
 
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Turno cancelado con éxito.')", true);
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Turno cancelado con éxito.')", true);
 
-                string script = @"<script type='text/javascript'>
+                    string script = @"<script type='text/javascript'>
 
                                             location.href='ABMTurnos.aspx';
 
                                        </script>";
 
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('El turno no se puede cancelar, pasó su fecha y hora de reserva.')", true);
+                }
             }
             catch
             {
@@ -808,6 +822,47 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 "No se pueden modificar turnos ya cumplidos.')", true);
 
                 BindData(); 
+            }
+        }
+
+        protected void btnCompletarTurno_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string IdTurno = Session["IdTurno"].ToString();
+                DateTime FechaHora = Convert.ToDateTime(Session["Fecha"].ToString() + " " + Session["Hora"].ToString());
+
+                if (FechaHora < DateTime.Now)
+                {
+                    string completarTurno = "UPDATE Turnos SET Estado = 'Completado' " +
+                                        "WHERE ID = " + IdTurno;
+
+                    sentencia.IUD(completarTurno);
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Turno completado con éxito.')", true);
+
+                    string script = @"<script type='text/javascript'>
+
+                                            location.href='ABMTurnos.aspx';
+
+                                       </script>";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('El turno sólo podrá ser completado, luego de que transcurra su fecha y hora de reserva.')", true);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('No se pudo completar el turno.\\n\\n" +
+                "Por favor reintente en unos minutos...')", true);
+
+                BindData();
             }
         }
     }

@@ -38,6 +38,8 @@
 
     <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Cancelar Turno" onclientclick="return confirm('¿Seguro que desea cancelar el Turno?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: middle;" />
     
+    <asp:Button ID="btnCompletarTurno" runat="server" Text="Completar Turno" ToolTip="Completar Turno" onclientclick="return confirm('¿Seguro que desea marcar el Turno como completado?');" onclick="btnCompletarTurno_Click" Style="vertical-align: middle;" />
+    
     <div id="overlay" class="overlay" align="center">
 
         <div id="popup" class="popup">
@@ -112,6 +114,7 @@
                 <asp:BoundField DataField="Cliente" HeaderText="Cliente" ReadOnly="True" SortExpression="Cliente" />
                 <asp:BoundField DataField="CUIT_DNI" HeaderText="CUIT / DNI" ReadOnly="True" SortExpression="CUIT_DNI" />
                 <asp:BoundField DataField="Patente" HeaderText="Patente" ReadOnly="True" SortExpression="Patente" />
+                <asp:BoundField DataField="Estado" HeaderText="Estado" ReadOnly="True" SortExpression="Estado" />
             </Columns>
             
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

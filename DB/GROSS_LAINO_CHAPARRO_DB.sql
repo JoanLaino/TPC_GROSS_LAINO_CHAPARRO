@@ -434,8 +434,19 @@ create table Turnos(
 	IdVehiculo bigint not null foreign key references Vehiculos(ID),
 	Dia varchar(9) not null check (Dia <> 'Domingo' OR Dia <> 'Sunday'),
     FechaHora datetime unique not null check ((DATENAME(WEEKDAY, FechaHora)) <> 'Domingo'),
-	IDHorario int not null foreign key references HorariosLunesViernes(ID) --(del 1 al 20)
+	IDHorario int not null foreign key references HorariosLunesViernes(ID), --(del 1 al 20)
+	Estado varchar(10) not null default('Pendiente') check (Estado = 'Pendiente' OR Estado = 'Completado' OR Estado = 'Cancelado')
 )
+GO
+
+create trigger TR_CANCELAR_TURNO on Turnos
+instead of delete
+as
+begin
+	declare @IdTurno bigint = (select ID from deleted)
+
+	update Turnos set Estado = 'Cancelado' where ID = @IdTurno
+end
 GO
 
 create view ExportTurnos
@@ -443,7 +454,8 @@ as
 select ID as ID, Dia as Dia, CONVERT(VARCHAR(10),FechaHora,105) as Fecha, CONVERT(VARCHAR(5),FechaHora,108) as Hora,
 isnull((select C.ApeNom from Clientes C where ID = T.IdCliente),(select C.RazonSocial from Clientes C where ID = T.IdCliente)) as Cliente, 
 (select C.CUIT_DNI from Clientes C where ID = T.IdCliente) as CUIT_DNI, (select V.Patente from Vehiculos V where ID = T.IdVehiculo) as Patente,
-IDHorario as IDHorario, IdTipoServicio as IdTipoServicio, (select TS.Descripcion from TiposServicio TS where ID = IdTipoServicio) as TipoServicio
+IDHorario as IDHorario, IdTipoServicio as IdTipoServicio, (select TS.Descripcion from TiposServicio TS where ID = IdTipoServicio) as TipoServicio,
+Estado as Estado
 from Turnos T
 GO
 
@@ -502,6 +514,7 @@ GO
 insert into Turnos(IdTipoServicio, IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
 values (1, 1, 1, 'Sábado', '22-08-2022 09:30:00.000', 
 (select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
+GO
 
 insert into TiposServicio(Descripción) values('Revisión de aceite')
 insert into TiposServicio(Descripción) values('Revisión de filtros')
@@ -509,3 +522,24 @@ insert into TiposServicio(Descripción) values('Revisión de aceite y filtros')
 insert into TiposServicio(Descripción) values('Revisión de líquido refrigerante')
 insert into TiposServicio(Descripción) values('Revisión de líquido de frenos')
 insert into TiposServicio(Descripción) values('Revisión general')
+GO
+
+create trigger TR_ELIMINAR_TIPO_SERVICIO on TiposServicio
+instead of delete
+as
+begin
+	declare @IdTipoServicio int = (select ID from deleted)
+	declare @Estado bit = (select Estado from deleted)
+
+	if @Estado = 0
+		begin
+			update TiposServicio set Estado = 1 where ID = @IdTipoServicio
+		end
+
+		else
+
+		begin
+			update TiposServicio set Estado = 0 where ID = @IdTipoServicio
+		end
+end
+GO
