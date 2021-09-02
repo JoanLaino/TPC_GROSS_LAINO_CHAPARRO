@@ -612,26 +612,18 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             try
             {
-                if (FechaHora < DateTime.Now)
-                {
-                    sentencia.IUD("DELETE FROM Turnos WHERE ID = " + IdTurno);
+                sentencia.IUD("DELETE FROM Turnos WHERE ID = " + IdTurno);
 
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Turno cancelado con éxito.')", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Turno cancelado con éxito.')", true);
 
-                    string script = @"<script type='text/javascript'>
+                string script = @"<script type='text/javascript'>
 
-                                            location.href='ABMTurnos.aspx';
+                                        location.href='ABMTurnos.aspx';
 
-                                       </script>";
+                                   </script>";
 
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
-                }
-                else
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('El turno no se puede cancelar, pasó su fecha y hora de reserva.')", true);
-                }
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
             }
             catch
             {
@@ -821,7 +813,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 "alert('La fecha ingresada es anterior al día de hoy.\\n\\n" +
                 "No se pueden modificar turnos ya cumplidos.')", true);
 
-                BindData(); 
+                if (diaSemana != "Sunday")
+                {
+                    BindData();
+                }
             }
         }
 
