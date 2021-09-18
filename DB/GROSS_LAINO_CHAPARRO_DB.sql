@@ -500,7 +500,8 @@ create view ExportVehiculos
 as
 	SELECT V.ID as ID, V.Patente as Patente, (select M.Descripcion from MarcasVehiculo M 
 	Where M.ID = V.IdMarca) as Marca, V.Modelo as Modelo, V.AnioFabricacion as 'Año de fabricación',
-	CONVERT(VARCHAR(10),V.FechaAlta,105) as 'Fecha de alta', (select isnull(C.ApeNom, C.RazonSocial) from Clientes C Where C.ID = V.IdCliente)
+	CONVERT(VARCHAR(10),V.FechaAlta,105) as 'Fecha de alta', (select C.CUIT_DNI from Clientes C Where C.ID = V.IdCliente) 
+	as CUITDNI, (select isnull(C.ApeNom, C.RazonSocial) from Clientes C Where C.ID = V.IdCliente)
 	as Cliente, Estado as Estado from Vehiculos V
 GO
 

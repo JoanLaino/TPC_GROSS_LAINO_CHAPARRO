@@ -8,6 +8,8 @@
     <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Cliente" ImageUrl="~/img/find-logo.png" onclick="imgBtnBuscar_Click" Style="vertical-align: middle;" cssclass="btn-buscar-filtro-abm" />
     <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." Style="width: 320px; height: 30px !important; vertical-align: middle;" ></asp:TextBox>
 
+    <asp:Button id="btnAbmVehiculos" runat="server" text="ABM - Vehículos" CssClass="btn-abm-vehiculos" OnClick="btnAbmVehiculos_Click" />
+
     <button id="btnPopUpAgregarCliente" ToolTip="Agregar nuevo Cliente" class="btnAddNewClient">Agregar Nuevo</button>
 
     <br /><br />

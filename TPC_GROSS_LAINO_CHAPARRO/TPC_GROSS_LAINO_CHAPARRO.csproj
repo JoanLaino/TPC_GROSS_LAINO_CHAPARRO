@@ -118,6 +118,7 @@
     <Content Include="ABMTiposProducto.aspx" />
     <Content Include="ABMTurnos.aspx" />
     <Content Include="ABMUsuario.aspx" />
+    <Content Include="ABMVehiculos.aspx" />
     <Content Include="About.aspx" />
     <Content Include="catalogoProductos.aspx" />
     <Content Include="Contact.aspx" />
@@ -353,6 +354,13 @@
     </Compile>
     <Compile Include="ABMUsuario.aspx.designer.cs">
       <DependentUpon>ABMUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ABMVehiculos.aspx.cs">
+      <DependentUpon>ABMVehiculos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMVehiculos.aspx.designer.cs">
+      <DependentUpon>ABMVehiculos.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">

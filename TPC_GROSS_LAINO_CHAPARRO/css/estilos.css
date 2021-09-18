@@ -357,7 +357,7 @@
     text-shadow: black 0.1em 0.1em 1.9em;
     box-shadow: 0 4px 6px -6px black;
     position: relative;
-    left: 223px;
+    left: 92px;
 }
 
 .btnAddNewClient:hover {
@@ -957,4 +957,56 @@
 
 .dgv-turnos {
     display: none;
+}
+
+.btn-abm-vehiculos {
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #142382;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    vertical-align: middle;
+    position: relative;
+    left: 53px;
+}
+
+.btn-abm-vehiculos:hover {
+    background-color: #ffffff;
+    color: #142382;
+}
+
+.dgv-abm-vehiculos {
+    position: relative;
+    text-align: center;
+    top: -8px;
+}
+
+.btn-export-excel-abm-vehiculos {
+    left: 669px;
+    top: -38px;
+}
+
+.btn-editar-abm-vehiculos {
+    position: relative;
+    left: 445px;
+    top: -68px;
+}
+
+.btn-agregar-vehiculo {
+    position: relative;
+    left: -301px;
+    top: 22px;
+}
+
+.btn-eliminar-vehiculo {
+    position: relative;
+    left: 396px;
+    top: 22px;
 }

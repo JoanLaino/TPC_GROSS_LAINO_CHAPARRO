@@ -378,6 +378,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         }
 
+        protected void btnAbmVehiculos_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMVehiculos.aspx");
+        }
+
         //protected void buscarCliente(object sender, EventArgs e)
         //{
         //List<Cliente> filtro;
