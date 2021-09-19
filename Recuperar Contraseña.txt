@@ -1,4 +1,0 @@
-Generar un link que se envie por mail al seleccionar recuperar contraseña.
-
-Ingresando a ese link aparecerán los campos de la contraseña nueva y se
- hará un update de la contraseña de ese usuario.

@@ -61,11 +61,11 @@ INSERT INTO MarcasProducto(Descripcion) values('Water')
 INSERT INTO MarcasProducto(Descripcion) values('Dot3')
 GO
 
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 'Lubricante muy bueno', 'https://live.staticflickr.com/3771/12164538394_32d87cf00b_b.jpg', 1, 3, 1, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446, 'Aceite 15W40', 'https://lubricentrocarlitos.com.ar/wp-content/uploads/2017/10/elaion-f50.jpg', 2, 2, 1, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447, 'Líquido refrigerante concentrado', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shell_lub.png/200px-Shell_lub.png', 5, 1, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448, 'Agua destilada', 'https://http2.mlstatic.com/D_NQ_NP_710724-MLA43593591234_092020-V.jpg', 4, 4, 2, '2021-05-15', '2021-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449, 'Líquido de frenos', 'https://st2.depositphotos.com/1439888/11103/i/600/depositphotos_111033484-stock-photo-brake-fluid-with-disc-brake.jpg', 3, 5, 3, '2021-05-15', '2021-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 'Lubricante muy bueno', 'https://live.staticflickr.com/3771/12164538394_32d87cf00b_b.jpg', 1, 3, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446, 'Aceite 15W40', 'https://lubricentrocarlitos.com.ar/wp-content/uploads/2017/10/elaion-f50.jpg', 2, 2, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447, 'Líquido refrigerante concentrado', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shell_lub.png/200px-Shell_lub.png', 5, 1, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448, 'Agua destilada', 'https://http2.mlstatic.com/D_NQ_NP_710724-MLA43593591234_092020-V.jpg', 4, 4, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449, 'Líquido de frenos', 'https://st2.depositphotos.com/1439888/11103/i/600/depositphotos_111033484-stock-photo-brake-fluid-with-disc-brake.jpg', 3, 5, 3, '2021-05-15', '2023-09-15', 10, 20, 5)
 GO
 
 create table TiposCliente(
@@ -444,8 +444,17 @@ instead of delete
 as
 begin
 	declare @IdTurno bigint = (select ID from deleted)
+	declare @Estado varchar(10) = (select Estado from deleted)
 
-	update Turnos set Estado = 'Cancelado' where ID = @IdTurno
+	if @Estado = 'Cancelado'
+		begin
+			delete from Turnos where ID = @IdTurno
+		end
+
+	else
+		begin
+			update Turnos set Estado = 'Cancelado' where ID = @IdTurno
+		end
 end
 GO
 
@@ -493,12 +502,16 @@ begin
 end
 GO
 
-EXEC SP_AGREGAR_VEHICULO 'ABC123', 2, 'Corsa', 2006, 1
+EXEC SP_AGREGAR_VEHICULO 'AAD123', 2, 'Corsita', 2006, 1
+GO
+
+EXEC SP_AGREGAR_VEHICULO 'KTJ262', 2, 'Classic', 2011, 1
 GO
 
 create view ExportVehiculos
 as
-	SELECT V.ID as ID, V.Patente as Patente, (select M.Descripcion from MarcasVehiculo M 
+	SELECT V.ID as ID, V.Patente as Patente, (select M.ID from MarcasVehiculo M 
+	Where M.ID = V.IdMarca) as IdMarca, (select M.Descripcion from MarcasVehiculo M 
 	Where M.ID = V.IdMarca) as Marca, V.Modelo as Modelo, V.AnioFabricacion as 'Año de fabricación',
 	CONVERT(VARCHAR(10),V.FechaAlta,105) as 'Fecha de alta', (select C.CUIT_DNI from Clientes C Where C.ID = V.IdCliente) 
 	as CUITDNI, (select isnull(C.ApeNom, C.RazonSocial) from Clientes C Where C.ID = V.IdCliente)
@@ -517,12 +530,12 @@ values (1, 1, 1, 'Sábado', '22-08-2022 09:30:00.000',
 (select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
 GO
 
-insert into TiposServicio(Descripción) values('Revisión de aceite')
-insert into TiposServicio(Descripción) values('Revisión de filtros')
-insert into TiposServicio(Descripción) values('Revisión de aceite y filtros')
-insert into TiposServicio(Descripción) values('Revisión de líquido refrigerante')
-insert into TiposServicio(Descripción) values('Revisión de líquido de frenos')
-insert into TiposServicio(Descripción) values('Revisión general')
+insert into TiposServicio(Descripcion) values('Revisión de aceite')
+insert into TiposServicio(Descripcion) values('Revisión de filtros')
+insert into TiposServicio(Descripcion) values('Revisión de aceite y filtros')
+insert into TiposServicio(Descripcion) values('Revisión de líquido refrigerante')
+insert into TiposServicio(Descripcion) values('Revisión de líquido de frenos')
+insert into TiposServicio(Descripcion) values('Revisión general')
 GO
 
 create trigger TR_ELIMINAR_TIPO_SERVICIO on TiposServicio

@@ -11,7 +11,6 @@
             background-position: center;
         }
     </style>
-
     
     <div class="calendario-turnos" >
         <center>

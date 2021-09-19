@@ -8,13 +8,13 @@
     <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Cliente" onclick="imgBtnBuscar_Click" ImageUrl="~/img/find-logo.png" Style="vertical-align: middle;" cssclass="btn-buscar-filtro-abm" />
     <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." Style="width: 320px; height: 30px !important; vertical-align: middle;" />
     <asp:DropDownList id="ddlFiltroBuscar" runat="server" AppendDataBoundItems="true" Style="height: 30px; vertical-align: middle;">
-        <asp:ListItem Value="CUITDNI">CUIT-DNI</asp:ListItem>
         <asp:ListItem Value="Patente">Patente</asp:ListItem>
+        <asp:ListItem Value="CUITDNI">CUIT-DNI</asp:ListItem>
     </asp:DropDownList>
 
     <br /><br /><br />
 
-    <table BorderStyle="Inset" BorderWidth="5px" style="width:30%; border: solid; border-color: black; background-color: rgb(255 255 255);">
+    <table id="tblVehiculos" class="tblVehiculos-style" BorderStyle="Inset" BorderWidth="5px">
     
         <tr>
             <td Style="padding: .5rem;">
@@ -44,7 +44,7 @@
 
     <div id="overlay" class="overlay" align="center">
 
-        <div id="popup" class="popup">
+        <div id="popup" class="popup popup-estilo">
 
 		        <div align="center">
                     <h5 class="ttl-registro">Registro de vehículo</h5>
@@ -66,7 +66,7 @@
                         <asp:ListItem Value="0">Año de fabricación</asp:ListItem>
                         </asp:DropDownList>
                         <br /><br />
-                        <asp:Button ID="btnCancelar" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" onclientclick="return confirm('¿Seguro que desea cancelar?');"  />
+                        <asp:Button ID="btnCancelar" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" onclick="btnCerraPopup_Click" onclientclick="return confirm('¿Seguro que desea cancelar?');"  />
                         <asp:Button ID="btnConfirmar" runat="server" ToolTip="Agregar Vehículo" Text="Agregar Vehículo" width="150px" CssClass="btn-confirmar-turno-1" onclientclick="return confirm('¿Los datos ingresados son correctos?');"  />
                     </center>
                 </div>
@@ -78,7 +78,7 @@
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-vehiculos" OnClick="btnExportExcel_Click" />
 
     <button ID="btnAgregarVehiculo" ToolTip="Agregar Vehículo" width="80px" Class="btn-agregar-vehiculo" >Agregar vehículo</button>
-    <asp:Button ID="Button2" runat="server" ToolTip="Eliminar Vehículo" Text="Eliminar vehículo" CssClass="btn-eliminar-vehiculo" onclientclick="return confirm('¿Seguro que desea eliminar el vehículo?');" />
+    <asp:Button ID="btnEliminar" runat="server" ToolTip="Eliminar Vehículo" Text="Eliminar vehículo" CssClass="btn-eliminar-vehiculo" OnClick="btnEliminar_Click" onclientclick="return confirm('¿Seguro que desea eliminar el vehículo?');" />
 
     <center>
         <asp:GridView ID="dgvVehiculos" runat="server" AllowSorting="True" OnSorting="dgvVehiculos_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-vehiculos" DataKeyNames="ID">
@@ -145,5 +145,24 @@
             popup.classList.remove('active');
         });
     </script>
+
+  <%--  <script>
+        var imgBtnBuscar = document.getElementById('imgBtnBuscar'),                
+        var ddlFiltroBuscar = document.getElementById('ddlFiltroBuscar'),
+        var seleccionado = ddlFiltroBuscar.options[ddlFiltroBuscar.selectedIndex].text;
+        alert(seleccionado);
+
+        
+        imgBtnBuscar.addEventListener('click', function (e) {
+            
+            if (ddlFiltroBuscar.select == 'CUIT-DNI') {
+
+                tblVehiculos.classList.add('invisible');
+            } else if (ddlFiltroBuscar == 'Patente') {
+                tblVehiculos.classList.remove('invisible');
+            }
+        }      
+       
+    </script>--%>
 
 </asp:Content>

@@ -1010,3 +1010,16 @@
     left: 396px;
     top: 22px;
 }
+
+.tblVehiculos-style {
+/*    display: initial;*/
+    width: 30%;
+    border: solid;
+    border-color: black;
+    background-color: rgb(255 255 255);
+}
+
+/*.tblVehiculos-style.invisible{
+    display: none;
+}*/
+

@@ -270,7 +270,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                 fecha + ", a las " + hora + "" +
                                 "hs, para el cliente " + cliente + " " +
                                 "se ha agregado correctamente.\\n\\n" +
-                                "El ID de su turno es " + IDTurno + ". Por favor consérvelo !!!.')", true);
+                                "Su código de reserva es " + IDTurno + ". Por favor consérvelo!!!.')", true);
                             }
                         }
                         else
