@@ -100,6 +100,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             ddlHoraTurno.Visible = false;
             txtCuitDni.Visible = false;
             txtPatente.Visible = false;
+            txtBorrarTurnosPorPatente.Visible = false;
+            btnBorrarTurnosPorPatente.Text = "Borrar Turnos por Patente";
         }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
@@ -858,6 +860,92 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 "Por favor reintente en unos minutos...')", true);
 
                 BindData();
+            }
+        }
+
+        protected void btnBorrarTurnosPorPatente_Click(object sender, EventArgs e)
+        {
+            if (btnBorrarTurnosPorPatente.Text == "Borrar Turnos por Patente")
+            {
+                txtBorrarTurnosPorPatente.Visible = true;
+                btnBorrarTurnosPorPatente.Text = "Eliminar";
+            }
+            else if (txtBorrarTurnosPorPatente.Text != "")
+            {
+                AccesoDatos datos = new AccesoDatos();
+                AccesoDatos datos2 = new AccesoDatos();
+                AccesoDatos sentencia = new AccesoDatos();
+
+                string patente = txtBorrarTurnosPorPatente.Text;
+
+                string deleteTurnosVehiculo = "DELETE FROM Turnos WHERE " +
+                "(SELECT ID FROM Vehiculos V WHERE V.Patente = '" + patente + "') = IdVehiculo";
+
+                string selectCountVehiculos = "SELECT COUNT(*) as Cantidad FROM Vehiculos V " +
+                "WHERE V.Patente = '" + patente + "'";
+
+                string selectCountTurnos = "SELECT COUNT(*) as Cantidad FROM Turnos T " +
+                "WHERE (SELECT ID FROM Vehiculos V WHERE V.Patente = '" + patente + "') = T.IdVehiculo";
+
+                int existeVehiculo = 0, existenTurnos = 0;
+
+                try
+                {
+                    datos.SetearConsulta(selectCountVehiculos);
+                    datos.EjecutarLectura();
+
+                    datos2.SetearConsulta(selectCountTurnos);
+                    datos2.EjecutarLectura();
+
+                    if (datos.Lector.Read() == true && datos2.Lector.Read() == true)
+                    {
+                        existeVehiculo = Convert.ToInt32(datos.Lector["Cantidad"]);
+                        existenTurnos = Convert.ToInt32(datos2.Lector["Cantidad"]);
+                    }
+
+                    if (existeVehiculo != 0 && existenTurnos !=0)
+                    {
+                        sentencia.IUD(deleteTurnosVehiculo);
+
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Los turnos del vehículo patente " + patente + ", se han eliminado correctamente.')", true);
+
+                        BindData();
+
+                        string script = @"<script type='text/javascript'>
+
+                                        location.href='ABMTurnos.aspx';
+
+                                   </script>";
+
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                    }
+                    else if (existeVehiculo != 0 && existenTurnos == 0)
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Todavía no existen Turnos para la patente " + patente + ".')", true);
+                    }
+                    else if (existeVehiculo == 0)
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('El vehículo patente " + patente + " no existe en la base de datos.')", true);
+                    }
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('No se puede conectar con la base de datos. Reintente en unos minutos.')", true);
+                }
+                finally
+                {
+                    datos.CerrarConexion();
+                    datos2.CerrarConexion();
+                }
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Texto vacío, debe ingresar una patente.')", true);
             }
         }
     }

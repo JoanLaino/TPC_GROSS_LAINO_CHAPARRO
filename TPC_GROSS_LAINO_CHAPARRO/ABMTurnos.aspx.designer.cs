@@ -51,6 +51,24 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.DropDownList ddlMostrar;
 
         /// <summary>
+        /// Control txtBorrarTurnosPorPatente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBorrarTurnosPorPatente;
+
+        /// <summary>
+        /// Control btnBorrarTurnosPorPatente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBorrarTurnosPorPatente;
+
+        /// <summary>
         /// Control btnExportExcel.
         /// </summary>
         /// <remarks>

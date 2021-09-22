@@ -11,6 +11,7 @@
         <asp:ListItem Value="Patente">Patente</asp:ListItem>
         <asp:ListItem Value="CUITDNI">CUIT-DNI</asp:ListItem>
     </asp:DropDownList>
+    <asp:Label ID="lblBuscar" runat="server" Text="Para modificar o eliminar, se debe buscar por Patente." Style="font-size: 10px; position: relative; top: -25px; left: -387px;" />
 
     <br /><br /><br />
 

@@ -5,12 +5,12 @@
 
     <br />
 
-    <asp:DropDownList ID="ddlFiltroBuscar" runat="server" AppendDataBoundItems="true">
+    <asp:DropDownList ID="ddlFiltroBuscar" runat="server" AppendDataBoundItems="true" Style="height: 31px; vertical-align: top;">
         <asp:ListItem Value="0">Buscar por...</asp:ListItem>
-        <asp:ListItem Value="CUIT_DNI">CUIT / DNI</asp:ListItem>
-        <asp:ListItem Value="Patente">Patente</asp:ListItem>
-        <asp:ListItem Value="Fecha">Fecha</asp:ListItem>
         <asp:ListItem Value="ID">ID</asp:ListItem>
+        <asp:ListItem Value="Patente">Patente</asp:ListItem>
+        <asp:ListItem Value="CUIT_DNI">CUIT / DNI</asp:ListItem>
+        <asp:ListItem Value="Fecha">Fecha</asp:ListItem>
     </asp:DropDownList>
 
     <asp:TextBox ID="txtBuscarFiltro" runat="server" PlaceHolder="Texto buscado..." />
@@ -26,7 +26,10 @@
         <asp:ListItem Value="Cumplidos">Cumplidos</asp:ListItem>
         <asp:ListItem Value="Futuros">Futuros</asp:ListItem>
     </asp:DropDownList>
-    
+
+    <asp:TextBox ID="txtBorrarTurnosPorPatente" runat="server" />
+    <asp:Button ID="btnBorrarTurnosPorPatente" runat="server" Text="Borrar Turnos por Patente" onclick="btnBorrarTurnosPorPatente_Click" />
+
     <br /><br />
 
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-turnos" OnClick="btnExportExcel_Click" />

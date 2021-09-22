@@ -439,6 +439,7 @@ create table Turnos(
 )
 GO
 
+/*
 create trigger TR_CANCELAR_TURNO on Turnos
 instead of delete
 as
@@ -457,6 +458,7 @@ begin
 		end
 end
 GO
+*/
 
 create view ExportTurnos
 as
@@ -526,7 +528,12 @@ as
 GO
 
 insert into Turnos(IdTipoServicio, IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
-values (1, 1, 1, 'Sábado', '22-08-2022 09:30:00.000', 
+values (1, 1, 1, 'Sábado', '24-09-2022 09:30:00.000', 
+(select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
+GO
+
+insert into Turnos(IdTipoServicio, IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
+values (3, 2, 2, 'Viernes', '23-09-2022 10:30:00.000', 
 (select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
 GO
 

@@ -162,14 +162,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             else
             {
                 string selectBuscar = "SELECT * FROM ExportVehiculos " +
-                                      "WHERE " + ddlFiltroBuscar.SelectedValue
+                                      "WHERE " + ddlFiltroBuscar.SelectedValue.ToString()
                                       + " = '" + txtBuscar.Text +
                                       "' ORDER BY [Fecha de alta] ASC";
 
                 dgvVehiculos.DataSource = sentencia.DSET(selectBuscar);
                 dgvVehiculos.DataBind();
 
-                if (ddlFiltroBuscar.SelectedValue == "Patente")
+                if (ddlFiltroBuscar.SelectedValue.ToString() == "Patente")
                 {
                     AccesoDatos datos = new AccesoDatos();
 
@@ -242,8 +242,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     cbEstado.Enabled = false;
                     btnModificar.Enabled = false;
                     btnEliminar.Enabled = false;
-
-                    
                 }
             }
         }
@@ -259,51 +257,71 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             string marca = Session["MarcaVehiculo"].ToString();
             string modelo = Session["ModeloVehiculo"].ToString();
             string anioFabricacion = Session["AnioVehiculo"].ToString();
+            string cliente = Session["ClienteVehiculo"].ToString();
 
-            try
-            {
-                if (txtPatente2.Text != patente || txtModelo2.Text != modelo || ddlMarcaVehiculo2.SelectedValue != marca
-                    || ddlAnioFabricacion2.SelectedValue != anioFabricacion)
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Los campos no coinciden con la base de datos. Por favor revise nuevamente.')", true);
-                }
-                else
-                {
-                    try
-                    {
-                        string id = Session["IdVehiculo"].ToString();
+            AccesoDatos datos2 = new AccesoDatos();
 
-                        string sp_DeleteVehiculo = "DELETE FROM Vehiculos WHERE ID = " + id;
-
-                        sentencia.IUD(sp_DeleteVehiculo);
-
-                        string cliente = Session["ClienteVehiculo"].ToString();
-
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Para el cliente " + cliente + ", se ha eliminado el vehículo patente: " + patente + ".')", true);
-
-                        string script = @"<script type='text/javascript'>
-
-                                            location.href='ABMVehiculos.aspx';
-
-                                       </script>";
-
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
-                    }
-                    catch 
-                    {
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Se ha producido un error al intentar eliminar el Vehículo.\n\n" + "Reintente en unos minutos.')", true);
-                    }
-                }
-            }
-            catch
+            if (txtPatente2.Text != patente || txtModelo2.Text != modelo || ddlMarcaVehiculo2.SelectedValue != marca
+                || ddlAnioFabricacion2.SelectedValue != anioFabricacion)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Se ha producido un error al intentar eliminar el Vehículo.\n\n" + "Reintente en unos minutos.')", true);
+                "alert('Los campos no coinciden con la base de datos. Por favor revise nuevamente.')", true);
+            }
+            else
+            {
+                string id = Session["IdVehiculo"].ToString();
 
-                BindData();
+                string sp_DeleteVehiculo = "DELETE FROM Vehiculos WHERE ID = " + id;
+
+                string selectCountTurnos = "SELECT COUNT(*) as Cantidad FROM Turnos T WHERE " +
+                                           id + " = T.IdVehiculo";
+
+                int CantTurnosVehiculo = 0;
+
+                try
+                {   
+                    datos2.SetearConsulta(selectCountTurnos);
+                    datos2.EjecutarLectura();
+
+                    if (datos2.Lector.Read() == true)
+                    {
+                        CantTurnosVehiculo = Convert.ToInt32(datos2.Lector["Cantidad"]);
+                    }
+
+                    datos2.CerrarConexion();
+
+                    if (CantTurnosVehiculo != 0)
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('El vehículo patente " + patente + ", tiene turnos asociados." +
+                        " Primero debe eliminar dichos turnos y luego reintentar.')", true);
+                    }
+                    else
+                    {
+                        sentencia.IUD(sp_DeleteVehiculo);
+
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Para el cliente " + cliente + ", se ha eliminado el vehículo patente: " + 
+                        patente + ".')", true);
+                    }
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Error al intentar leer la base de datos. Reintente en unos minutos.')", true);
+                }
+                finally
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Puebaaaaaaa')", true);
+
+                    string script = @"<script type='text/javascript'>
+
+                                        location.href='ABMVehiculos.aspx';
+
+                                   </script>";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                }
             }
         }
     }
