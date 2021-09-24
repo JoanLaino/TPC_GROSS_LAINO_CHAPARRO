@@ -72,6 +72,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             ddlAnioFabricacion2.SelectedValue = "0";
             txtPatente2.Text = "";
             txtModelo2.Text = "";
+
+            btnModificar.Visible = false;
+            btnModificar.Enabled = false;
+            btnEliminar.Visible = false;
+            btnEliminar.Enabled = false;
         }
 
         private void cargarDdlAños()
@@ -177,7 +182,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     {
                         datos.SetearConsulta(selectBuscar);
                         datos.EjecutarLectura();
-
+                        
                         if (datos.Lector.Read() == true)
                         {
                             long id = Convert.ToInt64(datos.Lector["ID"]);
@@ -210,8 +215,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             txtPatente2.Enabled = true;
                             txtModelo2.Enabled = true;
                             cbEstado.Enabled = true;
+                            btnModificar.Visible = true;
                             btnModificar.Enabled = true;
+                            btnEliminar.Visible = true;
                             btnEliminar.Enabled = true;
+                        }
+                        else
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('El vehículo patente " + txtBuscar.Text + " no existe en la base de datos.')", true);
                         }
                     }
                     catch
@@ -301,8 +313,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         sentencia.IUD(sp_DeleteVehiculo);
 
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Para el cliente " + cliente + ", se ha eliminado el vehículo patente: " + 
-                        patente + ".')", true);
+                        "alert('El vehiculo patente " + patente + ", del cliente " + 
+                        cliente + ", ha sido eliminado correctamente.')", true);
                     }
                 }
                 catch
@@ -321,6 +333,120 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                    </script>";
 
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                }
+            }
+        }
+
+        protected void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (txtPatente2.Text == "" || ddlMarcaVehiculo2.SelectedValue == "0"
+                || txtModelo2.Text == "" || ddlAnioFabricacion2.SelectedValue == "0")
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Hay campos vacíos. Por favor revise nuevamente.')", true);
+            }
+            else
+            {
+                string id = Session["IdVehiculo"].ToString();
+                string patente = txtPatente2.Text, idMarca = ddlMarcaVehiculo2.SelectedValue.ToString();
+                string modelo = txtModelo2.Text, año = ddlAnioFabricacion2.SelectedValue.ToString();
+                bool estado = cbEstado.Checked;
+
+                AccesoDatos sentencia = new AccesoDatos();
+
+                try
+                {
+                    string updateVehiculo = "EXEC UPDATE_VEHICULO " + id + ", '" + patente + "', " + 
+                                            idMarca + ", '" + modelo + "', " + año + ", " + estado;
+
+                    sentencia.IUD(updateVehiculo);
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('El vehículo se ha modificado correctamente.')", true);
+
+                    BindData();
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se produjo un error al intentar modificar el vehículo.')", true);
+                }
+            }
+        }
+
+        protected void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            if (txtCuitDni.Text == "" || txtPatente.Text == "" || ddlMarcaVehiculo.SelectedValue == "0"
+                || txtModelo.Text == "" || ddlAnioFabricacion.SelectedValue == "0")
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Hay campos vacíos. Debe completar todos.')", true);
+            }
+            else
+            {
+                AccesoDatos datos = new AccesoDatos();
+                AccesoDatos sentencia = new AccesoDatos();
+
+                try
+                {
+                    string cuitDni = txtCuitDni.Text, patente = txtPatente.Text;
+                    string idMarca = ddlMarcaVehiculo.SelectedValue.ToString();
+                    string modelo = txtModelo.Text, año = ddlAnioFabricacion.SelectedValue.ToString();
+
+                    string selectIdCliente = "SELECT C.ID, isnull(RazonSocial, ApeNom) as Cliente FROM " +
+                                             "Clientes C WHERE C.CUIT_DNI = '" + cuitDni + "'";
+
+                    datos.SetearConsulta(selectIdCliente);
+                    datos.EjecutarLectura();
+
+                    long idCliente = 0;
+                    string NombreCliente = "NULL";
+
+                    if (datos.Lector.Read() == true)
+                    {
+                        idCliente = Convert.ToInt64(datos.Lector["ID"]);
+                        NombreCliente = datos.Lector["Cliente"].ToString();
+
+                        string spAgregarVehiculo = "EXEC SP_AGREGAR_VEHICULO '" + patente + "', " + 
+                            idMarca + ", '" + modelo + "', " + año + ", " + idCliente;
+
+                        try
+                        {
+                            sentencia.IUD(spAgregarVehiculo);
+                        }
+                        catch
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('La patente " + patente + ", ya existe en la base de datos.')", true);
+                        }
+
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('El vehículo patente " + patente + ", para el cliente " + NombreCliente + 
+                        ", se ha agregado correctamente.')", true);
+
+                        string script = @"<script type='text/javascript'>
+
+                                        location.href='ABMVehiculos.aspx';
+
+                                   </script>";
+
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('El CUIT/DNI " + cuitDni + " no existe en la base de datos.')", true);
+                    }
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se produjo un error al intentar agregar el vehículo.\n\n" +
+                    "Por favor reintente en unos minutos.')", true);
+                }
+                finally
+                {
+                    datos.CerrarConexion();
                 }
             }
         }

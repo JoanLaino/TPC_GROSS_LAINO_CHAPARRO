@@ -1012,12 +1012,19 @@
 }
 
 .tblVehiculos-style {
-/*    display: initial;*/
+    /*display: none;*/
     width: 30%;
     border: solid;
     border-color: black;
     background-color: rgb(255 255 255);
 }
+
+/*.tblVehiculos-style-2 {
+    width: 30%;
+    border: solid;
+    border-color: black;
+    background-color: rgb(255 255 255);
+}*/
 
 /*.tblVehiculos-style.invisible{
     display: none;

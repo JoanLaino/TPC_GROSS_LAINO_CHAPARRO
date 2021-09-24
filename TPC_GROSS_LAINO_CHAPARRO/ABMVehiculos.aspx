@@ -41,7 +41,7 @@
 
     </table>
 
-    <asp:Button ID="btnModificar" runat="server" ToolTip="Modificar Vehículo" Text="Modificar" width="80px" CssClass="btn-editar-abm-vehiculos" onclientclick="return confirm('¿Confirma el/los cambio/s?');"  />
+    <asp:Button ID="btnModificar" runat="server" ToolTip="Modificar Vehículo" Text="Modificar" width="80px" CssClass="btn-editar-abm-vehiculos" onclientclick="return confirm('¿Confirma el/los cambio/s?');" onclick="btnModificar_Click" />
 
     <div id="overlay" class="overlay" align="center">
 
@@ -68,7 +68,7 @@
                         </asp:DropDownList>
                         <br /><br />
                         <asp:Button ID="btnCancelar" Text="X" runat="server" ToolTip="Cancelar" cssclass="btn-cerrar-popup" onclick="btnCerraPopup_Click" onclientclick="return confirm('¿Seguro que desea cancelar?');"  />
-                        <asp:Button ID="btnConfirmar" runat="server" ToolTip="Agregar Vehículo" Text="Agregar Vehículo" width="150px" CssClass="btn-confirmar-turno-1" onclientclick="return confirm('¿Los datos ingresados son correctos?');"  />
+                        <asp:Button ID="btnConfirmar" runat="server" ToolTip="Agregar Vehículo" Text="Agregar Vehículo" width="150px" CssClass="btn-confirmar-turno-1" onclientclick="return confirm('¿Los datos ingresados son correctos?');" onclick="btnConfirmar_Click" />
                     </center>
                 </div>
 

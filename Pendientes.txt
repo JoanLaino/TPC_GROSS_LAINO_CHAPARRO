@@ -5,6 +5,10 @@
 	hará un update de la contraseña de ese usuario.
 
 
+- ABMTurnos:
+	Crear otra tabla para guardar los turnos eliminados.
+	Hacer un botón para exportarlos.
+
 
 - ABMVehiculos:
 	Método AGREGAR y MODIFICAR.

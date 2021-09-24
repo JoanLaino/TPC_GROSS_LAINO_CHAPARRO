@@ -27,7 +27,7 @@
         <asp:ListItem Value="Futuros">Futuros</asp:ListItem>
     </asp:DropDownList>
 
-    <asp:TextBox ID="txtBorrarTurnosPorPatente" runat="server" />
+    <asp:TextBox ID="txtBorrarTurnosPorPatente" runat="server" tooltip="Ingresar patente" placeholder="Patente..." />
     <asp:Button ID="btnBorrarTurnosPorPatente" runat="server" Text="Borrar Turnos por Patente" onclick="btnBorrarTurnosPorPatente_Click" />
 
     <br /><br />

@@ -564,3 +564,17 @@ begin
 		end
 end
 GO
+
+create procedure UPDATE_VEHICULO(
+	@ID bigint,
+	@Patente varchar(7),
+	@IdMarca bigint,
+	@Modelo varchar(50),
+	@AñoFabricacion int,
+	@Estado bit
+)as
+begin
+	update Vehiculos set Patente = @Patente, IdMarca = @IdMarca, Modelo = @Modelo, 
+	AnioFabricacion = @AñoFabricacion, Estado = @Estado where ID = @ID
+end
+GO
