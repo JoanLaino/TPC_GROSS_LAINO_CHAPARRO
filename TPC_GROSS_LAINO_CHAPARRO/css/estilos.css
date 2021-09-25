@@ -909,6 +909,31 @@
     position: relative;
 }
 
+.btn-export-excel-historico-turnos{
+    border-radius: 50px;
+    border: solid 1px;
+    color: #ffffff;
+    background-color: #9fcecc;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    margin-bottom: 30px;
+    width: 300px;
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+.btn-export-excel-historico-turnos:hover {
+    color: #9fcecc;
+    background-color: #ffffff;
+}
+
 .btn-export-excel:hover {
     color: #9fcecc;
     background-color: #ffffff;

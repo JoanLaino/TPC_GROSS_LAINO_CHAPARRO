@@ -102,6 +102,32 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtPatente.Visible = false;
             txtBorrarTurnosPorPatente.Visible = false;
             btnBorrarTurnosPorPatente.Text = "Borrar Turnos por Patente";
+
+            //Cargar planilla exportHistoricoTurnos
+
+            string selectHistoricoTurnos = "SELECT * FROM ExportTurnosGeneral ORDER BY Fecha DESC, Hora DESC";
+
+            dgvHistoricoTurnos.DataSource = sentencia.DSET(selectHistoricoTurnos);
+            dgvHistoricoTurnos.DataBind();
+        }
+
+        protected void btnExportHistoricoExcel_Click(object sender, EventArgs e)
+        {
+            dgvHistoricoTurnos.Visible = true;
+
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename = Export_Historico_Turnos " + DateTime.Now.ToString() + ".xls");
+            Response.ContentType = "application/vnd.xls";
+
+            System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+
+            System.Web.UI.HtmlTextWriter htmlTextWriter = new HtmlTextWriter(stringWriter);
+            dgvHistoricoTurnos.RenderControl(htmlTextWriter);
+            Response.Write(stringWriter.ToString());
+
+            Response.End();
+
+            dgvHistoricoTurnos.Visible = false;
         }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)

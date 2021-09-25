@@ -159,6 +159,33 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.ImageButton btnUpdate;
 
         /// <summary>
+        /// Control btnExportTurnosGeneral.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportTurnosGeneral;
+
+        /// <summary>
+        /// Control dgvHistoricoTurnos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvHistoricoTurnos;
+
+        /// <summary>
+        /// Control ExportTurnosGeneral.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ExportTurnosGeneral;
+
+        /// <summary>
         /// Control dgvTurnos.
         /// </summary>
         /// <remarks>

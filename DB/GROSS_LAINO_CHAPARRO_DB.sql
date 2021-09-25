@@ -161,6 +161,14 @@ create table TiposServicio(
 )
 GO
 
+insert into TiposServicio(Descripcion) values('Revisión de aceite')
+insert into TiposServicio(Descripcion) values('Revisión de filtros')
+insert into TiposServicio(Descripcion) values('Revisión de aceite y filtros')
+insert into TiposServicio(Descripcion) values('Revisión de líquido refrigerante')
+insert into TiposServicio(Descripcion) values('Revisión de líquido de frenos')
+insert into TiposServicio(Descripcion) values('Revisión general')
+GO
+
 create table Servicios(
 	ID bigint primary key identity (1,1) not null,
 	FechaRealizacion date not null,
@@ -439,26 +447,91 @@ create table Turnos(
 )
 GO
 
-/*
-create trigger TR_CANCELAR_TURNO on Turnos
-instead of delete
+create table TurnosGeneral(
+    ID bigint primary key not null identity(1,1),
+	IdTurnoOriginal bigint not null,
+	TipoServicio varchar(100) not null,
+	Cliente varchar(100) not null,
+	PatenteVehiculo varchar(7) not null,
+	Dia varchar(9) not null,
+    FechaHora datetime not null,
+	Estado varchar(19) not null,
+	FechaHoraCambio datetime not null
+)
+GO
+
+create trigger TR_INSERT_TURNOS_GENERAL on Turnos
+after insert
 as
 begin
-	declare @IdTurno bigint = (select ID from deleted)
-	declare @Estado varchar(10) = (select Estado from deleted)
+	declare @IdTurnoOriginal bigint = (select ID from inserted)
+	declare @IdTipoServicio int = (select IdTipoServicio from inserted)
+	declare @IdCliente bigint = (select IdCliente from inserted)
+	declare @IdVehiculo bigint = (select IdVehiculo from inserted)
+	declare @Dia varchar(9) = (select Dia from inserted)
+	declare @FechaHora datetime = (select FechaHora from inserted)
+	declare @Estado varchar(19) = (select Estado from inserted)
 
-	if @Estado = 'Cancelado'
-		begin
-			delete from Turnos where ID = @IdTurno
-		end
+	declare @TipoServicio varchar(100) = (select Descripcion from TiposServicio where ID = @IdTipoServicio)
+	declare @Cliente varchar(100) = (select isnull(RazonSocial, ApeNom) from Clientes where ID = @IdCliente)
+	declare @Patente varchar(7) = (select Patente from Vehiculos where ID = @IdVehiculo)
 
-	else
-		begin
-			update Turnos set Estado = 'Cancelado' where ID = @IdTurno
-		end
+	declare @FechaHoraCambio datetime = (select getdate())
+
+	insert into TurnosGeneral(IdTurnoOriginal, TipoServicio, Cliente, PatenteVehiculo, Dia, FechaHora, Estado, FechaHoraCambio)
+	values(@IdTurnoOriginal, @TipoServicio, @Cliente, @Patente, @Dia, @FechaHora, @Estado, @FechaHoraCambio)
 end
 GO
-*/
+
+create trigger TR_UPDATE_TURNOS_GENERAL on Turnos
+after update
+as
+begin
+	declare @IdTurnoOriginal bigint = (select ID from inserted)
+	declare @IdTipoServicio int = (select IdTipoServicio from inserted)
+	declare @IdCliente bigint = (select IdCliente from inserted)
+	declare @IdVehiculo bigint = (select IdVehiculo from inserted)
+	declare @Dia varchar(9) = (select Dia from inserted)
+	declare @FechaHora datetime = (select FechaHora from inserted)
+	declare @Estado varchar(19) = (select Estado from inserted)
+
+	declare @TipoServicio varchar(100) = (select Descripcion from TiposServicio where ID = @IdTipoServicio)
+	declare @Cliente varchar(100) = (select isnull(RazonSocial, ApeNom) from Clientes where ID = @IdCliente)
+	declare @Patente varchar(7) = (select Patente from Vehiculos where ID = @IdVehiculo)
+
+	declare @FechaHoraCambio datetime = (select getdate())
+
+	update TurnosGeneral set IdTurnoOriginal = @IdTurnoOriginal,
+							 TipoServicio = @TipoServicio,
+							 Cliente = @Cliente,
+							 PatenteVehiculo = @Patente,
+							 Dia = @Dia,
+							 FechaHora = @FechaHora,
+							 Estado = @Estado,
+							 FechaHoraCambio = @FechaHoraCambio
+	where IdTurnoOriginal = @IdTurnoOriginal
+end
+GO
+
+create trigger TR_DELETE_TURNOS_GENERAL on Turnos
+after delete
+as
+begin
+	declare @IdTurnoOriginal bigint = (select ID from deleted)
+
+	declare @FechaHoraCambio datetime = (select getdate())
+
+	update TurnosGeneral set Estado = 'Cancelado/Eliminado', FechaHoraCambio = @FechaHoraCambio where IdTurnoOriginal = @IdTurnoOriginal
+end
+GO
+
+create view ExportTurnosGeneral
+as
+select ID as ID, IdTurnoOriginal as 'ID Tabla Turnos', Dia as Dia, CONVERT(VARCHAR(10),FechaHora,105) as Fecha, CONVERT(VARCHAR(5),FechaHora,108) as Hora,
+Cliente as Cliente, PatenteVehiculo as Vehiculo, TipoServicio as 'Servicio', Estado as Estado, CONVERT(VARCHAR(10),FechaHoraCambio,105) as FechaCambio,
+CONVERT(VARCHAR(10),FechaHoraCambio,108) as HoraCambio
+from TurnosGeneral
+GO
 
 create view ExportTurnos
 as
@@ -507,7 +580,17 @@ GO
 EXEC SP_AGREGAR_VEHICULO 'AAD123', 2, 'Corsita', 2006, 1
 GO
 
-EXEC SP_AGREGAR_VEHICULO 'KTJ262', 2, 'Classic', 2011, 1
+EXEC SP_AGREGAR_VEHICULO 'KTJ262', 2, 'Classic', 2011, 2
+GO
+
+insert into Turnos(IdTipoServicio, IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
+values (1, 1, 1, 'Sábado', '24-09-2022 09:30:00.000', 
+(select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
+GO
+
+insert into Turnos(IdTipoServicio, IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
+values (3, 2, 2, 'Viernes', '23-09-2022 10:30:00.000', 
+(select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
 GO
 
 create view ExportVehiculos
@@ -525,24 +608,6 @@ as
 	SELECT U.ID as ID, (select T.Descripcion as TipoUser from TiposUsuario T where U.TipoUser = T.ID) as TipoUser,
 	U.Usuario as Usuario, U.Pass as Pass, U.Mail as Mail, CONVERT(VARCHAR(10),U.FechaAlta,105) as FechaAlta,
 	Estado as Estado from Usuarios U
-GO
-
-insert into Turnos(IdTipoServicio, IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
-values (1, 1, 1, 'Sábado', '24-09-2022 09:30:00.000', 
-(select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
-GO
-
-insert into Turnos(IdTipoServicio, IdCliente, IdVehiculo, Dia, FechaHora, IDHorario)
-values (3, 2, 2, 'Viernes', '23-09-2022 10:30:00.000', 
-(select ID from HorariosLunesViernes where LunesViernes LIKE '%09:00%'))
-GO
-
-insert into TiposServicio(Descripcion) values('Revisión de aceite')
-insert into TiposServicio(Descripcion) values('Revisión de filtros')
-insert into TiposServicio(Descripcion) values('Revisión de aceite y filtros')
-insert into TiposServicio(Descripcion) values('Revisión de líquido refrigerante')
-insert into TiposServicio(Descripcion) values('Revisión de líquido de frenos')
-insert into TiposServicio(Descripcion) values('Revisión general')
 GO
 
 create trigger TR_ELIMINAR_TIPO_SERVICIO on TiposServicio

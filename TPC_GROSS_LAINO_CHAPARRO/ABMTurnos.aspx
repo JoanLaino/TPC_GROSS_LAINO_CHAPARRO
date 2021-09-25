@@ -33,6 +33,7 @@
     <br /><br />
 
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-turnos" OnClick="btnExportExcel_Click" />
+
     <Button ID="btnEditar" style="border-radius: 100px; background-color: transparent; border-color: transparent;" >
         
         <img src="img/edit-logo.png" alt="..." class="img-btn-edit-abm" />
@@ -102,7 +103,47 @@
 
     </div>
 
-    <br /><br /><br />
+    <br />
+
+    <asp:Button ID="btnExportTurnosGeneral" runat="server" Text="Exportar histórico Turnos a Excel" cssclass="btn-export-excel-historico-turnos" OnClick="btnExportHistoricoExcel_Click" />
+
+    <center>
+        <asp:GridView ID="dgvHistoricoTurnos" visible="false" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod" DataKeyNames="ID">
+            <AlternatingRowStyle BackColor="White" />
+            
+            <Columns>
+                
+                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
+                <asp:BoundField DataField="ID Tabla Turnos" HeaderText="ID Tabla Turnos" SortExpression="ID Tabla Turnos" />
+                <asp:BoundField DataField="Dia" HeaderText="Día" SortExpression="Dia" />
+                <asp:BoundField DataField="Fecha" HeaderText="Fecha" ReadOnly="True" SortExpression="Fecha" />
+                <asp:BoundField DataField="Hora" HeaderText="Hora" ReadOnly="True" SortExpression="Hora" />
+                <asp:BoundField DataField="Cliente" HeaderText="Cliente" SortExpression="Cliente" />
+                <asp:BoundField DataField="Vehiculo" HeaderText="Vehículo" SortExpression="Vehiculo" />
+                <asp:BoundField DataField="Servicio" HeaderText="Servicio" SortExpression="Servicio" />
+                <asp:BoundField DataField="Estado" HeaderText="Estado" SortExpression="Estado" />
+                <asp:BoundField DataField="FechaCambio" HeaderText="Fecha último cambio" SortExpression="FechaCambio" />
+                <asp:BoundField DataField="HoraCambio" HeaderText="Hora último cambio" SortExpression="HoraCambio" />
+                
+            </Columns>
+            
+            <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <PagerSettings Position="TopAndBottom" />
+            <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+            <SortedAscendingCellStyle BackColor="#FDF5AC" />
+            <SortedAscendingHeaderStyle BackColor="#4D0000" />
+            <SortedDescendingCellStyle BackColor="#FCF6C0" />
+            <SortedDescendingHeaderStyle BackColor="#820000" />
+        </asp:GridView>
+        
+        <asp:SqlDataSource ID="ExportTurnosGeneral" runat="server" ConnectionString="<%$ ConnectionStrings:GROSS_LAINO_CHAPARRO_DBConnectionString %>" SelectCommand="SELECT * FROM [ExportTurnosGeneral] ORDER BY [Fecha] DESC, [Hora] DESC"></asp:SqlDataSource>
+        
+    </center>
+
+    <br /><br />
 
     <center>
         <asp:GridView ID="dgvTurnos" runat="server" AllowSorting="True" OnSorting="dgvTurnos_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod" DataKeyNames="ID">
