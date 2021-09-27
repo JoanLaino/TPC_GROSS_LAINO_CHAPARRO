@@ -4,6 +4,8 @@
 	Ingresando a ese link aparecerán los campos de la contraseña nueva y se
 	hará un update de la contraseña de ese usuario.
 
+- Al completar un turno se deberá generar una orden de servicio.
+
 - ABMs:
 	Revisar diseño CSS.
 

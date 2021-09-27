@@ -59,7 +59,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Error al leer la DB. Línea 60 ABMTurnos.')", true);
+                "alert('Error al intentar leer la base de datos.')", true);
             }
             finally
             {

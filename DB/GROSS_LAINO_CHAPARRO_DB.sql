@@ -171,7 +171,7 @@ GO
 
 create table Servicios(
 	ID bigint primary key identity (1,1) not null,
-	FechaRealizacion date not null,
+	FechaRealizacion date not null default(getdate()),
 	PatenteVehiculo varchar(7) not null foreign key references Vehiculos(Patente),
 	IdTipo int not null foreign key references TiposServicio(ID),
 	Comentarios varchar(400) null,
