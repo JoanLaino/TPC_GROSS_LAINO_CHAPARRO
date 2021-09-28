@@ -171,13 +171,13 @@ GO
 
 create table Servicios(
 	ID bigint primary key identity (1,1) not null,
-	FechaRealizacion date not null default(getdate()),
+	FechaRealizacion datetime not null default(getdate()),
 	PatenteVehiculo varchar(7) not null foreign key references Vehiculos(Patente),
 	IdTipo int not null foreign key references TiposServicio(ID),
 	Comentarios varchar(400) null,
 	IdCliente bigint not null foreign key references Clientes(ID),
 	IdEmpleado bigint not null foreign key references Empleados(ID),
-	Estado varchar(12) not null default('Pendiente') check(Estado = 'Pendiente' OR Estado = 'En ejecución' OR Estado = 'Completado' OR Estado = 'Cancelado')
+	Estado varchar(10) not null default('Pendiente') check(Estado = 'Pendiente' OR Estado = 'Completado')
 )
 GO
 
@@ -270,9 +270,12 @@ GO
 
 Create view ExportServicios
 as 
-select CONVERT(VARCHAR(10),s.FechaRealizacion,105) as 'Fecha de Realizacion', s.PatenteVehiculo as Patente,
+select ID as ID, CONVERT(VARCHAR(10),s.FechaRealizacion,105) as Fecha, s.PatenteVehiculo as Patente,
+(select V.ID from Vehiculos V where V.Patente = PatenteVehiculo) as IdVehiculo,
 (Select ts.Descripcion from TiposServicio ts where ts.id = s.IdTipo) as 'Tipo de Servicio', s.Comentarios as Comentarios,
-(select c.ApeNom from Clientes c where c.ID = s.IdEmpleado) as Cliente
+(select isnull(c.ApeNom,c.RazonSocial) from Clientes c where c.ID = s.IdEmpleado) as Cliente,
+IdCliente as IdCliente, (select E.ApeNom from Empleados E where E.ID = IdEmpleado) as Empleado, IdEmpleado as IdEmpleado,
+CONVERT(VARCHAR(5),s.FechaRealizacion,108) as Hora, Estado as Estado
 from Servicios s
 GO
 
@@ -642,4 +645,8 @@ begin
 	update Vehiculos set Patente = @Patente, IdMarca = @IdMarca, Modelo = @Modelo, 
 	AnioFabricacion = @AñoFabricacion, Estado = @Estado where ID = @ID
 end
+GO
+
+insert into servicios(PatenteVehiculo, IdTipo, comentarios, idcliente, IdEmpleado) values('AAD123', 2, 'Cliente conforme', 1, 1)
+insert into servicios(PatenteVehiculo, IdTipo, comentarios, idcliente, IdEmpleado) values('KTJ262', 4, 'Cliente disconforme', 2, 2)
 GO

@@ -1,17 +1,22 @@
-- Recuperar contraseña:
+1) WhatsApp / Mail / SMS:
+	Definir y codear.
+
+2) ABMServicios:
+	Boton ExportExcel.
+	Crear Tabla ServiciosHistorico.
+	Boton ExportHistoricoServicios.
+	PopUp AgregarNuevo.
+	Botones y funcionalidad de I, U, D individual.
+
+3) Hacer una prueba de funcionamiento para detectar errores en toda la app.
+
+4) ABMs:
+	Revisar diseño CSS.
+
+5) Hacer responsive.
+
+6) Recuperar contraseña:
 	Generar un link que se envie por mail al seleccionar recuperar contraseña.
 
 	Ingresando a ese link aparecerán los campos de la contraseña nueva y se
 	hará un update de la contraseña de ese usuario.
-
-- Al completar un turno se deberá generar una orden de servicio.
-
-- ABMs:
-	Revisar diseño CSS.
-
-- WhatsApp / Mail / SMS:
-	Definir y codear.
-
-- Hacer responsive.
-
-- Hacer una prueba de funcionamiento para detectar errores en toda la app.

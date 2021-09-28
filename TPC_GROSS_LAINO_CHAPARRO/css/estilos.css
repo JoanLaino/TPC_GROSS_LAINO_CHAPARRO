@@ -481,6 +481,7 @@
     text-align: center;
     position: relative;
     top: -50px;
+    left: 0px;
 }
 
 .img-btn-del-tipo-producto {
@@ -1034,6 +1035,13 @@
     position: relative;
     left: 396px;
     top: 22px;
+}
+
+.dgv-abm-servicios {
+    text-align: center;
+    position: relative;
+    top: 0px;
+    left: 0px;
 }
 
 .tblVehiculos-style {

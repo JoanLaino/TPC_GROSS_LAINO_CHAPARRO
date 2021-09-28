@@ -96,6 +96,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.Button btnCompletarTurno;
 
         /// <summary>
+        /// Control ddlEmpleados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEmpleados;
+
+        /// <summary>
         /// Control btnCerraPopup.
         /// </summary>
         /// <remarks>

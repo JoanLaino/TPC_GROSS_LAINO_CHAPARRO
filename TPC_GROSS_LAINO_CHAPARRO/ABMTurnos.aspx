@@ -23,8 +23,9 @@
     <asp:DropDownList ID="ddlMostrar" runat="server" AppendDataBoundItems="true" AutoPostBack="True" OnSelectedIndexChanged="ddlMostrar_SelectedIndexChanged" >
         <asp:ListItem Value="0">Todos</asp:ListItem>
         <asp:ListItem Value="Hoy">De hoy</asp:ListItem>
-        <asp:ListItem Value="Cumplidos">Cumplidos</asp:ListItem>
+        <asp:ListItem Value="Completados">Completados</asp:ListItem>
         <asp:ListItem Value="Futuros">Futuros</asp:ListItem>
+        <asp:ListItem Value="Pendientes">Pendientes</asp:ListItem>
     </asp:DropDownList>
 
     <asp:TextBox ID="txtBorrarTurnosPorPatente" runat="server" tooltip="Ingresar patente" placeholder="Patente..." />
@@ -42,7 +43,11 @@
 
     <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Cancelar Turno" onclientclick="return confirm('¿Seguro que desea cancelar el Turno?');" onclick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: middle;" />
     
-    <asp:Button ID="btnCompletarTurno" runat="server" Text="Completar Turno" ToolTip="Completar Turno" onclientclick="return confirm('¿Seguro que desea marcar el Turno como completado?');" onclick="btnCompletarTurno_Click" Style="vertical-align: middle;" />
+    <asp:Button ID="btnCompletarTurno" runat="server" Text="Completar" ToolTip="Completar Turno" onclick="btnCompletarTurno_Click" Style="vertical-align: middle;" />
+
+    <asp:DropDownList ID="ddlEmpleados" runat="server" AppendDataBoundItems="true" Style="height: 31px; vertical-align: middle;" >
+        <asp:ListItem Value="0" >Seleccione Empleado...</asp:ListItem>
+    </asp:DropDownList>
     
     <div id="overlay" class="overlay" align="center">
 

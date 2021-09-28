@@ -59,7 +59,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Error al intentar leer la base de datos.')", true);
+                "alert('Error en la Base de datos.')", true);
             }
             finally
             {
@@ -103,12 +103,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtBorrarTurnosPorPatente.Visible = false;
             btnBorrarTurnosPorPatente.Text = "Borrar Turnos por Patente";
 
-            //Cargar planilla exportHistoricoTurnos
-
             string selectHistoricoTurnos = "SELECT * FROM ExportTurnosGeneral ORDER BY Fecha DESC, Hora DESC";
 
             dgvHistoricoTurnos.DataSource = sentencia.DSET(selectHistoricoTurnos);
             dgvHistoricoTurnos.DataBind();
+
+            string selectDdlEmpleados = "SELECT * FROM Empleados ORDER BY ApeNom ASC";
+
+            ddlEmpleados.DataSource = sentencia.DSET(selectDdlEmpleados);
+            ddlEmpleados.DataMember = "datos";
+            ddlEmpleados.DataTextField = "ApeNom";
+            ddlEmpleados.DataValueField = "ID";
+            ddlEmpleados.DataBind();
+
+            ddlEmpleados.Visible = false;
         }
 
         protected void btnExportHistoricoExcel_Click(object sender, EventArgs e)
@@ -202,6 +210,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 btnDelete.Visible = false;
                 btnCompletarTurno.Visible = false;
 
+                string consulta_1 = "SELECT * FROM ExportTurnos WHERE TRANSLATE(Fecha,'-','/')";
+                string consulta_2 = "GETDATE()";
+
                 if (seleccion == "Hoy")
                 {
                     if (resultado != 0)
@@ -209,10 +220,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Para el día de hoy, hay " + resultado + " turno/s.')", true);
 
-                        string selectTurnosHoy = "SELECT * FROM ExportTurnos WHERE " +
-                                                 "CONVERT(VARCHAR(10),Fecha,105) " +
-                                                 "= " +
-                                                 "CONVERT(VARCHAR(10),GETDATE(),105) ";
+                        string selectTurnosHoy = consulta_1 + " = " + consulta_2;
 
                         dgvTurnos.DataSource = sentencia.DSET(selectTurnosHoy);
                         dgvTurnos.DataBind();
@@ -232,17 +240,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         txtBuscarFiltro.Text = "";
                     }
                 }
-                else if (seleccion == "Cumplidos")
+                else if (seleccion == "Completados")
                 {
                     if (resultado != 0)
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Al día de hoy, hay " + resultado + " turno/s cumplido/s.')", true);
+                        "alert('Al día de hoy, hay " + resultado + " turno/s completado/s.')", true);
 
-                        string selectTurnosHoy = "SELECT * FROM ExportTurnos WHERE " +
-                                                 "CONVERT(VARCHAR(10),Fecha,105) " +
-                                                 "< " +
-                                                 "CONVERT(VARCHAR(10),GETDATE(),105) ";
+                        string selectTurnosHoy = "SELECT * FROM ExportTurnos WHERE Estado = 'Completado'";
 
                         dgvTurnos.DataSource = sentencia.DSET(selectTurnosHoy);
                         dgvTurnos.DataBind();
@@ -256,7 +261,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     else
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Todavía no hay turnos cumplidos.')", true);
+                        "alert('Todavía no hay turnos completados.')", true);
 
                         ddlFiltroBuscar.SelectedValue = "0";
                         txtBuscarFiltro.Text = "";
@@ -269,10 +274,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Al día de hoy, hay " + resultado + " turno/s futuro/s.')", true);
 
-                        string selectTurnosHoy = "SELECT * FROM ExportTurnos WHERE " +
-                                                 "CONVERT(VARCHAR(10),Fecha,105) " +
-                                                 "> " +
-                                                 "CONVERT(VARCHAR(10),GETDATE(),105) ";
+                        string selectTurnosHoy = consulta_1 + " > " + consulta_2;
 
                         dgvTurnos.DataSource = sentencia.DSET(selectTurnosHoy);
                         dgvTurnos.DataBind();
@@ -287,6 +289,33 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert",
                         "alert('Todavía no hay turnos futuros.')", true);
+
+                        ddlFiltroBuscar.SelectedValue = "0";
+                        txtBuscarFiltro.Text = "";
+                    }
+                }
+                else //Pendientes
+                {
+                    if (resultado != 0)
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Al día de hoy, hay " + resultado + " turno/s pendiente/s.')", true);
+
+                        string selectTurnosPendientes = "SELECT * FROM ExportTurnos WHERE Estado = 'Pendiente'";
+
+                        dgvTurnos.DataSource = sentencia.DSET(selectTurnosPendientes);
+                        dgvTurnos.DataBind();
+
+                        btnExportExcel.Enabled = true;
+                        btnExportExcel.Visible = true;
+                        dgvTurnos.Visible = true;
+                        ddlFiltroBuscar.SelectedValue = "0";
+                        txtBuscarFiltro.Text = "";
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('No hay turnos pendientes por el momento.')", true);
 
                         ddlFiltroBuscar.SelectedValue = "0";
                         txtBuscarFiltro.Text = "";
@@ -309,26 +338,24 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             if (cadena != "null")
             {
+                string consulta_1 = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE CONVERT(date,Fecha,105)";
+                string consulta_2 = "CONVERT(date,GETDATE(),105)";
+
                 if (cadena == "Hoy")
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE " +
-                               "CONVERT(VARCHAR(10),Fecha,105) " +
-                               "= " +
-                               "CONVERT(VARCHAR(10),GETDATE(),105) ";
+                    selectDB = consulta_1 + " = " + consulta_2;
                 }
-                else if (cadena == "Cumplidos")
+                else if (cadena == "Completados")
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE " +
-                               "CONVERT(VARCHAR(10),Fecha,105) " +
-                               "< " +
-                               "CONVERT(VARCHAR(10),GETDATE(),105) ";
+                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE Estado = 'Completado'";
                 }
                 else if (cadena == "Futuros")
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE " +
-                               "CONVERT(VARCHAR(10),Fecha,105) " +
-                               "> " +
-                               "CONVERT(VARCHAR(10),GETDATE(),105) ";
+                    selectDB = consulta_1 + " > " + consulta_2;
+                }
+                else if (cadena == "Pendientes")
+                {
+                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE Estado = 'Pendiente'";
                 }
                 else
                 {
@@ -574,6 +601,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                             string IdCliente = "NULL";
                             string IdVehiculo = "NULL";
+                            string Estado = "NULL";
 
                             try
                             {
@@ -587,12 +615,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                 {
                                     IdCliente = datos2.Lector["IdCliente"].ToString();
                                     IdVehiculo = datos2.Lector["IdVehiculo"].ToString();
+                                    Estado = datos2.Lector["Estado"].ToString();
                                 }
+                                if (Estado == "Completado") { btnCompletarTurno.Visible = false; }
                             }
                             catch
                             {
                                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                                "alert('Error al leer DB. Línea 548 ABMTurnos.')", true);
+                                "alert('Error en la base de datos.')", true);
                             }
                             finally
                             {
@@ -680,7 +710,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 "alert('El día seleccionado es Domingo.\\n\\n" +
                 "Por favor selecciona otro.')", true);
             }
-            if (diaSemana != "Sunday" && fechaIngresada >= DateTime.Now)
+            if (diaSemana != "Sunday")
             {
                 //Datos originales
                 string IDTurno = Session["IdTurno"].ToString();
@@ -837,10 +867,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             else 
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('La fecha ingresada es anterior al día de hoy.\\n\\n" +
-                "No se pueden modificar turnos ya cumplidos.')", true);
-
                 if (diaSemana != "Sunday")
                 {
                     BindData();
@@ -850,42 +876,86 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnCompletarTurno_Click(object sender, EventArgs e)
         {
-            try
+            if (btnCompletarTurno.Text == "Completar Turno")
             {
-                string IdTurno = Session["IdTurno"].ToString();
-                DateTime FechaHora = Convert.ToDateTime(Session["Fecha"].ToString() + " " + Session["Hora"].ToString());
-
-                if (FechaHora < DateTime.Now)
+                try
                 {
-                    string completarTurno = "UPDATE Turnos SET Estado = 'Completado' " +
-                                        "WHERE ID = " + IdTurno;
+                    if (ddlEmpleados.SelectedValue.ToString() == "0")
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Empleado no seleccionado.')", true);
+                    }
+                    else
+                    {
+                        string IdTurno = Session["IdTurno"].ToString();
+                        DateTime FechaHora = Convert.ToDateTime(Session["Fecha"].ToString() + " " + Session["Hora"].ToString());
 
-                    sentencia.IUD(completarTurno);
+                        if (FechaHora < DateTime.Now)
+                        {
+                            string completarTurno = "UPDATE Turnos SET Estado = 'Completado' " +
+                                                "WHERE ID = " + IdTurno;
 
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Turno completado con éxito.')", true);
+                            string Patente = Session["Patente"].ToString();
+                            string IdTipoServicio = Session["IdTipoServicio"].ToString();
+                            string IdCliente = Session["IdCliente"].ToString();
+                            string IdEmpleado = ddlEmpleados.SelectedValue.ToString();
+                            string Comentarios = "ID Turno = " + IdTurno;
+                            string Estado = "Completado";
 
-                    string script = @"<script type='text/javascript'>
+                            string insertServicio = "INSERT INTO Servicios(PatenteVehiculo, IdTipo, Comentarios, " +
+                                                    "IdCliente, IdEmpleado, Estado) " +
+                                                    "values('" + Patente + "', " + IdTipoServicio + ", '" +
+                                                    Comentarios + "', " + IdCliente + ", " + IdEmpleado + ", '" +
+                                                    Estado + "')";
+
+                            AccesoDatos sentencia = new AccesoDatos();
+                            try
+                            {
+                                sentencia.IUD(insertServicio);
+
+                                sentencia.IUD(completarTurno);
+
+                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                "alert('Turno completado y servicio añadido con éxito.')", true);
+
+                                string script = @"<script type='text/javascript'>
 
                                             location.href='ABMTurnos.aspx';
 
                                        </script>";
 
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                                ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
+                            }
+                            catch
+                            {
+                                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                "alert('Se produjo un error y no se completó el turno.')", true);
+                            }
+                        }
+                        else
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                            "alert('El turno no podrá ser completado, antes de la fecha de reserva.')", true);
+                        }
+                    }
                 }
-                else
+                catch
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('El turno sólo podrá ser completado, luego de que transcurra su fecha y hora de reserva.')", true);
+                    "alert('No se pudo completar el turno.\\n\\n" +
+                    "Por favor reintente en unos minutos...')", true);
+
+                    BindData();
                 }
             }
-            catch
+            else
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('No se pudo completar el turno.\\n\\n" +
-                "Por favor reintente en unos minutos...')", true);
+                "alert('Debe seleccionar al empleado. Luego hacer click en el botón completar turno.')", true);
+                
+                ddlEmpleados.Visible = true;
 
-                BindData();
+                btnCompletarTurno.Text = "Completar Turno";
             }
         }
 
