@@ -6,7 +6,7 @@
 	Crear Tabla ServiciosHistorico.
 	Boton ExportHistoricoServicios.
 	PopUp AgregarNuevo.
-	Botones y funcionalidad de I, U, D individual.
+	Funcionalidad de I, U, D individual.
 
 3) Hacer una prueba de funcionamiento para detectar errores en toda la app.
 

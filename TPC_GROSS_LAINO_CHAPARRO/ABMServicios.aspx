@@ -33,6 +33,59 @@
 
     <br /><br />
 
+    <asp:Label ID="lblTabla" runat="server" Font-Size="8" >
+        <span style="padding: .5rem;">
+        Para editar / eliminar un servicio, se debe buscar por ID.
+        </span>
+    </asp:Label>
+
+    <table BorderStyle="Inset" style="width:60%; border-color: black; background-color: rgb(255 255 255);">
+
+        <tr>
+            <td style="padding: .5rem;" align="center">
+                <asp:TextBox ID="txtFechaRealizacion" runat="server" Tooltip="Fecha" placeholder="Fecha" Width="150" />
+                <asp:TextBox ID="txtHoraRealizacion" runat="server" Tooltip="Hora" placeholder="Hora" Width="50" />
+            </td>
+            <td style="padding: .5rem;" align="center">
+                <asp:TextBox ID="txtPatenteVehiculo" runat="server" Tooltip="Patente" placeholder="Patente" Width="200" />
+            </td>
+            <td style="padding: .5rem;" align="center">
+                <asp:DropDownList ID="ddlTipoServicio" runat="server" AppendDataBoundItems="true" Width="200" Height="30" >
+                    <asp:ListItem Value="0">Tipo de servicio</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2" style="padding: .5rem;" align="center">
+                <asp:TextBox ID="txtComentarios" runat="server" Tooltip="Comentarios" placeholder="Comentarios" Width="205px" Height="76px" Font-Size="8" /> <%-- Multiline --%>
+            </td>
+            <td style="padding: .5rem;" align="center">
+                 <asp:DropDownList ID="ddlClientes" runat="server" AppendDataBoundItems="true" Width="200" Height="30" >
+                    <asp:ListItem Value="0">Cliente</asp:ListItem> <%-- Ordenado por nombre ascendente --%>
+                </asp:DropDownList>
+            </td>
+            <td style="padding: .5rem;" align="center" >
+                <asp:DropDownList ID="ddlEmpleados" runat="server" AppendDataBoundItems="true" Width="200" Height="30" >
+                    <asp:ListItem Value="0">Empleado</asp:ListItem> <%-- Ordenado por nombre ascendente --%>
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: .5rem;" align="center" width="300">
+                <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Modificar servicio" onclientclick="return confirm('¿Confirma el cambio?');" OnClick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="vertical-align: bottom !important;" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar servicio" onclientclick="return confirm('¿Seguro que desea eliminar el Servicio?');" OnClick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: bottom !important;" />
+            </td>
+            <td style="padding: .5rem; vertical-align: baseline;" align="center">
+                <asp:CheckBox ID="cbEstado" runat="server" ToolTip="Estado"/>
+                <asp:Label ID="lblEstado" runat="server" Tooltip="Estado" >&nbsp;&nbsp;Estado</asp:Label>
+            </td>
+        </tr>
+
+    </table>
+
+    <br /><br />
+
     <center>
         <asp:GridView ID="dgvServicios" runat="server" AllowSorting="True" OnSorting="dgvTurnos_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="1" CssClass="dgv-abm-servicios" AllowCustomPaging="True">
             <AlternatingRowStyle BackColor="White" />

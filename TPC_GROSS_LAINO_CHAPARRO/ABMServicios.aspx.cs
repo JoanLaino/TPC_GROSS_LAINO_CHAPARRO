@@ -45,6 +45,40 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             dgvServicios.DataSource = sentencia.DSET(selectServicios);
             dgvServicios.DataBind();
+
+            ocultarMostrarCamposModificarEliminar("ocultar");
+        }
+
+        public void ocultarMostrarCamposModificarEliminar(string accion)
+        {
+            if (accion == "ocultar")
+            {
+                txtFechaRealizacion.Visible = false;
+                txtHoraRealizacion.Visible = false;
+                txtPatenteVehiculo.Visible = false;
+                txtComentarios.Visible = false;
+                ddlTipoServicio.Visible = false;
+                ddlClientes.Visible = false;
+                ddlEmpleados.Visible = false;
+                btnUpdate.Visible = false;
+                btnDelete.Visible = false;
+                cbEstado.Visible = false;
+                lblEstado.Visible = false;
+            }
+            else if (accion == "mostrar")
+            {
+                txtFechaRealizacion.Visible = true;
+                txtHoraRealizacion.Visible = true;
+                txtPatenteVehiculo.Visible = true;
+                txtComentarios.Visible = true;
+                ddlTipoServicio.Visible = true;
+                ddlClientes.Visible = true;
+                ddlEmpleados.Visible = true;
+                btnUpdate.Visible = true;
+                btnDelete.Visible = true;
+                cbEstado.Visible = true;
+                lblEstado.Visible = true;
+            }
         }
 
         protected void btnBuscarFiltro_Click(object sender, EventArgs e)
@@ -356,6 +390,16 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
 
             return Resultado;
+        }
+
+        protected void btnDelete_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
+        {
+
         }
     }
 }
