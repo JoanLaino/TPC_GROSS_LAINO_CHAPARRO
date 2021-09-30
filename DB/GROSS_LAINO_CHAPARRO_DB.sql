@@ -683,5 +683,3 @@ begin
 	values(@FechaHora, @Patente, @IdTipo, @Comentarios, @IdCliente, @IdEmpleado, @Estado)
 end
 GO
-
-SELECT * FROM ExportServicios ORDER BY 'Tipo de Servicio' desc
