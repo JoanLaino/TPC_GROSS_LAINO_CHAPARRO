@@ -495,7 +495,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             return Resultado;
         }
 
-        protected void btnBuscarFiltro_Click(object sender, EventArgs e)
+        protected void imgBtnBuscarFiltro_Click(object sender, ImageClickEventArgs e)
         {
             if (ddlFiltroBuscar.SelectedValue == "0")
             {
@@ -542,7 +542,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string txtFiltro = txtBuscarFiltro.Text;
 
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Se muestra a continuación, el turno cuyo ID es igual a " + txtFiltro + "')", true);
+                    "alert('Se muestra a continuación el turno con ID = " + txtFiltro + "')", true);
 
                     string selectFiltro = "SELECT * FROM ExportTurnos WHERE " +
                                           "ID = " + txtFiltro;

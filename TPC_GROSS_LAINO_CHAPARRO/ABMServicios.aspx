@@ -15,12 +15,12 @@
 
     <asp:TextBox ID="txtBuscarFiltro" runat="server" PlaceHolder="Texto buscado..." />
     
-    <asp:Button ID="btnBuscarFiltro" runat="server" Text="Buscar" onclick="btnBuscarFiltro_Click"/>
+    <asp:ImageButton ID="imgBtnBuscarFiltro" runat="server" ToolTip="Buscar Servicio" OnClick="imgBtnBuscarFiltro_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm" />
     
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
     <asp:Label Text="Mostrar..." runat="server" Style="font-size: 16px;" />
-    <asp:DropDownList ID="ddlMostrar" runat="server" AppendDataBoundItems="true" AutoPostBack="True" OnSelectedIndexChanged="ddlMostrar_SelectedIndexChanged" >
+    <asp:DropDownList ID="ddlMostrar" runat="server" AppendDataBoundItems="true" Height="31" AutoPostBack="True" OnSelectedIndexChanged="ddlMostrar_SelectedIndexChanged" >
         <asp:ListItem Value="Todos">Todos</asp:ListItem>
         <asp:ListItem Value="Hoy">De hoy</asp:ListItem>
         <asp:ListItem Value="Completados">Completados</asp:ListItem>
@@ -33,6 +33,10 @@
 
     <br /><br />
 
+    <button ID="btnAgregarServicio" ToolTip="Agregar Servicio" width="80px" Class="btn-agregar-servicio" >Agregar servicio</button>
+
+    <br />
+
     <asp:Label ID="lblTabla" runat="server" Font-Size="8" >
         <span style="padding: .5rem;">
         Para editar / eliminar un servicio, se debe buscar por ID.
@@ -43,30 +47,30 @@
 
         <tr>
             <td style="padding: .5rem;" align="center">
-                <asp:TextBox ID="txtFechaRealizacion" runat="server" Tooltip="Fecha" placeholder="Fecha" Width="150" />
-                <asp:TextBox ID="txtHoraRealizacion" runat="server" Tooltip="Hora" placeholder="Hora" Width="50" />
+                <asp:TextBox ID="txtFecha" runat="server" Tooltip="Fecha" placeholder="Fecha" Width="150" Style="text-align: center;" />
+                <asp:TextBox ID="txtHora" runat="server" Tooltip="Hora" placeholder="Hora" Width="50" Style="text-align: center;" />
             </td>
             <td style="padding: .5rem;" align="center">
-                <asp:TextBox ID="txtPatenteVehiculo" runat="server" Tooltip="Patente" placeholder="Patente" Width="200" />
+                <asp:TextBox ID="txtPatente" runat="server" Tooltip="Patente" placeholder="Patente" Width="200" Style="text-align: center;" />
             </td>
             <td style="padding: .5rem;" align="center">
-                <asp:DropDownList ID="ddlTipoServicio" runat="server" AppendDataBoundItems="true" Width="200" Height="30" >
+                <asp:DropDownList ID="ddlTiposServicio" runat="server" AppendDataBoundItems="true" Width="200" Height="30" Font-Size="9pt" >
                     <asp:ListItem Value="0">Tipo de servicio</asp:ListItem>
                 </asp:DropDownList>
             </td>
         </tr>
         <tr>
             <td rowspan="2" style="padding: .5rem;" align="center">
-                <asp:TextBox ID="txtComentarios" runat="server" Tooltip="Comentarios" placeholder="Comentarios" Width="205px" Height="76px" Font-Size="8" /> <%-- Multiline --%>
+                <asp:TextBox ID="txtComentarios" runat="server" Tooltip="Comentarios" placeholder="Comentarios" Width="205px" Height="76px" Font-Size="8" TextMode="MultiLine" Style="resize:none; " /> <%-- Multiline --%>
             </td>
             <td style="padding: .5rem;" align="center">
-                 <asp:DropDownList ID="ddlClientes" runat="server" AppendDataBoundItems="true" Width="200" Height="30" >
+                 <asp:DropDownList ID="ddlClientes" runat="server" AppendDataBoundItems="true" Width="200" Height="30" Font-Size="9pt" >
                     <asp:ListItem Value="0">Cliente</asp:ListItem> <%-- Ordenado por nombre ascendente --%>
                 </asp:DropDownList>
             </td>
             <td style="padding: .5rem;" align="center" >
-                <asp:DropDownList ID="ddlEmpleados" runat="server" AppendDataBoundItems="true" Width="200" Height="30" >
-                    <asp:ListItem Value="0">Empleado</asp:ListItem> <%-- Ordenado por nombre ascendente --%>
+                <asp:DropDownList ID="ddlEmpleados" runat="server" AppendDataBoundItems="true" Width="200" Height="30" Font-Size="9pt" >
+                    <asp:ListItem Value="0">Empleado</asp:ListItem>
                 </asp:DropDownList>
             </td>
         </tr>
@@ -77,12 +81,70 @@
                 <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar servicio" onclientclick="return confirm('¿Seguro que desea eliminar el Servicio?');" OnClick="btnDelete_Click" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" Style="vertical-align: bottom !important;" />
             </td>
             <td style="padding: .5rem; vertical-align: baseline;" align="center">
-                <asp:CheckBox ID="cbEstado" runat="server" ToolTip="Estado"/>
-                <asp:Label ID="lblEstado" runat="server" Tooltip="Estado" >&nbsp;&nbsp;Estado</asp:Label>
+                <asp:DropDownList ID="ddlEstado" runat="server" AppendDataBoundItems="true" Width="200" Height="30" Font-Size="9pt" >
+                    <asp:ListItem Value="0">Estado</asp:ListItem>
+                    <asp:ListItem Value="Pendiente">Pendiente</asp:ListItem>
+                    <asp:ListItem Value="Completado">Completado</asp:ListItem>
+                </asp:DropDownList>
             </td>
         </tr>
 
     </table>
+
+    <div id="overlay" class="overlay" align="center">
+
+        <div id="popup" class="popup">
+
+            <table style="width: 80%; border: inset; border-color: black; background-color: rgb(255 255 255);">
+
+                <tr>
+                    <td style="padding: .5rem;" align="center">
+                        <asp:TextBox ID="txtFecha2" runat="server" Type="date" ToolTip="Fecha" placeholder="Fecha" Width="150" Style="text-align: center;" />
+                        <asp:TextBox ID="txtHora2" runat="server" ToolTip="Hora" placeholder="Hora" Width="50" Style="text-align: center;" />
+                    </td>
+                    <td style="padding: .5rem;" align="center">
+                        <asp:TextBox ID="txtPatente2" runat="server" ToolTip="Patente" placeholder="Patente" Width="200" Height="30" Font-Size="9pt" Style="text-align: center;" />
+                    </td>
+                    <td style="padding: .5rem;" align="center">
+                        <asp:DropDownList ID="ddlTiposServicio2" runat="server" AppendDataBoundItems="true" Width="200" Height="30" Font-Size="9pt">
+                            <asp:ListItem Value="0">Tipo de servicio</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="padding: .5rem;" align="center">
+                        <asp:TextBox ID="txtComentarios2" runat="server" ToolTip="Comentarios" placeholder="Comentarios" Width="205px" Height="76px" Font-Size="8" TextMode="MultiLine" Style="resize: none;" />
+                    </td>
+                    <td style="padding: .5rem;" align="center">
+                        <asp:DropDownList ID="ddlClientes2" runat="server" AppendDataBoundItems="true" Width="200" Height="30" Font-Size="9pt">
+                            <asp:ListItem Value="0">Cliente</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <td style="padding: .5rem;" align="center">
+                        <asp:DropDownList ID="ddlEmpleados2" runat="server" AppendDataBoundItems="true" Width="200" Height="30" Font-Size="9pt">
+                            <asp:ListItem Value="0">Empleado</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: .5rem;" align="center" width="300">
+                        <asp:ImageButton ID="imgBtnCerrarPopup" runat="server" ToolTip="Cancelar" OnClick="imgBtnCerrarPopup_Click" ImageUrl="~/img/cancel-logo.png" CssClass="img-btn-del-abm" Style="vertical-align: middle;" />
+                        <asp:Button ID="btnAgregar" runat="server" ToolTip="Confirmar" Text="Confirmar" OnClientClick="return confirm('¿Confirma agregar el servicio?');" OnClick="btnAgregar_Click" CssClass="btn-agregar-servicio" />
+                    </td>
+                    <td style="padding: .5rem;" align="center" width="300">
+                        <asp:DropDownList ID="ddlEstado2" runat="server" AppendDataBoundItems="true" Width="200" Height="30" Font-Size="9pt">
+                            <asp:ListItem Value="0">Estado</asp:ListItem>
+                            <asp:ListItem Value="Pendiente">Pendiente</asp:ListItem>
+                            <asp:ListItem Value="Completado">Completado</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+
+        </table>
+
+    </div>
+
+    </div>
 
     <br /><br />
 
@@ -97,9 +159,9 @@
                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" ReadOnly="True" SortExpression="Fecha" />
                 <asp:BoundField DataField="Hora" HeaderText="Hora" ReadOnly="True" SortExpression="Hora" />
                 <asp:BoundField DataField="Patente" HeaderText="Patente" SortExpression="Patente" />
+                <asp:BoundField DataField="CUIT_DNI" HeaderText="CUIT / DNI" SortExpression="CUIT_DNI" />
                 <asp:BoundField DataField="Cliente" HeaderText="Cliente" ReadOnly="True" SortExpression="Cliente" />
                 <asp:BoundField DataField="Empleado" HeaderText="Empleado" ReadOnly="True" SortExpression="Empleado" />
-                <asp:BoundField DataField="Comentarios" HeaderText="Comentarios" SortExpression="Comentarios" />
                 <asp:BoundField DataField="Estado" HeaderText="Estado" SortExpression="Estado" />
                 
             </Columns>
@@ -138,10 +200,10 @@
     </script>
 
     <script>
-        var btnAbrirPopup = document.getElementById('btnEditar'),
+        var btnAbrirPopup = document.getElementById('btnAgregarServicio'),
             overlay = document.getElementById('overlay'),
             popup = document.getElementById('popup'),
-            btnCerrarPopup = document.getElementById('btn-cerrar-popup');
+            btnCerrarPopup = document.getElementById('imgBtnCerrarPopup');
 
         btnAbrirPopup.addEventListener('click', function (e) {
             e.preventDefault();

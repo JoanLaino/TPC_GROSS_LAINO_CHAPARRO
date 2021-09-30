@@ -271,9 +271,10 @@ GO
 Create view ExportServicios
 as 
 select ID as ID, CONVERT(VARCHAR(10),s.FechaRealizacion,105) as Fecha, s.PatenteVehiculo as Patente,
-(select V.ID from Vehiculos V where V.Patente = PatenteVehiculo) as IdVehiculo,
+(select V.ID from Vehiculos V where V.Patente = PatenteVehiculo) as IdVehiculo, IdTipo as IdTipo,
 (Select ts.Descripcion from TiposServicio ts where ts.id = s.IdTipo) as 'Tipo de Servicio', s.Comentarios as Comentarios,
 (select isnull(c.ApeNom,c.RazonSocial) from Clientes c where c.ID = s.IdEmpleado) as Cliente,
+(select C.CUIT_DNI from Clientes C where C.ID = IdCliente) as CUIT_DNI,
 IdCliente as IdCliente, (select E.ApeNom from Empleados E where E.ID = IdEmpleado) as Empleado, IdEmpleado as IdEmpleado,
 CONVERT(VARCHAR(5),s.FechaRealizacion,108) as Hora, Estado as Estado
 from Servicios s
@@ -649,4 +650,36 @@ GO
 
 insert into servicios(PatenteVehiculo, IdTipo, comentarios, idcliente, IdEmpleado) values('AAD123', 2, 'Cliente conforme', 1, 1)
 insert into servicios(PatenteVehiculo, IdTipo, comentarios, idcliente, IdEmpleado) values('KTJ262', 4, 'Cliente disconforme', 2, 2)
+GO
+
+create procedure UPDATE_SERVICIO(
+	@ID bigint,
+	@FechaHora datetime,
+	@Patente varchar(7),
+	@Comentarios varchar(400),
+	@Estado varchar(10),
+	@IdTipo int,
+	@IdCliente bigint,
+	@IdEmpleado bigint
+)as
+begin
+	update Servicios set FechaRealizacion = @FechaHora, PatenteVehiculo = @Patente,
+	IdTipo = @IdTipo, Comentarios = @Comentarios, IdCliente = @IdCliente, IdEmpleado = @IdEmpleado,
+	Estado = @Estado WHERE ID = @ID
+end
+GO
+
+create procedure INSERT_SERVICIO(
+	@FechaHora datetime,
+	@Patente varchar(7),
+	@Comentarios varchar(400),
+	@Estado varchar(10),
+	@IdTipo int,
+	@IdCliente bigint,
+	@IdEmpleado bigint
+)as
+begin
+	insert into Servicios(FechaRealizacion, PatenteVehiculo, IdTipo, Comentarios, IdCliente, IdEmpleado, Estado)
+	values(@FechaHora, @Patente, @IdTipo, @Comentarios, @IdCliente, @IdEmpleado, @Estado)
+end
 GO

@@ -15,12 +15,12 @@
 
     <asp:TextBox ID="txtBuscarFiltro" runat="server" PlaceHolder="Texto buscado..." />
     
-    <asp:Button ID="btnBuscarFiltro" runat="server" Text="Buscar" onclick="btnBuscarFiltro_Click" />
+    <asp:ImageButton ID="imgBtnBuscarFiltro" runat="server" ToolTip="Buscar Turno" OnClick="imgBtnBuscarFiltro_Click" ImageUrl="~/img/find-logo.png" cssclass="btn-buscar-filtro-abm" />
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
     <asp:Label Text="Mostrar turnos..." runat="server" Style="font-size: 16px;" />
-    <asp:DropDownList ID="ddlMostrar" runat="server" AppendDataBoundItems="true" AutoPostBack="True" OnSelectedIndexChanged="ddlMostrar_SelectedIndexChanged" >
+    <asp:DropDownList ID="ddlMostrar" runat="server" AppendDataBoundItems="true" AutoPostBack="True" Height="30" OnSelectedIndexChanged="ddlMostrar_SelectedIndexChanged" >
         <asp:ListItem Value="0">Todos</asp:ListItem>
         <asp:ListItem Value="Hoy">De hoy</asp:ListItem>
         <asp:ListItem Value="Completados">Completados</asp:ListItem>
@@ -92,15 +92,6 @@
                     </td>
                     <td></td>
                 </tr>
-
-                <%--ID (no permitir edicion oculto)
-                Día de la semana (completar automaticamente oculto)
-                Fecha (utilizar fechas >= hoy)
-                Hora (utilizar ddl turnos)
-                Cliente (completar automaticamente oculto)
-                CUIT_DNI (utilizar ddl)
-                Patente (utilizar ddl)
-                IDHorario (volver a calcular oculto) --%>
 
 		    </table>
 

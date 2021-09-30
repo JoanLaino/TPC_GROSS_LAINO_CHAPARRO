@@ -32,6 +32,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         public void BindData()
         {
             AccesoDatos sentencia = new AccesoDatos();
+            AccesoDatos sentencia2 = new AccesoDatos();
+            AccesoDatos sentencia3 = new AccesoDatos();
+            AccesoDatos sentencia4 = new AccesoDatos();
+            AccesoDatos sentencia5 = new AccesoDatos();
+            AccesoDatos sentencia6 = new AccesoDatos();
+            AccesoDatos sentencia7 = new AccesoDatos();
 
             txtBorrarServiciosPorPatente.Visible = false;
             ddlFiltroBuscar.SelectedValue = "0";
@@ -39,51 +45,254 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             ddlMostrar.SelectedValue = "Todos";
 
             string selectServicios = "SELECT * FROM ExportServicios ORDER BY Fecha DESC, Hora DESC";
+            string selectDdlTiposServicio = "SELECT ID as ID, Descripcion as Descripcion FROM TiposServicio WHERE Estado = 1";
+            string selectDdlClientes = "SELECT ID as ID, isnull(ApeNom, RazonSocial) as Cliente FROM Clientes WHERE Estado = 1";
+            string selectDdlEmpleados = "SELECT ID as ID, ApeNom as Empleado FROM Empleados WHERE Estado = 1";
+
             int resultado = ContarResultadosDB("Todos", "null", "null", "null");
 
             mostrarCantidadServicios(resultado, "Todos");
 
-            dgvServicios.DataSource = sentencia.DSET(selectServicios);
-            dgvServicios.DataBind();
-
             ocultarMostrarCamposModificarEliminar("ocultar");
+
+            borrarContenidoCamposModificarEliminar();
+
+            try
+            {
+                dgvServicios.DataSource = sentencia.DSET(selectServicios);
+                dgvServicios.DataBind();
+
+                ddlTiposServicio.DataSource = sentencia2.DSET(selectDdlTiposServicio);
+                ddlTiposServicio.DataMember = "datos";
+                ddlTiposServicio.DataTextField = "Descripcion";
+                ddlTiposServicio.DataValueField = "ID";
+                ddlTiposServicio.DataBind();
+
+                ddlClientes.DataSource = sentencia3.DSET(selectDdlClientes);
+                ddlClientes.DataMember = "datos";
+                ddlClientes.DataTextField = "Cliente";
+                ddlClientes.DataValueField = "ID";
+                ddlClientes.DataBind();
+
+                ddlEmpleados.DataSource = sentencia4.DSET(selectDdlEmpleados);
+                ddlEmpleados.DataMember = "datos";
+                ddlEmpleados.DataTextField = "Empleado";
+                ddlEmpleados.DataValueField = "ID";
+                ddlEmpleados.DataBind();
+
+                ddlTiposServicio2.DataSource = sentencia5.DSET(selectDdlTiposServicio);
+                ddlTiposServicio2.DataMember = "datos";
+                ddlTiposServicio2.DataTextField = "Descripcion";
+                ddlTiposServicio2.DataValueField = "ID";
+                ddlTiposServicio2.DataBind();
+
+                ddlClientes2.DataSource = sentencia6.DSET(selectDdlClientes);
+                ddlClientes2.DataMember = "datos";
+                ddlClientes2.DataTextField = "Cliente";
+                ddlClientes2.DataValueField = "ID";
+                ddlClientes2.DataBind();
+
+                ddlEmpleados2.DataSource = sentencia7.DSET(selectDdlEmpleados);
+                ddlEmpleados2.DataMember = "datos";
+                ddlEmpleados2.DataTextField = "Empleado";
+                ddlEmpleados2.DataValueField = "ID";
+                ddlEmpleados2.DataBind();
+            }
+            catch
+            {
+                mostrarScriptMensaje("Error en la base de datos.");
+            }
+        }
+
+        public void borrarContenidoCamposModificarEliminar()
+        {
+            txtFecha.Text = "";
+            txtHora.Text = "";
+            txtPatente.Text = "";
+            txtComentarios.Text = "";
+            ddlTiposServicio.SelectedValue = "0";
+            ddlClientes.SelectedValue = "0";
+            ddlEmpleados.SelectedValue = "0";
+            btnUpdate.Visible = false;
+            btnDelete.Visible = false;
+            ddlEstado.SelectedValue = "0";
         }
 
         public void ocultarMostrarCamposModificarEliminar(string accion)
         {
             if (accion == "ocultar")
             {
-                txtFechaRealizacion.Visible = false;
-                txtHoraRealizacion.Visible = false;
-                txtPatenteVehiculo.Visible = false;
+                txtFecha.Visible = false;
+                txtHora.Visible = false;
+                txtPatente.Visible = false;
                 txtComentarios.Visible = false;
-                ddlTipoServicio.Visible = false;
+                ddlTiposServicio.Visible = false;
                 ddlClientes.Visible = false;
                 ddlEmpleados.Visible = false;
                 btnUpdate.Visible = false;
                 btnDelete.Visible = false;
-                cbEstado.Visible = false;
-                lblEstado.Visible = false;
+                ddlEstado.Visible = false;
             }
             else if (accion == "mostrar")
             {
-                txtFechaRealizacion.Visible = true;
-                txtHoraRealizacion.Visible = true;
-                txtPatenteVehiculo.Visible = true;
+                txtFecha.Visible = true;
+                txtHora.Visible = true;
+                txtPatente.Visible = true;
                 txtComentarios.Visible = true;
-                ddlTipoServicio.Visible = true;
+                ddlTiposServicio.Visible = true;
                 ddlClientes.Visible = true;
                 ddlEmpleados.Visible = true;
                 btnUpdate.Visible = true;
                 btnDelete.Visible = true;
-                cbEstado.Visible = true;
-                lblEstado.Visible = true;
+                ddlEstado.Visible = true;
             }
         }
 
-        protected void btnBuscarFiltro_Click(object sender, EventArgs e)
+        public void ocultarMostrarCamposPopupAgregar(string accion)
         {
+            if (accion == "ocultar")
+            {
+                txtFecha2.Visible = false;
+                txtHora2.Visible = false;
+                txtPatente2.Visible = false;
+                txtComentarios2.Visible = false;
+                ddlTiposServicio2.Visible = false;
+                ddlClientes2.Visible = false;
+                ddlEmpleados2.Visible = false;
+                btnAgregar.Visible = false;
+            }
+            else if (accion == "mostrar")
+            {
+                txtFecha2.Visible = true;
+                txtHora2.Visible = true;
+                txtPatente2.Visible = true;
+                txtComentarios2.Visible = true;
+                ddlTiposServicio2.Visible = true;
+                ddlClientes2.Visible = true;
+                ddlEmpleados2.Visible = true;
+                btnAgregar.Visible = true;
+            }
+        }
 
+        protected void imgBtnBuscarFiltro_Click(object sender, ImageClickEventArgs e)
+        {
+            string valor = txtBuscarFiltro.Text.ToUpper();
+            string campo = ddlFiltroBuscar.SelectedValue.ToString();
+
+            if (campo == "0" && valor == "")
+            {
+                mostrarScriptMensaje("Filtro de búsqueda no seleccionado y filtro de texto vacío.");
+
+                BindData();
+            }
+            else if (campo == "0")
+            {
+                mostrarScriptMensaje("Filtro de búsqueda no seleccionado.");
+            }
+            else if (valor == "")
+            {
+                mostrarScriptMensaje("Filtro de texto vacío.");
+            }
+            else
+            {
+                string comillas = "y", tabla = "ExportServicios";
+                if (campo == "ID") { comillas = "n"; }
+
+                int resultado = ContarResultadosDB(tabla, campo, valor, comillas);
+
+                if (resultado != 0)
+                {
+                    if (campo == "ID")
+                    {
+                        mostrarScriptMensaje("Se muestra a continuación, el Servicio con ID = " + valor);
+
+                        string selectResultados = "SELECT * FROM " + tabla + " WHERE " + campo + " = " + valor;
+                        
+                        AccesoDatos sentencia = new AccesoDatos();
+                        AccesoDatos datos = new AccesoDatos();
+
+                        try
+                        {
+                            dgvServicios.DataSource = sentencia.DSET(selectResultados);
+                            dgvServicios.DataBind();
+
+                            datos.SetearConsulta(selectResultados);
+                            datos.EjecutarLectura();
+
+                            ocultarMostrarCamposModificarEliminar("mostrar");
+
+                            if (datos.Lector.Read() == true)
+                            {
+                                string ID = datos.Lector["ID"].ToString();
+                                txtFecha.Text = datos.Lector["Fecha"].ToString();
+                                txtHora.Text = datos.Lector["Hora"].ToString();
+                                txtPatente.Text = datos.Lector["Patente"].ToString();
+                                txtComentarios.Text = datos.Lector["Comentarios"].ToString();
+                                ddlEstado.SelectedValue = datos.Lector["Estado"].ToString();
+                                ddlTiposServicio.SelectedValue = datos.Lector["IdTipo"].ToString();
+                                ddlClientes.SelectedValue = datos.Lector["IdCliente"].ToString();
+                                ddlEmpleados.SelectedValue = datos.Lector["IdEmpleado"].ToString();
+
+                                Session.Add("IdServicio", ID);
+                                Session.Add("Fecha", txtFecha.Text);
+                                Session.Add("Hora", txtHora.Text);
+                                Session.Add("Patente", txtPatente.Text);
+                                Session.Add("Comentarios", txtComentarios.Text);
+                                Session.Add("Estado", ddlEstado.SelectedValue);
+                                Session.Add("IdTipo", ddlTiposServicio.SelectedValue);
+                                Session.Add("IdCliente", ddlClientes.SelectedValue);
+                                Session.Add("IdEmpleado", ddlEmpleados.SelectedValue);
+                            }
+                        }
+                        catch
+                        {
+                            mostrarScriptMensaje("Error en la Base de datos.");
+                        }
+                        finally
+                        {
+                            datos.CerrarConexion();
+                        }
+                    }
+                    else
+                    {
+                        Session.Remove("IdServicio");
+                        Session.Remove("Fecha");
+                        Session.Remove("Hora");
+                        Session.Remove("Patente");
+                        Session.Remove("Comentarios");
+                        Session.Remove("Estado");
+                        Session.Remove("IdTipo");
+                        Session.Remove("IdCliente");
+                        Session.Remove("IdEmpleado");
+
+                        ocultarMostrarCamposModificarEliminar("ocultar");
+
+                        string texto1 = "encontaron ", texto2 = " servicios";
+
+                        if (resultado == 1) { texto1 = "encontró "; texto2 = " servicio"; }
+
+                        mostrarScriptMensaje("Se " + texto1 + resultado + texto2);
+
+                        string selectResultados = "SELECT * FROM " + tabla + " WHERE " + campo + " LIKE '%" + valor + "%'";
+
+                        AccesoDatos sentencia = new AccesoDatos();
+
+                        try
+                        {
+                            dgvServicios.DataSource = sentencia.DSET(selectResultados);
+                            dgvServicios.DataBind();
+                        }
+                        catch
+                        {
+                            mostrarScriptMensaje("Error en la Base de datos.");
+                        }
+                    }
+                }
+                else
+                {
+                    mostrarScriptMensaje("Su búsqueda no produjo ningún resultado.");
+                }
+            }
         }
 
         protected void btnBorrarServiciosPorPatente_Click(object sender, EventArgs e)
@@ -394,12 +603,99 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnDelete_Click(object sender, ImageClickEventArgs e)
         {
+            string ID = Session["IdServicio"].ToString();
+            string FechaHora = Session["Fecha"].ToString() + " " + Session["Hora"].ToString();
 
+            AccesoDatos sentencia = new AccesoDatos();
+
+            string deleteServicio = "DELETE FROM Servicios WHERE ID = " + ID;
+
+            try
+            {
+                sentencia.IUD(deleteServicio);
+
+                mostrarScriptMensaje("Servicio eliminado correctamente.");
+
+                BindData();
+            }
+            catch
+            {
+                mostrarScriptMensaje("Error en la base de datos.");
+            }
         }
 
         protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
         {
+            if (txtFecha.Text == "" || txtHora.Text == "" || txtPatente.Text == "" || txtComentarios.Text == "" ||
+                ddlEstado.SelectedValue == "0" || ddlTiposServicio.SelectedValue == "0" || ddlClientes.SelectedValue == "0" ||
+                ddlEmpleados.SelectedValue == "0")
+            {
+                mostrarScriptMensaje("Hay campos vacíos o sin seleccionar. Por favor revise nuevamente.");
+            }
+            else
+            {
+                string ID = Session["IdServicio"].ToString();
+                string FechaHora = txtFecha.Text + " " + txtHora.Text;
+                string Patente = txtPatente.Text;
+                string Comentarios = txtComentarios.Text;
+                string Estado = ddlEstado.SelectedValue.ToString();
+                string IdTipo = ddlTiposServicio.SelectedValue.ToString();
+                string IdCliente = ddlClientes.SelectedValue.ToString();
+                string IdEmpleado = ddlEmpleados.SelectedValue.ToString();
 
+                AccesoDatos sentencia = new AccesoDatos();
+
+                string updateServicio = "EXEC UPDATE_SERVICIO " + ID + ", '" + FechaHora + "', '" + Patente + "', '" +
+                    Comentarios + "', '" + Estado + "', " + IdTipo + ", " + IdCliente + ", " + IdEmpleado;
+
+                try
+                {
+                    sentencia.IUD(updateServicio);
+
+                    mostrarScriptMensaje("Servicio modificado correctamente.");
+
+                    BindData();
+                }
+                catch
+                {
+                    mostrarScriptMensaje("Error en la base de datos.");
+                }
+            }
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            DateTime FechaHora = Convert.ToDateTime(txtFecha2.Text + ' ' + txtHora2.Text);
+            FechaHora.ToShortDateString();
+            string Patente = txtPatente2.Text;
+            string Comentarios = txtComentarios2.Text;
+            string Estado = ddlEstado2.SelectedValue.ToString();
+            string IdTipo = ddlTiposServicio2.SelectedValue.ToString();
+            string IdCliente = ddlClientes2.SelectedValue.ToString();
+            string IdEmpleado = ddlEmpleados2.SelectedValue.ToString();
+
+            string insertServicio = "EXEC INSERT_SERVICIO '" + FechaHora + "', '" + Patente + "', '" + Comentarios + "', '" + Estado + "', " + 
+                                                            IdTipo + ", " + IdCliente + ", " + IdEmpleado;
+
+            AccesoDatos sentencia = new AccesoDatos();
+
+            try
+            {
+                sentencia.IUD(insertServicio);
+
+                mostrarScriptMensaje("El servicio se ha insertado correctamente.");
+
+                BindData();
+            }
+            catch
+            {
+                mostrarScriptMensaje("Error en la base de datos.");
+            }
+        }
+
+        protected void imgBtnCerrarPopup_Click(object sender, ImageClickEventArgs e)
+        {
+            BindData();
         }
     }
 }
