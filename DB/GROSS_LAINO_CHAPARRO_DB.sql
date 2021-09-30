@@ -272,7 +272,7 @@ Create view ExportServicios
 as 
 select ID as ID, CONVERT(VARCHAR(10),s.FechaRealizacion,105) as Fecha, s.PatenteVehiculo as Patente,
 (select V.ID from Vehiculos V where V.Patente = PatenteVehiculo) as IdVehiculo, IdTipo as IdTipo,
-(Select ts.Descripcion from TiposServicio ts where ts.id = s.IdTipo) as 'Tipo de Servicio', s.Comentarios as Comentarios,
+(Select ts.Descripcion from TiposServicio ts where ts.id = s.IdTipo) as TiposServicio, s.Comentarios as Comentarios,
 (select isnull(c.ApeNom,c.RazonSocial) from Clientes c where c.ID = s.IdEmpleado) as Cliente,
 (select C.CUIT_DNI from Clientes C where C.ID = IdCliente) as CUIT_DNI,
 IdCliente as IdCliente, (select E.ApeNom from Empleados E where E.ID = IdEmpleado) as Empleado, IdEmpleado as IdEmpleado,
@@ -683,3 +683,5 @@ begin
 	values(@FechaHora, @Patente, @IdTipo, @Comentarios, @IdCliente, @IdEmpleado, @Estado)
 end
 GO
+
+SELECT * FROM ExportServicios ORDER BY 'Tipo de Servicio' desc

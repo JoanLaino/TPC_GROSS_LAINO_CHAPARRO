@@ -149,13 +149,13 @@
     <br /><br />
 
     <center>
-        <asp:GridView ID="dgvServicios" runat="server" AllowSorting="True" OnSorting="dgvTurnos_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="1" CssClass="dgv-abm-servicios" AllowCustomPaging="True">
+        <asp:GridView ID="dgvServicios" runat="server" AllowSorting="True" OnSorting="dgvServicios_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="1" CssClass="dgv-abm-servicios" AllowCustomPaging="True">
             <AlternatingRowStyle BackColor="White" />
             
             <Columns>
                 
                 <asp:BoundField DataField="ID" HeaderText="ID" ReadOnly="True" SortExpression="ID" />
-                <asp:BoundField DataField="Tipo de Servicio" HeaderText="Tipo de Servicio" ReadOnly="True" SortExpression="Tipo de Servicio" />
+                <asp:BoundField DataField="TiposServicio" HeaderText="Tipo de Servicio" ReadOnly="True" SortExpression="TiposServicio" />
                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" ReadOnly="True" SortExpression="Fecha" />
                 <asp:BoundField DataField="Hora" HeaderText="Hora" ReadOnly="True" SortExpression="Hora" />
                 <asp:BoundField DataField="Patente" HeaderText="Patente" SortExpression="Patente" />

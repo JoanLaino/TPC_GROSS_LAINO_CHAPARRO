@@ -57,46 +57,51 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             borrarContenidoCamposModificarEliminar();
 
+            borrarContenidoCamposPopupAgregar();
+
             try
             {
                 dgvServicios.DataSource = sentencia.DSET(selectServicios);
                 dgvServicios.DataBind();
 
-                ddlTiposServicio.DataSource = sentencia2.DSET(selectDdlTiposServicio);
-                ddlTiposServicio.DataMember = "datos";
-                ddlTiposServicio.DataTextField = "Descripcion";
-                ddlTiposServicio.DataValueField = "ID";
-                ddlTiposServicio.DataBind();
+                if (!IsPostBack)
+                {
+                    ddlTiposServicio.DataSource = sentencia2.DSET(selectDdlTiposServicio);
+                    ddlTiposServicio.DataMember = "datos";
+                    ddlTiposServicio.DataTextField = "Descripcion";
+                    ddlTiposServicio.DataValueField = "ID";
+                    ddlTiposServicio.DataBind();
 
-                ddlClientes.DataSource = sentencia3.DSET(selectDdlClientes);
-                ddlClientes.DataMember = "datos";
-                ddlClientes.DataTextField = "Cliente";
-                ddlClientes.DataValueField = "ID";
-                ddlClientes.DataBind();
+                    ddlClientes.DataSource = sentencia3.DSET(selectDdlClientes);
+                    ddlClientes.DataMember = "datos";
+                    ddlClientes.DataTextField = "Cliente";
+                    ddlClientes.DataValueField = "ID";
+                    ddlClientes.DataBind();
 
-                ddlEmpleados.DataSource = sentencia4.DSET(selectDdlEmpleados);
-                ddlEmpleados.DataMember = "datos";
-                ddlEmpleados.DataTextField = "Empleado";
-                ddlEmpleados.DataValueField = "ID";
-                ddlEmpleados.DataBind();
+                    ddlEmpleados.DataSource = sentencia4.DSET(selectDdlEmpleados);
+                    ddlEmpleados.DataMember = "datos";
+                    ddlEmpleados.DataTextField = "Empleado";
+                    ddlEmpleados.DataValueField = "ID";
+                    ddlEmpleados.DataBind();
 
-                ddlTiposServicio2.DataSource = sentencia5.DSET(selectDdlTiposServicio);
-                ddlTiposServicio2.DataMember = "datos";
-                ddlTiposServicio2.DataTextField = "Descripcion";
-                ddlTiposServicio2.DataValueField = "ID";
-                ddlTiposServicio2.DataBind();
+                    ddlTiposServicio2.DataSource = sentencia5.DSET(selectDdlTiposServicio);
+                    ddlTiposServicio2.DataMember = "datos";
+                    ddlTiposServicio2.DataTextField = "Descripcion";
+                    ddlTiposServicio2.DataValueField = "ID";
+                    ddlTiposServicio2.DataBind();
 
-                ddlClientes2.DataSource = sentencia6.DSET(selectDdlClientes);
-                ddlClientes2.DataMember = "datos";
-                ddlClientes2.DataTextField = "Cliente";
-                ddlClientes2.DataValueField = "ID";
-                ddlClientes2.DataBind();
+                    ddlClientes2.DataSource = sentencia6.DSET(selectDdlClientes);
+                    ddlClientes2.DataMember = "datos";
+                    ddlClientes2.DataTextField = "Cliente";
+                    ddlClientes2.DataValueField = "ID";
+                    ddlClientes2.DataBind();
 
-                ddlEmpleados2.DataSource = sentencia7.DSET(selectDdlEmpleados);
-                ddlEmpleados2.DataMember = "datos";
-                ddlEmpleados2.DataTextField = "Empleado";
-                ddlEmpleados2.DataValueField = "ID";
-                ddlEmpleados2.DataBind();
+                    ddlEmpleados2.DataSource = sentencia7.DSET(selectDdlEmpleados);
+                    ddlEmpleados2.DataMember = "datos";
+                    ddlEmpleados2.DataTextField = "Empleado";
+                    ddlEmpleados2.DataValueField = "ID";
+                    ddlEmpleados2.DataBind();
+                }
             }
             catch
             {
@@ -172,6 +177,17 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlEmpleados2.Visible = true;
                 btnAgregar.Visible = true;
             }
+        }
+
+        public void borrarContenidoCamposPopupAgregar()
+        {
+            txtFecha2.Text = "";
+            txtHora2.Text = "";
+            txtPatente2.Text = "";
+            txtComentarios2.Text = "";
+            ddlTiposServicio2.SelectedValue = "0";
+            ddlClientes2.SelectedValue = "0";
+            ddlEmpleados2.SelectedValue = "0";
         }
 
         protected void imgBtnBuscarFiltro_Click(object sender, ImageClickEventArgs e)
@@ -523,9 +539,43 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
         }
 
-        protected void dgvTurnos_Sorting(object sender, GridViewSortEventArgs e)
+        protected void dgvServicios_Sorting(object sender, GridViewSortEventArgs e)
         {
+            AccesoDatos sentencia = new AccesoDatos();
 
+            ddlFiltroBuscar.SelectedValue = "0";
+            txtBuscarFiltro.Text = "";
+            ddlMostrar.SelectedValue = "Todos";
+
+            string selectOrdenar = "SELECT * FROM ExportServicios ORDER BY " + e.SortExpression + " "
+                                    + GetSortDirection(e.SortExpression);
+
+            dgvServicios.DataSource = sentencia.DSET(selectOrdenar);
+            dgvServicios.DataBind();
+        }
+
+        private string GetSortDirection(string column)
+        {
+            string sortDirection = "ASC";
+
+            string sortExpression = ViewState["SortExpression"] as string;
+
+            if (sortExpression != null)
+            {
+                if (sortExpression == column)
+                {
+                    string lastDirection = ViewState["SortDirection"] as string;
+                    if ((lastDirection != null) && (lastDirection == "ASC"))
+                    {
+                        sortDirection = "DESC";
+                    }
+                }
+            }
+
+            ViewState["SortDirection"] = sortDirection;
+            ViewState["SortExpression"] = column;
+
+            return sortDirection;
         }
 
         protected int ContarResultadosDB(string var, string campo, string valor, string comillas)
@@ -577,6 +627,38 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     selectDB = "SELECT COUNT(*) as Cantidad FROM " + var + " WHERE " + campo + " = " + valor;
                 }
             }
+
+            try
+            {
+                datos.SetearConsulta(selectDB);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Resultado = Convert.ToInt32(datos.Lector["Cantidad"]);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se produjo un error al intentar leer la base de datos.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return Resultado;
+        }
+
+        protected int ContarResultadosDB_Insert(string campo1, string valor1, string campo2, string valor2, string campo3, string valor3, string campo4, string valor4)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            int Resultado = 0;
+
+            string selectDB = "SELECT COUNT(*) AS Cantidad FROM ExportServicios WHERE " + campo1 + " = TRANSLATE('" + valor1 + "','/','-') AND " + campo2 + " = '" + valor2 + "' AND " + 
+                                                                              campo3 + " = '" + valor3 + "' AND " + campo4 + " = '" + valor4 + "'";
 
             try
             {
@@ -665,31 +747,51 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            DateTime FechaHora = Convert.ToDateTime(txtFecha2.Text + ' ' + txtHora2.Text);
-            FechaHora.ToShortDateString();
-            string Patente = txtPatente2.Text;
-            string Comentarios = txtComentarios2.Text;
-            string Estado = ddlEstado2.SelectedValue.ToString();
-            string IdTipo = ddlTiposServicio2.SelectedValue.ToString();
-            string IdCliente = ddlClientes2.SelectedValue.ToString();
-            string IdEmpleado = ddlEmpleados2.SelectedValue.ToString();
-
-            string insertServicio = "EXEC INSERT_SERVICIO '" + FechaHora + "', '" + Patente + "', '" + Comentarios + "', '" + Estado + "', " + 
-                                                            IdTipo + ", " + IdCliente + ", " + IdEmpleado;
-
-            AccesoDatos sentencia = new AccesoDatos();
-
-            try
+            if (txtFecha2.Text == "" || txtHora.Text == "" || txtPatente2.Text == "" || ddlTiposServicio2.SelectedValue == "0"
+                || txtComentarios2.Text == "0" || ddlClientes2.SelectedValue == "0" || ddlEmpleados2.SelectedValue == "0" || ddlEstado2.SelectedValue == "0")
             {
-                sentencia.IUD(insertServicio);
-
-                mostrarScriptMensaje("El servicio se ha insertado correctamente.");
-
-                BindData();
+                mostrarScriptMensaje("Hay campos vacíos o sin seleccionar. Por favor revise nuevamente.");
             }
-            catch
+            else
             {
-                mostrarScriptMensaje("Error en la base de datos.");
+                DateTime FechaHora = Convert.ToDateTime(txtFecha2.Text + ' ' + txtHora2.Text);
+                string Patente = txtPatente2.Text;
+                string Comentarios = txtComentarios2.Text;
+                string Estado = ddlEstado2.SelectedValue.ToString();
+                string IdTipo = ddlTiposServicio2.SelectedValue.ToString();
+                string IdCliente = ddlClientes2.SelectedValue.ToString();
+                string IdEmpleado = ddlEmpleados2.SelectedValue.ToString();
+
+                //No se puede agregar un servicio repitiendo fecha, hora, tipo de servicio y patente.
+
+                int resultado = ContarResultadosDB_Insert("Fecha", FechaHora.ToShortDateString(), "Hora", txtHora2.Text, "IdTipo", IdTipo, "Patente", Patente);
+
+                if (resultado == 0)
+                {
+
+                    string insertServicio = "EXEC INSERT_SERVICIO '" + FechaHora + "', '" + Patente + "', '" + Comentarios + "', '" + Estado + "', " +
+                                                                    IdTipo + ", " + IdCliente + ", " + IdEmpleado;
+
+                    AccesoDatos sentencia = new AccesoDatos();
+
+                    try
+                    {
+                        sentencia.IUD(insertServicio);
+
+                        mostrarScriptMensaje("El servicio se ha insertado correctamente.");
+
+                        BindData();
+                    }
+                    catch
+                    {
+                        mostrarScriptMensaje("Error en la base de datos.");
+                    }
+                }
+                else
+                {
+                    mostrarScriptMensaje("Ya existe un servicio para el día " + FechaHora.ToShortDateString() + " a las " + txtHora2.Text +
+                    " hs, para la patente " + txtPatente2.Text.ToUpper() + " y el tipo de servicio " + ddlTiposServicio2.SelectedItem.ToString() + ".");
+                }
             }
         }
 
