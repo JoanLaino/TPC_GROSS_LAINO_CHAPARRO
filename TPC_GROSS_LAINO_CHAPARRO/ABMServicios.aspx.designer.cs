@@ -258,6 +258,42 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.DropDownList ddlEstado2;
 
         /// <summary>
+        /// Control btnExportExcel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportExcel;
+
+        /// <summary>
+        /// Control btnExportHistoricoServicios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportHistoricoServicios;
+
+        /// <summary>
+        /// Control dgvHistoricoServicios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvHistoricoServicios;
+
+        /// <summary>
+        /// Control ExportHistoricoServicios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ExportHistoricoServicios;
+
+        /// <summary>
         /// Control dgvServicios.
         /// </summary>
         /// <remarks>

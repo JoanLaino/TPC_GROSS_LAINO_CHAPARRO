@@ -107,6 +107,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 mostrarScriptMensaje("Error en la base de datos.");
             }
+
+            string selectHistoricoTurnos = "SELECT * FROM ExportHistoricoServicios ORDER BY FechaModificado DESC, HoraModificado DESC, ID ASC";
+
+            dgvHistoricoServicios.DataSource = sentencia.DSET(selectHistoricoTurnos);
+            dgvHistoricoServicios.DataBind();
         }
 
         public void borrarContenidoCamposModificarEliminar()
@@ -683,6 +688,37 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             return Resultado;
         }
 
+        protected int ContarResultadosDB_PatenteCliente(string IdCliente, string Patente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            int Resultado = 0;
+
+            string selectDB = "SELECT COUNT(*) AS Cantidad FROM Vehiculos WHERE IdCliente = " + IdCliente + " AND Patente = '" + Patente + "'";
+
+            try
+            {
+                datos.SetearConsulta(selectDB);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Resultado = Convert.ToInt32(datos.Lector["Cantidad"]);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se produjo un error al intentar leer la base de datos.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return Resultado;
+        }
+
         protected void btnDelete_Click(object sender, ImageClickEventArgs e)
         {
             string ID = Session["IdServicio"].ToString();
@@ -708,9 +744,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
         {
-            if (txtFecha.Text == "" || txtHora.Text == "" || txtPatente.Text == "" || txtComentarios.Text == "" ||
-                ddlEstado.SelectedValue == "0" || ddlTiposServicio.SelectedValue == "0" || ddlClientes.SelectedValue == "0" ||
-                ddlEmpleados.SelectedValue == "0")
+            if (txtFecha.Text == "" || txtHora.Text == "" || txtPatente.Text == "" || ddlEstado.SelectedValue == "0"
+                || ddlTiposServicio.SelectedValue == "0" || ddlClientes.SelectedValue == "0" || ddlEmpleados.SelectedValue == "0")
             {
                 mostrarScriptMensaje("Hay campos vacíos o sin seleccionar. Por favor revise nuevamente.");
             }
@@ -726,21 +761,53 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 string IdEmpleado = ddlEmpleados.SelectedValue.ToString();
 
                 AccesoDatos sentencia = new AccesoDatos();
+                AccesoDatos datos = new AccesoDatos();
 
                 string updateServicio = "EXEC UPDATE_SERVICIO " + ID + ", '" + FechaHora + "', '" + Patente + "', '" +
                     Comentarios + "', '" + Estado + "', " + IdTipo + ", " + IdCliente + ", " + IdEmpleado;
 
+                int resultadoPatenteCliente = ContarResultadosDB_PatenteCliente(IdCliente, Patente);
+
+                string selectNombreCliente = "SELECT ISNULL(ApeNom, RazonSocial) AS Cliente FROM Clientes WHERE ID = " + IdCliente;
+                string Cliente = "vacío";
+
                 try
                 {
-                    sentencia.IUD(updateServicio);
+                    datos.SetearConsulta(selectNombreCliente);
+                    datos.EjecutarLectura();
 
-                    mostrarScriptMensaje("Servicio modificado correctamente.");
+                    if (datos.Lector.Read() == true)
+                    {
+                        Cliente = datos.Lector["Cliente"].ToString();
+                    }
 
-                    BindData();
+                    if (resultadoPatenteCliente != 0)
+                    {
+                        try
+                        {
+                            sentencia.IUD(updateServicio);
+
+                            mostrarScriptMensaje("Servicio modificado correctamente.");
+
+                            BindData();
+                        }
+                        catch
+                        {
+                            mostrarScriptMensaje("Error en la base de datos.");
+                        }
+                    }
+                    else
+                    {
+                        mostrarScriptMensaje("La Patente " + Patente + " no existe en la lista de vehículos, del cliente " + Cliente + ".");
+                    }
                 }
                 catch
                 {
                     mostrarScriptMensaje("Error en la base de datos.");
+                }
+                finally
+                {
+                    datos.CerrarConexion();
                 }
             }
         }
@@ -748,7 +815,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             if (txtFecha2.Text == "" || txtHora.Text == "" || txtPatente2.Text == "" || ddlTiposServicio2.SelectedValue == "0"
-                || txtComentarios2.Text == "0" || ddlClientes2.SelectedValue == "0" || ddlEmpleados2.SelectedValue == "0" || ddlEstado2.SelectedValue == "0")
+                || ddlClientes2.SelectedValue == "0" || ddlEmpleados2.SelectedValue == "0" || ddlEstado2.SelectedValue == "0")
             {
                 mostrarScriptMensaje("Hay campos vacíos o sin seleccionar. Por favor revise nuevamente.");
             }
@@ -798,6 +865,45 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void imgBtnCerrarPopup_Click(object sender, ImageClickEventArgs e)
         {
             BindData();
+        }
+
+        protected void btnExportHistoricoServicios_Click(object sender, EventArgs e)
+        {
+            dgvHistoricoServicios.Visible = true;
+
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename = Export_Historico_Servicios " + DateTime.Now.ToString() + ".xls");
+            Response.ContentType = "application/vnd.xls";
+
+            System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+
+            System.Web.UI.HtmlTextWriter htmlTextWriter = new HtmlTextWriter(stringWriter);
+            dgvHistoricoServicios.RenderControl(htmlTextWriter);
+            Response.Write(stringWriter.ToString());
+
+            Response.End();
+
+            dgvHistoricoServicios.Visible = true;
+        }
+
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename = ExportServicios " + DateTime.Now.ToString() + ".xls");
+            Response.ContentType = "application/vnd.xls";
+
+            System.IO.StringWriter stringWriter = new System.IO.StringWriter();
+
+            System.Web.UI.HtmlTextWriter htmlTextWriter = new HtmlTextWriter(stringWriter);
+            dgvServicios.RenderControl(htmlTextWriter);
+            Response.Write(stringWriter.ToString());
+
+            Response.End();
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+
         }
     }
 }

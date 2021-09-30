@@ -1,25 +1,17 @@
 1) WhatsApp / Mail / SMS:
 	Definir y codear.
 
-2) ABMServicios:
-	Boton ExportExcel.
-	Crear Tabla ServiciosHistorico.
-	Boton ExportHistoricoServicios.
-	Crear trigger en DB para que cuando se 
-		modifique o elimine un servicio 
-		se replique en la DB historico
+2) Hacer una prueba de funcionamiento para detectar errores en toda la app.
 
-3) Hacer una prueba de funcionamiento para detectar errores en toda la app.
-
-4) ABMs:
+3) ABMs:
 	Revisar diseño CSS.
 
-5) Hacer responsive.
+4) Hacer responsive.
 
-6) Recuperar contraseña:
+5) Recuperar contraseña:
 	Generar un link que se envie por mail al seleccionar recuperar contraseña.
 
 	Ingresando a ese link aparecerán los campos de la contraseña nueva y se
 	hará un update de la contraseña de ese usuario.
 
-7) Agregar paginación a todos los DataGridView de cada ABM.
+6) Agregar paginación a todos los DataGridView de cada ABM.

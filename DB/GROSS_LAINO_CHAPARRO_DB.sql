@@ -181,6 +181,95 @@ create table Servicios(
 )
 GO
 
+create table HistoricoServicios(
+	ID bigint primary key identity (1,1) not null,
+	IdServicioOriginal bigint not null,
+	FechaRealizacion datetime not null,
+	PatenteVehiculo varchar(7) not null,
+	IdTipo int not null,
+	Comentarios varchar(400) null,
+	IdCliente bigint not null,
+	IdEmpleado bigint not null,
+	Estado varchar(19) not null,
+	FechaHoraCambio datetime not null
+)
+GO
+
+create trigger TR_INSERT_HISTORICO_SERVICIOS on Servicios
+after insert
+as
+begin
+	declare @IdServicioOriginal bigint = (select ID from inserted)
+	declare @FechaRealizacion datetime = (select FechaRealizacion from inserted)
+	declare @PatenteVehiculo varchar(7) = (select IdCliente from inserted)
+	declare @IdTipo int = (select IdTipo from inserted)
+	declare @Comentarios varchar(400) = (select Comentarios from inserted)
+	declare @IdCliente bigint = (select IdCliente from inserted)
+	declare @IdEmpleado bigint = (select IdEmpleado from inserted)
+	declare @Estado varchar(10) = (select Estado from inserted)
+
+	declare @FechaHoraCambio datetime = (select getdate())
+
+	insert into HistoricoServicios(IdServicioOriginal, FechaRealizacion, PatenteVehiculo, IdTipo, 
+	Comentarios, IdCliente, IdEmpleado, Estado, FechaHoraCambio)
+
+	values(@IdServicioOriginal, @FechaRealizacion, @PatenteVehiculo, @IdTipo, 
+	@Comentarios, @IdCliente, @IdEmpleado, @Estado, @FechaHoraCambio)
+end
+GO
+
+create trigger TR_UPDATE_HISTORICO_SERVICIOS on Servicios
+after update
+as
+begin
+	declare @IdServicioOriginal bigint = (select ID from inserted)
+	declare @FechaRealizacion datetime = (select FechaRealizacion from inserted)
+	declare @PatenteVehiculo varchar(7) = (select IdCliente from inserted)
+	declare @IdTipo int = (select IdTipo from inserted)
+	declare @Comentarios varchar(400) = (select Comentarios from inserted)
+	declare @IdCliente bigint = (select IdCliente from inserted)
+	declare @IdEmpleado bigint = (select IdEmpleado from inserted)
+	declare @Estado varchar(19) = (select Estado from inserted)
+
+	declare @FechaHoraCambio datetime = (select getdate())
+
+	update HistoricoServicios set FechaRealizacion = @FechaRealizacion,
+								  PatenteVehiculo  = @PatenteVehiculo,
+								  IdTipo		   = @IdTipo,
+								  Comentarios	   = @Comentarios,
+								  IdCliente		   = @IdCliente,
+								  IdEmpleado	   = @IdEmpleado,
+								  Estado		   = @Estado,
+								  FechaHoraCambio  = @FechaHoraCambio
+	where IdServicioOriginal = @IdServicioOriginal
+end
+GO
+
+create trigger TR_DELETE_HISTORICO_SERVICIOS on Servicios
+after delete
+as
+begin
+	declare @IdServicioOriginal bigint = (select ID from deleted)
+
+	declare @FechaHoraCambio datetime = (select getdate())
+
+	update HistoricoServicios set Estado = 'Cancelado/Eliminado', 
+	FechaHoraCambio = @FechaHoraCambio where IdServicioOriginal = @IdServicioOriginal
+end
+GO
+
+create view ExportHistoricoServicios
+as
+	select ID as ID, IdServicioOriginal as IdOriginal, FechaRealizacion as FechaRealizacion, 
+	(select V.ID from Vehiculos V where V.Patente = PatenteVehiculo) as IdVehiculo, PatenteVehiculo as Patente,
+	IdTipo as IdTipo, (select Descripcion from TiposServicio TS where TS.ID = IdTipo) as TipoServicio, 
+	Comentarios as Comentarios, IdCliente as IdCliente, (select isnull(C.ApeNom, C.RazonSocial) from Clientes C 
+	where C.ID = IdCliente) as Cliente, IdEmpleado as IdEmpleado, (select E.ApeNom from Empleados E 
+	where E.ID = IdEmpleado) as Empleado, Estado as Estado,
+	convert(varchar(10),FechaHoraCambio,105) as FechaModificado, convert(varchar(8),FechaHoraCambio,108) as HoraModificado
+	from HistoricoServicios
+GO
+
 create view ExportInventario
 as
 select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, I.UrlImagen as Imagen, IdTipo, TP.Descripcion as TipoProducto, 
@@ -451,7 +540,7 @@ create table Turnos(
 )
 GO
 
-create table TurnosGeneral(
+create table HistoricoTurnos(
     ID bigint primary key not null identity(1,1),
 	IdTurnoOriginal bigint not null,
 	TipoServicio varchar(100) not null,
@@ -482,7 +571,7 @@ begin
 
 	declare @FechaHoraCambio datetime = (select getdate())
 
-	insert into TurnosGeneral(IdTurnoOriginal, TipoServicio, Cliente, PatenteVehiculo, Dia, FechaHora, Estado, FechaHoraCambio)
+	insert into HistoricoTurnos(IdTurnoOriginal, TipoServicio, Cliente, PatenteVehiculo, Dia, FechaHora, Estado, FechaHoraCambio)
 	values(@IdTurnoOriginal, @TipoServicio, @Cliente, @Patente, @Dia, @FechaHora, @Estado, @FechaHoraCambio)
 end
 GO
@@ -505,7 +594,7 @@ begin
 
 	declare @FechaHoraCambio datetime = (select getdate())
 
-	update TurnosGeneral set IdTurnoOriginal = @IdTurnoOriginal,
+	update HistoricoTurnos set IdTurnoOriginal = @IdTurnoOriginal,
 							 TipoServicio = @TipoServicio,
 							 Cliente = @Cliente,
 							 PatenteVehiculo = @Patente,
@@ -525,16 +614,16 @@ begin
 
 	declare @FechaHoraCambio datetime = (select getdate())
 
-	update TurnosGeneral set Estado = 'Cancelado/Eliminado', FechaHoraCambio = @FechaHoraCambio where IdTurnoOriginal = @IdTurnoOriginal
+	update HistoricoTurnos set Estado = 'Cancelado/Eliminado', FechaHoraCambio = @FechaHoraCambio where IdTurnoOriginal = @IdTurnoOriginal
 end
 GO
 
-create view ExportTurnosGeneral
+create view ExportHistoricoTurnos
 as
 select ID as ID, IdTurnoOriginal as 'ID Tabla Turnos', Dia as Dia, CONVERT(VARCHAR(10),FechaHora,105) as Fecha, CONVERT(VARCHAR(5),FechaHora,108) as Hora,
 Cliente as Cliente, PatenteVehiculo as Vehiculo, TipoServicio as 'Servicio', Estado as Estado, CONVERT(VARCHAR(10),FechaHoraCambio,105) as FechaCambio,
 CONVERT(VARCHAR(10),FechaHoraCambio,108) as HoraCambio
-from TurnosGeneral
+from HistoricoTurnos
 GO
 
 create view ExportTurnos

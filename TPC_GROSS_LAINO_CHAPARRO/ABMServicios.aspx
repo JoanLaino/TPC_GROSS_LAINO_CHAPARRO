@@ -146,7 +146,49 @@
 
     </div>
 
-    <br /><br />
+    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-servicios" OnClick="btnExportExcel_Click" />
+
+    <asp:Button ID="btnExportHistoricoServicios" runat="server" Text="Exportar histórico Servicios a Excel" cssclass="btn-export-excel-historico-turnos" OnClick="btnExportHistoricoServicios_Click" />
+
+    <center>
+        <asp:GridView ID="dgvHistoricoServicios" visible="False" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod" DataKeyNames="ID" DataSourceID="ExportHistoricoServicios">
+            <AlternatingRowStyle BackColor="White" />
+            
+            <Columns>
+                
+                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
+                <asp:BoundField DataField="IdOriginal" HeaderText="ID Tabla Servicios" SortExpression="IdOriginal" />
+                <asp:BoundField DataField="FechaRealizacion" HeaderText="Fecha de Realización" SortExpression="FechaRealizacion" />
+                <asp:BoundField DataField="IdVehiculo" HeaderText="ID Vehículo" ReadOnly="True" SortExpression="IdVehiculo" />
+                <asp:BoundField DataField="Patente" HeaderText="Patente" SortExpression="Patente" />
+                <asp:BoundField DataField="IdTipo" HeaderText="ID Tipo de Servicio" SortExpression="IdTipo" />
+                <asp:BoundField DataField="TipoServicio" HeaderText="Tipo de Servicio" ReadOnly="True" SortExpression="TipoServicio" />
+                <asp:BoundField DataField="Comentarios" HeaderText="Comentarios" SortExpression="Comentarios" />
+                <asp:BoundField DataField="IdCliente" HeaderText="ID Cliente" SortExpression="IdCliente" />
+                <asp:BoundField DataField="Cliente" HeaderText="Cliente" ReadOnly="True" SortExpression="Cliente" />
+                <asp:BoundField DataField="IdEmpleado" HeaderText="ID Empleado" SortExpression="IdEmpleado" />
+                <asp:BoundField DataField="Empleado" HeaderText="Empleado" ReadOnly="True" SortExpression="Empleado" />
+                <asp:BoundField DataField="Estado" HeaderText="Estado" SortExpression="Estado" />
+                <asp:BoundField DataField="FechaModificado" HeaderText="Fecha última modificación" ReadOnly="True" SortExpression="FechaModificado" />
+                <asp:BoundField DataField="HoraModificado" HeaderText="Hora última modificación" ReadOnly="True" SortExpression="HoraModificado" />
+                
+            </Columns>
+            
+            <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <PagerSettings Position="TopAndBottom" />
+            <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+            <SortedAscendingCellStyle BackColor="#FDF5AC" />
+            <SortedAscendingHeaderStyle BackColor="#4D0000" />
+            <SortedDescendingCellStyle BackColor="#FCF6C0" />
+            <SortedDescendingHeaderStyle BackColor="#820000" />
+        </asp:GridView>
+        
+        <asp:SqlDataSource ID="ExportHistoricoServicios" runat="server" ConnectionString="<%$ ConnectionStrings:GROSS_LAINO_CHAPARRO_DBConnectionString %>" SelectCommand="SELECT * FROM [ExportHistoricoServicios] ORDER BY [FechaModificado] DESC, [HoraModificado] DESC, [ID]"></asp:SqlDataSource>
+        
+    </center>
 
     <center>
         <asp:GridView ID="dgvServicios" runat="server" AllowSorting="True" OnSorting="dgvServicios_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="1" CssClass="dgv-abm-servicios" AllowCustomPaging="True">
