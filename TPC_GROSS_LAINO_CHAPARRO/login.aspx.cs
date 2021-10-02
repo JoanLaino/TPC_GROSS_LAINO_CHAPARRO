@@ -26,6 +26,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 usuario = new Usuario(txtUser.Text, txtPassword.Text, false);
                 if(negocio.Loguear(usuario))
                 {
+                    Session.Add("usernameLogueado", txtUser.Text);
                     Session.Add("usuario", usuario);
                     Response.Redirect("WebInterna.aspx", false);
                 }

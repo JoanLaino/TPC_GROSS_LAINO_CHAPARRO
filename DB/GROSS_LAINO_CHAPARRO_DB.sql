@@ -83,7 +83,7 @@ create table Clientes(
 	RazonSocial varchar(100) null,
 	ApeNom varchar(100) null,
 	FechaAlta date default (getdate()) not null,
-	Mail varchar(100) unique not null,
+	Mail varchar(100) not null,
 	Telefono varchar(50) not null,
 	TotalVehiculosRegistrados int default (0) check (TotalVehiculosRegistrados >= 0),
 	Estado bit default (1)
@@ -771,4 +771,15 @@ begin
 	insert into Servicios(FechaRealizacion, PatenteVehiculo, IdTipo, Comentarios, IdCliente, IdEmpleado, Estado)
 	values(@FechaHora, @Patente, @IdTipo, @Comentarios, @IdCliente, @IdEmpleado, @Estado)
 end
+GO
+
+create table CredencialesMail(
+	ID int not null identity(1,1),
+	Usuario varchar(200) unique not null,
+	Clave varchar(200) not null
+)
+GO
+
+insert into CredencialesMail(Usuario, Clave)
+values ('pruebalubriapp@gmail.com','lubriAppGLC')
 GO

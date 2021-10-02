@@ -497,6 +497,10 @@
       <Project>{6b7ab608-b449-4fe9-bb21-bdc04c1a912a}</Project>
       <Name>Negocio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Servicios\Servicios.csproj">
+      <Project>{0ca0fb80-0c87-4488-9585-2a1bcd74e8b0}</Project>
+      <Name>Servicios</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

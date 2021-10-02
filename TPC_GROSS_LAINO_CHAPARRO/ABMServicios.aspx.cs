@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
+using Servicios;
 
 namespace TPC_GROSS_LAINO_CHAPARRO
 {
@@ -722,7 +723,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void btnDelete_Click(object sender, ImageClickEventArgs e)
         {
             string ID = Session["IdServicio"].ToString();
-            string FechaHora = Session["Fecha"].ToString() + " " + Session["Hora"].ToString();
+            string Fecha = Session["Fecha"].ToString();
+            string Hora =  Session["Hora"].ToString();
+            string UsuarioLogueado = Session["usernameLogueado"].ToString();
 
             AccesoDatos sentencia = new AccesoDatos();
 
@@ -733,6 +736,27 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 sentencia.IUD(deleteServicio);
 
                 mostrarScriptMensaje("Servicio eliminado correctamente.");
+
+                try
+                {
+                    string mailDestino = "pruebalubriapp@gmail.com";
+                    string asunto = "ORDEN DE SERVICIO ELIMINADA";
+                    string cuerpo = "El usuario '" + UsuarioLogueado + "', ha borrado el servicio con ID = " + ID + " el día " + Fecha + ", a las " + Hora + "hs.";
+                    EmailService mailNuevo = new EmailService();
+                    mailNuevo.armarCorreo(mailDestino, asunto, cuerpo);
+                    try
+                    {
+                        mailNuevo.enviarEmail();
+                    }
+                    catch 
+                    {
+                        mostrarScriptMensaje("Se ha producido un error al intentar enviar el mail.");
+                    }
+                }
+                catch
+                {
+                    mostrarScriptMensaje("Se ha producido un error al intentar crear el objeto mail.");
+                }
 
                 BindData();
             }
