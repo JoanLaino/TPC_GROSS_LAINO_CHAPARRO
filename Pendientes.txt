@@ -1,9 +1,8 @@
 1) WhatsApp / Mail / SMS:
 	Definir y codear.
 
-2) Envíar mail cuando se saque un turno, al cliente con los datos del turno.
-   y cuando se elimine un turno, con los datos del usuario, el ID del turno 
-   eliminado y fecha y hora que se eliminó.
+2) Envíar mail Cuando se elimine o modifique un turno, al cliente del turno con la modificación
+   o leyenda indicando que se canceló según corresponda.
 
 3) Hacer una prueba de funcionamiento para detectar errores en toda la app.
 

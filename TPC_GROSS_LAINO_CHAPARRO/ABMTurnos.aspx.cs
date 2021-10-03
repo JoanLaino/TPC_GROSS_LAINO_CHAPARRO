@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
+using Servicios;
 
 namespace TPC_GROSS_LAINO_CHAPARRO
 {
@@ -666,6 +667,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             AccesoDatos sentecia = new AccesoDatos();
 
             string IdTurno = Session["IdTurno"].ToString();
+            string UsuarioLogueado = Session["usernameLogueado"].ToString();
+            string Fecha = Session["Fecha"].ToString(), Hora = Session["Hora"].ToString();
+
             DateTime FechaHora = Convert.ToDateTime(Session["Fecha"].ToString() + " " + Session["Hora"].ToString());
 
             try
@@ -674,6 +678,29 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Turno cancelado con éxito.')", true);
+
+                try
+                {
+                    string mailDestino = "pruebalubriapp@gmail.com";
+                    string asunto = "TURNO ELIMINADO";
+                    string cuerpo = "El usuario '" + UsuarioLogueado + "', ha borrado el turno con ID = " + IdTurno + " el día " + Fecha + ", a las " + Hora + "hs.";
+                    EmailService mailNuevo = new EmailService();
+                    mailNuevo.armarCorreo(mailDestino, asunto, cuerpo);
+                    try
+                    {
+                        mailNuevo.enviarEmail();
+                    }
+                    catch
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Se ha producido un error al intentar enviar el mail.')", true);
+                    }
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se ha producido un error al intentar crear el objeto mail.')", true);
+                }
 
                 string script = @"<script type='text/javascript'>
 

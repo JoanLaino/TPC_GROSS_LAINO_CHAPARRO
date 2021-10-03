@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
+using Servicios;
 
 namespace TPC_GROSS_LAINO_CHAPARRO
 {
@@ -180,7 +181,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         string cuitDni = txtCuitDni.Text;
                         string campo;
 
-                        if (txtCuitDni.Text.Length > 8) //si es mayor a 8, se ingresó un CUIT
+                        if (txtCuitDni.Text.Length > 8)
                         { campo = "RazonSocial"; }
                         else { campo = "ApeNom"; }
 
@@ -237,13 +238,19 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                                 AccesoDatos datos5 = new AccesoDatos();
 
-                                string selectTurnoAgregado = "SELECT ID AS ID FROM Turnos WHERE " +
+                                string selectTurnoAgregado = "SELECT ID AS ID, (SELECT C.Mail from Clientes C where C.ID = IdCliente) AS MAIL, " +
+                                                      "(SELECT V.Patente FROM Vehiculos V WHERE V.ID = IDVehiculo) AS Patente, " +
+                                                      "(SELECT LOWER(TS.Descripcion) FROM TiposServicio TS WHERE TS.ID = IdTipoServicio) AS TipoServicio " +
+                                                      "FROM Turnos WHERE " +
                                                       "IdCliente = " + IDCliente + " AND " +
                                                       "IdVehiculo = " + IDVehiculo + " AND " +
                                                       "CONVERT(VARCHAR(10),FechaHora,105) = '" + fecha + "' AND " +
                                                       "CONVERT(VARCHAR(5),FechaHora,108) = '" + hora + "'";
 
                                 long IDTurno = 0;
+                                string mailDestino = "";
+                                string Patente = "";
+                                string TipoServicio = "";
 
                                 try
                                 {
@@ -253,6 +260,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                     if (datos5.Lector.Read())
                                     {
                                         IDTurno = Convert.ToInt64(datos5.Lector["ID"]);
+                                        mailDestino = datos5.Lector["MAIL"].ToString();
+                                        Patente = datos5.Lector["Patente"].ToString();
+                                        TipoServicio = datos5.Lector["TipoServicio"].ToString();
                                     }
                                 }
                                 catch
@@ -270,7 +280,42 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                 fecha + ", a las " + hora + "" +
                                 "hs, para el cliente " + cliente + " " +
                                 "se ha agregado correctamente.\\n\\n" +
-                                "Su código de reserva es " + IDTurno + ". Por favor consérvelo!!!.')", true);
+                                "Su código de reserva es " + IDTurno + ". Por favor consérvelo por cualquier consulta sobre su turno.')", true);
+
+                                if (mailDestino != "")
+                                {
+                                    try
+                                    {
+                                        string asunto = "RESERVA DE TURNO";
+                                        string cuerpo = "Hola " + cliente + ".\n\n" + "Su turno para " + TipoServicio + 
+                                                        ", con el vehículo patente " + Patente + ", " +
+                                                        "para el día " + dia + " " + fecha + ", a las " + hora + "hs," +
+                                                        " se ha reservado correctamente." + "\n\nSu código de reserva es " + IDTurno +
+                                                        ". Por favor consérvelo por cualquier consulta sobre su turno.";
+                                        EmailService mailNuevo = new EmailService();
+                                        mailNuevo.armarCorreo(mailDestino, asunto, cuerpo);
+                                        try
+                                        {
+                                            mailNuevo.enviarEmail();
+                                        }
+                                        catch
+                                        {
+                                            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                            "alert('Se ha producido un error al intentar enviar el mail.')", true);
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                        "alert('Se ha producido un error al intentar crear el objeto mail.')", true);
+                                    }
+                                }
+                                else
+                                {
+                                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                    "alert('No tiene registrado ninguna dirección de mail en el sistema. " +
+                                    "Por favor comuníquese con nosotros para registrar una y así poder enviarle los detalles de su turno.')", true);
+                                }
                             }
                         }
                         else
@@ -354,10 +399,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                                     ddlVehiculos.Visible = true;
                                     btnAgregarVehículo.Visible = true;
-
-                                    //MOSTRAR BOTON PARA AGREGAR UN NUEVO VEHICULO.
                                 }
-                                else //no hay autos cargados
+                                else
                                 {
                                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
                                     "alert('No se encontraron vehículos cargados.\\n\\n" +
@@ -365,7 +408,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                 }
                             }
                         }
-                        else //no existe el cuit / dni en la DB
+                        else
                         {
                             ClientScript.RegisterStartupScript(this.GetType(), "alert",
                             "alert('No se encontraron resultados, revise el CUIT / DNI ingresado.\\n\\n" +
