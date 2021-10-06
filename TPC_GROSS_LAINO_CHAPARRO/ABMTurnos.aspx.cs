@@ -104,7 +104,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtBorrarTurnosPorPatente.Visible = false;
             btnBorrarTurnosPorPatente.Text = "Borrar Turnos por Patente";
 
-            string selectHistoricoTurnos = "SELECT * FROM ExportTurnosGeneral ORDER BY Fecha DESC, Hora DESC";
+            string selectHistoricoTurnos = "SELECT * FROM ExportHistoricoTurnos ORDER BY Fecha DESC, Hora DESC";
 
             dgvHistoricoTurnos.DataSource = sentencia.DSET(selectHistoricoTurnos);
             dgvHistoricoTurnos.DataBind();
@@ -610,8 +610,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                                   "ID = " + txtFiltro);
                                 datos2.EjecutarLectura();
 
-
-
                                 if (datos2.Lector.Read())
                                 {
                                     IdCliente = datos2.Lector["IdCliente"].ToString();
@@ -639,6 +637,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             Session.Add("CuitDni", txtCuitDni.Text);
                             Session.Add("Patente", txtPatente.Text);
                             Session.Add("IdTipoServicio", ddlTiposServicio.SelectedValue.ToString());
+                            Session.Add("NombreTipoServicio", ddlTiposServicio.SelectedItem.ToString());
                             Session.Add("IdCliente", IdCliente);
                             Session.Add("IdVehiculo", IdVehiculo);
                         }
@@ -668,9 +667,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             string IdTurno = Session["IdTurno"].ToString();
             string UsuarioLogueado = Session["usernameLogueado"].ToString();
-            string Fecha = Session["Fecha"].ToString(), Hora = Session["Hora"].ToString();
-
-            DateTime FechaHora = Convert.ToDateTime(Session["Fecha"].ToString() + " " + Session["Hora"].ToString());
+            string Fecha = DateTime.Now.ToShortDateString(), Hora = DateTime.Now.ToShortTimeString();
 
             try
             {
@@ -679,28 +676,17 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Turno cancelado con éxito.')", true);
 
-                try
-                {
-                    string mailDestino = "pruebalubriapp@gmail.com";
-                    string asunto = "TURNO ELIMINADO";
-                    string cuerpo = "El usuario '" + UsuarioLogueado + "', ha borrado el turno con ID = " + IdTurno + " el día " + Fecha + ", a las " + Hora + "hs.";
-                    EmailService mailNuevo = new EmailService();
-                    mailNuevo.armarCorreo(mailDestino, asunto, cuerpo);
-                    try
-                    {
-                        mailNuevo.enviarEmail();
-                    }
-                    catch
-                    {
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('Se ha producido un error al intentar enviar el mail.')", true);
-                    }
-                }
-                catch
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Se ha producido un error al intentar crear el objeto mail.')", true);
-                }
+                string mailDestino = "pruebalubriapp@gmail.com";
+                string asunto1 = "TURNO CANCELADO";
+                string cuerpo1 = "El usuario '" + UsuarioLogueado + "', ha cancelado el turno con ID = " + IdTurno + " el día " + Fecha + ", a las " + Hora + "hs.";
+
+                string asunto2 = "LUBRICENTRO TONY HA CANCELADO SU TURNO";
+                string cuerpo2 = "Su turno cuyo código de reserva es " + IdTurno + ", ha sido cancelado por el lubricentro, el día " + DateTime.Now.ToShortDateString() + 
+                                 ", a las " + DateTime.Now.ToShortTimeString() + "hs.";
+
+                mailInterno(mailDestino, asunto1, cuerpo1);
+
+                mailClientes(mailDestino, asunto2, cuerpo2);
 
                 string script = @"<script type='text/javascript'>
 
@@ -824,7 +810,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         catch
                         {
                             ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                            "alert('Error al leer la DB. Línea 689 ABMTurnos')", true);
+                            "alert('Error al leer la base de datos.')", true);
                         }
                         finally
                         {
@@ -840,12 +826,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         if (IdHorario2 != IdHorario1) { IdHorario1 = IdHorario2; }
                         if (IdTipoServicio1 != IdTipoServicio2) { IdTipoServicio1 = IdTipoServicio2; }
 
-                        string updateTurno = "UPDATE Turnos SET IdCliente = " + IdCliente1 + 
+                        string updateTurno = "UPDATE Turnos SET IdCliente = " + IdCliente1 +
                                              ", IdVehiculo = " + IdVehiculo1 + ", " +
                                              "Dia = '" + DiaSemana1 + "', " +
                                              "FechaHora = '" + Fecha1 + " " + Hora1 + "', " +
                                              "IdHorario = " + IdHorario1 + ", " +
-                                             "IdTipoServicio = " + IdTipoServicio1 + 
+                                             "IdTipoServicio = " + IdTipoServicio1 +
                                              " WHERE ID = " + IDTurno;
 
                         int resultadoTurnoDuplicado = ContarResultadosDB4("ExportTurnos", "Fecha", Fecha1, "Hora", Hora1, "Cliente", Cliente1);
@@ -863,6 +849,86 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                                 "alert('Turno modificado con éxito.')", true);
+
+                                string IdTurno = Session["IdTurno"].ToString();
+                                string UsuarioLogueado = Session["usernameLogueado"].ToString();
+                                string Fecha = DateTime.Now.ToShortDateString(), Hora = DateTime.Now.ToShortTimeString();
+                                string mailDestino1 = "pruebalubriapp@gmail.com";
+                                string asunto1 = "TURNO MODIFICADO";
+                                string cuerpo1 = "El usuario '" + UsuarioLogueado + "', ha modificado el turno con ID = " + 
+                                                IdTurno + " el día " + Fecha + ", a las " + Hora + "hs.";
+
+                                AccesoDatos datosMailDestino = new AccesoDatos();
+
+                                string mailDestino2 = "", NombreCliente = "";
+
+                                try
+                                {
+                                    string selectMailDestino = "SELECT ISNULL(C.ApeNom, C.RazonSocial) AS CLIENTE, C.Mail AS MAIL FROM Clientes C WHERE C.ID = " + IdCliente1;
+
+                                    datosMailDestino.SetearConsulta(selectMailDestino);
+                                    datosMailDestino.EjecutarLectura();
+
+                                    if (datosMailDestino.Lector.Read() == true)
+                                    {
+                                        mailDestino2 = datosMailDestino.Lector["MAIL"].ToString();
+                                        NombreCliente = datosMailDestino.Lector["CLIENTE"].ToString();
+                                    }
+                                }
+                                catch
+                                {
+                                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                                    "alert('Error al buscar el mail del cliente " + NombreCliente + ", en la base de datos.')", true);
+                                }
+
+                                string asunto2 = "LUBRICENTRO TONY - MODIFICACIÓN DE TURNO";
+                                string cuerpo2 = "Su turno ha sido modificado por nosotros. Abajo le detallamos los cambios realizados.\n\n" +
+                                "-Datos originales.\n" + 
+                                "*Fecha: " + Session["Fecha"].ToString() + " (" + Session["DiaSemana"].ToString() + ")\n" +
+                                "*Horario: " + Session["Hora"].ToString() + "hs\n" +
+                                "*Patente: " + Session["Patente"].ToString() + "\n" +
+                                "*Tipo de servicio: " + Session["NombreTipoServicio"].ToString() + "\n\n" +
+                                "-Datos nuevos.\n";
+
+                                if (Session["Fecha"].ToString() != txtFecha.Text)
+                                {
+                                    string FechaNueva = txtFecha.Text;
+
+                                    cuerpo2 = cuerpo2 + "*Fecha: " + FechaNueva + " (" + diaSemana + ")\n";
+                                }
+                                else { cuerpo2 = cuerpo2 + "*Fecha: sin modificar\n"; }
+                                if (Session["Hora"].ToString() != ddlHoraTurno.SelectedItem.ToString())
+                                {
+                                    string HoraNueva = ddlHoraTurno.SelectedItem.ToString();
+
+                                    cuerpo2 = cuerpo2 + "*Hora: " + HoraNueva + "hs\n";
+                                }
+                                else { cuerpo2 = cuerpo2 + "*Hora: sin modificar\n"; }
+                                if (Session["NombreTipoServicio"].ToString() != ddlTiposServicio.SelectedItem.ToString())
+                                {
+                                    string TipoServicioNuevo = ddlTiposServicio.SelectedItem.ToString();
+
+                                    cuerpo2 = cuerpo2 + "*Tipo de servicio: " + TipoServicioNuevo + "\n";
+                                }
+                                else { cuerpo2 = cuerpo2 + "*Tipo de servicio: sin modificar\n"; }
+                                if (Session["Patente"].ToString() != txtPatente.Text)
+                                {
+                                    string PatenteNueva = txtPatente.Text;
+
+                                    cuerpo2 = cuerpo2 + "*Patente: " + PatenteNueva + "\n";
+                                }
+                                else { cuerpo2 = cuerpo2 + "*Patente: sin modificar\n"; }
+
+                                cuerpo2 = cuerpo2 + "\nSaludos cordiales\n\nLubricentro Tony.";
+
+                                mailInterno(mailDestino1, asunto1, cuerpo1);
+
+                                DateTime FechaModificada = Convert.ToDateTime(Fecha1);
+
+                                if (FechaModificada >= DateTime.Now)
+                                {
+                                    mailClientes(mailDestino2, asunto2, cuerpo2);
+                                }
 
                                 string script = @"<script type='text/javascript'>
 
@@ -1069,6 +1135,52 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Texto vacío, debe ingresar una patente.')", true);
+            }
+        }
+
+        public void mailInterno(string mailDestino, string asunto, string cuerpo)
+        {
+            try
+            {
+                EmailService mailNuevo = new EmailService();
+                mailNuevo.armarCorreo(mailDestino, asunto, cuerpo);
+                try
+                {
+                    mailNuevo.enviarEmail();
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se ha producido un error al intentar enviar el mail.')", true);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se ha producido un error al intentar crear el objeto mail.')", true);
+            }
+        }
+
+        public void mailClientes(string mailDestino, string asunto, string cuerpo)
+        {
+            try
+            {
+                EmailService mailNuevo = new EmailService();
+                mailNuevo.armarCorreo(mailDestino, asunto, cuerpo);
+                try
+                {
+                    mailNuevo.enviarEmail();
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se ha producido un error al intentar enviar el mail.')", true);
+                }
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se ha producido un error al intentar crear el objeto mail.')", true);
             }
         }
     }
