@@ -9,7 +9,7 @@ create table TiposProducto(
 	Descripcion varchar(50) unique not null
 )
 GO
-
+SELECT C.Mail AS MAIL FROM Clientes C WHERE C.ID = IdCliente
 create table MarcasProducto(
 	ID bigint primary key identity (1,1) not null,
 	Descripcion varchar(50) unique not null,
