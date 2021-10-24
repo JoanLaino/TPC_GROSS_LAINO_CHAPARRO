@@ -1,5 +1,3 @@
-1) 
-
 1) Hacer el desarrollo para que se puedan cargar imágenes a la DB.
 
 2) Hacer una prueba de funcionamiento para detectar errores en toda la app.
