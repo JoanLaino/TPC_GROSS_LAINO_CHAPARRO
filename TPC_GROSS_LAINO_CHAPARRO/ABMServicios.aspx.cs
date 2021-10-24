@@ -755,7 +755,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 catch
                 {
-                    mostrarScriptMensaje("Se ha producido un error al intentar crear el objeto mail.");
+                    mostrarScriptMensaje("Se ha producido un error al intentar crear el mail.");
                 }
 
                 BindData();
@@ -775,63 +775,172 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             else
             {
-                string ID = Session["IdServicio"].ToString();
-                string FechaHora = txtFecha.Text + " " + txtHora.Text;
-                string Patente = txtPatente.Text;
-                string Comentarios = txtComentarios.Text;
-                string Estado = ddlEstado.SelectedValue.ToString();
-                string IdTipo = ddlTiposServicio.SelectedValue.ToString();
-                string IdCliente = ddlClientes.SelectedValue.ToString();
-                string IdEmpleado = ddlEmpleados.SelectedValue.ToString();
+                DateTime FechaServicio = Convert.ToDateTime(txtFecha.Text + " " + txtHora.Text);
 
-                AccesoDatos sentencia = new AccesoDatos();
-                AccesoDatos datos = new AccesoDatos();
-
-                string updateServicio = "EXEC UPDATE_SERVICIO " + ID + ", '" + FechaHora + "', '" + Patente + "', '" +
-                    Comentarios + "', '" + Estado + "', " + IdTipo + ", " + IdCliente + ", " + IdEmpleado;
-
-                int resultadoPatenteCliente = ContarResultadosDB_PatenteCliente(IdCliente, Patente);
-
-                string selectNombreCliente = "SELECT ISNULL(ApeNom, RazonSocial) AS Cliente FROM Clientes WHERE ID = " + IdCliente;
-                string Cliente = "vacío";
-
-                try
+                if (FechaServicio.Date <= DateTime.Now.Date || ddlEstado.SelectedValue.ToString() != "Completado")
                 {
-                    datos.SetearConsulta(selectNombreCliente);
-                    datos.EjecutarLectura();
+                    string ID = Session["IdServicio"].ToString();
+                    string FechaHora = txtFecha.Text + " " + txtHora.Text;
+                    string Patente = txtPatente.Text;
+                    string Comentarios = txtComentarios.Text;
+                    string Estado = ddlEstado.SelectedValue.ToString();
+                    string IdTipo = ddlTiposServicio.SelectedValue.ToString();
+                    string IdCliente = ddlClientes.SelectedValue.ToString();
+                    string IdEmpleado = ddlEmpleados.SelectedValue.ToString();
+                    string Servicio = ddlTiposServicio.SelectedItem.ToString();
+                    int DiaAviso = FechaServicio.Day, MesAviso = FechaServicio.Month, AñoAviso = FechaServicio.Year + 1;
 
-                    if (datos.Lector.Read() == true)
+                    int CantDiasMes = 0;
+                    switch (MesAviso - 1)
                     {
-                        Cliente = datos.Lector["Cliente"].ToString();
+                        case 1:
+                            CantDiasMes = 31;
+                            break;
+                        case 2:
+                            if (AñoAviso % 4 == 0 && AñoAviso % 100 == 0 && AñoAviso % 400 == 0)
+                            {
+                                CantDiasMes = 29;
+                            }
+                            else { CantDiasMes = 28; }
+                            break;
+                        case 3:
+                            CantDiasMes = 31;
+                            break;
+                        case 4:
+                            CantDiasMes = 30;
+                            break;
+                        case 5:
+                            CantDiasMes = 31;
+                            break;
+                        case 6:
+                            CantDiasMes = 30;
+                            break;
+                        case 7:
+                            CantDiasMes = 31;
+                            break;
+                        case 8:
+                            CantDiasMes = 31;
+                            break;
+                        case 9:
+                            CantDiasMes = 30;
+                            break;
+                        case 10:
+                            CantDiasMes = 31;
+                            break;
+                        case 11:
+                            CantDiasMes = 30;
+                            break;
+                        case 12:
+                            CantDiasMes = 31;
+                            break;
                     }
 
-                    if (resultadoPatenteCliente != 0)
+                    if (DiaAviso - 7 <= 0) { DiaAviso = CantDiasMes + DiaAviso - 7; MesAviso--; }
+                    else { DiaAviso = DiaAviso - 7; }
+
+                    string FechaAvisoCorta = DiaAviso + "/" + MesAviso + "/" + AñoAviso;
+
+                    AccesoDatos sentencia = new AccesoDatos();
+                    AccesoDatos sentencia2 = new AccesoDatos();
+                    AccesoDatos datos = new AccesoDatos();
+                    AccesoDatos datos2 = new AccesoDatos();
+
+                    string crearAvisoServicio = null;
+                    if (Estado == "Completado" && Servicio == "Revisión de filtros"
+                        || Servicio == "Revisión de aceite y filtros"
+                        || Servicio == "Revisión de aceite")
                     {
-                        try
-                        {
-                            sentencia.IUD(updateServicio);
+                        crearAvisoServicio = "INSERT INTO AvisosServicios(IdCliente, IdServicio, IdTipoServicio, Patente, FechaRealizado, FechaAviso)" +
+                        "values(" + IdCliente + ", " + ID + ", " + IdTipo + ", '" + Patente + "', '" + FechaHora + "', '" + FechaAvisoCorta + "')";
+                    }
 
-                            mostrarScriptMensaje("Servicio modificado correctamente.");
+                    string updateServicio = "EXEC UPDATE_SERVICIO " + ID + ", '" + FechaHora + "', '" + Patente + "', '" +
+                        Comentarios + "', '" + Estado + "', " + IdTipo + ", " + IdCliente + ", " + IdEmpleado;
 
-                            BindData();
-                        }
-                        catch
+                    string cantAvisosServicios = "SELECT COUNT(*) AS Cantidad FROM AvisosServicios WHERE IdServicio = " + ID;
+                    int resultado = 0;
+
+                    try
+                    {
+                        datos2.SetearConsulta(cantAvisosServicios);
+                        datos2.EjecutarLectura();
+                        if (datos2.Lector.Read() == true)
                         {
-                            mostrarScriptMensaje("Error en la base de datos.");
+                            resultado = Convert.ToInt32(datos2.Lector["Cantidad"]);
                         }
                     }
-                    else
+                    catch
                     {
-                        mostrarScriptMensaje("La Patente " + Patente + " no existe en la lista de vehículos, del cliente " + Cliente + ".");
+                        mostrarScriptMensaje("Error al contar los avisos de servicios en la base de datos.");
+                    }
+                    finally
+                    {
+                        datos2.CerrarConexion();
+                    }
+
+                    int resultadoPatenteCliente = ContarResultadosDB_PatenteCliente(IdCliente, Patente);
+
+                    string selectNombreCliente = "SELECT ISNULL(ApeNom, RazonSocial) AS Cliente FROM Clientes WHERE ID = " + IdCliente;
+                    string Cliente = "vacío";
+
+                    try
+                    {
+                        datos.SetearConsulta(selectNombreCliente);
+                        datos.EjecutarLectura();
+
+                        if (datos.Lector.Read() == true)
+                        {
+                            Cliente = datos.Lector["Cliente"].ToString();
+                        }
+
+                        if (resultadoPatenteCliente != 0)
+                        {
+                            try
+                            {
+                                sentencia.IUD(updateServicio);
+
+                                if (resultado == 0 && Estado == "Completado"
+                                    && Servicio == "Revisión de filtros"
+                                    || Servicio == "Revisión de aceite y filtros"
+                                    || Servicio == "Revisión de aceite")
+                                {
+                                    sentencia2.IUD(crearAvisoServicio);
+                                }
+
+                                if (Estado == "Completado")
+                                {
+                                    mostrarScriptMensaje("El servicio se ha marcado como 'Completado'.");
+                                }
+                                else
+                                {
+                                    mostrarScriptMensaje("Servicio modificado correctamente.");
+                                }
+
+                                BindData();
+                            }
+                            catch
+                            {
+                                mostrarScriptMensaje("Error en la base de datos.");
+                            }
+                        }
+                        else
+                        {
+                            mostrarScriptMensaje("La Patente " + Patente + " no existe en la lista de vehículos, del cliente " + Cliente + ".");
+                        }
+                    }
+                    catch
+                    {
+                        mostrarScriptMensaje("Error en la base de datos.");
+                    }
+                    finally
+                    {
+                        datos.CerrarConexion();
                     }
                 }
-                catch
+                else
                 {
-                    mostrarScriptMensaje("Error en la base de datos.");
-                }
-                finally
-                {
-                    datos.CerrarConexion();
+                    mostrarScriptMensaje("El servicio solo podrá ser completado, " +
+                        "cuando la fecha de realización sea igual o inferior a la fecha actual.");
                 }
             }
         }

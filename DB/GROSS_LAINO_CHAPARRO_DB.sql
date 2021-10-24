@@ -783,3 +783,58 @@ GO
 insert into CredencialesMail(Usuario, Clave)
 values ('pruebalubriapp@gmail.com','lubriAppGLC')
 GO
+
+create table AvisosServicios(
+	ID bigint not null identity(1,1),
+	IdCliente bigint not null,
+	IdServicio bigint not null,
+	IdTipoServicio int not null,
+	Patente varchar(7) not null,
+	FechaRealizado date not null,
+	FechaAviso date not null,
+	MailEnviado bit not null default(0)
+)
+GO
+
+create view Export_AvisosServicios
+as
+select ID as ID,
+(select isnull(EC.RazonSocial, EC.ApeNom) from ExportClientes EC where EC.ID = Avs.IdCliente) as Cliente,
+(select EC.Mail from ExportClientes EC where EC.ID = Avs.IdCliente) as Mail,
+(select TS.Descripcion from TiposServicio TS where TS.ID = AvS.IdTipoServicio) as TipoServicio,
+AvS.Patente as Patente,
+CONVERT(varchar,AvS.FechaRealizado,105) as FechaRealizado,
+CONVERT(varchar,AvS.FechaAviso,105) as FechaAviso,
+MailEnviado as Enviado
+from AvisosServicios AvS
+where AvS.FechaAviso = CONVERT(varchar,getdate(),105)
+GO
+
+create trigger TR_UPDATE_SERVICIO on Servicios
+after update
+as
+begin
+	declare @IdServicio bigint = (select ID from inserted)
+	declare @IdCliente bigint = (select IdCliente from inserted)
+	declare @Patente varchar(7) = (select PatenteVehiculo from inserted)
+	declare @IdTipoServicio int = (select IdTipo from inserted)
+	declare @FechaRealizado date = (select FechaRealizacion from inserted)
+	declare @Estado varchar(20) = (select Estado from inserted)
+	declare @TipoServicio varchar(100) = (select Descripcion from TiposServicio where ID = @IdTipoServicio)
+
+	if(	@Estado = 'Completado' AND
+		@TipoServicio = 'Revisión de filtros' OR 
+		@TipoServicio = 'Revisión de aceite y filtros' OR 
+		@TipoServicio = 'Revisión de aceite')
+	begin
+		update AvisosServicios set IdCliente = @IdCliente, 
+		IdTipoServicio = @IdTipoServicio, Patente = @Patente, 
+		FechaRealizado = @FechaRealizado
+		where IdServicio = @IdServicio
+	end
+	else if (@Estado <> 'Completado')
+	begin
+		delete from AvisosServicios where IdServicio = @IdServicio
+	end
+end
+GO
