@@ -16,6 +16,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             AvisosServicios();
         }
 
+        public void mostrarScriptMensaje(string mensaje)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "alert",
+            "alert('" + mensaje + "')", true);
+        }
+
         public void AvisosServicios()
         {
             string selectDatosAvisos = "SELECT * FROM Export_AvisosServicios";
@@ -40,9 +46,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             catch
             {
-                string mensajeError = "Se produjo un error al leer la tabla AvisosServicios";
-                Session.Add("error", mensajeError);
-                Response.Redirect("Error.asp");
+                mostrarScriptMensaje("Se produjo un error al leer la tabla AvisosServicios");
             }
             finally
             {
@@ -72,7 +76,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                         string cuerpo = "Hola " + Cliente + ", esperamos que se encuentre muy bien.\n" +
                         "Desde Lubricentro Tony le queremos recordar que en 1 semana se cumplirá un " +
-                        "año deL siguiente servicio realizado con nosotros.\n\n" +
+                        "año del siguiente servicio realizado con nosotros.\n\n" +
                         "Detalles:\n" +
                         "- Fecha de realización: " + FechaRealizado +
                         "\n- Tipo de servicio: " + TipoServicio +
@@ -101,26 +105,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                 }
                                 catch (Exception)
                                 {
-                                    string mensajeError = "Se produjo un error al intentar actualizar la " +
-                                    "columna mail enviado en la tabla AvisosServicios.";
-                                    Session.Add("error", mensajeError);
-                                    Response.Redirect("Error.asp");
+                                    mostrarScriptMensaje("Se produjo un error al intentar actualizar la " +
+                                    "columna mail enviado en la tabla AvisosServicios.");
                                 }
                             }
                         }
                         catch
                         {
-                            string mensajeError = "Se produjo un error al intentar enviar un mail.";
-                            Session.Add("error", mensajeError);
-                            Response.Redirect("Error.asp");
+                            mostrarScriptMensaje("Se produjo un error al intentar enviar un mail.");
                         }
                     }
                 }
                 catch
                 {
-                    string mensajeError = "Se produjo un error al leer la tabla AvisosServicios";
-                    Session.Add("error", mensajeError);
-                    Response.Redirect("Error.asp");
+                    mostrarScriptMensaje("Se produjo un error al leer la tabla AvisosServicios");
                 }
                 finally
                 {
