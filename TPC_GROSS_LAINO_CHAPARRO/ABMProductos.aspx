@@ -42,8 +42,9 @@
                 <asp:TextBox ID="txtDescripcion" runat="server" ToolTip="Descripción" placeholder="Descripción" Width="200px" MaxLength="60" cssclass="txtbox-abm-prod-descripcion" ></asp:TextBox>
             </td>
             <td Style="padding: .5rem;">
-                <asp:TextBox ID="txtUrlImagen" runat="server" ToolTip="Url Imágen" placeholder="Url de Imágen" Width="200px" MaxLength="300" Rows="1" TextMode="Url" cssclass="txtbox-abm-prod-url-imagen" ></asp:TextBox>
-            </td>
+                <asp:Button ID="btnAgregarImagen" Text="Imagen" runat="server" class="btn-edit-img-prod" OnClick="btnAgregarImagen_Click" />
+                <asp:FileUpload ID="fileUploadImgProd" runat="server" CssClass="file-upload-img-edit-prod" AllowMultiple="false" accept=".jpg" ToolTip="Seleccionar imágen (.jpg / Máx. 4 MB)" />
+            </td>       
         </tr>
 
         <tr align="center">
@@ -199,13 +200,18 @@
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-prod" OnClick="btnExportExcel_Click" />
 
     <center>
-        <asp:GridView ID="dgvInventario" runat="server" align="center" AllowSorting="true" OnSorting="dgvInventario_Sorting" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
+        <asp:GridView ID="dgvInventario" runat="server" align="center" AllowSorting="true" OnSorting="dgvInventario_Sorting" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod dgv-abm-inventario">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="EAN" HeaderText="EAN" SortExpression="EAN" />
-                <asp:ImageField DataAlternateTextField="Imagen" DataImageUrlField="Imagen" HeaderText="Imagen" ControlStyle-Width="25px">
-                <ControlStyle Width="25px"></ControlStyle>
-                </asp:ImageField>
+                
+                <asp:TemplateField HeaderText="Imagen">
+                    <ItemTemplate>
+                        <asp:Image ID="imgProducto" runat="server" Height="50px" Width="50px" 
+                            ImageUrl='<%# "data:Image/jpg;base64," + Convert.ToBase64String((byte[])Eval("Imagen")) %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+
                 <asp:BoundField DataField="Descripción" HeaderText="Descripción" SortExpression="Descripción" />
                 <asp:BoundField DataField="TipoProducto" HeaderText="TipoProducto" SortExpression="TipoProducto" />
                 <asp:BoundField DataField="Marca" HeaderText="Marca" SortExpression="Marca" />

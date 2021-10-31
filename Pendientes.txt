@@ -1,13 +1,11 @@
-1) Hacer el desarrollo para que se puedan cargar imágenes a la DB.
+1) Hacer una prueba de funcionamiento para detectar errores en toda la app.
 
-2) Hacer una prueba de funcionamiento para detectar errores en toda la app.
-
-3) ABMs:
+2) ABMs:
 	Revisar diseño CSS.
 
-4) Hacer responsive.
+3) Hacer responsive.
 
-5) Recuperar contraseña:
+4) Recuperar contraseña:
 	Generar un link que se envie por mail, junto a un código aleatorio de 6 dígitos
 	al seleccionar recuperar contraseña.
 
@@ -15,13 +13,4 @@
 	aparecerán los campos de la contraseña nueva y se
 	hará un update de la contraseña de ese usuario.
 
-6) Agregar paginación a todos los DataGridView de cada ABM.
-
-
-
-REALIZADOS:
-
-1) Hacer que cada cierto tiempo determinado (1 año - 7 días) al completar un servicio o un turno,
-se mande un mail al cliente avisandole que paso ese cierto tiempo desde que
-realizó su último service en el lubricentro.
-(Sólo aplica para cambio de aceite y filtros).
+5) Agregar paginación a todos los DataGridView de cada ABM.

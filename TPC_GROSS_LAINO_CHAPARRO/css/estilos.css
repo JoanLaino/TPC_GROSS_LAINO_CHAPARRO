@@ -484,6 +484,10 @@
     left: 0px;
 }
 
+.dgv-abm-inventario {
+    top: 10px !important;
+}
+
 .img-btn-del-tipo-producto {
     width: 30px;
 }
@@ -941,8 +945,8 @@
 }
 
 .btn-export-excel-abm-prod {
-    left: 926px;
-    top: -38px;
+    left: 0px;
+    top: 22px;
 }
 
 .btn-export-excel-abm-clientes {
@@ -1128,4 +1132,40 @@
     background-color: #FFFFFF;
     color: #2C49E3;
     transition-duration: 500ms;
+}
+
+.preview-image {
+    width: 200px;
+    position: relative;
+    top: -243px;
+    left: 684px;
+}
+
+.btn-preview-imagen {
+    width: 100px;
+    position: relative;
+    top: -113px;
+    left: 562px;
+}
+
+.file-upload-img-edit-prod {
+    width: 200px;
+}
+
+.btn-edit-img-prod {
+    width: 200px;
+}
+
+.img-btn-cancel-add-img {
+    width: 30px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    position: relative;
+    top: -104px;
+    left: 410px;
+}
+
+.img-btn-cancel-add-img:hover {
+    border-radius: 100px;
+    box-shadow: 0 0 10px black;
 }

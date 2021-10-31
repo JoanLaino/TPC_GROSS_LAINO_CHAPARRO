@@ -28,8 +28,8 @@ GO
 create table Inventario(
 	ID bigint not null primary key identity (1,1),
 	EAN bigint unique not null,
+	Imagen image not null default('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'),
 	Descripcion varchar(60) not null,
-	UrlImagen varchar(300) not null,
 	IdTipo bigint not null foreign key references TiposProducto(ID),
 	IdMarca bigint not null foreign key references MarcasProducto(ID),
 	IdProveedor bigint not null foreign key references Proveedores(ID),
@@ -61,11 +61,26 @@ INSERT INTO MarcasProducto(Descripcion) values('Water')
 INSERT INTO MarcasProducto(Descripcion) values('Dot3')
 GO
 
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 'Lubricante muy bueno', 'https://live.staticflickr.com/3771/12164538394_32d87cf00b_b.jpg', 1, 3, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446, 'Aceite 15W40', 'https://lubricentrocarlitos.com.ar/wp-content/uploads/2017/10/elaion-f50.jpg', 2, 2, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447, 'Líquido refrigerante concentrado', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shell_lub.png/200px-Shell_lub.png', 5, 1, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448, 'Agua destilada', 'https://http2.mlstatic.com/D_NQ_NP_710724-MLA43593591234_092020-V.jpg', 4, 4, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
-INSERT INTO Inventario(EAN, Descripcion, UrlImagen, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449, 'Líquido de frenos', 'https://st2.depositphotos.com/1439888/11103/i/600/depositphotos_111033484-stock-photo-brake-fluid-with-disc-brake.jpg', 3, 5, 3, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Imagen, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 
+(select BulkColumn 
+FROM Openrowset(Bulk 'C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\img\Catalogo\SinImagen.jpg', Single_Blob) as NombreImagen), 
+'Lubricante muy bueno', 1, 3, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Imagen, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446,
+(select BulkColumn 
+FROM Openrowset(Bulk 'C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\img\Catalogo\SinImagen.jpg', Single_Blob) as NombreImagen),
+'Aceite 15W40', 2, 2, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Imagen, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447,
+(select BulkColumn 
+FROM Openrowset(Bulk 'C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\img\Catalogo\SinImagen.jpg', Single_Blob) as NombreImagen),
+'Líquido refrigerante concentrado', 5, 1, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Imagen, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448,
+(select BulkColumn 
+FROM Openrowset(Bulk 'C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\img\Catalogo\SinImagen.jpg', Single_Blob) as NombreImagen),
+'Agua destilada', 4, 4, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
+INSERT INTO Inventario(EAN, Imagen, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449,
+(select BulkColumn 
+FROM Openrowset(Bulk 'C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\img\Catalogo\SinImagen.jpg', Single_Blob) as NombreImagen),
+'Líquido de frenos', 3, 5, 3, '2021-05-15', '2023-09-15', 10, 20, 5)
 GO
 
 create table TiposCliente(
@@ -272,7 +287,9 @@ GO
 
 create view ExportInventario
 as
-select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, I.UrlImagen as Imagen, IdTipo, TP.Descripcion as TipoProducto, 
+select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, 
+I.Imagen as Imagen,
+IdTipo, TP.Descripcion as TipoProducto, 
 IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
 CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
 I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado, M.Estado as EstadoMarca, P.Estado as EstadoProveedor 
@@ -307,7 +324,6 @@ create procedure SP_ACTUALIZAR_PRODUCTO(
 	@ID bigint,
 	@EAN bigint,
 	@Descripcion varchar(60),
-	@UrlImagen varchar(300),
 	@IdTipo bigint,
 	@IdMarca bigint,
 	@IdProveedor bigint,
@@ -320,7 +336,7 @@ create procedure SP_ACTUALIZAR_PRODUCTO(
 )
 as
 begin
-	UPDATE Inventario SET Descripcion=@Descripcion, UrlImagen=@UrlImagen, IdTipo=@IdTipo, IdMarca=@IdMarca, IdProveedor=@IdProveedor, 
+	UPDATE Inventario SET Descripcion=@Descripcion, IdTipo=@IdTipo, IdMarca=@IdMarca, IdProveedor=@IdProveedor, 
 	FechaCompra=@FechaCompra, FechaVencimiento=@FechaVencimiento, Costo=@Costo, PrecioVenta=@PrecioVenta, Stock=@Stock, Estado=@Estado
 	WHERE ID=@ID
 end
@@ -838,3 +854,4 @@ begin
 	end
 end
 GO
+

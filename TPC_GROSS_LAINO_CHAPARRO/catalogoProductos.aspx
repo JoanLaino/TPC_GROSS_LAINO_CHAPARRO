@@ -26,7 +26,8 @@
             <div class="card stl-card h-100">
                 <center>
                     <h5 class="card-title"><% = "EAN: " + item.EAN %></h5>
-                    <img src="<% = item.Imagen %>" class="card-img-top img-cards" alt="...">
+                    <img src="data:image/jpg;base64,<%=item.Imagen%>" 
+                        class="card-img-top img-cards" alt="Error al cargar imágen">
                 </center>
                 <div class="card-body stl-dtl-catalogo">
                     
