@@ -855,3 +855,32 @@ begin
 end
 GO
 
+/*
+select * from Inventario
+
+
+
+EXEC SP_ACTUALIZAR_PRODUCTO 5, 7798030610449, 'Líquido de frenos', 3, 5, 3, '15/05/2021', '15/09/2023', 10.00, 20.00, 5, 1
+
+create procedure SP_ACTUALIZAR_PRODUCTO(
+	@ID bigint,
+	@EAN bigint,
+	@Descripcion varchar(60),
+	@IdTipo bigint,
+	@IdMarca bigint,
+	@IdProveedor bigint,
+	@FechaCompra date,
+	@FechaVencimiento date,
+	@Costo money,
+	@PrecioVenta money,
+	@Stock int,
+	@Estado bit
+)
+as
+begin
+	UPDATE Inventario SET Descripcion=@Descripcion, IdTipo=@IdTipo, IdMarca=@IdMarca, IdProveedor=@IdProveedor, 
+	FechaCompra=@FechaCompra, FechaVencimiento=@FechaVencimiento, Costo=@Costo, PrecioVenta=@PrecioVenta, Stock=@Stock, Estado=@Estado
+	WHERE ID=@ID
+end
+GO
+*/
