@@ -1153,7 +1153,19 @@
 }
 
 .btn-edit-img-prod {
-    width: 200px;
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+    font-weight: bold; 
+    vertical-align: top;
+}
+
+.btn-delete-img-prod {
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: top;
 }
 
 .img-btn-cancel-add-img {

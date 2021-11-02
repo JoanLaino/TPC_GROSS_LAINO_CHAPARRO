@@ -42,7 +42,8 @@
                 <asp:TextBox ID="txtDescripcion" runat="server" ToolTip="Descripción" placeholder="Descripción" Width="200px" MaxLength="60" cssclass="txtbox-abm-prod-descripcion" ></asp:TextBox>
             </td>
             <td Style="padding: .5rem;">
-                <asp:Button ID="btnAgregarImagen" Text="Imagen" runat="server" class="btn-edit-img-prod" OnClick="btnAgregarImagen_Click" />
+                <asp:Button ID="btnUpdateImage" Text="Cargar Imagen" runat="server" CssClass="btn-edit-img-prod" OnClick="btnUpdateImage_Click" />
+                <asp:Button ID="btnDeleteImage" Text="Quitar Imagen" runat="server" CssClass="btn-delete-img-prod" onclientclick="return confirm('¿Seguro que desea eliminar la imágen del producto?');" OnClick="btnDeleteImage_Click" />
                 <asp:FileUpload ID="fileUploadImgProd" runat="server" CssClass="file-upload-img-edit-prod" AllowMultiple="false" accept=".jpg" ToolTip="Seleccionar imágen (.jpg / Máx. 4 MB)" />
             </td>       
         </tr>

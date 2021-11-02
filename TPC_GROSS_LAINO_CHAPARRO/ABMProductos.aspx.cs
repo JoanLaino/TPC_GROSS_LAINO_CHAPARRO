@@ -120,8 +120,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
 
-            btnAgregarImagen.Visible = true;
-            btnAgregarImagen.Enabled = false;
+            btnUpdateImage.Visible = true;
+            btnUpdateImage.Enabled = false;
+            btnDeleteImage.Visible = true;
+            btnDeleteImage.Enabled = false;
             fileUploadImgProd.Visible = false;
             btnExportExcel.Visible = true;
             dgvInventario.Visible = true;
@@ -228,19 +230,21 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         byte[] imagenOriginal = new byte[tamanio];
                         fileUploadImgProd.PostedFile.InputStream.Read(imagenOriginal, 0, tamanio);
                         Bitmap imagenOriginalBinaria = new Bitmap(fileUploadImgProd.PostedFile.InputStream);
-                        //Crear imagen Thumbnail
-                        //System.Drawing.Image imgThumbnail;
-                        //int tamanioThumbnail = 200;
-                        //imgThumbnail = RedimensionarImagen(imagenOriginalBinaria, tamanioThumbnail);
-                        //byte[] bImgThumbnail = new byte[tamanioThumbnail];
-                        //ImageConverter convertidor = new ImageConverter();
-                        //bImgThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
+                        
+                        //Crear imagen Thumbnail (redimensionar imagen)
+                        System.Drawing.Image imgThumbnail;
+                        int tamanioThumbnail = 200;
+                        imgThumbnail = RedimensionarImagen(imagenOriginalBinaria, tamanioThumbnail);
+                        byte[] bImgThumbnail = new byte[tamanioThumbnail];
+                        ImageConverter convertidor = new ImageConverter();
+                        bImgThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
+
                         //Actualizar tabla Inventario en DB
                         string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
                         SqlConnection conexionSql = new SqlConnection(cadenaConexion);
                         SqlCommand comandoSql = new SqlCommand();
-                        comandoSql.CommandText = "UPDATE Inventario SET Imagen = @Imagen where EAN = " + txtEan.Text;
-                        comandoSql.Parameters.Add("@Imagen", SqlDbType.Image).Value = imagenOriginalBinaria;
+                        comandoSql.CommandText = "UPDATE ImagenesInventario SET Imagen = @Imagen where EAN = " + txtEan.Text;
+                        comandoSql.Parameters.Add("@Imagen", SqlDbType.Image).Value = bImgThumbnail;
                         comandoSql.CommandType = CommandType.Text;
                         comandoSql.Connection = conexionSql;
 
@@ -791,9 +795,21 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     
                     if (datos.Lector.Read() == true)
                     {
+                        string base64StringImagenVacia = "VkFDSU8=";
                         txtID.Text = datos.Lector["ID"].ToString();
                         txtEan.Text = datos.Lector["EAN"].ToString();
                         txtDescripcion.Text = (string)datos.Lector["Descripción"];
+                        string Imagen = Convert.ToBase64String((byte[])datos.Lector["Imagen"]);
+                        if (Imagen == base64StringImagenVacia) 
+                        { 
+                            btnDeleteImage.Enabled = false;
+                            btnUpdateImage.Enabled = true;
+                        }
+                        else 
+                        {
+                            btnUpdateImage.Enabled = false;
+                            btnDeleteImage.Enabled = true;
+                        }
                         //mostrarImagenPrueba.ImageUrl = "data:image/jpg;base64," + Convert.ToBase64String((byte[])datos.Lector["Imagen"]);
                         ddlTipoProducto.SelectedValue = datos.Lector["IdTipo"].ToString();
                         ddlMarcaProducto.SelectedValue = datos.Lector["IdMarca"].ToString();
@@ -814,7 +830,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                         txtEan.Enabled = false;
                         txtDescripcion.Enabled = true;
-                        btnAgregarImagen.Enabled = true;
                         ddlTipoProducto.Enabled = true;
                         ddlMarcaProducto.Enabled = true;
                         ddlProveedor.Enabled = true;
@@ -866,9 +881,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     }
                 }
             }
-            catch (Exception)
+            catch
             {
-                throw;
+                mostrarScriptMensaje("Se produjo un error en la búsqueda. Por favor reintente en unos minutos.");
             }
             finally
             {
@@ -949,7 +964,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         }
 
-        protected void btnPreviewImage_Click(object sender, EventArgs e)
+        /*protected void btnPreviewImage_Click(object sender, EventArgs e)
         {
             int tamanio = fileUploadImgProd.PostedFile.ContentLength;
 
@@ -977,7 +992,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     mostrarScriptMensaje("No se ha seleccionado ninguna imágen.");
                 }
             }
-        }
+        }*/
 
         public System.Drawing.Image RedimensionarImagen(System.Drawing.Image imagenOriginal, int alto)
         {
@@ -1000,10 +1015,34 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             dgvInventario.DataBind();
         }
 
-        protected void btnAgregarImagen_Click(object sender, EventArgs e)
+        protected void btnUpdateImage_Click(object sender, EventArgs e)
         {
             fileUploadImgProd.Visible = true;
-            btnAgregarImagen.Visible = false;
+            btnUpdateImage.Visible = false;
+            btnDeleteImage.Visible = false;
+        }
+
+        protected void btnDeleteImage_Click(object sender, EventArgs e)
+        {
+            string Ean = txtEan.Text;
+
+            AccesoDatos sentencia = new AccesoDatos();
+
+            string deleteImage = "DELETE FROM ImagenesInventario WHERE EAN = " + Ean;
+
+            try
+            {
+                sentencia.IUD(deleteImage);
+
+                mostrarScriptMensaje("La imágen del EAN: " + Ean + " se ha borrado correctamente.");
+
+                btnDeleteImage.Enabled = false;
+                btnUpdateImage.Enabled = true;
+            }
+            catch
+            {
+                mostrarScriptMensaje("Se produjo un error y no se pudo borrar la imágen del producto.");
+            }
         }
     }
 }
