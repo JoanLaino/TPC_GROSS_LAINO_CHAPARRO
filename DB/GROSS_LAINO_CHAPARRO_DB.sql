@@ -284,7 +284,7 @@ GO
 create view ExportInventario
 as
 select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, 
-(select IV.Imagen from ImagenesInventario IV WHERE I.EAN = IV.EAN) as Imagen,
+(select top(1) IV.Imagen from ImagenesInventario IV WHERE I.EAN = IV.EAN order by ID desc) as Imagen,
 IdTipo, TP.Descripcion as TipoProducto, 
 IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
 CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
@@ -886,11 +886,21 @@ select * from Inventario
 
 select * from exportinventario
 
+update ImagenesInventario set Imagen = (select Imagen from ImagenesInventario where EAN = 7798030610446) where EAN = 7798030610447
+
 select * FROM imagenesinventario
 
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610445)
 insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610446)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610447)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610448)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610449)
 
 delete from Inventario
+
+SELECT COUNT(*) Cantidad FROM ImagenesInventario WHERE EAN = 7798030610446
+
+DELETE FROM ImagenesInventario WHERE EAN = 7798030610445
 
 INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 
 'Lubricante muy bueno', 1, 3, 1, '2021-05-15', '2023-09-15', 10, 20, 5)

@@ -1134,50 +1134,18 @@
     transition-duration: 500ms;
 }
 
-.preview-image {
-    width: 200px;
-    position: relative;
-    top: -243px;
-    left: 684px;
-}
-
-.btn-preview-imagen {
-    width: 100px;
-    position: relative;
-    top: -113px;
-    left: 562px;
-}
-
 .file-upload-img-edit-prod {
     width: 200px;
-}
-
-.btn-edit-img-prod {
-    width: 100px;
-    height: 30px;
-    font-size: 13px;
-    font-weight: bold; 
-    vertical-align: top;
-}
-
-.btn-delete-img-prod {
-    width: 100px;
     height: 30px;
     font-size: 13px;
     font-weight: bold;
     vertical-align: top;
 }
 
-.img-btn-cancel-add-img {
-    width: 30px;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    position: relative;
-    top: -104px;
-    left: 410px;
-}
-
-.img-btn-cancel-add-img:hover {
-    border-radius: 100px;
-    box-shadow: 0 0 10px black;
+.btn-edit-img-prod {
+    width: 200px;
+    height: 30px;
+    font-size: 13px;
+    font-weight: bold; 
+    vertical-align: top;
 }
