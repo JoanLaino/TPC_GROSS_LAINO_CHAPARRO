@@ -950,69 +950,56 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             else
             {
-                /*
-                AccesoDatos sentencia = new AccesoDatos();
-                AccesoDatos datos = new AccesoDatos();
-                string selectCountImgsProd = "SELECT COUNT(*) Cantidad FROM ImagenesInventario WHERE EAN = " + txtEan.Text;
-                string deleteImgsProd = "DELETE FROM ImagenesInventario WHERE EAN = " + txtEan.Text;
-                datos.SetearConsulta(selectCountImgsProd);
-                datos.EjecutarLectura();
-
-                int cantidad = 0;
-
-                if (datos.Lector.Read() == true)
-                {
-                    cantidad = Convert.ToInt32(datos.Lector["Cantidad"]);
-
-                    if (cantidad != 0)
-                    {
-                        sentencia.IUD(deleteImgsProd);
-                    }
-                }*/
-
                 int tamanio = fileUploadImgProd.PostedFile.ContentLength;
 
-                //Obtener datos de la imagen
-                byte[] imagenOriginal = new byte[tamanio];
-                fileUploadImgProd.PostedFile.InputStream.Read(imagenOriginal, 0, tamanio);
-                Bitmap imagenOriginalBinaria = new Bitmap(fileUploadImgProd.PostedFile.InputStream);
-
-                //Crear imagen Thumbnail (redimensionar imagen)
-                System.Drawing.Image imgThumbnail;
-                int tamanioThumbnail = 200;
-                imgThumbnail = RedimensionarImagen(imagenOriginalBinaria, tamanioThumbnail);
-                byte[] bImgThumbnail = new byte[tamanioThumbnail];
-                ImageConverter convertidor = new ImageConverter();
-                bImgThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
-
-                //Actualizar tabla Inventario en DB
-                string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
-                SqlConnection conexionSql = new SqlConnection(cadenaConexion);
-                SqlCommand comandoSql = new SqlCommand();
-                comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan.Text + ")";
-                comandoSql.Parameters.Add("@Imagen", SqlDbType.Image).Value = bImgThumbnail;
-                comandoSql.CommandType = CommandType.Text;
-                comandoSql.Connection = conexionSql;
-
-                try
+                if (tamanio != 0)
                 {
-                    conexionSql.Open();
-                    comandoSql.ExecuteNonQuery();
+                    //Obtener datos de la imagen
+                    byte[] imagenOriginal = new byte[tamanio];
+                    fileUploadImgProd.PostedFile.InputStream.Read(imagenOriginal, 0, tamanio);
+                    Bitmap imagenOriginalBinaria = new Bitmap(fileUploadImgProd.PostedFile.InputStream);
 
-                    btnUpdateImage.Text = "Cargar / Actualizar Imágen";
+                    //Crear imagen Thumbnail (redimensionar imagen)
+                    System.Drawing.Image imgThumbnail;
+                    int tamanioThumbnail = 200;
+                    imgThumbnail = RedimensionarImagen(imagenOriginalBinaria, tamanioThumbnail);
+                    byte[] bImgThumbnail = new byte[tamanioThumbnail];
+                    ImageConverter convertidor = new ImageConverter();
+                    bImgThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
 
-                    mostrarScriptMensaje("La imágen para el EAN: " + txtEan.Text + " se ha subido correctamente.");
+                    //Actualizar tabla Inventario en DB
+                    string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
+                    SqlConnection conexionSql = new SqlConnection(cadenaConexion);
+                    SqlCommand comandoSql = new SqlCommand();
+                    comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan.Text + ")";
+                    comandoSql.Parameters.Add("@Imagen", SqlDbType.Image).Value = bImgThumbnail;
+                    comandoSql.CommandType = CommandType.Text;
+                    comandoSql.Connection = conexionSql;
 
-                    BindData();
+                    try
+                    {
+                        conexionSql.Open();
+                        comandoSql.ExecuteNonQuery();
+
+                        btnUpdateImage.Text = "Cargar / Actualizar Imágen";
+
+                        mostrarScriptMensaje("La imágen para el EAN: " + txtEan.Text + " se ha subido correctamente.");
+
+                        BindData();
+                    }
+                    catch
+                    {
+                        mostrarScriptMensaje("Error al cargar la imágen para el EAN: " + txtEan.Text + ".");
+                    }
+                    finally
+                    {
+                        fileUploadImgProd.Enabled = false;
+                        conexionSql.Close();
+                    }
                 }
-                catch
+                else
                 {
-                    mostrarScriptMensaje("Error al cargar la imágen para el EAN: " + txtEan.Text + ".");
-                }
-                finally
-                {
-                    fileUploadImgProd.Enabled = false;
-                    conexionSql.Close();
+                    mostrarScriptMensaje("No se ha seleccionado ninguna imágen.");
                 }
             }
         }
