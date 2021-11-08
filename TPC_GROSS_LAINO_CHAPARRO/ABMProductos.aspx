@@ -42,7 +42,7 @@
                 <asp:TextBox ID="txtDescripcion" runat="server" ToolTip="Descripción" placeholder="Descripción" Width="200px" MaxLength="60" cssclass="txtbox-abm-prod-descripcion" ></asp:TextBox>
             </td>
             <td Style="padding: .5rem;">
-                <asp:Button ID="btnUpdateImage" Text="Cargar / Actualizar Imágen" runat="server" CssClass="btn-edit-img-prod" OnClick="btnUpdateImage_Click" />
+                <asp:Button ID="btnUpdateImage" Text="Actualizar Imágen" runat="server" CssClass="btn-edit-img-prod" OnClick="btnUpdateImage_Click" />
                 <asp:FileUpload ID="fileUploadImgProd" runat="server" CssClass="file-upload-img-edit-prod" AllowMultiple="false" accept=".jpg" ToolTip="Seleccionar imágen (.jpg / Máx. 4 MB)" />
             </td>       
         </tr>
@@ -131,7 +131,8 @@
                             <asp:TextBox ID="txtDescripcion2" runat="server" ToolTip="Descripción" placeholder="Descripción" Width="200px" MaxLength="60" cssclass="txtbox-abm-prod-descripcion" ></asp:TextBox>
                         </td>
                         <td Style="padding: .5rem;">
-                            <asp:TextBox ID="txtUrlImagen2" runat="server" ToolTip="Url Imágen" placeholder="Url de Imágen" Width="200px" MaxLength="300" Rows="1" TextMode="Url" cssclass="txtbox-abm-prod-url-imagen" ></asp:TextBox>
+                            <asp:Label ID="lblAddImgProd" runat="server" Text="Cargar Imágen" />
+                            <asp:FileUpload ID="fileUploadImgAddProd" runat="server" CssClass="file-upload-img-edit-prod" AllowMultiple="false" accept=".jpg" ToolTip="Seleccionar imágen (.jpg / Máx. 4 MB)" />
                         </td>
                     </tr>
 

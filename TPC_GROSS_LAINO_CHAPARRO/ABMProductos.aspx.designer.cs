@@ -204,13 +204,22 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion2;
 
         /// <summary>
-        /// Control txtUrlImagen2.
+        /// Control lblAddImgProd.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUrlImagen2;
+        protected global::System.Web.UI.WebControls.Label lblAddImgProd;
+
+        /// <summary>
+        /// Control fileUploadImgAddProd.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fileUploadImgAddProd;
 
         /// <summary>
         /// Control ddlTipoProducto2.

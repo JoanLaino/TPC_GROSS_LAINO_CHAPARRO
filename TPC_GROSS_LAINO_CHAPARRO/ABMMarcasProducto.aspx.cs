@@ -49,6 +49,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtBuscar.Text = "";
             txtIdMarca.Text = "";
             txtMarca.Text = "";
+            txtMarca2.Text = "";
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)

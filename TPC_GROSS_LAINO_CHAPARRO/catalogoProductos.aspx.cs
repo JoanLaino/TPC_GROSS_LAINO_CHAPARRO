@@ -19,7 +19,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             try
             {
                 lista = productoDB.Listar();
-
+                
                 Session.Add("listadoProductos", lista);
             }
             catch (Exception ex)

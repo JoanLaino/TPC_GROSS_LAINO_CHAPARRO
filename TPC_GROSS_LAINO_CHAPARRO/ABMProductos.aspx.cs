@@ -92,7 +92,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             txtEan2.Text = "";
             txtDescripcion2.Text = "";
-            txtUrlImagen2.Text = "";
             ddlTipoProducto2.SelectedValue = "0";
             ddlMarcaProducto2.SelectedValue = "0";
             ddlProveedor2.SelectedValue = "0";
@@ -136,26 +135,54 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+            int tamanio = 0;
+
             try
             {
-                if (txtEan2.Text == "" || txtDescripcion2.Text == "" || txtUrlImagen2.Text == ""
-                    || txtFechaCompra2.Text == "" || txtFechaVencimiento2.Text == "" || txtCosto2.Text == ""
-                    || txtStock2.Text == "" || ddlMarcaProducto2.SelectedIndex == 0 ||
-                    ddlTipoProducto2.SelectedIndex == 0 || ddlProveedor2.SelectedIndex == 0)
+                tamanio = fileUploadImgAddProd.PostedFile.ContentLength;
+            }
+            catch
+            {
+
+            }
+
+            if (txtEan2.Text == "" || txtDescripcion2.Text == "" || tamanio == 0
+                || txtFechaCompra2.Text == "" || txtFechaVencimiento2.Text == "" || txtCosto2.Text == ""
+                || txtStock2.Text == "" || ddlMarcaProducto2.SelectedIndex == 0 ||
+                ddlTipoProducto2.SelectedIndex == 0 || ddlProveedor2.SelectedIndex == 0)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Hay campos vacíos o sin seleccionar.')", true);
+            }
+            else
+            {
+                string EAN = txtEan2.Text;
+                string Descripcion = txtDescripcion2.Text;
+                int IdTipoProducto = Convert.ToInt32(ddlTipoProducto2.SelectedValue);
+                int IdMarca = Convert.ToInt32(ddlMarcaProducto2.SelectedValue);
+                int IdProveedor = Convert.ToInt32(ddlProveedor2.SelectedValue);
+                DateTime FechaCompra = Convert.ToDateTime(txtFechaCompra2.Text);
+                DateTime FechaVencimiento = Convert.ToDateTime(txtFechaVencimiento2.Text);
+
+                if (FechaCompra > DateTime.Now || FechaVencimiento < DateTime.Now)
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Hay campos vacíos o sin seleccionar.')", true);
+                    if (FechaCompra > DateTime.Now && FechaVencimiento < DateTime.Now)
+                    {
+                        mostrarScriptMensaje("La fecha de compra no puede ser mayor a la fecha de hoy.\n\n" +
+                            "La fecha de vencimiento no puede ser menor que la fecha de hoy.");
+                    }
+                    else if (FechaCompra > DateTime.Now)
+                    {
+                        mostrarScriptMensaje("La fecha de compra no puede ser mayor a la fecha de hoy.");
+                    }
+                    else
+                    {
+                        mostrarScriptMensaje("La fecha de vencimiento no puede ser menor que la fecha de hoy.");
+                    }
                 }
                 else
                 {
-                    string EAN = txtEan2.Text;
-                    string Descripcion = txtDescripcion2.Text;
-                    string Imagen = txtUrlImagen2.Text;
-                    int IdTipoProducto = Convert.ToInt32(ddlTipoProducto2.SelectedValue);
-                    int IdMarca = Convert.ToInt32(ddlMarcaProducto2.SelectedValue);
-                    int IdProveedor = Convert.ToInt32(ddlProveedor2.SelectedValue);
-                    DateTime FechaCompra = Convert.ToDateTime(txtFechaCompra2.Text);
-                    DateTime FechaVencimiento = Convert.ToDateTime(txtFechaVencimiento2.Text);
+
                     FechaCompra.ToShortDateString();
                     FechaVencimiento.ToShortDateString();
                     string Costo = txtCosto2.Text;
@@ -165,22 +192,50 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                     if (ddlEstado2.SelectedValue == "2") { Estado = 0; }
 
-                    string sp_InsertInventario = "EXEC SP_INSERTAR_PRODUCTO '" + EAN + "', '" + Descripcion + "', '" + Imagen + "', '" + IdTipoProducto
+                    string sp_InsertInventario = "EXEC SP_INSERTAR_PRODUCTO '" + EAN + "', '" + Descripcion + "', '" + IdTipoProducto
                     + "', '" + IdMarca + "', '" + IdProveedor + "', '" + FechaCompra + "', '" + FechaVencimiento + "', '" + Costo + "', '" + PrecioVenta
                     + "', '" + Stock + "', '" + Estado + "'";
 
-                    sentencia.IUD(sp_InsertInventario);
+                    //Obtener datos de la imagen
+                    byte[] imagenOriginal = new byte[tamanio];
+                    fileUploadImgAddProd.PostedFile.InputStream.Read(imagenOriginal, 0, tamanio);
+                    Bitmap imagenOriginalBinaria = new Bitmap(fileUploadImgAddProd.PostedFile.InputStream);
 
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Se ha guardado el producto.')", true);
+                    //Crear imagen Thumbnail (redimensionar imagen)
+                    System.Drawing.Image imgThumbnail;
+                    int tamanioThumbnail = 200;
+                    imgThumbnail = RedimensionarImagen(imagenOriginalBinaria, tamanioThumbnail);
+                    byte[] bImgThumbnail = new byte[tamanioThumbnail];
+                    ImageConverter convertidor = new ImageConverter();
+                    bImgThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
 
-                    BindData();
+                    //Actualizar tabla Inventario en DB
+                    string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
+                    SqlConnection conexionSql = new SqlConnection(cadenaConexion);
+                    SqlCommand comandoSql = new SqlCommand();
+                    comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan2.Text + ")";
+                    comandoSql.Parameters.Add("@Imagen", SqlDbType.Image).Value = bImgThumbnail;
+                    comandoSql.CommandType = CommandType.Text;
+                    comandoSql.Connection = conexionSql;
+
+                    try
+                    {
+                        conexionSql.Open();
+                        comandoSql.ExecuteNonQuery(); //Cargar imagen
+                        sentencia.IUD(sp_InsertInventario); //Cargar producto
+
+                        mostrarScriptMensaje("El EAN: " + txtEan2.Text + " se ha guardado correctamente.");
+                    }
+                    catch
+                    {
+                        mostrarScriptMensaje("Se ha producido un error y no se ha agregado el EAN: " + txtEan2.Text + " al sistema.");
+                    }
+                    finally
+                    {
+                        BindData();
+                        conexionSql.Close();
+                    }
                 }
-            }
-            catch
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Se ha producido un error y no se ha guardado el producto.')", true);
             }
         }
 
@@ -217,7 +272,20 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     + ", " + IdMarca + ", " + IdProveedor + ", '" + FechaCompra.ToShortDateString() + "', '" + FechaVencimiento.ToShortDateString() + "', " + Costo + ", " + PrecioVenta
                     + ", " + Stock + ", " + Estado;
 
-                    sentencia.IUD(sp_UpdateInventario);
+                    string UpdateInventario = "UPDATE INVENTARIO SET EAN = " + EAN + ", " +
+                                                                    "Descripcion = '" + Descripcion + "', " +
+                                                                    "IdTipo = " + IdTipoProducto + ", " +
+                                                                    "IdMarca = " + IdMarca + ", " +
+                                                                    "IdProveedor = " + IdProveedor + ", " +
+                                                                    "FechaCompra = '" + FechaCompra.ToShortDateString() + "', " +
+                                                                    "FechaVencimiento = '" + FechaVencimiento.ToShortDateString() + "', " +
+                                                                    "Costo = " + Costo + ", " +
+                                                                    "PrecioVenta = " + PrecioVenta + ", " +
+                                                                    "Stock = " + Stock + ", " +
+                                                                    "Estado = " + Estado +
+                                                                    " WHERE ID = " + ID;
+
+                    sentencia.IUD(UpdateInventario);
                 }
 
                 BindData();
@@ -821,7 +889,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             txtEan2.Text = "";
             txtDescripcion2.Text = "";
-            txtUrlImagen2.Text = "";
             ddlTipoProducto2.SelectedValue = "0";
             ddlMarcaProducto2.SelectedValue = "0";
             ddlProveedor2.SelectedValue = "0";
@@ -943,7 +1010,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnUpdateImage_Click(object sender, EventArgs e)
         {
-            if (btnUpdateImage.Text == "Cargar / Actualizar Imágen")
+            if (btnUpdateImage.Text == "Actualizar Imágen")
             {
                 fileUploadImgProd.Enabled = true;
                 btnUpdateImage.Text = "Confirmar";
@@ -981,7 +1048,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         conexionSql.Open();
                         comandoSql.ExecuteNonQuery();
 
-                        btnUpdateImage.Text = "Cargar / Actualizar Imágen";
+                        btnUpdateImage.Text = "Actualizar Imágen";
 
                         mostrarScriptMensaje("La imágen para el EAN: " + txtEan.Text + " se ha subido correctamente.");
 

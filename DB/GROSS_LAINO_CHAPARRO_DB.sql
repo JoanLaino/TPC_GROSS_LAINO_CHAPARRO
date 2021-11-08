@@ -32,7 +32,7 @@ create table Inventario(
 	IdTipo bigint not null foreign key references TiposProducto(ID),
 	IdMarca bigint not null foreign key references MarcasProducto(ID),
 	IdProveedor bigint not null foreign key references Proveedores(ID),
-	FechaCompra date not null check (FechaCompra < getdate()),
+	FechaCompra date not null check (FechaCompra <= getdate()),
 	FechaVencimiento date null, check (FechaVencimiento >= getdate()),
 	Costo money not null check (Costo >= 0),
 	PrecioVenta money not null,
@@ -46,6 +46,7 @@ INSERT INTO TiposProducto(Descripcion) values('Aceite')
 INSERT INTO TiposProducto(Descripcion) values('Líquido de frenos')
 INSERT INTO TiposProducto(Descripcion) values('Agua destilada')
 INSERT INTO TiposProducto(Descripcion) values('Líquido refrigerante')
+INSERT INTO TiposProducto(Descripcion) values('Líquido de dirección')
 GO
 
 INSERT INTO Proveedores(CUIT, RazonSocial) values('11111111111', 'ABC S.A.')
@@ -53,27 +54,31 @@ INSERT INTO Proveedores(CUIT, RazonSocial) values('22222222222', 'DEF S.R.L.')
 INSERT INTO Proveedores(CUIT, RazonSocial) values('33333333333', 'GHI S.C.')
 GO
 
-INSERT INTO MarcasProducto(Descripcion) values('Shell')
 INSERT INTO MarcasProducto(Descripcion) values('YPF')
 INSERT INTO MarcasProducto(Descripcion) values('Castrol')
-INSERT INTO MarcasProducto(Descripcion) values('Water')
-INSERT INTO MarcasProducto(Descripcion) values('Dot3')
+INSERT INTO MarcasProducto(Descripcion) values('BioFair')
+INSERT INTO MarcasProducto(Descripcion) values('Bosch')
+INSERT INTO MarcasProducto(Descripcion) values('sTp')
+INSERT INTO MarcasProducto(Descripcion) values('AcDelco')
 GO
 
 INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 
-'Lubricante muy bueno', 1, 3, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
+'Lubricante muy bueno', 1, 2, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
 GO
 INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446,
-'Aceite 15W40', 2, 2, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
+'Aceite 15W40', 2, 1, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
 GO
 INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447,
-'Líquido refrigerante concentrado', 5, 1, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
+'Líquido refrigerante concentrado', 5, 6, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
 GO
 INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448,
-'Agua destilada', 4, 4, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
+'Agua destilada', 4, 3, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
 GO
 INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449,
-'Líquido de frenos', 3, 5, 3, '2021-05-15', '2023-09-15', 10, 20, 5)
+'Líquido de frenos', 3, 4, 3, '2021-05-15', '2023-09-15', 10, 20, 5)
+GO
+INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610450,
+'Líquido de dirección hidráulica rojo', 6, 5, 3, '2021-05-15', '2023-09-15', 10, 20, 5)
 GO
 
 --(select BulkColumn 
@@ -314,6 +319,11 @@ begin
 	VALUES(@EAN, @Descripcion, @IdTipo, @IdMarca, @IdProveedor, @FechaCompra, @FechaVencimiento, @Costo, @PrecioVenta, @Stock, @Estado)
 end
 GO
+
+
+EXEC SP_INSERTAR_PRODUCTO '7798030610450', 'Líquido de dirección hidráulica rojo', '6', '6', '3', 
+'25/11/2021 00:00:00', '22/11/2022 00:00:00', '10', '20', '5', '1'
+
 
 create procedure SP_ACTUALIZAR_PRODUCTO(
 	@ID bigint,
@@ -882,6 +892,10 @@ GO
 /*
 use gross_laino_chaparro_db
 
+UPDATE INVENTARIO SET EAN = 7798030610447, Descripcion = 'Líquido refrigerante concentrado', 
+IdTipo = 5, IdMarca = 3, IdProveedor = 2, FechaCompra = '15/5/2021', FechaVencimiento = '15/9/2023', 
+Costo = 10.00, PrecioVenta = 20.00, Stock = 5, Estado = 1 WHERE ID = 9
+
 select * from Inventario
 
 select * from exportinventario
@@ -896,7 +910,7 @@ insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610447)
 insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610448)
 insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610449)
 
-delete from Inventario
+delete from Inventario where EAN = 7798030610451
 
 SELECT COUNT(*) Cantidad FROM ImagenesInventario WHERE EAN = 7798030610446
 

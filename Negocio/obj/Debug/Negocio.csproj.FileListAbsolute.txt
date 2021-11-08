@@ -49,6 +49,5 @@ C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\bin\Debug\Domini
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\bin\Debug\Dominio.pdb
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\Negocio.csproj.AssemblyReference.cache
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
-C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\Negocio.csproj.CopyComplete
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\Negocio.dll
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Negocio\obj\Debug\Negocio.pdb
