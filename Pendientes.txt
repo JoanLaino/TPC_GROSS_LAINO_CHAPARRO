@@ -1,11 +1,9 @@
-1) Hacer una prueba de funcionamiento para detectar errores en toda la app.
-
-2) ABMs:
+1) ABMs:
 	Revisar diseño CSS.
 
-3) Hacer responsive.
+2) Hacer responsive.
 
-4) Recuperar contraseña:
+3) Recuperar contraseña:
 	Generar un link que se envie por mail, junto a un código aleatorio de 6 dígitos
 	al seleccionar recuperar contraseña.
 
@@ -13,4 +11,4 @@
 	aparecerán los campos de la contraseña nueva y se
 	hará un update de la contraseña de ese usuario.
 
-5) Agregar paginación a todos los DataGridView de cada ABM.
+4) Agregar paginación a todos los DataGridView de cada ABM.
