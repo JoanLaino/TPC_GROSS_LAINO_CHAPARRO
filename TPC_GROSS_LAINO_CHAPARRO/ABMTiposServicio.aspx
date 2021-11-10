@@ -22,7 +22,7 @@
                 &nbsp;&nbsp;
                 <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Tipo de Servicio" onclientclick="return confirm('¿Confirma el cambio?');" onclick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" Style="vertical-align: bottom !important;" />
                 &nbsp;&nbsp;
-                <asp:Button ID="btnIO" runat="server" ToolTip="Hab./Des. Tipo de Servicio" onclientclick="return confirm('¿Confirma cambiar el estado del tipo de servicio?');" onclick="btnIO_Click" Text="Habilitar / Deshabilitar" cssclass="img-btn-del-abm" Style="vertical-align: bottom !important;" />
+                <asp:Button ID="btnIO" runat="server" ToolTip="Hab./Des. Tipo de Servicio" onclientclick="return confirm('¿Confirma cambiar el estado del tipo de servicio?');" onclick="btnIO_Click" Text="Habilitar / Deshabilitar" Style="vertical-align: bottom !important;" />
             </td>
         </tr>
 

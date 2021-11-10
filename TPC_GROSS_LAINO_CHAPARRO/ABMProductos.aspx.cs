@@ -241,6 +241,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
                 if (txtEan.Text == "" || txtDescripcion.Text == "" || ddlTipoProducto.SelectedIndex == 0
@@ -268,12 +269,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     int Estado = 0;
                     if (ddlEstado.SelectedValue == "1") { Estado = 1; }
 
+                    /*
                     string sp_UpdateInventario = "EXEC SP_ACTUALIZAR_PRODUCTO " + ID + ", " + EAN + ", '" + Descripcion + "', " + IdTipoProducto
                     + ", " + IdMarca + ", " + IdProveedor + ", '" + FechaCompra.ToShortDateString() + "', '" + FechaVencimiento.ToShortDateString() + "', " + Costo + ", " + PrecioVenta
                     + ", " + Stock + ", " + Estado;
+                    */
 
-                    string UpdateInventario = "UPDATE INVENTARIO SET EAN = " + EAN + ", " +
-                                                                    "Descripcion = '" + Descripcion + "', " +
+                    string UpdateInventario = "UPDATE Inventario SET Descripcion = '" + Descripcion + "', " +
                                                                     "IdTipo = " + IdTipoProducto + ", " +
                                                                     "IdMarca = " + IdMarca + ", " +
                                                                     "IdProveedor = " + IdProveedor + ", " +
@@ -283,9 +285,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                                                     "PrecioVenta = " + PrecioVenta + ", " +
                                                                     "Stock = " + Stock + ", " +
                                                                     "Estado = " + Estado +
-                                                                    " WHERE ID = " + ID;
+                                                                    " WHERE EAN = " + EAN;
 
-                    sentencia.IUD(UpdateInventario);
+                    datos.SetearConsulta(UpdateInventario);
+                    datos.EjecutarLectura();
+
+                    mostrarScriptMensaje("Se ha actualizado el producto EAN: " + EAN);
                 }
 
                 BindData();
@@ -294,6 +299,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Se ha producido un error y no se ha modificado el producto.')", true);
+            }
+            finally
+            {
+                datos.CerrarConexion();
             }
         }
 
@@ -313,8 +322,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 {
 
                     string ID = txtID.Text;
+                    string EAN = txtEan.Text;
 
-                    string sp_DeleteInventario = "DELETE FROM Inventario WHERE ID = '" + ID + "'";
+                    string sp_DeleteInventario = "DELETE FROM Inventario WHERE EAN = '" + EAN + "'";
 
                     sentencia.IUD(sp_DeleteInventario);
 
@@ -783,7 +793,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     if (Valor.All(char.IsDigit) == true)
                     {
                         string selectCamposProducto = columnasSelectCamposProducto +
-                                                " WHERE EAN = '" + Valor + "'";
+                                                " WHERE EAN = " + Valor;
 
                         datos.SetearConsulta(selectCamposProducto);
                         datos.EjecutarLectura();
@@ -813,6 +823,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         txtStock.Text = datos.Lector["Stock"].ToString();
                         if (datos.Lector["Estado"].ToString() == "1") { ddlEstado.SelectedValue = "1"; }
                         else { ddlEstado.SelectedValue = "2"; }
+
+                        Session.Add("descripcionOriginalProducto", txtDescripcion.Text);
 
                         dgvInventario.DataSource = sentencia.DSET(selectDgvProducto);
                         dgvInventario.DataBind();

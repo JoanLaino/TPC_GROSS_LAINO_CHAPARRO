@@ -138,11 +138,15 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             catch (Exception)
             {
-                throw;
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Se produjo un error en la búsqueda.')", true);
+
+                BindData();
             }
             finally
             {
                 datos.CerrarConexion();
+                datos2.CerrarConexion();
             }
         }
 
@@ -312,7 +316,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             catch
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Se ha producido un error y no se ha eliminado el empleado.')", true);
+                "alert('El empleado tiene asociado uno o más servicios y no se puede eliminar.')", true);
+
+                BindData();
             }
         }
 

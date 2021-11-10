@@ -327,7 +327,6 @@ EXEC SP_INSERTAR_PRODUCTO '7798030610450', 'Líquido de dirección hidráulica rojo
 
 create procedure SP_ACTUALIZAR_PRODUCTO(
 	@ID bigint,
-	@EAN bigint,
 	@Descripcion varchar(60),
 	@IdTipo bigint,
 	@IdMarca bigint,
@@ -857,6 +856,18 @@ begin
 	begin
 		delete from AvisosServicios where IdServicio = @IdServicio
 	end
+
+	declare @IdEmpleadoAnterior bigint = (select IdEmpleado from deleted)
+	declare @IdEmpleadoNuevo bigint = (select IdEmpleado from inserted)
+	declare @CantServiciosEmpleadoAnterior int = (select TotalServiciosRealizados from Empleados where ID = @IdEmpleadoAnterior)
+	declare @CantServiciosEmpleadoNuevo int = (select TotalServiciosRealizados from Empleados where ID = @IdEmpleadoNuevo)
+
+	if (@IdEmpleadoAnterior <> @IdEmpleadoNuevo)
+	begin
+		update Empleados set TotalServiciosRealizados = @CantServiciosEmpleadoAnterior - 1 where ID = @IdEmpleadoAnterior
+		update Empleados set TotalServiciosRealizados = @CantServiciosEmpleadoNuevo + 1 where ID = @IdEmpleadoNuevo
+	end
+
 end
 GO
 
@@ -889,8 +900,34 @@ begin
 end
 GO
 
+create trigger TR_INSERT_SERVICIO on Servicios
+after insert
+as
+begin
+	declare @IdEmpleado bigint = (select IdEmpleado from inserted)
+	declare @cantServiciosActual int = (select TotalServiciosRealizados from Empleados where ID = @IdEmpleado)
+
+	update Empleados set TotalServiciosRealizados = @cantServiciosActual + 1 where ID = @IdEmpleado
+end
+GO
+
+create trigger TR_DELETE_SERVICIO on Servicios
+after delete
+as
+begin
+	declare @IdEmpleado bigint = (select IdEmpleado from deleted)
+	declare @cantServiciosActual int = (select TotalServiciosRealizados from Empleados where ID = @IdEmpleado)
+
+	update Empleados set TotalServiciosRealizados = @cantServiciosActual - 1 where ID = @IdEmpleado
+end
+GO
+
 /*
 use gross_laino_chaparro_db
+
+DELETE FROM Empleados WHERE ID = '2' AND Legajo = '222'
+
+UPDATE Inventario SET Descripcion = 'Líquido de dirección hidráulica muy bueno' WHERE ID = 12
 
 UPDATE INVENTARIO SET EAN = 7798030610447, Descripcion = 'Líquido refrigerante concentrado', 
 IdTipo = 5, IdMarca = 3, IdProveedor = 2, FechaCompra = '15/5/2021', FechaVencimiento = '15/9/2023', 

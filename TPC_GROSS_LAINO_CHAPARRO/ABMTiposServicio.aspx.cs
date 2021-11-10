@@ -231,8 +231,27 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                     sentencia.IUD("DELETE FROM TiposServicio WHERE ID = '" + id + "' AND Descripcion = '" + descripcion + "'");
 
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Tipo de Servicio eliminado con éxito.')", true);
+                    AccesoDatos datos = new AccesoDatos();
+                    string selectEstado = "SELECT Estado FROM TiposServicio WHERE ID = " + id;
+                    datos.SetearConsulta(selectEstado);
+                    datos.EjecutarLectura();
+                    int Estado = 0;
+
+                    if (datos.Lector.Read() == true)
+                    {
+                        Estado = Convert.ToInt32(datos.Lector["Estado"]);
+                    }
+
+                    if (Estado == 0)
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Se ha deshabilitado el tipo de servicio: " + descripcion + ".')", true);
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('Se habilitó el tipo de servicio: " + descripcion + ".')", true);
+                    }
 
                     BindData();
                 }
@@ -260,10 +279,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string id = txtIdTipoServicio.Text;
                     string descripcion = txtTipoServicio.Text;
 
-                    sentencia.IUD("UPDATE MarcasVehiculo SET Descripcion = '" + descripcion + "' WHERE ID = '" + id + "'");
+                    sentencia.IUD("UPDATE TiposServicio SET Descripcion = '" + descripcion + "' WHERE ID = " + id);
 
                     ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Descripción de marca actualizada con éxito.')", true);
+                    "alert('Tipo de servicio actualizado correctamente.')", true);
 
                     BindData();
                 }
