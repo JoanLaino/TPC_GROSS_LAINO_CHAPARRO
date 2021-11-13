@@ -324,7 +324,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 finally
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Puebaaaaaaa')", true);
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Pruebaaaaaaa')", true);
 
                     string script = @"<script type='text/javascript'>
 

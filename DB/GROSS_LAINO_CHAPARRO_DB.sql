@@ -308,6 +308,7 @@ GO
 
 create procedure SP_ACTUALIZAR_PRODUCTO(
 	@ID bigint,
+	@EAN bigint,
 	@Descripcion varchar(60),
 	@IdTipo bigint,
 	@IdMarca bigint,
@@ -323,7 +324,7 @@ as
 begin
 	UPDATE Inventario SET Descripcion=@Descripcion, IdTipo=@IdTipo, IdMarca=@IdMarca, IdProveedor=@IdProveedor, 
 	FechaCompra=@FechaCompra, FechaVencimiento=@FechaVencimiento, Costo=@Costo, PrecioVenta=@PrecioVenta, Stock=@Stock, Estado=@Estado
-	WHERE ID=@ID
+	WHERE ID=@ID AND EAN=@EAN
 end
 GO
 
@@ -854,7 +855,7 @@ GO
 
 create table ImagenesInventario(
 	ID bigint primary key not null identity(1,1),
-	Imagen image not null,
+	Imagen varbinary(max) not null,
 	EAN bigint not null
 )
 GO
@@ -862,7 +863,7 @@ GO
 create view ExportInventario
 as
 select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, 
-(select top(1) IV.Imagen from ImagenesInventario IV WHERE I.EAN = IV.EAN order by ID desc) as Imagen,
+isnull((select IV.Imagen from ImagenesInventario IV WHERE I.EAN = IV.EAN), CONVERT(varbinary(max), 'VACIO')) as Imagen,
 IdTipo, TP.Descripcion as TipoProducto, 
 IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
 CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
@@ -870,29 +871,7 @@ I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Es
 from Inventario as I
 inner join TiposProducto as TP on I.IdTipo = TP.ID
 inner join MarcasProducto as M on I.IdMarca = M.ID
-inner join Proveedores as P on I.IdProveedor = P.ID 
-GO
-
-create trigger TR_INSERT_IMAGE_VACIA_PRODUCTO on Inventario
-after insert
-as
-begin
-	declare @EAN_Producto bigint = (select EAN from inserted)
-	insert into ImagenesInventario(Imagen, EAN) values('VACIO', @EAN_Producto)
-end
-GO
-
-create trigger TR_DELETE_IMAGE_PRODUCTO on Inventario
-after delete
-as
-begin
-	declare @EAN_Producto bigint = (select EAN from deleted)
-	declare @CantImages int = (select count(*) from ImagenesInventario where EAN = @EAN_Producto)
-	if(@CantImages > 0)
-	begin
-		delete from ImagenesInventario where EAN = @EAN_Producto
-	end
-end
+inner join Proveedores as P on I.IdProveedor = P.ID
 GO
 
 create trigger TR_INSERT_SERVICIO on Servicios
@@ -917,58 +896,14 @@ begin
 end
 GO
 
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610445)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610446)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610447)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610448)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610449)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610450)
+create trigger TR_DELETE_IMAGES_PRODUCT on Inventario
+after delete
+as
+begin
+	declare @EAN bigint = (select EAN from deleted)
 
-/*
-use gross_laino_chaparro_db
-
-DELETE FROM Empleados WHERE ID = '2' AND Legajo = '222'
-
-UPDATE Inventario SET Descripcion = 'Líquido de dirección hidráulica muy bueno' WHERE ID = 12
-
-UPDATE INVENTARIO SET EAN = 7798030610447, Descripcion = 'Líquido refrigerante concentrado', 
-IdTipo = 5, IdMarca = 3, IdProveedor = 2, FechaCompra = '15/5/2021', FechaVencimiento = '15/9/2023', 
-Costo = 10.00, PrecioVenta = 20.00, Stock = 5, Estado = 1 WHERE ID = 9
-
-select * from Inventario
-
-select * from exportinventario
-
-update ImagenesInventario set Imagen = (select Imagen from ImagenesInventario where EAN = 7798030610446) where EAN = 7798030610447
-
-select * FROM imagenesinventario
-
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610445)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610446)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610447)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610448)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610449)
-insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610450)
-
-delete from Inventario where EAN = 7798030610451
-
-SELECT COUNT(*) Cantidad FROM ImagenesInventario WHERE EAN = 7798030610446
-
-DELETE FROM ImagenesInventario WHERE EAN = 7798030610445
-
-INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610445, 
-'Lubricante muy bueno', 1, 3, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
+	delete from ImagenesInventario where EAN = @EAN
+end
 GO
-INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610446,
-'Aceite 15W40', 2, 2, 1, '2021-05-15', '2023-09-15', 10, 20, 5)
-GO
-INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610447,
-'Líquido refrigerante concentrado', 5, 1, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
-GO
-INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610448,
-'Agua destilada', 4, 4, 2, '2021-05-15', '2023-09-15', 10, 20, 5)
-GO
-INSERT INTO Inventario(EAN, Descripcion, IdTipo, IdMarca, IdProveedor, FechaCompra, FechaVencimiento, Costo, PrecioVenta, Stock) values(7798030610449,
-'Líquido de frenos', 3, 5, 3, '2021-05-15', '2023-09-15', 10, 20, 5)
-GO
-*/
+
+--use gross_laino_chaparro_db

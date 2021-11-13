@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("select * from ExportInventario");
+                datos.SetearConsulta("select * from ExportInventario order by EAN asc");
                 datos.EjecutarLectura();
 
                 while (datos.Lector.Read())
@@ -41,17 +41,16 @@ namespace Negocio
                         lista.Add(aux);
                     }
                 }
-
-                return lista;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                
             }
             finally
             {
                 datos.CerrarConexion();
             }
+            return lista;
         }
     }
 }

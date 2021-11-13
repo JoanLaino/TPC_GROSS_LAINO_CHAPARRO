@@ -19,47 +19,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             validarNivelUsuario();
 
-            string selectTP = "SELECT * FROM TiposProducto";
-            string selectMarcas = "SELECT * FROM MarcasProducto";
-            string selectProveedores = "SELECT * FROM Proveedores";
-
             if (!IsPostBack)
             {
-                ddlTipoProducto.DataSource = sentencia.DSET(selectTP);
-                ddlTipoProducto.DataMember = "datos";
-                ddlTipoProducto.DataTextField = "Descripcion";
-                ddlTipoProducto.DataValueField = "ID";
-                ddlTipoProducto.DataBind();
-
-                ddlMarcaProducto.DataSource = sentencia.DSET(selectMarcas);
-                ddlMarcaProducto.DataMember = "datos";
-                ddlMarcaProducto.DataTextField = "Descripcion";
-                ddlMarcaProducto.DataValueField = "ID";
-                ddlMarcaProducto.DataBind();
-
-                ddlProveedor.DataSource = sentencia.DSET(selectProveedores);
-                ddlProveedor.DataMember = "datos";
-                ddlProveedor.DataTextField = "RazonSocial";
-                ddlProveedor.DataValueField = "ID";
-                ddlProveedor.DataBind();
-
-                ddlTipoProducto2.DataSource = sentencia.DSET(selectTP);
-                ddlTipoProducto2.DataMember = "datos";
-                ddlTipoProducto2.DataTextField = "Descripcion";
-                ddlTipoProducto2.DataValueField = "ID";
-                ddlTipoProducto2.DataBind();
-
-                ddlMarcaProducto2.DataSource = sentencia.DSET(selectMarcas);
-                ddlMarcaProducto2.DataMember = "datos";
-                ddlMarcaProducto2.DataTextField = "Descripcion";
-                ddlMarcaProducto2.DataValueField = "ID";
-                ddlMarcaProducto2.DataBind();
-
-                ddlProveedor2.DataSource = sentencia.DSET(selectProveedores);
-                ddlProveedor2.DataMember = "datos";
-                ddlProveedor2.DataTextField = "RazonSocial";
-                ddlProveedor2.DataValueField = "ID";
-                ddlProveedor2.DataBind();
+                CargarDesplegables();
 
                 BindData();
             }
@@ -143,7 +105,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             catch
             {
-
+                if (tamanio == 0) { }
             }
 
             if (txtEan2.Text == "" || txtDescripcion2.Text == "" || tamanio == 0
@@ -225,6 +187,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                         sentencia.IUD(sp_InsertInventario); //Cargar producto
 
                         mostrarScriptMensaje("El EAN: " + txtEan2.Text + " se ha guardado correctamente.");
+
+                        BindData();
                     }
                     catch
                     {
@@ -232,7 +196,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     }
                     finally
                     {
-                        BindData();
                         conexionSql.Close();
                     }
                 }
@@ -242,68 +205,53 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             AccesoDatos datos = new AccesoDatos();
-            try
+            
+            if (txtEan.Text == "" || txtDescripcion.Text == "" || ddlTipoProducto.SelectedIndex == 0
+                || ddlMarcaProducto.SelectedIndex == 0
+                || ddlProveedor.SelectedIndex == 0 || txtFechaCompra.Text == ""
+                || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
+                || txtStock.Text == "" || ddlEstado.SelectedIndex == 0)
             {
-                if (txtEan.Text == "" || txtDescripcion.Text == "" || ddlTipoProducto.SelectedIndex == 0
-                    || ddlMarcaProducto.SelectedIndex == 0
-                    || ddlProveedor.SelectedIndex == 0 || txtFechaCompra.Text == ""
-                    || txtFechaVencimiento.Text == "" || txtCosto.Text == ""
-                    || txtStock.Text == "" || ddlEstado.SelectedIndex == 0)
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Hay campos vacíos o sin seleccionar.')", true);
+            }
+            else
+            {
+                string ID = txtID.Text;
+                string EAN = txtEan.Text;
+                string Descripcion = txtDescripcion.Text;
+                int IdTipoProducto = Convert.ToInt32(ddlTipoProducto.SelectedValue);
+                int IdMarca = Convert.ToInt32(ddlMarcaProducto.SelectedValue);
+                int IdProveedor = Convert.ToInt32(ddlProveedor.SelectedValue);
+                DateTime FechaCompra = Convert.ToDateTime(txtFechaCompra.Text);
+                DateTime FechaVencimiento = Convert.ToDateTime(txtFechaVencimiento.Text);
+                string Costo = txtCosto.Text;
+                string PrecioVenta = txtPrecioVenta.Text;
+                int Stock = Convert.ToInt32(txtStock.Text);
+                int Estado = 0;
+                if (ddlEstado.SelectedValue == "1") { Estado = 1; }
+
+                string sp_UpdateInventario = "EXEC SP_ACTUALIZAR_PRODUCTO " + ID + ", " + EAN + ", '" + Descripcion + "', " + IdTipoProducto
+                + ", " + IdMarca + ", " + IdProveedor + ", '" + FechaCompra.ToShortDateString() + "', '" + FechaVencimiento.ToShortDateString() + "', " + Costo + ", " + PrecioVenta
+                + ", " + Stock + ", " + Estado;
+
+                try
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Hay campos vacíos o sin seleccionar.')", true);
-                }
-                else
-                {
-                    string ID = txtID.Text;
-                    string EAN = txtEan.Text;
-                    string Descripcion = txtDescripcion.Text;
-                    int IdTipoProducto = Convert.ToInt32(ddlTipoProducto.SelectedValue);
-                    int IdMarca = Convert.ToInt32(ddlMarcaProducto.SelectedValue);
-                    int IdProveedor = Convert.ToInt32(ddlProveedor.SelectedValue);
-                    DateTime FechaCompra = Convert.ToDateTime(txtFechaCompra.Text);
-                    DateTime FechaVencimiento = Convert.ToDateTime(txtFechaVencimiento.Text);
-                    string Costo = txtCosto.Text;
-                    string PrecioVenta = txtPrecioVenta.Text;
-                    int Stock = Convert.ToInt32(txtStock.Text);
-                    int Estado = 0;
-                    if (ddlEstado.SelectedValue == "1") { Estado = 1; }
-
-                    /*
-                    string sp_UpdateInventario = "EXEC SP_ACTUALIZAR_PRODUCTO " + ID + ", " + EAN + ", '" + Descripcion + "', " + IdTipoProducto
-                    + ", " + IdMarca + ", " + IdProveedor + ", '" + FechaCompra.ToShortDateString() + "', '" + FechaVencimiento.ToShortDateString() + "', " + Costo + ", " + PrecioVenta
-                    + ", " + Stock + ", " + Estado;
-                    */
-
-                    string UpdateInventario = "UPDATE Inventario SET Descripcion = '" + Descripcion + "', " +
-                                                                    "IdTipo = " + IdTipoProducto + ", " +
-                                                                    "IdMarca = " + IdMarca + ", " +
-                                                                    "IdProveedor = " + IdProveedor + ", " +
-                                                                    "FechaCompra = '" + FechaCompra.ToShortDateString() + "', " +
-                                                                    "FechaVencimiento = '" + FechaVencimiento.ToShortDateString() + "', " +
-                                                                    "Costo = " + Costo + ", " +
-                                                                    "PrecioVenta = " + PrecioVenta + ", " +
-                                                                    "Stock = " + Stock + ", " +
-                                                                    "Estado = " + Estado +
-                                                                    " WHERE EAN = " + EAN;
-
-                    datos.SetearConsulta(UpdateInventario);
+                    datos.SetearConsulta(sp_UpdateInventario);
                     datos.EjecutarLectura();
 
                     mostrarScriptMensaje("Se ha actualizado el producto EAN: " + EAN);
-                }
 
-                BindData();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-                //ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                //"alert('Se ha producido un error y no se ha modificado el producto.')", true);
-            }
-            finally
-            {
-                datos.CerrarConexion();
+                    BindData();
+                }
+                catch (Exception)
+                {
+                    mostrarScriptMensaje("Se ha producido un error y no se ha modificado el producto.");
+                }
+                finally
+                {
+                    datos.CerrarConexion();
+                }
             }
         }
 
@@ -321,11 +269,9 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else
                 {
-
-                    string ID = txtID.Text;
                     string EAN = txtEan.Text;
 
-                    string sp_DeleteInventario = "DELETE FROM Inventario WHERE EAN = '" + EAN + "'";
+                    string sp_DeleteInventario = "DELETE FROM Inventario WHERE EAN = " + EAN;
 
                     sentencia.IUD(sp_DeleteInventario);
 
@@ -895,6 +841,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             finally
             {
                 datos.CerrarConexion();
+                datos2.CerrarConexion();
             }
         }
 
@@ -1015,10 +962,79 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void CargarInventario()
         {
             AccesoDatos sentencia = new AccesoDatos();
-            string selectViewInventario = "SELECT * FROM ExportInventario";
+            AccesoDatos datos = new AccesoDatos();
 
-            dgvInventario.DataSource = sentencia.DSET(selectViewInventario);
-            dgvInventario.DataBind();
+            string selectViewInventario = "SELECT * FROM ExportInventario ORDER BY EAN ASC";
+
+            try
+            {
+                datos.SetearConsulta(selectViewInventario);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read() == true)
+                {
+                    string bandera = "0";
+
+                    bandera = datos.Lector["Imagen"].ToString();
+
+                    if (bandera != "0")
+                    {
+                        dgvInventario.DataSource = sentencia.DSET(selectViewInventario);
+                        dgvInventario.DataBind();
+                    }
+                }
+            }
+            catch
+            {
+                mostrarScriptMensaje("Se ha producido un error al intentar listar el inventario.");
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+
+        protected void CargarDesplegables()
+        {
+            string selectTP = "SELECT * FROM TiposProducto order by Descripcion asc";
+            string selectMarcas = "SELECT * FROM MarcasProducto order by Descripcion asc";
+            string selectProveedores = "SELECT * FROM Proveedores order by RazonSocial asc";
+
+            ddlTipoProducto.DataSource = sentencia.DSET(selectTP);
+            ddlTipoProducto.DataMember = "datos";
+            ddlTipoProducto.DataTextField = "Descripcion";
+            ddlTipoProducto.DataValueField = "ID";
+            ddlTipoProducto.DataBind();
+
+            ddlMarcaProducto.DataSource = sentencia.DSET(selectMarcas);
+            ddlMarcaProducto.DataMember = "datos";
+            ddlMarcaProducto.DataTextField = "Descripcion";
+            ddlMarcaProducto.DataValueField = "ID";
+            ddlMarcaProducto.DataBind();
+
+            ddlProveedor.DataSource = sentencia.DSET(selectProveedores);
+            ddlProveedor.DataMember = "datos";
+            ddlProveedor.DataTextField = "RazonSocial";
+            ddlProveedor.DataValueField = "ID";
+            ddlProveedor.DataBind();
+
+            ddlTipoProducto2.DataSource = sentencia.DSET(selectTP);
+            ddlTipoProducto2.DataMember = "datos";
+            ddlTipoProducto2.DataTextField = "Descripcion";
+            ddlTipoProducto2.DataValueField = "ID";
+            ddlTipoProducto2.DataBind();
+
+            ddlMarcaProducto2.DataSource = sentencia.DSET(selectMarcas);
+            ddlMarcaProducto2.DataMember = "datos";
+            ddlMarcaProducto2.DataTextField = "Descripcion";
+            ddlMarcaProducto2.DataValueField = "ID";
+            ddlMarcaProducto2.DataBind();
+
+            ddlProveedor2.DataSource = sentencia.DSET(selectProveedores);
+            ddlProveedor2.DataMember = "datos";
+            ddlProveedor2.DataTextField = "RazonSocial";
+            ddlProveedor2.DataValueField = "ID";
+            ddlProveedor2.DataBind();
         }
 
         protected void btnUpdateImage_Click(object sender, EventArgs e)
@@ -1051,7 +1067,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
                     SqlConnection conexionSql = new SqlConnection(cadenaConexion);
                     SqlCommand comandoSql = new SqlCommand();
-                    comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan.Text + ")";
+                    //comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan.Text + ")";
+                    comandoSql.CommandText = "UPDATE ImagenesInventario SET Imagen = @Imagen WHERE EAN = " + txtEan.Text;
                     comandoSql.Parameters.Add("@Imagen", SqlDbType.Image).Value = bImgThumbnail;
                     comandoSql.CommandType = CommandType.Text;
                     comandoSql.Connection = conexionSql;
