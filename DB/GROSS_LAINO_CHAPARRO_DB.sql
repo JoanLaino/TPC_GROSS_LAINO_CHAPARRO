@@ -286,20 +286,6 @@ as
 	from HistoricoServicios
 GO
 
-create view ExportInventario
-as
-select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, 
-(select top(1) IV.Imagen from ImagenesInventario IV WHERE I.EAN = IV.EAN order by ID desc) as Imagen,
-IdTipo, TP.Descripcion as TipoProducto, 
-IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
-CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
-I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado, M.Estado as EstadoMarca, P.Estado as EstadoProveedor 
-from Inventario as I
-inner join TiposProducto as TP on I.IdTipo = TP.ID
-inner join MarcasProducto as M on I.IdMarca = M.ID
-inner join Proveedores as P on I.IdProveedor = P.ID 
-GO
-
 create procedure SP_INSERTAR_PRODUCTO(
 	@EAN bigint,
 	@Descripcion varchar(60),
@@ -319,11 +305,6 @@ begin
 	VALUES(@EAN, @Descripcion, @IdTipo, @IdMarca, @IdProveedor, @FechaCompra, @FechaVencimiento, @Costo, @PrecioVenta, @Stock, @Estado)
 end
 GO
-
-
-EXEC SP_INSERTAR_PRODUCTO '7798030610450', 'Líquido de dirección hidráulica rojo', '6', '6', '3', 
-'25/11/2021 00:00:00', '22/11/2022 00:00:00', '10', '20', '5', '1'
-
 
 create procedure SP_ACTUALIZAR_PRODUCTO(
 	@ID bigint,
@@ -878,6 +859,20 @@ create table ImagenesInventario(
 )
 GO
 
+create view ExportInventario
+as
+select I.ID as ID, I.EAN as EAN, I.Descripcion as Descripción, 
+(select top(1) IV.Imagen from ImagenesInventario IV WHERE I.EAN = IV.EAN order by ID desc) as Imagen,
+IdTipo, TP.Descripcion as TipoProducto, 
+IdMarca, M.Descripcion as Marca, IdProveedor, P.RazonSocial as Proveedor, 
+CONVERT(VARCHAR(10),I.FechaCompra,105) as 'Fecha de Compra', CONVERT(VARCHAR(10),I.FechaVencimiento,105) as 'Fecha de Vencimiento',
+I.Costo as Costo, I.PrecioVenta as PrecioVenta, I.Stock as Stock, I.Estado as Estado, M.Estado as EstadoMarca, P.Estado as EstadoProveedor 
+from Inventario as I
+inner join TiposProducto as TP on I.IdTipo = TP.ID
+inner join MarcasProducto as M on I.IdMarca = M.ID
+inner join Proveedores as P on I.IdProveedor = P.ID 
+GO
+
 create trigger TR_INSERT_IMAGE_VACIA_PRODUCTO on Inventario
 after insert
 as
@@ -922,6 +917,13 @@ begin
 end
 GO
 
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610445)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610446)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610447)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610448)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610449)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610450)
+
 /*
 use gross_laino_chaparro_db
 
@@ -946,6 +948,7 @@ insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610446)
 insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610447)
 insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610448)
 insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610449)
+insert into ImagenesInventario(Imagen, EAN) values('VACIO', 7798030610450)
 
 delete from Inventario where EAN = 7798030610451
 
