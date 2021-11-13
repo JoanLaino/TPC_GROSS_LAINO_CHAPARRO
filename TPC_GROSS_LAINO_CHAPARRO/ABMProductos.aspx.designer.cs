@@ -11,7 +11,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 {
 
 
-    public partial class ABMCatalogo
+    public partial class ABMProductos
     {
 
         /// <summary>

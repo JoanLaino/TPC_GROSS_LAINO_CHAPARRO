@@ -12,7 +12,7 @@ using System.Data;
 
 namespace TPC_GROSS_LAINO_CHAPARRO
 {
-    public partial class ABMCatalogo : System.Web.UI.Page
+    public partial class ABMProductos : System.Web.UI.Page
     {
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
@@ -295,10 +295,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                 BindData();
             }
-            catch
+            catch (Exception ex)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Se ha producido un error y no se ha modificado el producto.')", true);
+                throw ex;
+                //ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                //"alert('Se ha producido un error y no se ha modificado el producto.')", true);
             }
             finally
             {
