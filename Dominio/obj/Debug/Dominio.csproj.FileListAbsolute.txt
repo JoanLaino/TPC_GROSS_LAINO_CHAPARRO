@@ -34,3 +34,9 @@ C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\D
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.dll
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.pdb
 C:\Users\Juan Manuel\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Dominio\bin\Debug\Dominio.dll
+C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Dominio\bin\Debug\Dominio.pdb
+C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.dll
+C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Dominio\obj\Debug\Dominio.pdb

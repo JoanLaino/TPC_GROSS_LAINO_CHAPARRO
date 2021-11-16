@@ -342,6 +342,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         }
 
+        protected void dgvEmpleados_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvEmpleados.PageIndex = e.NewPageIndex;
+            BindData();
+        }
+
         //protected void buscarEmpleado(object sender, EventArgs e)
         //{
         //List<Empleado> filtro;

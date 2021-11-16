@@ -104,7 +104,7 @@
     <asp:Button ID="btnExportTurnosGeneral" runat="server" Text="Exportar histórico Turnos a Excel" cssclass="btn-export-excel-historico-turnos" OnClick="btnExportHistoricoExcel_Click" />
 
     <center>
-        <asp:GridView ID="dgvHistoricoTurnos" visible="false" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod" DataKeyNames="ID">
+        <asp:GridView ID="dgvHistoricoTurnos" visible="false" runat="server" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" CssClass="dgv-abm-prod" DataKeyNames="ID" AllowPaging="True" OnPageIndexChanging="dgvHistoricoTurnos_PageIndexChanging">
             <AlternatingRowStyle BackColor="White" />
             
             <Columns>

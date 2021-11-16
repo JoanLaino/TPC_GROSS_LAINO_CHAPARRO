@@ -1122,5 +1122,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 mostrarScriptMensaje("Se produjo un error y no se pudo borrar la imágen del producto.");
             }
         }
+
+        protected void dgvInventario_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvInventario.PageIndex = e.NewPageIndex;
+            BindData();
+        }
     }
 }

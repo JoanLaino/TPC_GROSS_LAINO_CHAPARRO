@@ -67,7 +67,7 @@
     <br /><br /><br />
 
     <center Style="padding: .15rem;">
-        <asp:GridView ID="dgvMarcasProducto" runat="server" AllowSorting="True" OnSorting="dgvMarcasProducto_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="2" CssClass="dgv-abm-prod">
+        <asp:GridView ID="dgvMarcasProducto" runat="server" AllowSorting="True" OnSorting="dgvMarcasProducto_Sorting" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" AutoGenerateColumns="False" PageSize="5" CssClass="dgv-abm-prod" AllowPaging="True" OnPageIndexChanging="dgvMarcasProducto_PageIndexChanging">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" SortExpression="Descripcion" />

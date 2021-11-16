@@ -293,5 +293,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
 
         }
+
+        protected void dgvMarcasProducto_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvMarcasProducto.PageIndex = e.NewPageIndex;
+            BindData();
+        }
     }
 }

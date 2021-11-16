@@ -1183,5 +1183,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 "alert('Se ha producido un error al intentar crear el objeto mail.')", true);
             }
         }
+
+        protected void dgvHistoricoTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvHistoricoTurnos.PageIndex = e.NewPageIndex;
+            BindData();
+        }
     }
 }

@@ -82,7 +82,7 @@
     <asp:Button ID="btnEliminar" runat="server" ToolTip="Eliminar Vehículo" Text="Eliminar vehículo" CssClass="btn-eliminar-vehiculo" OnClick="btnEliminar_Click" onclientclick="return confirm('¿Seguro que desea eliminar el vehículo?');" />
 
     <center>
-        <asp:GridView ID="dgvVehiculos" runat="server" AllowSorting="True" OnSorting="dgvVehiculos_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-vehiculos" DataKeyNames="ID">
+        <asp:GridView ID="dgvVehiculos" runat="server" AllowSorting="True" OnSorting="dgvVehiculos_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-vehiculos" DataKeyNames="ID" AllowPaging="True">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 
