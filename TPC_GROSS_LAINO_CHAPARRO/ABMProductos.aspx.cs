@@ -1069,6 +1069,25 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     SqlCommand comandoSql = new SqlCommand();
                     //comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan.Text + ")";
                     comandoSql.CommandText = "UPDATE ImagenesInventario SET Imagen = @Imagen WHERE EAN = " + txtEan.Text;
+                    int Cantidad = 1;
+                    try
+                    {
+                        AccesoDatos datos = new AccesoDatos();
+                        datos.SetearConsulta("SELECT COUNT(*) Cantidad FROM ImagenesInventario WHERE EAN = " + txtEan.Text);
+                        datos.EjecutarLectura();
+                        if (datos.Lector.Read() == true)
+                        {
+                            Cantidad = Convert.ToInt32(datos.Lector["Cantidad"]);
+                        }
+                        datos.CerrarConexion();
+                    }
+                    catch { }
+
+                    if (Cantidad == 0)
+                    {
+                        comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan.Text + ")";
+                    }
+                    
                     comandoSql.Parameters.Add("@Imagen", SqlDbType.Image).Value = bImgThumbnail;
                     comandoSql.CommandType = CommandType.Text;
                     comandoSql.Connection = conexionSql;
