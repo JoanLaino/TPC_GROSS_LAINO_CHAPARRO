@@ -46,7 +46,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             }
             catch
             {
-                mostrarScriptMensaje("Se produjo un error al leer la tabla AvisosServicios");
+                //mostrarScriptMensaje("Se produjo un error al leer la tabla AvisosServicios");
             }
             finally
             {
