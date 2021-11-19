@@ -35,8 +35,7 @@
     <span style="font-size: 10px;">Para editar o eliminar un producto se debe buscar por "EAN" o por "Descripción" exacta.</span>
     <div ID="tablaCamposProducto" BorderStyle="Inset" BorderWidth="5px" class="stl-tabla-campos" style="width:60%; border: solid; border-color: black; background-color: rgb(255 255 255);">
 
-        <div class="stl-tabla-campos-producto">
-        
+        <div class="stl-tabla-campos-producto">        
         
                 <asp:TextBox ID="txtEan" runat="server" ToolTip="EAN" PlaceHolder="EAN" TextMode="Number" onkeypress="javascript:return solonumeros(event)" cssclass="txtEAN-abm-producto" ></asp:TextBox>
             
@@ -75,10 +74,10 @@
                     <asp:ListItem Value="0" Selected="True">Estado</asp:ListItem>
                     <asp:ListItem Value="1" >Activar</asp:ListItem>
                     <asp:ListItem Value="2" >Desactivar</asp:ListItem>
-                </asp:DropDownList>
-           
+                </asp:DropDownList>           
 
         </div>
+
             <center>
                 <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Producto" onclientclick="return confirm('¿Seguro que desea actualizar el producto?');" OnClick="btnUpdate_Click" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" />
                 &nbsp;&nbsp;&nbsp;

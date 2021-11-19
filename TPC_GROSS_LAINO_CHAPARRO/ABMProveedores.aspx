@@ -5,43 +5,36 @@
 
     <br />
 
+    <div class="stl-buscador-productos">        
     <asp:ImageButton id="imgBtnBuscar" runat="server" ToolTip="Buscar Proveedor" ImageUrl="~/img/find-logo.png" Style="vertical-align: middle;" onclick="imgBtnBuscar_Click" cssclass="btn-buscar-filtro-abm" />
-    <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." Style="width: 320px; height: 30px !important; vertical-align: middle;" TextMode="Search" ></asp:TextBox>
+    <asp:TextBox ID="txtBuscar" runat="server" ToolTip="Buscador" PlaceHolder="Buscar..." cssclass="txt-campo-filtro-abm-producto" TextMode="Search" ></asp:TextBox>
 
     <button id="btnPopUpAgregarProveedor" ToolTip="Agregar nuevo Proveedor" class="btnAddNewSupplier">Agregar Nuevo</button>
-
+    </div>
     <br/><br />
 
-    <table>
-
-        <tr>
-            <td style="padding: .5rem;">
-                <asp:TextBox id="txtCuit" runat="server" ToolTip="CUIT" placeholder="CUIT" onkeypress="javascript:return solonumeros(event)" Style="width: 200px; vertical-align: middle;" />
-            </td>
-            <td style="padding: .5rem;">
-                <asp:TextBox id="txtRazonSocial" runat="server" ToolTip="Razon Social" placeholder="Razon Social" Style="width: 200px; vertical-align: middle;" />
-            </td>
-            <td style="padding: .5rem;">
-                <asp:TextBox id="txtId" runat="server" TooTip="ID" placeholder="ID" Visible="false" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: .5rem;">
-                <asp:DropDownList ID="ddlEstado" runat="server" ToolTip="Estado" Width="200px" Height="30px" AppendDataBoundItems="true" Style="background-color: white; border-color: black; height: 30px;">
+    <center>
+    <div class="stl-buscador-proveedores">
+                <asp:TextBox id="txtCuit" runat="server" ToolTip="CUIT" placeholder="CUIT" onkeypress="javascript:return solonumeros(event)" Style="width: 90%; vertical-align: middle; margin: 3px; max-width: none;" />
+            
+                <asp:TextBox id="txtRazonSocial" runat="server" ToolTip="Razon Social" placeholder="Razon Social" Style="width: 90%; vertical-align: middle; margin: 3px; max-width: none;" />
+            
+                           
+                <asp:DropDownList ID="ddlEstado" runat="server" ToolTip="Estado" Width="90%" Height="30px" AppendDataBoundItems="true" Style="background-color: white; border-color: black; height: 30px; width: 90%; max-width: none; vertical-align: middle; margin: 3px;">
                     <asp:ListItem Value="0">Estado</asp:ListItem>
                     <asp:ListItem Value="1">Activar</asp:ListItem>
                     <asp:ListItem Value="2">Desactivar</asp:ListItem>
                 </asp:DropDownList>
-            </td>
-            <td align="center" style="padding: .5rem;">
-                &nbsp;&nbsp;&nbsp;
+               
+                <div  Style="width: 90%; vertical-align: middle; margin: 3px;">
                 <asp:ImageButton ID="btnUpdate" runat="server" ToolTip="Editar Proveedor" onclientclick="return confirm('¿Confirma los cambios?');" ImageUrl="~/img/edit-logo.png" cssclass="img-btn-edit-abm" onclick="btnUpdate_Click" Style="vertical-align: bottom !important;" />
-                &nbsp;&nbsp;&nbsp;
+                
                 <asp:ImageButton ID="btnDelete" runat="server" ToolTip="Eliminar Proveedor" onclientclick="return confirm('¿Seguro que desea eliminar el Proveedor?');" ImageUrl="~/img/del-logo.png" cssclass="img-btn-del-abm" onclick="btnDelete_Click" Style="vertical-align: bottom !important;" />
-            </td>
-        </tr>
+                </div>
+    </div>
+    </center>
 
-    </table>
+    <asp:TextBox id="txtId" runat="server" TooTip="ID" placeholder="ID" Visible="false" Style="width: 60px; text-align:center; vertical-align: bottom !important;" />
 
     <div id="overlay" class="overlay" align="center">
 
@@ -84,7 +77,7 @@
     <br /><br /><br />
 
     <center Style="padding: .5rem;">
-        <asp:GridView ID="dgvProveedores" runat="server" AllowSorting="True" Onsorting="dgvProveedores_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod" AllowPaging="True" OnPageIndexChanging="dgvProveedores_PageIndexChanging">
+        <asp:GridView ID="dgvProveedores" runat="server" AllowSorting="True" Onsorting="dgvProveedores_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-prod table stl-tbl-proveedores" AllowPaging="True" OnPageIndexChanging="dgvProveedores_PageIndexChanging">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="CUIT" HeaderText="CUIT" SortExpression="CUIT" />

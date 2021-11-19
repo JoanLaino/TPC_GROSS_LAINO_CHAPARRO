@@ -269,7 +269,7 @@
 }
 
 .txt-campo-filtro-abm-producto {
-    width: 95%;
+    width: 90%;
     vertical-align: middle;
     max-width: none;
 }
@@ -377,6 +377,7 @@
 }
 
 .btnAddNewBrand {
+    vertical-align: middle;
     color: #ffffff;
     background-color: #98D983;
     border-radius: 50px;
@@ -389,8 +390,14 @@
     font-weight: 600;
     text-shadow: black 0.1em 0.1em 1.9em;
     box-shadow: 0 4px 6px -6px black;
-    position: relative;
-    left: 90px;
+    width: 200px;
+}
+
+@media screen and (max-width: 760px) {
+    .btnAddNewBrand {
+        margin-top: 20px;
+        margin-bottom: -10px;
+    }
 }
 
 .btnAddNewBrand:hover {
@@ -435,10 +442,15 @@
     font-weight: 600;
     text-shadow: black 0.1em 0.1em 1.9em;
     box-shadow: 0 4px 6px -6px black;
-    position: relative;
-    left: 8px;
+    width: 200px;
 }
 
+@media screen and (max-width: 760px) {
+    .btnAddNewSupplier {
+        margin-top: 20px;
+        margin-bottom: -10px;
+    }
+}
 .btnAddNewSupplier:hover {
     background-color: #ffffff;
     color: #98D983;
@@ -1223,7 +1235,6 @@
 @media screen and (max-width: 760px) {
     .stl-buscador-productos {
         grid-template-columns: 1fr;
-        grid-template-columns: 1fr;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
@@ -1245,5 +1256,71 @@
 @media screen and (max-width: 760px) {
     .stl-tabla-campos {
         width: 100% !important;
+    }
+}
+
+.stl-menu-buscador-marca-productos {
+    display: grid;
+    grid-template-columns: 44% 56%;
+}
+
+@media screen and (max-width: 760px) {
+    .stl-menu-buscador-marca-productos {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        
+    }
+}
+
+.stl-buscador-proveedores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 60%;
+    margin-right: 40%;
+}
+
+@media screen and (max-width: 760px) {
+    .stl-buscador-proveedores {
+        grid-template-columns: 1fr;   
+        margin-right: initial;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .stl-tbl-proveedores {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.stl-menu-marcas-vehiculos {
+    display: grid;
+    grid-template-columns: 40% 50%;
+    width: 60%;
+    margin-right: 40%;
+}
+
+@media screen and (max-width: 760px) {
+    .stl-menu-marcas-vehiculos {
+        grid-template-columns: 1fr;
+        margin-right: initial;
+        width: 100%;
+    }
+}
+
+.stl-submit-delete-marcas {
+    width: 90%;
+    vertical-align: middle;
+    margin: 3px;
+}
+
+@media screen and (max-width: 760px) {
+    .stl-submit-delete-marcas {
+        display: flex;
+        justify-content: space-evenly;
     }
 }
