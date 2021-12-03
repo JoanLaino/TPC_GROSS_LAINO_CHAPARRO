@@ -11,7 +11,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 {
     public partial class ABMClientes : System.Web.UI.Page
     {
-        //public List<Cliente> lista;
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -338,7 +337,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 else
                 {
                     string ID = txtID.Text;
-                    
+
                     string sp_DeleteCliente = "DELETE FROM Clientes WHERE ID = " + ID;
 
                     sentencia.IUD(sp_DeleteCliente);
@@ -383,15 +382,5 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             Response.Redirect("ABMVehiculos.aspx");
         }
 
-        //protected void buscarCliente(object sender, EventArgs e)
-        //{
-        //List<Cliente> filtro;
-        //if (txtFiltro.Text != "")
-        //{
-        //    filtro = lista.FindAll(Art => Art.Name.ToUpper().Contains(txtFiltro.Text.ToUpper()) || Art.CuilCuit.ToUpper().Contains(txtFiltro.Text.ToUpper()) || Art.Legajo.ToUpper().Contains(txtFiltro.Text.ToUpper()));
-        //    lista = null;
-        //    lista = filtro;
-        //}
-        //}
     }
 }

@@ -906,4 +906,24 @@ begin
 end
 GO
 
---use gross_laino_chaparro_db
+--Elimina los vehículos (si es que hay) asociados al clientes que se eliminó
+create trigger TR_ELIMINAR_VEHICULOS_CLIENTES on Clientes
+instead of delete
+as
+begin
+	declare @IdCliente bigint = (select ID from deleted) 
+	declare @CantidadVehiculos int = (select isnull(count(*), 0) from Vehiculos where IdCliente = @IdCliente)
+
+	if (@CantidadVehiculos = 0)
+		begin
+			delete from Clientes where ID = @IdCliente
+		end
+
+	else
+		begin
+			delete from Vehiculos where IdCliente = @IdCliente
+
+			delete from Clientes where ID = @IdCliente
+		end
+end
+GO

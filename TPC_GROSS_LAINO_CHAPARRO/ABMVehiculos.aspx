@@ -12,7 +12,8 @@
         <asp:ListItem Value="CUITDNI">CUIT-DNI</asp:ListItem>
     </asp:DropDownList>
     <asp:Label ID="lblBuscar" runat="server" Text="Para modificar o eliminar, se debe buscar por Patente." Style="font-size: 10px; position: relative; top: -25px; left: -387px;" />
-
+    
+    <button ID="btnAgregarVehiculo" ToolTip="Agregar Vehículo" width="80px" Class="btn-agregar-vehiculo" >Agregar vehículo</button>
     <br /><br /><br />
 
     <table id="tblVehiculos" class="tblVehiculos-style" BorderStyle="Inset" BorderWidth="5px">
@@ -78,7 +79,6 @@
 
     <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-vehiculos" OnClick="btnExportExcel_Click" />
 
-    <button ID="btnAgregarVehiculo" ToolTip="Agregar Vehículo" width="80px" Class="btn-agregar-vehiculo" >Agregar vehículo</button>
     <asp:Button ID="btnEliminar" runat="server" ToolTip="Eliminar Vehículo" Text="Eliminar vehículo" CssClass="btn-eliminar-vehiculo" OnClick="btnEliminar_Click" onclientclick="return confirm('¿Seguro que desea eliminar el vehículo?');" />
 
     <center>
@@ -146,24 +146,5 @@
             popup.classList.remove('active');
         });
     </script>
-
-  <%--  <script>
-        var imgBtnBuscar = document.getElementById('imgBtnBuscar'),                
-        var ddlFiltroBuscar = document.getElementById('ddlFiltroBuscar'),
-        var seleccionado = ddlFiltroBuscar.options[ddlFiltroBuscar.selectedIndex].text;
-        alert(seleccionado);
-
-        
-        imgBtnBuscar.addEventListener('click', function (e) {
-            
-            if (ddlFiltroBuscar.select == 'CUIT-DNI') {
-
-                tblVehiculos.classList.add('invisible');
-            } else if (ddlFiltroBuscar == 'Patente') {
-                tblVehiculos.classList.remove('invisible');
-            }
-        }      
-       
-    </script>--%>
 
 </asp:Content>

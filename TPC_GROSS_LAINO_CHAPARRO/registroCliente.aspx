@@ -17,12 +17,8 @@
                     <asp:ListItem Value="0">Tipo de cliente</asp:ListItem>
                     </asp:DropDownList>
                     <br /><br />
-                    <asp:Label ID="lblApeNom" runat="server" Text="Completar sólo si es cliente particular" Style="color: red; font-size: 10px;" />
-                    <br />
                     <asp:TextBox ID="txtApeNom" runat="server" tooltip="Nombre y Apellido" placeholder="Nombre y Apellido" onkeypress="javascript:return sololetras(event)" width="200px" />
-                    <br />
-                    <asp:Label ID="lblRazonSocial" runat="server" Text="Completar sólo si NO es cliente particular" Style="color: red; font-size: 10px;" />
-                    <br />
+                    <br /><br />
                     <asp:TextBox ID="txtRazonSocial" runat="server" tooltip="Razón Social" placeholder="Razón Social" width="200px" />
                     <br /><br />
                     <asp:TextBox ID="txtCuitDni" runat="server" Type="Number" tooltip="DNI / CUIT" placeholder="DNI / CUIT" onkeypress="javascript:return solonumeros(event)" width="200px" MaxLength="11" />

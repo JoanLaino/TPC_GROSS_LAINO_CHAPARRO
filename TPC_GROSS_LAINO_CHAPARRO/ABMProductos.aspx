@@ -19,19 +19,6 @@
 
     <br />
 
-    <%--
-        <asp:DropDownList ID="ddlCampo" runat="server" AppendDataBoundItems="True" CssClass="ddl-campo-filtro-abm-producto" AutoPostBack="True" Visible="false">
-            <asp:ListItem Value="Seleccione..." Selected="True">Seleccione...</asp:ListItem>
-            <asp:ListItem Value="EAN">EAN</asp:ListItem>
-            <asp:ListItem Value="Descripcion">Descripción</asp:ListItem>
-            <asp:ListItem Value="IdTipo">Tipo de producto</asp:ListItem>
-            <asp:ListItem Value="IdMarca">Marca</asp:ListItem>
-            <asp:ListItem Value="IdProveedor">Proveedor</asp:ListItem>
-            <asp:ListItem Value="Stock">Stock</asp:ListItem>
-            <asp:ListItem Value="Estado">Estado (1/0)</asp:ListItem>
-        </asp:DropDownList>
-    --%>
-    
     <span style="font-size: 10px;">Para editar o eliminar un producto se debe buscar por "EAN" o por "Descripción" exacta.</span>
     <div ID="tablaCamposProducto" BorderStyle="Inset" BorderWidth="5px" class="stl-tabla-campos" style="width:60%; border: solid; border-color: black; background-color: rgb(255 255 255);">
 

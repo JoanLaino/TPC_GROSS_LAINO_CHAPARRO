@@ -52,39 +52,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         }
 
-        //protected void ddlID_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    AccesoDatos datos = new AccesoDatos();
-        //    try
-        //    {
-        //        string selectExportInventario = "select * from ExportTiposProducto where ID = '" + ddlID.SelectedItem + "'";
-        //        datos.SetearConsulta(selectExportInventario);
-        //        datos.EjecutarLectura();
-        //        if (ddlID.SelectedIndex == 0)
-        //        {
-        //            txtDescripcion.Text = "";
-
-        //            BindData();
-        //        }
-        //        else /*if (datos.Lector.Read() == true)*/
-        //        {
-        //            txtDescripcion.Text = Convert.ToString(ddlID.SelectedValue);
-        //            string Valor = Convert.ToString(ddlID.SelectedValue);
-        //            string selectFiltroTipoProducto = "SELECT * FROM ExportTiposProducto" +
-        //                                        " WHERE Descripcion LIKE '%" + Valor + "%'";
-
-        //            //txtDescripcion.Text = (string)datos.Lector["Descripcion"];
-        //            dgvTiposProducto.DataSource = sentencia.DSET(selectFiltroTipoProducto);
-        //            dgvTiposProducto.DataBind();
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
-
         protected void btnDeleteTipoProducto_Click(object sender, EventArgs e)
         {
             try

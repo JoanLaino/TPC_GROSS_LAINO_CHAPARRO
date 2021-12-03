@@ -47,7 +47,7 @@ namespace Servicios
         public void armarCorreo(string mailDestino, string asunto, string cuerpo)
         {
             email = new MailMessage();
-            email.From = new MailAddress("noresponder@lubricentrotony.com");
+            email.From = new MailAddress("noresponder@lubricentrotony.com", "Lubricentro Tony");
             email.To.Add(mailDestino);
             email.Subject = asunto;
             //email.IsBodyHtml = true;

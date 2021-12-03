@@ -333,7 +333,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 {
                     string patente = txtBorrarServiciosPorPatente.Text.ToUpper();
                     int resultadoServicios = ContarResultadosDB("Servicios", "PatenteVehiculo", patente, "y");
-                    int resultadoDB = ContarResultadosDB("Vehículos", "Patente", patente, "y");
+                    int resultadoDB = ContarResultadosDB("Vehiculos", "Patente", patente, "y");
 
                     if (resultadoDB == 0)
                     {
@@ -1033,8 +1033,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             Response.End();
         }
-
-
 
         protected void dgvHistoricoServicios_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

@@ -17,7 +17,6 @@ C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Servicios\bin\Debug\Domi
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Servicios\bin\Debug\Negocio.pdb
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.csproj.AssemblyReference.cache
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.csproj.CoreCompileInputs.cache
-C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.csproj.CopyComplete
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.dll
 C:\Users\Juanma\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.pdb
 C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Servicios\bin\Debug\Servicios.dll
