@@ -82,7 +82,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
 
-            string selectViewClientes = "SELECT * FROM ExportClientes";
+            string selectViewClientes = "SELECT * FROM ExportClientes WHERE Estado = 1";
 
             dgvClientes.DataSource = sentencia.DSET(selectViewClientes);
             dgvClientes.DataBind();

@@ -199,7 +199,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             cliente = (string)datos4.Lector[campo];
                         }
 
-                        if (ddlVehiculos.SelectedValue != "0")
+                        if (ddlVehiculos.SelectedValue != "Seleccione vehículo")
                         {
                             int IdTipoServicio = Convert.ToInt32(ddlTiposServicio.SelectedValue);
                             long IDVehiculo = Convert.ToInt64(ddlVehiculos.SelectedValue);
@@ -386,6 +386,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                                     string selectDdlVehiculos = "SELECT * FROM Vehiculos WHERE IdCliente = " + IdCliente;
 
+                                    ddlVehiculos.Items.Clear();
+                                    ddlVehiculos.Items.Add("Seleccione vehículo");
                                     ddlVehiculos.DataSource = sentencia.DSET(selectDdlVehiculos);
                                     ddlVehiculos.DataMember = "datos";
                                     ddlVehiculos.DataTextField = "Patente";

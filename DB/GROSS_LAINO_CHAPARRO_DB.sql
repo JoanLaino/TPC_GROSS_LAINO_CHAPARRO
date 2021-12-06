@@ -906,24 +906,38 @@ begin
 end
 GO
 
---Elimina los vehículos (si es que hay) asociados al clientes que se eliminó
-create trigger TR_ELIMINAR_VEHICULOS_CLIENTES on Clientes
+--Elimina los turnos (si es que hay) asociados al clientes que se eliminó
+create or alter trigger TR_ELIMINAR_TURNOS_CLIENTES on Clientes
 instead of delete
 as
 begin
-	declare @IdCliente bigint = (select ID from deleted) 
-	declare @CantidadVehiculos int = (select isnull(count(*), 0) from Vehiculos where IdCliente = @IdCliente)
+	declare @IdCliente bigint = (select ID from deleted)
+	declare @CantidadTurnos int = (select isnull(count(*), 0) Turnos from Turnos where IdCliente = @IdCliente)
 
-	if (@CantidadVehiculos = 0)
+	if (@CantidadTurnos = 0)
 		begin
-			delete from Clientes where ID = @IdCliente
+			update Clientes set Estado = 0 where ID = @IdCliente
 		end
-
 	else
 		begin
-			delete from Vehiculos where IdCliente = @IdCliente
+			delete from Turnos where IdCliente = @IdCliente
+			
+			update Clientes set Estado = 0 where ID = @IdCliente
+		end
+end
+GO
 
-			delete from Clientes where ID = @IdCliente
+--Elimina los turnos asociados al cliente, si se actualiza su estado a '0'
+create or alter trigger TR_CAMBIO_ESTADO_CLIENTE on Clientes
+after update
+as
+begin
+	declare @IdCliente bigint = (select ID from deleted)
+	declare @EstadoNuevo bit = (select Estado from inserted)
+
+	if (@EstadoNuevo = 0)
+		begin
+			delete from Turnos where ID = @IdCliente
 		end
 end
 GO

@@ -43,7 +43,7 @@
 
     <br /><br /><br />
 
-    <Button ID="btnAbrirPopUp" >Ver todos</Button>
+    <Button ID="btnAbrirPopUp" class="btn-ver-todos-usuarios" >Ver todos</Button>
 
     <div id="overlay" class="overlay" align="center">
 

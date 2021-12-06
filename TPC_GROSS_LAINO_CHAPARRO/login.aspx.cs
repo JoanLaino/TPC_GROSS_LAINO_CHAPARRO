@@ -13,7 +13,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void btnIngresar_Click(object sender, EventArgs e)
@@ -24,9 +24,12 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             try
             {
                 usuario = new Usuario(txtUser.Text, txtPassword.Text, false);
-                if(negocio.Loguear(usuario))
+                
+                if (negocio.Loguear(usuario))
                 {
-                    Session.Add("usernameLogueado", txtUser.Text);
+                    txtUser.Text = "";
+                    txtPassword.Text = "";
+                    Session.Add("usernameLogueado", usuario.User);
                     Session.Add("usuario", usuario);
                     Response.Redirect("WebInterna.aspx", false);
                 }
