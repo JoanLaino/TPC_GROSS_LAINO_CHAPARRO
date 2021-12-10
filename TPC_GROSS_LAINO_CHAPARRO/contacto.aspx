@@ -16,9 +16,9 @@
         <center>
         <h2 class="ttl-contacto">¡Esperamos tu llamado!</h2>
             <br /><br /><br />
-        <h4 class="nro-contacto">011-15-11111111</h4>
+        <h4 class="nro-contacto">+54 11-4710-3374</h4>
             <br /><br />
-        <h4 class="nro-contacto">100-15-11111111</h4>
+        <h4 class="nro-contacto">+54 11-5050-4040</h4>
         </center>
     </div>
 

@@ -61,7 +61,9 @@
                         <a class="nav-link font-stl" href="catalogoProductos.aspx">Catálogo</a>
                     </li> 
                     <li class="nav-item">
-                        <a class="nav-link font-stl" href="WebInterna.aspx">Web Interna</a>
+                        <asp:Label ID="lblWebInterna" Text="" runat="server">
+                            <a class="nav-link font-stl" href="WebInterna.aspx">Web Interna</a>
+                        </asp:Label>
                     </li>                    
                 </ul>
                 <a href="login.aspx" Class="log-stl">

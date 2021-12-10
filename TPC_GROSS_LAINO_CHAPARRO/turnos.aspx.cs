@@ -108,7 +108,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlHoraTurno.DataValueField = "ID";
                 ddlHoraTurno.DataBind();
 
-                selectCantidad = "select count(*) as Cantidad from HorariosSabado";
+                selectCantidad = "select isnull(COUNT(*), 0) as Cantidad from HorariosSabado";
             }
             else
             {
@@ -120,7 +120,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ddlHoraTurno.DataValueField = "ID";
                 ddlHoraTurno.DataBind();
 
-                selectCantidad = "select count(*) as Cantidad from HorariosLunesViernes";
+                selectCantidad = "select isnull(COUNT(*), 0) as Cantidad from HorariosLunesViernes";
             }
 
             string fechaSeleccionada = calendarioTurnos.SelectedDate.ToShortDateString();
@@ -440,7 +440,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             int Resultado = 0;
 
-            string selectDB = "SELECT COUNT(*) Cantidad FROM " + tabla + " WHERE " + campo + " = " + variable;
+            string selectDB = "SELECT isnull(COUNT(*), 0) Cantidad FROM " + tabla + " WHERE " + campo + " = " + variable;
 
             try
             {
@@ -471,7 +471,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             int Resultado = 0;
 
-            string selectDB = "SELECT COUNT(*) Cantidad FROM " + tabla + " WHERE " + campo + " = '" + cadena + "'";
+            string selectDB = "SELECT isnull(COUNT(*), 0) Cantidad FROM " + tabla + " WHERE " + campo + " = '" + cadena + "' AND Estado = 1";
 
             try
             {
@@ -502,8 +502,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             int Resultado = 0;
 
-            string selectDB = "SELECT COUNT(*) Cantidad FROM " + tabla + " WHERE " + campo1 + " = '" + cadena + 
-                              "' AND " + campo2 + " = " + variable1 + " AND " + campo3 + " = " + variable2;
+            string selectDB = "SELECT isnull(COUNT(*), 0) Cantidad FROM " + tabla + " WHERE " + campo1 + " = '" + cadena + 
+                              "' AND " + campo2 + " = " + variable1 + " AND " + campo3 + " = " + variable2 + " AND Estado = 'Pendiente'";
 
             try
             {
@@ -530,6 +530,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnRegistro_Click(object sender, EventArgs e)
         {
+            Session.Add("btnRegistroClick", "btnRegistroClick");
+
             Response.Redirect("registroCliente.aspx");
         }
 

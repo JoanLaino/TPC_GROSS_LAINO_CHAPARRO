@@ -39,7 +39,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         public void BindData()
         {
             string selectMarcasVehiculo = "SELECT M.ID ID, M.Descripcion Descripcion, " +
-                                          "(SELECT COUNT(V.ID) FROM Vehiculos V " +
+                                          "(SELECT isnull(COUNT(V.ID), 0) FROM Vehiculos V " +
                                           "WHERE M.ID = V.IdMarca) Asignaciones " +
                                           "FROM MarcasVehiculo M ORDER BY M.Descripcion ASC";
 
@@ -89,7 +89,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             string Marca = txtMarca2.Text;
 
-            string Consulta = "select count(*) from MarcasVehiculo where Descripcion = '" + Marca + "'";
+            string Consulta = "select isnull(count(*), 0) from MarcasVehiculo where Descripcion = '" + Marca + "'";
 
             int existe = sentencia.IUDquery(Consulta);
 
@@ -108,7 +108,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             BindData();
 
             string selectOrdenar = "SELECT M.ID ID, M.Descripcion Descripcion, " +
-                                   "(SELECT COUNT(V.ID) FROM Vehiculos V " +
+                                   "(SELECT isnull(COUNT(V.ID), 0) FROM Vehiculos V " +
                                    "WHERE M.ID = V.IdMarca) Asignaciones " +
                                    "FROM MarcasVehiculo M ORDER BY "
                                    + e.SortExpression + " "
@@ -156,13 +156,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 string valor = txtBuscar.Text;
                 string selectBuscarMarcaGrilla = "SELECT M.ID ID, M.Descripcion Descripcion, " +
-                                                 "(SELECT COUNT(V.ID) FROM Vehiculos V " +
+                                                 "(SELECT isnull(COUNT(V.ID), 0) FROM Vehiculos V " +
                                                  "WHERE M.ID = V.IdMarca) Asignaciones " +
                                                  "FROM MarcasVehiculo M " +
                                                  "WHERE M.Descripcion LIKE '%" + valor + "%'";
 
                 string selectBuscarMarcaCampos = "SELECT M.ID ID, M.Descripcion Descripcion, " +
-                                                 "(SELECT COUNT(V.ID) FROM Vehiculos V " +
+                                                 "(SELECT isnull(COUNT(V.ID), 0) FROM Vehiculos V " +
                                                  "WHERE M.ID = V.IdMarca) Asignaciones " +
                                                  "FROM MarcasVehiculo M " +
                                                  "WHERE M.Descripcion = '" + valor + "'";

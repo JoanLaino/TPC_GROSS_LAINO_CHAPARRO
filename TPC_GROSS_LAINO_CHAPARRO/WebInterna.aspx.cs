@@ -13,7 +13,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             if (Session["usuario"] == null)
             {
-                Session.Add("error", "Debes loguearte para ingresar.");
+                Session.Add("error", "Debes loguearte para ingresar.\n\n" +
+                    "¡ Prohibido el ingreso a toda persona ajena a la empresa !");
                 Response.Redirect("Error.aspx", false);
             }
 

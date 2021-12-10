@@ -47,8 +47,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             string selectServicios = "SELECT * FROM ExportServicios ORDER BY Fecha DESC, Hora DESC";
             string selectDdlTiposServicio = "SELECT ID as ID, Descripcion as Descripcion FROM TiposServicio WHERE Estado = 1";
-            string selectDdlClientes = "SELECT ID as ID, isnull(ApeNom, RazonSocial) as Cliente FROM Clientes WHERE Estado = 1";
-            string selectDdlEmpleados = "SELECT ID as ID, ApeNom as Empleado FROM Empleados WHERE Estado = 1";
+            string selectDdlClientes = "SELECT ID as ID, isnull(ApeNom, RazonSocial) as Cliente FROM Clientes";
+            string selectDdlEmpleados = "SELECT ID as ID, ApeNom as Empleado FROM Empleados";
 
             int resultado = ContarResultadosDB("Todos", "null", "null", "null");
 
@@ -594,11 +594,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             if (var == "Todos")
             {
-                selectDB = "SELECT COUNT(*) as Cantidad FROM ExportServicios";
+                selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportServicios";
             }
             else if (var == "Hoy" || var == "Completados" || var == "Futuros" || var == "Pendientes")
             {
-                string consulta_1 = "SELECT COUNT(*) as Cantidad FROM ExportServicios WHERE CONVERT(date,Fecha,105)";
+                string consulta_1 = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportServicios WHERE CONVERT(date,Fecha,105)";
                 string consulta_2 = "CONVERT(date,GETDATE(),105)";
 
                 if (var == "Hoy")
@@ -607,7 +607,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else if (var == "Completados")
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportServicios WHERE Estado = 'Completado'";
+                    selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportServicios WHERE Estado = 'Completado'";
                 }
                 else if (var == "Futuros")
                 {
@@ -615,22 +615,22 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else if (var == "Pendientes")
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportServicios WHERE Estado = 'Pendiente'";
+                    selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportServicios WHERE Estado = 'Pendiente'";
                 }
                 else
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos";
+                    selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportTurnos";
                 }
             }
             else
             {
                 if (comillas == "y")
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM " + var + " WHERE " + campo + " = '" + valor + "'";
+                    selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM " + var + " WHERE " + campo + " = '" + valor + "'";
                 }
                 else
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM " + var + " WHERE " + campo + " = " + valor;
+                    selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM " + var + " WHERE " + campo + " = " + valor;
                 }
             }
 
@@ -663,7 +663,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             int Resultado = 0;
 
-            string selectDB = "SELECT COUNT(*) AS Cantidad FROM ExportServicios WHERE " + campo1 + " = TRANSLATE('" + valor1 + "','/','-') AND " + campo2 + " = '" + valor2 + "' AND " + 
+            string selectDB = "SELECT isnull(COUNT(*), 0) AS Cantidad FROM ExportServicios WHERE " + campo1 + " = TRANSLATE('" + valor1 + "','/','-') AND " + campo2 + " = '" + valor2 + "' AND " + 
                                                                               campo3 + " = '" + valor3 + "' AND " + campo4 + " = '" + valor4 + "'";
 
             try
@@ -695,7 +695,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             int Resultado = 0;
 
-            string selectDB = "SELECT COUNT(*) AS Cantidad FROM Vehiculos WHERE IdCliente = " + IdCliente + " AND Patente = '" + Patente + "'";
+            string selectDB = "SELECT isnull(COUNT(*), 0) AS Cantidad FROM Vehiculos WHERE IdCliente = " + IdCliente + " AND Patente = '" + Patente + "'";
 
             try
             {
@@ -726,6 +726,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             string Fecha = Session["Fecha"].ToString();
             string Hora =  Session["Hora"].ToString();
             string UsuarioLogueado = Session["usernameLogueado"].ToString();
+            string horaActual = DateTime.Now.ToShortTimeString();
+            string fechaActual = DateTime.Now.ToShortDateString();
 
             AccesoDatos sentencia = new AccesoDatos();
 
@@ -740,8 +742,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 try
                 {
                     string mailDestino = "pruebalubriapp@gmail.com";
-                    string asunto = "ORDEN DE SERVICIO ELIMINADA";
-                    string cuerpo = "El usuario '" + UsuarioLogueado + "', ha borrado el servicio con ID = " + ID + " el día " + Fecha + ", a las " + Hora + "hs.";
+                    string asunto = "ORDEN DE SERVICIO ELIMINADA - " + horaActual + "_" + fechaActual;
+                    string cuerpo = "El usuario '" + UsuarioLogueado + "', ha borrado el servicio con ID = " + ID + " pactado para el día " + Fecha + ", a las " + Hora + "hs.";
                     EmailService mailNuevo = new EmailService();
                     mailNuevo.armarCorreo(mailDestino, asunto, cuerpo);
                     try
@@ -857,7 +859,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string updateServicio = "EXEC UPDATE_SERVICIO " + ID + ", '" + FechaHora + "', '" + Patente + "', '" +
                         Comentarios + "', '" + Estado + "', " + IdTipo + ", " + IdCliente + ", " + IdEmpleado;
 
-                    string cantAvisosServicios = "SELECT COUNT(*) AS Cantidad FROM AvisosServicios WHERE IdServicio = " + ID;
+                    string cantAvisosServicios = "SELECT isnull(COUNT(*), 0) AS Cantidad FROM AvisosServicios WHERE IdServicio = " + ID;
                     int resultado = 0;
 
                     try

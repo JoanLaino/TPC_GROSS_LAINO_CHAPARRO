@@ -5,6 +5,6 @@
     <center>
         <img class="img-error" src="img/del-logo.png"/>
         <h1>Hubo un problema</h1>
-        <asp:label text="text" ID="lblMensaje" runat="server" />
+        <asp:label text="" ID="lblMensaje" runat="server" />
     </center>
 </asp:Content>

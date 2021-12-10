@@ -39,7 +39,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         public void BindData()
         {
             string selectMarcasVehiculo = "SELECT TS.ID ID, TS.Descripcion Descripcion, " +
-                                          "(SELECT COUNT(S.ID) FROM Servicios S " +
+                                          "(SELECT isnull(COUNT(S.ID), 0) FROM Servicios S " +
                                           "WHERE TS.ID = S.IdTipo) Asignaciones, " +
                                           "Estado as Estado " +
                                           "FROM TiposServicio TS ORDER BY TS.Descripcion ASC";
@@ -90,7 +90,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             string TipoServicio = txtTipoServicio2.Text;
 
-            string Consulta = "select count(*) from TiposServicio where Descripcion = '" + TipoServicio + "'";
+            string Consulta = "select isnull(COUNT(*), 0) from TiposServicio where Descripcion = '" + TipoServicio + "'";
 
             int existe = sentencia.IUDquery(Consulta);
 
@@ -109,7 +109,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             BindData();
 
             string selectOrdenar = "SELECT TS.ID ID, TS.Descripcion Descripcion, " +
-                                   "(SELECT COUNT(S.ID) FROM Servicios S " +
+                                   "(SELECT isnull(COUNT(S.ID), 0) FROM Servicios S " +
                                    "WHERE TS.ID = S.IdTipo) Asignaciones " +
                                    "FROM TiposServicio TS ORDER BY "
                                    + e.SortExpression + " "
@@ -157,14 +157,14 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 string valor = txtBuscar.Text;
                 string selectBuscarTipoServicioGrilla = "SELECT TS.ID ID, TS.Descripcion Descripcion, " +
-                                                 "(SELECT COUNT(S.ID) FROM Servicios S " +
+                                                 "(SELECT isnull(COUNT(S.ID), 0) FROM Servicios S " +
                                                  "WHERE TS.ID = S.IdTipo) Asignaciones, " +
                                                  "Estado as Estado " +
                                                  "FROM TiposServicio TS " +
                                                  "WHERE TS.Descripcion LIKE '%" + valor + "%'";
 
                 string selectBuscarTipoServicioCampos = "SELECT TS.ID ID, TS.Descripcion Descripcion, " +
-                                                 "(SELECT COUNT(S.ID) FROM Servicios S " +
+                                                 "(SELECT isnull(COUNT(S.ID), 0) FROM Servicios S " +
                                                  "WHERE TS.ID = S.IdTipo) Asignaciones, " +
                                                  "Estado as Estado " +
                                                  "FROM TiposServicio TS " +

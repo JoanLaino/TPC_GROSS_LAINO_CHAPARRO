@@ -1042,14 +1042,25 @@
 }
 
 .btn-export-excel-abm-vehiculos {
-    left: 669px;
-    top: -38px;
+    left: -69px;
+    top: 10px;
+    position: initial !important;
 }
 
 .btn-editar-abm-vehiculos {
+    width: 30px;
     position: relative;
-    left: 445px;
-    top: -68px;
+    left: 160px;
+    top: -145px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    vertical-align: text-bottom;
+}
+
+.btn-editar-abm-vehiculos:hover {
+    width: 35px;
+    border-radius: 100px;
+    box-shadow: 0 0 10px black;
 }
 
 .btn-agregar-vehiculo {
@@ -1075,8 +1086,18 @@
 
 .btn-eliminar-vehiculo {
     position: relative;
-    left: 396px;
-    top: 22px;
+    left: 200px;
+    top: -145px;
+    width: 30px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    vertical-align: text-bottom;
+}
+
+.btn-eliminar-vehiculo:hover {
+    width: 35px;
+    border-radius: 100px;
+    box-shadow: 0 0 10px black;
 }
 
 .btn-agregar-servicio {
@@ -1359,4 +1380,36 @@
         display: flex;
         justify-content: space-evenly;
     }
+}
+
+.stl-alerta-Cuit-Registro-Cliente {
+    display: initial !important;
+    color: red;
+}
+
+.stl-lbl-Validar-Cuit {
+    display: none;
+}
+
+.btn-agregar-vehiculo-abm {
+    vertical-align: middle;
+    color: #ffffff;
+    background-color: #98D983;
+    border-radius: 50px;
+    border: solid 1px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding-inline: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    text-shadow: black 0.1em 0.1em 1.9em;
+    box-shadow: 0 4px 6px -6px black;
+    position: relative;
+    margin-left: -207px;
+}
+
+.btn-agregar-vehiculo-abm:hover {
+    background-color: #ffffff;
+    color: #98D983;
 }

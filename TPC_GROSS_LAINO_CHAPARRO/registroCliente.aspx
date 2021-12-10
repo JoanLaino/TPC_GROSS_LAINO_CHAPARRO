@@ -13,6 +13,8 @@
             <div class="form-cliente">
                 <center>
                     <br />
+                    <asp:Label ID="lblValidacionCuitDni" runat="server" Text="El CUIT/DNI ya existe!" class="stl-lbl-Validar-Cuit" />
+                    <br />
                     <asp:DropDownList ID="ddlIdTipo" runat="server" tooltip="Tipo de cliente" AppendDataBoundItems="true" width="200px" AutoPostBack="True" OnSelectedIndexChanged="ddlIdTipo_SelectedIndexChanged" >
                     <asp:ListItem Value="0">Tipo de cliente</asp:ListItem>
                     </asp:DropDownList>

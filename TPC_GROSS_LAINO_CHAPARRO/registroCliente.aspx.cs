@@ -13,9 +13,18 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         AccesoDatos sentencia = new AccesoDatos();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["btnRegistroClick"] != null)
             {
-                BindData();
+                if (!IsPostBack)
+                {
+                    BindData();
+                }
+            }
+            else
+            {
+                Session.Add("error", "Ha sido redirigido a esta página por error.");
+
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -35,6 +44,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             txtTelefono.Enabled = false;
             txtMail.Enabled = false;
             btnConfirmarRegistro.Enabled = false;
+
+            lblValidacionCuitDni.CssClass = "stl-lbl-Validar-Cuit";
         }
 
         protected void btnCancelarRegistro_Click(object sender, EventArgs e)
@@ -44,6 +55,19 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
         protected void btnConfirmarRegistro_Click(object sender, EventArgs e)
         {
+            if (ddlIdTipo.SelectedValue == "1" || ddlIdTipo.SelectedValue == "3" || ddlIdTipo.SelectedValue == "4")
+            {
+                if (txtCuitDni.Text.Length <= 8)
+                {
+                    Session.Add("error", "El tipo de cliente no coincide con la longitud del CUIT/DNI ingresado.");
+                    Response.Redirect("error.aspx");
+                }
+            }
+            if (ddlIdTipo.SelectedValue == "2" && txtCuitDni.Text.Length > 8)
+            {
+                Session.Add("error", "El tipo de cliente no coincide con la longitud del CUIT/DNI ingresado.");
+                Response.Redirect("error.aspx");
+            }
             if (txtMail.Text == "" || txtTelefono.Text == "" || ddlIdTipo.SelectedIndex == 0)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
@@ -62,31 +86,54 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Razón Social sin completar. Por favor ingrésela.')", true);
             }
-            else if (txtCuitDni.Text.Length <= 8 && txtApeNom.Text == "")
+            else if (txtCuitDni.Text.Length <= 8 && txtApeNom.Text == "" && ddlIdTipo.SelectedValue == "2" )
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert",
                 "alert('Nombre y Apellido sin completar. Por favor ingréselos.')", true);
-            }
-
-            if (txtMail.Text == "" || txtTelefono.Text == "" || ddlIdTipo.SelectedIndex == 0)
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Hay campos vacíos ó sin seleccionar.\\n\\n" +
-                "Por favor revíselos y reintente.')", true);
             }
             else
             {
                 if (txtCuitDni.Text.Length > 8) { txtApeNom.Text = ""; }
                 else { txtRazonSocial.Text = ""; }
 
-                Session.Add("CuitDni", txtCuitDni.Text);
-                Session.Add("ApeNom", txtApeNom.Text);
-                Session.Add("RazonSocial", txtRazonSocial.Text);
-                Session.Add("Telefono", txtTelefono.Text);
-                Session.Add("Mail", txtMail.Text);
-                Session.Add("TipoCliente", ddlIdTipo.SelectedValue.ToString());
+                int cantidadClientes = 0;
+                AccesoDatos datos = new AccesoDatos();
+                string validarCliente = "SELECT ISNULL(COUNT(*), 0) Cantidad FROM Clientes WHERE CUIT_DNI = '" + txtCuitDni.Text + "'";
+                try
+                {
+                    datos.SetearConsulta(validarCliente);
+                    datos.EjecutarLectura();
 
-                Response.Redirect("registroVehiculo.aspx");
+                    if (datos.Lector.Read() == true)
+                    {
+                        cantidadClientes = Convert.ToInt32(datos.Lector["Cantidad"]);
+                    }
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se ha producido un error en la BD. Por favor reintente en unos minutos.')", true);
+                }
+                finally
+                {
+                    datos.CerrarConexion();
+                }
+
+                if (cantidadClientes == 0)
+                {
+                    Session.Add("CuitDni", txtCuitDni.Text);
+                    Session.Add("ApeNom", txtApeNom.Text);
+                    Session.Add("RazonSocial", txtRazonSocial.Text);
+                    Session.Add("Telefono", txtTelefono.Text);
+                    Session.Add("Mail", txtMail.Text);
+                    Session.Add("TipoCliente", ddlIdTipo.SelectedValue.ToString());
+
+                    Response.Redirect("registroVehiculo.aspx");
+                }
+                else
+                {
+                    lblValidacionCuitDni.CssClass = "stl-alerta-Cuit-Registro-Cliente";
+                }
             }
         }
 

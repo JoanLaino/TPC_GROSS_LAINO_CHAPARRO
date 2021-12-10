@@ -8,6 +8,23 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string pagina = HttpContext.Current.Request.Url.AbsoluteUri;
+
+            if (pagina == "https://localhost:44347/index" || pagina == "https://localhost:44347/turnos"
+                || pagina == "https://localhost:44347/catalogoProductos" || pagina == "https://localhost:44347/contacto"
+                || pagina == "https://localhost:44347/login" || pagina == "https://localhost:44347/registroVehiculo"
+                || pagina == "https://localhost:44347/registroCliente")
+                {
+                if (!(Session["usuario"] == null))
+                {
+                    lblWebInterna.Visible = true;
+                }
+                else
+                {
+                    btnIniciarSesion.CssClass = "btn-invisible";
+                    lblWebInterna.Visible = false;
+                }
+            }
             validarConexiónUsuario();
 
             cerrarConexiónUsuario();
@@ -33,7 +50,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         protected void btnCerrarSesion2_Click(object sender, EventArgs e)
         {
             Logout();
-            Response.Redirect("Login.aspx", false);
+            Response.Redirect("index.aspx", false);
         }
 
         public void Logout()

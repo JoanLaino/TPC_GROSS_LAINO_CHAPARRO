@@ -39,7 +39,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         public void BindData()
         {
             string selectMarcasProducto = "SELECT M.ID ID, M.Descripcion Descripcion, " +
-                                          "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                          "(SELECT isnull(COUNT(I.ID), 0) FROM Inventario I " +
                                           "WHERE M.ID = I.IdMarca) Asignaciones " +
                                           "FROM MarcasProducto M ORDER BY M.Descripcion ASC";
 
@@ -89,7 +89,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             string Marca = txtMarca2.Text;
 
-            string Consulta = "select count(*) from MarcasProducto where Descripcion like '" + Marca + "'";
+            string Consulta = "select isnull(count(*), 0) from MarcasProducto where Descripcion like '" + Marca + "'";
 
             int existe = sentencia.IUDquery(Consulta);
 
@@ -117,13 +117,13 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             {
                 string valor = txtBuscar.Text;
                 string selectBuscarMarcaGrilla = "SELECT M.ID ID, M.Descripcion Descripcion, " +
-                                                 "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                                 "(SELECT isnull(COUNT(I.ID), 0) FROM Inventario I " +
                                                  "WHERE M.ID = I.IdMarca) Asignaciones " +
                                                  "FROM MarcasProducto M " +
                                                  "WHERE M.Descripcion LIKE '%" + valor + "%'";
 
                 string selectBuscarMarcaCampos = "SELECT M.ID ID, M.Descripcion Descripcion, " +
-                                                 "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                                 "(SELECT isnull(COUNT(I.ID), 0) FROM Inventario I " +
                                                  "WHERE M.ID = I.IdMarca) Asignaciones " +
                                                  "FROM MarcasProducto M " +
                                                  "WHERE M.Descripcion = '" + valor + "'";
@@ -240,7 +240,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             BindData();
 
             string selectOrdenar = "SELECT M.ID ID, M.Descripcion Descripcion, " +
-                                   "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                   "(SELECT isnull(COUNT(I.ID), 0) FROM Inventario I " +
                                    "WHERE M.ID = I.IdMarca) Asignaciones " +
                                    "FROM MarcasProducto M ORDER BY "
                                    + e.SortExpression + " "

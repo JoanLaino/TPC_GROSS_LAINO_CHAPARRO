@@ -13,7 +13,7 @@
     </asp:DropDownList>
     <asp:Label ID="lblBuscar" runat="server" Text="Para modificar o eliminar, se debe buscar por Patente." Style="font-size: 10px; position: relative; top: -25px; left: -387px;" />
     
-    <button ID="btnAgregarVehiculo" ToolTip="Agregar Vehículo" width="80px" Class="btn-agregar-vehiculo" >Agregar vehículo</button>
+    <button ID="btnAgregarVehiculo" ToolTip="Agregar Vehículo" width="80px" Class="btn-agregar-vehiculo-abm" >Agregar vehículo</button>
     <br /><br /><br />
 
     <table id="tblVehiculos" class="tblVehiculos-style" BorderStyle="Inset" BorderWidth="5px">
@@ -42,7 +42,9 @@
 
     </table>
 
-    <asp:Button ID="btnModificar" runat="server" ToolTip="Modificar Vehículo" Text="Modificar" width="80px" CssClass="btn-editar-abm-vehiculos" onclientclick="return confirm('¿Confirma el/los cambio/s?');" onclick="btnModificar_Click" />
+    <asp:ImageButton ID="btnModificar" runat="server" ImageUrl="~/img/edit-logo.png" Tooltip="Modificar Vehículo" CssClass="btn-editar-abm-vehiculos" OnClientClick="return confirm('¿Confirma el/los cambio/s?');" OnClick="btnModificar_Click" />
+
+    <asp:ImageButton ID="btnEliminar" runat="server" ImageUrl="~/img/del-logo.png" ToolTip="Eliminar Vehículo" CssClass="btn-eliminar-vehiculo" OnClick="btnEliminar_Click" OnClientClick="return confirm('¿Seguro que desea eliminar el vehículo?');" />
 
     <div id="overlay" class="overlay" align="center">
 
@@ -77,9 +79,9 @@
 
     </div>
 
-    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-vehiculos" OnClick="btnExportExcel_Click" />
+    <br />
 
-    <asp:Button ID="btnEliminar" runat="server" ToolTip="Eliminar Vehículo" Text="Eliminar vehículo" CssClass="btn-eliminar-vehiculo" OnClick="btnEliminar_Click" onclientclick="return confirm('¿Seguro que desea eliminar el vehículo?');" />
+    <asp:Button ID="btnExportExcel" runat="server" Text="Exportar a Excel" cssclass="btn-export-excel btn-export-excel-abm-vehiculos" OnClick="btnExportExcel_Click" />
 
     <center>
         <asp:GridView ID="dgvVehiculos" runat="server" AllowSorting="True" OnSorting="dgvVehiculos_Sorting" AutoGenerateColumns="False" align="center" CellPadding="4" ForeColor="#333333" BackColor="Black" BorderColor="Black" BorderStyle="Inset" BorderWidth="5px" CaptionAlign="Bottom" HorizontalAlign="Center" CssClass="dgv-abm-vehiculos" DataKeyNames="ID" AllowPaging="True">

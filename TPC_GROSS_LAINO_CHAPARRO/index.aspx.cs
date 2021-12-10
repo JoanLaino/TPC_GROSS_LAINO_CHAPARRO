@@ -26,7 +26,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         {
             string selectDatosAvisos = "SELECT * FROM Export_AvisosServicios";
             
-            string selectCountAvisosServicios = "SELECT COUNT(*) AS Cantidad FROM AvisosServicios " +
+            string selectCountAvisosServicios = "SELECT isnull(COUNT(*), 0) AS Cantidad FROM AvisosServicios " +
             "WHERE FechaAviso = CONVERT(varchar,getdate(),105)";
             
             AccesoDatos datos = new AccesoDatos();
@@ -76,7 +76,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
                         string cuerpo = "Hola " + Cliente + ", esperamos que se encuentre muy bien.\n" +
                         "Desde Lubricentro Tony le queremos recordar que en 1 semana se cumplirá un " +
-                        "año del siguiente servicio realizado con nosotros.\n\n" +
+                        "año desde que realizó con nosotros, el servicio detallado a continuación.\n\n" +
                         "Detalles:\n" +
                         "- Fecha de realización: " + FechaRealizado +
                         "\n- Tipo de servicio: " + TipoServicio +

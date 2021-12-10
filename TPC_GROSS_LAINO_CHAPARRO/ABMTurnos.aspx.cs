@@ -42,7 +42,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             ddlTiposServicio.DataBind();
 
             string selectTurnos = "SELECT * FROM ExportTurnos";
-            string selectCantidadTurnos = "SELECT COUNT(*) AS Cantidad FROM ExportTurnos";
+            string selectCantidadTurnos = "SELECT isnull(COUNT(*), 0) AS Cantidad FROM ExportTurnos";
             int resultado = 0;
 
             AccesoDatos datos = new AccesoDatos();
@@ -339,7 +339,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
 
             if (cadena != "null")
             {
-                string consulta_1 = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE CONVERT(date,Fecha,105)";
+                string consulta_1 = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportTurnos WHERE CONVERT(date,Fecha,105)";
                 string consulta_2 = "CONVERT(date,GETDATE(),105)";
 
                 if (cadena == "Hoy")
@@ -348,7 +348,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else if (cadena == "Completados")
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE Estado = 'Completado'";
+                    selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportTurnos WHERE Estado = 'Completado'";
                 }
                 else if (cadena == "Futuros")
                 {
@@ -356,16 +356,16 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 }
                 else if (cadena == "Pendientes")
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE Estado = 'Pendiente'";
+                    selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportTurnos WHERE Estado = 'Pendiente'";
                 }
                 else
                 {
-                    selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos";
+                    selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportTurnos";
                 }
             }
             else
             {
-                selectDB = "SELECT COUNT(*) as Cantidad FROM ExportTurnos WHERE " + campo + " LIKE '%" + variable + "%'";
+                selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportTurnos WHERE " + campo + " LIKE '%" + variable + "%'";
             }
 
             try
@@ -400,7 +400,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             string selectDB;
 
             
-            selectDB = "SELECT COUNT(*) as Cantidad FROM ExportClientes WHERE " + campo + " = '" + variable + "'";
+            selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM ExportClientes WHERE " + campo + " = '" + variable + "'";
 
             try
             {
@@ -434,7 +434,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             string selectDB;
 
 
-            selectDB = "SELECT COUNT(*) as Cantidad FROM " + tabla + " WHERE " + 
+            selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM " + tabla + " WHERE " + 
                         campo1 + " = '" + variable1 + "' AND " + campo2 + " = " + variable2;
 
             try
@@ -469,7 +469,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             string selectDB;
 
 
-            selectDB = "SELECT COUNT(*) as Cantidad FROM " + tabla + " WHERE " +
+            selectDB = "SELECT isnull(COUNT(*), 0) as Cantidad FROM " + tabla + " WHERE " +
                        campo1 + " = '" + variable1 + "' AND " + campo2 + " = '" + variable2 + "' AND " + 
                        campo3 + " <> '" + variable3 + "'";
 
@@ -1070,10 +1070,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 string deleteTurnosVehiculo = "DELETE FROM Turnos WHERE " +
                 "(SELECT ID FROM Vehiculos V WHERE V.Patente = '" + patente + "') = IdVehiculo";
 
-                string selectCountVehiculos = "SELECT COUNT(*) as Cantidad FROM Vehiculos V " +
+                string selectCountVehiculos = "SELECT isnull(COUNT(*), 0) as Cantidad FROM Vehiculos V " +
                 "WHERE V.Patente = '" + patente + "'";
 
-                string selectCountTurnos = "SELECT COUNT(*) as Cantidad FROM Turnos T " +
+                string selectCountTurnos = "SELECT isnull(COUNT(*), 0) as Cantidad FROM Turnos T " +
                 "WHERE (SELECT ID FROM Vehiculos V WHERE V.Patente = '" + patente + "') = T.IdVehiculo";
 
                 int existeVehiculo = 0, existenTurnos = 0;

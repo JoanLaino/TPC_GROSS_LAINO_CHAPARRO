@@ -28,16 +28,6 @@
                 <asp:Button ID="btnAMBMarcaVehiculos" onclick="btnAMBMarcaVehiculos_Click" runat="server" Text="ABM - Marcas (Vehiculos)" CssClass="btn-interna-marca-vehiculos"/>
             </center>
         </div>
-        <div>            
-            <center>
-                <asp:Button ID="btnABMEmpleados" onclick="btnABMEmpleados_Click" runat="server" Text="ABM - Empleados" CssClass="btn-invisible"/>
-            </center>            
-        </div>
-        <div>
-            <center>
-                <asp:Button ID="btnABMUsuario" onclick="btnABMUsuario_Click" runat="server" Text="ABM - Usuarios" CssClass="btn-invisible"/>
-            </center> 
-        </div>
         <div>
             <center>
                 <asp:Button ID="btnABMClientes" onclick="btnABMClientes_Click" runat="server" Text="ABM - Clientes" CssClass="btn-interna-clientes"/>
@@ -56,6 +46,16 @@
         <div>
             <center>
                 <asp:Button ID="btnABMServicios" onclick="btnABMServicios_Click" runat="server" Text="ABM - Servicios" CssClass="btn-interna-servicios"/>
+            </center> 
+        </div>
+        <div>            
+            <center>
+                <asp:Button ID="btnABMEmpleados" onclick="btnABMEmpleados_Click" runat="server" Text="ABM - Empleados" CssClass="btn-invisible"/>
+            </center>            
+        </div>
+        <div>
+            <center>
+                <asp:Button ID="btnABMUsuario" onclick="btnABMUsuario_Click" runat="server" Text="ABM - Usuarios" CssClass="btn-invisible"/>
             </center> 
         </div>
     </div>

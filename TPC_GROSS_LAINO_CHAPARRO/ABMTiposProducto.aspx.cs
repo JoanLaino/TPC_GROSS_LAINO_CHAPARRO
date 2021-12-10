@@ -33,7 +33,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
         public void BindData()
         {
             string selectViewTiposProducto = "SELECT TP.ID ID, TP.Descripcion Descripcion, " +
-                                             "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                             "(SELECT isnull(COUNT(I.ID), 0) FROM Inventario I " +
                                              "WHERE TP.ID = I.IdTipo) Asignaciones " +
                                              "FROM TiposProducto TP ORDER BY TP.Descripcion ASC";
 
@@ -170,7 +170,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     string Valor = txtDescripcionTipoProductoBuscar.Text;
 
                     string selectDgvTipoProducto = "SELECT TP.ID ID, TP.Descripcion Descripcion, " +
-                                                   "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                                   "(SELECT isnull(COUNT(I.ID), 0) FROM Inventario I " +
                                                    "WHERE TP.ID = I.IdTipo) Asignaciones " +
                                                    "FROM TiposProducto TP " +
                                                    "WHERE TP.Descripcion LIKE '%" + Valor + "%'";
@@ -182,7 +182,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     dgvTiposProducto.DataBind();
 
                     string selectFiltroTipoProducto = "SELECT TP.ID ID, TP.Descripcion Descripcion, " +
-                                                      "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                                      "(SELECT isnull(COUNT(I.ID), 0) FROM Inventario I " +
                                                       "WHERE TP.ID = I.IdTipo) Asignaciones " +
                                                       "FROM TiposProducto TP " +
                                                       "WHERE TP.Descripcion = '" + Valor + "'";
@@ -239,7 +239,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             BindData();
 
             string selectOrdenar = "SELECT TP.ID ID, TP.Descripcion Descripcion, " +
-                                   "(SELECT COUNT(I.ID) FROM Inventario I " +
+                                   "(SELECT isnull(COUNT(I.ID), 0) FROM Inventario I " +
                                    "WHERE TP.ID = I.IdTipo) Asignaciones " +
                                    "FROM TiposProducto TP ORDER BY "
                                    + e.SortExpression + " "

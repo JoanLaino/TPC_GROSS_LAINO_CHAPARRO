@@ -263,117 +263,6 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             BindData();
         }
 
-        protected void btnEliminar_Click(object sender, EventArgs e)
-        {
-            string patente = Session["PatenteVehiculo"].ToString();
-            string marca = Session["MarcaVehiculo"].ToString();
-            string modelo = Session["ModeloVehiculo"].ToString();
-            string anioFabricacion = Session["AnioVehiculo"].ToString();
-            string cliente = Session["ClienteVehiculo"].ToString();
-
-            AccesoDatos datos2 = new AccesoDatos();
-
-            if (txtPatente2.Text != patente || txtModelo2.Text != modelo || ddlMarcaVehiculo2.SelectedValue != marca
-                || ddlAnioFabricacion2.SelectedValue != anioFabricacion)
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Los campos no coinciden con la base de datos. Por favor revise nuevamente.')", true);
-            }
-            else
-            {
-                string id = Session["IdVehiculo"].ToString();
-
-                string sp_DeleteVehiculo = "DELETE FROM Vehiculos WHERE ID = " + id;
-
-                string selectCountTurnos = "SELECT COUNT(*) as Cantidad FROM Turnos T WHERE " +
-                                           id + " = T.IdVehiculo";
-
-                int CantTurnosVehiculo = 0;
-
-                try
-                {   
-                    datos2.SetearConsulta(selectCountTurnos);
-                    datos2.EjecutarLectura();
-
-                    if (datos2.Lector.Read() == true)
-                    {
-                        CantTurnosVehiculo = Convert.ToInt32(datos2.Lector["Cantidad"]);
-                    }
-
-                    datos2.CerrarConexion();
-
-                    if (CantTurnosVehiculo != 0)
-                    {
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('El vehículo patente " + patente + ", tiene turnos asociados." +
-                        " Primero debe eliminar dichos turnos y luego reintentar.')", true);
-                    }
-                    else
-                    {
-                        sentencia.IUD(sp_DeleteVehiculo);
-
-                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                        "alert('El vehiculo patente " + patente + ", del cliente " + 
-                        cliente + ", ha sido eliminado correctamente.')", true);
-                    }
-                }
-                catch
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Error al intentar leer la base de datos. Reintente en unos minutos.')", true);
-                }
-                finally
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Pruebaaaaaaa')", true);
-
-                    string script = @"<script type='text/javascript'>
-
-                                        location.href='ABMVehiculos.aspx';
-
-                                   </script>";
-
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
-                }
-            }
-        }
-
-        protected void btnModificar_Click(object sender, EventArgs e)
-        {
-            if (txtPatente2.Text == "" || ddlMarcaVehiculo2.SelectedValue == "0"
-                || txtModelo2.Text == "" || ddlAnioFabricacion2.SelectedValue == "0")
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                "alert('Hay campos vacíos. Por favor revise nuevamente.')", true);
-            }
-            else
-            {
-                string id = Session["IdVehiculo"].ToString();
-                string patente = txtPatente2.Text, idMarca = ddlMarcaVehiculo2.SelectedValue.ToString();
-                string modelo = txtModelo2.Text, año = ddlAnioFabricacion2.SelectedValue.ToString();
-                bool estado = cbEstado.Checked;
-
-                AccesoDatos sentencia = new AccesoDatos();
-
-                try
-                {
-                    string updateVehiculo = "EXEC UPDATE_VEHICULO " + id + ", '" + patente + "', " + 
-                                            idMarca + ", '" + modelo + "', " + año + ", " + estado;
-
-                    sentencia.IUD(updateVehiculo);
-
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('El vehículo se ha modificado correctamente.')", true);
-
-                    BindData();
-                }
-                catch
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
-                    "alert('Se produjo un error al intentar modificar el vehículo.')", true);
-                }
-            }
-        }
-
         protected void btnConfirmar_Click(object sender, EventArgs e)
         {
             if (txtCuitDni.Text == "" || txtPatente.Text == "" || ddlMarcaVehiculo.SelectedValue == "0"
@@ -447,6 +336,117 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                 finally
                 {
                     datos.CerrarConexion();
+                }
+            }
+        }
+
+        protected void btnModificar_Click(object sender, ImageClickEventArgs e)
+        {
+            if (txtPatente2.Text == "" || ddlMarcaVehiculo2.SelectedValue == "0"
+                || txtModelo2.Text == "" || ddlAnioFabricacion2.SelectedValue == "0")
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Hay campos vacíos. Por favor revise nuevamente.')", true);
+            }
+            else
+            {
+                string id = Session["IdVehiculo"].ToString();
+                string patente = txtPatente2.Text, idMarca = ddlMarcaVehiculo2.SelectedValue.ToString();
+                string modelo = txtModelo2.Text, año = ddlAnioFabricacion2.SelectedValue.ToString();
+                bool estado = cbEstado.Checked;
+
+                AccesoDatos sentencia = new AccesoDatos();
+
+                try
+                {
+                    string updateVehiculo = "EXEC UPDATE_VEHICULO " + id + ", '" + patente + "', " +
+                                            idMarca + ", '" + modelo + "', " + año + ", " + estado;
+
+                    sentencia.IUD(updateVehiculo);
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('El vehículo se ha modificado correctamente.')", true);
+
+                    BindData();
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Se produjo un error al intentar modificar el vehículo.')", true);
+                }
+            }
+        }
+
+        protected void btnEliminar_Click(object sender, ImageClickEventArgs e)
+        {
+            string patente = Session["PatenteVehiculo"].ToString();
+            string marca = Session["MarcaVehiculo"].ToString();
+            string modelo = Session["ModeloVehiculo"].ToString();
+            string anioFabricacion = Session["AnioVehiculo"].ToString();
+            string cliente = Session["ClienteVehiculo"].ToString();
+
+            AccesoDatos datos2 = new AccesoDatos();
+
+            if (txtPatente2.Text != patente || txtModelo2.Text != modelo || ddlMarcaVehiculo2.SelectedValue != marca
+                || ddlAnioFabricacion2.SelectedValue != anioFabricacion)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                "alert('Los campos no coinciden con la base de datos. Por favor revise nuevamente.')", true);
+            }
+            else
+            {
+                string id = Session["IdVehiculo"].ToString();
+
+                string sp_DeleteVehiculo = "DELETE FROM Vehiculos WHERE ID = " + id;
+
+                string selectCountTurnos = "SELECT isnull(COUNT(*), 0) as Cantidad FROM Turnos T WHERE " +
+                                           id + " = T.IdVehiculo";
+
+                int CantTurnosVehiculo = 0;
+
+                try
+                {
+                    datos2.SetearConsulta(selectCountTurnos);
+                    datos2.EjecutarLectura();
+
+                    if (datos2.Lector.Read() == true)
+                    {
+                        CantTurnosVehiculo = Convert.ToInt32(datos2.Lector["Cantidad"]);
+                    }
+
+                    datos2.CerrarConexion();
+
+                    if (CantTurnosVehiculo != 0)
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('El vehículo patente " + patente + ", tiene turnos asociados." +
+                        " Primero debe eliminar dichos turnos y luego reintentar.')", true);
+                    }
+                    else
+                    {
+                        sentencia.IUD(sp_DeleteVehiculo);
+
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                        "alert('El vehiculo patente " + patente + ", del cliente " +
+                        cliente + ", ha sido eliminado correctamente.')", true);
+                    }
+                }
+                catch
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert",
+                    "alert('Error al intentar leer la base de datos. Reintente en unos minutos.')", true);
+                }
+                finally
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Pruebaaaaaaa')", true);
+
+                    string script = @"<script type='text/javascript'>
+
+                                        location.href='ABMVehiculos.aspx';
+
+                                   </script>";
+
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "alerta", script, false);
                 }
             }
         }

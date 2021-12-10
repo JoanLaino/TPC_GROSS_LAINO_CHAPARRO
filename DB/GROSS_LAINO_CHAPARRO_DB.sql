@@ -407,7 +407,7 @@ go
 create view ExportClientes
 as
 	select C.ID, C.CUIT_DNI as 'CUITDNI', isnull(C.RazonSocial,'-') as RazonSocial, isnull(C.ApeNom,'-') as ApeNom, T.ID as 'IdTipo', T.Descripcion as 'TipoCliente',
-	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, C.Mail, C.Telefono, (select count(*) from Vehiculos V where V.IdCliente = C.ID) as TotalVehiculosRegistrados, C.Estado
+	CONVERT(VARCHAR(10),C.FechaAlta,105) as FechaAlta, C.Mail, C.Telefono, (select isnull(count(*), 0) from Vehiculos V where V.IdCliente = C.ID) as TotalVehiculosRegistrados, C.Estado
 	from Clientes C
 	inner join TiposCliente T on IdTipo = T.ID
 GO
@@ -426,7 +426,7 @@ GO
 
 create view ExportProveedores
 as
-select P.ID ID, P.CUIT CUIT, P.RazonSocial RazonSocial, (select count(I.ID) from Inventario I where I.IdProveedor = P.ID) Asignaciones, P.Estado Estado
+select P.ID ID, P.CUIT CUIT, P.RazonSocial RazonSocial, (select isnull(count(I.ID), 0) from Inventario I where I.IdProveedor = P.ID) Asignaciones, P.Estado Estado
 from Proveedores P
 GO
 
@@ -608,15 +608,22 @@ begin
 end
 GO
 
-create trigger TR_DELETE_TURNOS_GENERAL on Turnos
+create or alter trigger TR_DELETE_TURNOS_GENERAL on Turnos
 after delete
 as
 begin
-	declare @IdTurnoOriginal bigint = (select ID from deleted)
+	declare @CantidadTurnosCliente int = (select isnull(count(*), 0) from deleted)
+	
+	while(@CantidadTurnosCliente > 0)
+		begin
+			declare @IdTurnoOriginal bigint = (select top 1 ID from deleted)
 
-	declare @FechaHoraCambio datetime = (select getdate())
+			declare @FechaHoraCambio datetime = (select getdate())
 
-	update HistoricoTurnos set Estado = 'Cancelado/Eliminado', FechaHoraCambio = @FechaHoraCambio where IdTurnoOriginal = @IdTurnoOriginal
+			update HistoricoTurnos set Estado = 'Cancelado/Eliminado', FechaHoraCambio = @FechaHoraCambio where IdTurnoOriginal = @IdTurnoOriginal
+
+			set @CantidadTurnosCliente = @CantidadTurnosCliente - 1
+		end
 end
 GO
 
@@ -736,6 +743,26 @@ create procedure UPDATE_VEHICULO(
 begin
 	update Vehiculos set Patente = @Patente, IdMarca = @IdMarca, Modelo = @Modelo, 
 	AnioFabricacion = @AñoFabricacion, Estado = @Estado where ID = @ID
+end
+GO
+
+create trigger TR_INSERT_SERVICIO on Servicios
+after insert
+as
+begin
+	declare @IdEmpleado bigint = (select IdEmpleado from inserted)
+	declare @cantServiciosActual int = (select TotalServiciosRealizados from Empleados where ID = @IdEmpleado)
+
+	update Empleados set TotalServiciosRealizados = @cantServiciosActual + 1 where ID = @IdEmpleado
+
+	declare @EstadoServicio varchar(10) = (select Estado from inserted)
+	if (@EstadoServicio = 'Completado')
+		begin
+			insert into AvisosServicios(IdCliente, IdTipoServicio, IdServicio, Patente, FechaAviso, FechaRealizado)
+			select IdCliente, IdTipo, ID, PatenteVehiculo, 
+			CONCAT(year(FechaRealizacion)+1,'/',month(FechaRealizacion),'/',day(FechaRealizacion)-7),
+			FechaRealizacion from inserted
+		end
 end
 GO
 
@@ -874,17 +901,6 @@ inner join MarcasProducto as M on I.IdMarca = M.ID
 inner join Proveedores as P on I.IdProveedor = P.ID
 GO
 
-create trigger TR_INSERT_SERVICIO on Servicios
-after insert
-as
-begin
-	declare @IdEmpleado bigint = (select IdEmpleado from inserted)
-	declare @cantServiciosActual int = (select TotalServiciosRealizados from Empleados where ID = @IdEmpleado)
-
-	update Empleados set TotalServiciosRealizados = @cantServiciosActual + 1 where ID = @IdEmpleado
-end
-GO
-
 create trigger TR_DELETE_SERVICIO on Servicios
 after delete
 as
@@ -933,7 +949,7 @@ after update
 as
 begin
 	declare @IdCliente bigint = (select ID from deleted)
-	declare @EstadoNuevo bit = (select Estado from inserted)
+	declare @EstadoNuevo int = (select Estado from inserted)
 
 	if (@EstadoNuevo = 0)
 		begin

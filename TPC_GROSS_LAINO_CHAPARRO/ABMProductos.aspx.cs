@@ -668,7 +668,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     try
                     {
                         AccesoDatos datos = new AccesoDatos();
-                        datos.SetearConsulta("SELECT COUNT(*) Cantidad FROM ImagenesInventario WHERE EAN = " + txtEan.Text);
+                        datos.SetearConsulta("SELECT isnull(COUNT(*), 0) Cantidad FROM ImagenesInventario WHERE EAN = " + txtEan.Text);
                         datos.EjecutarLectura();
                         if (datos.Lector.Read() == true)
                         {
