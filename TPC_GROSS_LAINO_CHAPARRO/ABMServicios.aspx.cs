@@ -1036,6 +1036,11 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             Response.End();
         }
 
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+
+        }
+
         protected void dgvHistoricoServicios_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvHistoricoServicios.PageIndex = e.NewPageIndex;
