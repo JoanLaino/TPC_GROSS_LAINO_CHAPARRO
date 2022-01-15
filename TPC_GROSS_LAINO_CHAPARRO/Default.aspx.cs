@@ -11,7 +11,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Response.Redirect("https://www.lubriapp.somee.com/index.aspx");
         }
     }
 }

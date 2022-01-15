@@ -172,7 +172,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     bImgThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
 
                     //Actualizar tabla Inventario en DB
-                    string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
+                    //string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
+                    string cadenaConexion = "data source=workstation id=DBLubriApp.mssql.somee.com;packet size=4096;user id=jmgross22_SQLLogin_1;pwd=efo9qqqnae;data source=DBLubriApp.mssql.somee.com;persist security info=False;initial catalog=DBLubriApp";
                     SqlConnection conexionSql = new SqlConnection(cadenaConexion);
                     SqlCommand comandoSql = new SqlCommand();
                     comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan2.Text + ")";
@@ -659,7 +660,8 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                     bImgThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
 
                     //Actualizar tabla Inventario en DB
-                    string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
+                    //string cadenaConexion = "data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi";
+                    string cadenaConexion = "data source=workstation id=DBLubriApp.mssql.somee.com;packet size=4096;user id=jmgross22_SQLLogin_1;pwd=efo9qqqnae;data source=DBLubriApp.mssql.somee.com;persist security info=False;initial catalog=DBLubriApp";
                     SqlConnection conexionSql = new SqlConnection(cadenaConexion);
                     SqlCommand comandoSql = new SqlCommand();
                     //comandoSql.CommandText = "INSERT INTO ImagenesInventario(Imagen, EAN) VALUES(@Imagen, " + txtEan.Text + ")";

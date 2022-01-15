@@ -17,7 +17,8 @@ namespace Negocio
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi");
+            //conexion = new SqlConnection("data source=.\\SQLEXPRESS; initial catalog=GROSS_LAINO_CHAPARRO_DB; integrated security=sspi");
+            conexion = new SqlConnection("data source=workstation id=DBLubriApp.mssql.somee.com;packet size=4096;user id=jmgross22_SQLLogin_1;pwd=efo9qqqnae;data source=DBLubriApp.mssql.somee.com;persist security info=False;initial catalog=DBLubriApp");
             comando = new SqlCommand();
         }
 
@@ -105,9 +106,10 @@ namespace Negocio
             {
                 string datos = "";
                 SqlConnectionStringBuilder db = new SqlConnectionStringBuilder();
-                db.DataSource = ".\\SQLEXPRESS";
-                db.InitialCatalog = "GROSS_LAINO_CHAPARRO_DB";
-                db.IntegratedSecurity = true;
+                //db.DataSource = ".\\SQLEXPRESS";
+                //db.InitialCatalog = "GROSS_LAINO_CHAPARRO_DB";
+                //db.IntegratedSecurity = true;
+                db.ConnectionString = "data source=workstation id=DBLubriApp.mssql.somee.com;packet size=4096;user id=jmgross22_SQLLogin_1;pwd=efo9qqqnae;data source=DBLubriApp.mssql.somee.com;persist security info=False;initial catalog=DBLubriApp";
                 datos = db.ToString();
                 conexion = new SqlConnection(datos);
                 conexion.Open();

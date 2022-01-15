@@ -724,3 +724,4 @@ C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\T
 C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO.git\TPC_GROSS_LAINO_CHAPARRO\obj\Debug\TPC_GROSS_LAINO_CHAPARRO.csproj.CopyComplete
 C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO.git\TPC_GROSS_LAINO_CHAPARRO\obj\Debug\TPC_GROSS_LAINO_CHAPARRO.dll
 C:\Users\joanl\OneDrive\Documentos\Materias New\Cuatri pasado\Programacion III\TPC_GROSS_LAINO_CHAPARRO.git\TPC_GROSS_LAINO_CHAPARRO\obj\Debug\TPC_GROSS_LAINO_CHAPARRO.pdb
+C:\Users\JuanMa\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\TPC_GROSS_LAINO_CHAPARRO\obj\Debug\TPC_GROSS_LAINO_CHAPARRO.csproj.CopyComplete

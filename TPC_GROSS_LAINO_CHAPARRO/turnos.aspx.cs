@@ -209,7 +209,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                             string mesFecha = calendarioTurnos.SelectedDate.Month.ToString();
                             if (calendarioTurnos.SelectedDate.Month < 10) { mesFecha = "0" + mesFecha; }
                             int añoFecha = calendarioTurnos.SelectedDate.Year;
-                            string fecha = diaFecha + "-" + mesFecha + "-" + añoFecha;
+                            string fecha = añoFecha + "-" + mesFecha + "-" + diaFecha;
                             string hora = ddlHoraTurno.SelectedItem.ToString();
                             string dia = calendarioTurnos.SelectedDate.DayOfWeek.ToString();
                             if (dia == "Monday") { dia = "Lunes"; }
@@ -244,8 +244,7 @@ namespace TPC_GROSS_LAINO_CHAPARRO
                                                       "FROM Turnos WHERE " +
                                                       "IdCliente = " + IDCliente + " AND " +
                                                       "IdVehiculo = " + IDVehiculo + " AND " +
-                                                      "CONVERT(VARCHAR(10),FechaHora,105) = '" + fecha + "' AND " +
-                                                      "CONVERT(VARCHAR(5),FechaHora,108) = '" + hora + "'";
+                                                      "FechaHora = '" + fecha + " " + hora + "'";
 
                                 long IDTurno = 0;
                                 string mailDestino = "";

@@ -30,3 +30,4 @@ C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debu
 C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.csproj.CopyComplete
 C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.dll
 C:\Users\User\Documents\Archivos GIT\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.pdb
+C:\Users\JuanMa\Desktop\GitHub\TPC_GROSS_LAINO_CHAPARRO\Servicios\obj\Debug\Servicios.csproj.CopyComplete
