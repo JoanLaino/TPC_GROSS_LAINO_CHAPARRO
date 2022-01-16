@@ -11,10 +11,10 @@ namespace TPC_GROSS_LAINO_CHAPARRO
             string pagina = HttpContext.Current.Request.Url.AbsoluteUri;
 
             if (pagina == "https://localhost:44347/index" || pagina == "https://localhost:44347/turnos"
-                || pagina == "https://localhost:44347/catalogoProductos" || pagina == "https://localhost:44347/contacto"
-                || pagina == "https://localhost:44347/login" || pagina == "https://localhost:44347/registroVehiculo"
-                || pagina == "https://localhost:44347/registroCliente")
-                {
+            || pagina == "https://localhost:44347/catalogoProductos" || pagina == "https://localhost:44347/contacto"
+            || pagina == "https://localhost:44347/login" || pagina == "https://localhost:44347/registroVehiculo"
+            || pagina == "https://localhost:44347/registroCliente")
+            {
                 if (!(Session["usuario"] == null))
                 {
                     lblWebInterna.Visible = true;
